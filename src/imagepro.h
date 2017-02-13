@@ -7,7 +7,7 @@
 
 #include <inttypes.h>
 
-#define JPEGNAME "C:\\Users\\Randy Baron\\Pictures\\sample100.jpg"
+#define JPEGNAME "C:\\Users\\Randy Baron\\Pictures\\sample50.jpg"
 
 #define REGION_COUNT 10
 
