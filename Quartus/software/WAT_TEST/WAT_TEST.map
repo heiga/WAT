@@ -131,9 +131,9 @@ Allocating common symbols
 Common symbol       size              file
 
 alt_irq             0x100             ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
-task1_stk           0x2000            obj/default/wat_test.o
 OSLockNesting       0x1               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSRunning           0x1               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+motor_test_stk      0x2000            obj/default/wat_test.o
 OSIdleCtr           0x4               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSPrioHighRdy       0x1               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 errno               0x4               c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
@@ -150,14 +150,15 @@ OSIdleCtrMax        0x4               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o
 OSTCBFreeList       0x4               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSCPUUsage          0x1               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSTaskCtr           0x1               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+wifi_test_stk       0x2000            obj/default/wat_test.o
 OSMemFreeList       0x4               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSQTbl              0x1e0             ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSTCBHighRdy        0x4               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSQFreeList         0x4               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSRdyGrp            0x1               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
-task2_stk           0x2000            obj/default/wat_test.o
 OSRdyTbl            0x3               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSEventFreeList     0x4               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+camera_test_stk     0x2000            obj/default/wat_test.o
 OSIntNesting        0x1               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSTCBCur            0x4               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
 OSTime              0x4               ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
@@ -261,7 +262,7 @@ LOAD c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nio
                 [!provide]                        PROVIDE (__ram_exceptions_end, ABSOLUTE (.))
                 [!provide]                        PROVIDE (__flash_exceptions_start, LOADADDR (.exceptions))
 
-.text           0x0000000000800000     0xc708
+.text           0x0000000000800000     0xc778
                 [!provide]                        PROVIDE (stext, ABSOLUTE (.))
  *(.interp)
  *(.hash)
@@ -308,263 +309,265 @@ LOAD c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nio
  *(.text .stub .text.* .gnu.linkonce.t.*)
  .text          0x0000000000800000       0x38 ../WAT_TEST_bsp//obj/HAL/src/crt0.o
                 0x0000000000800000                _start
- .text          0x0000000000800038       0xb8 obj/default/wat_test.o
-                0x0000000000800038                task1
-                0x0000000000800084                main
- .text          0x00000000008000f0       0xbc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
-                0x00000000008000f0                alt_main
- .text          0x00000000008001ac      0x124 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
-                0x00000000008001ac                __env_lock
-                0x0000000000800270                __env_unlock
- .text          0x00000000008002d0      0x1ec ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
-                0x00000000008002d0                __malloc_lock
-                0x00000000008003f0                __malloc_unlock
- .text          0x00000000008004bc     0x2014 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
-                0x00000000008004bc                OSEventNameGet
-                0x00000000008005dc                OSEventNameSet
-                0x000000000080071c                OSEventPendMulti
-                0x0000000000800d2c                OSInit
-                0x0000000000800d84                OSIntEnter
-                0x0000000000800dd0                OSIntExit
-                0x0000000000800ec8                OSSchedLock
-                0x0000000000800f54                OSSchedUnlock
-                0x0000000000801030                OSStart
-                0x00000000008010a0                OSStatInit
-                0x0000000000801150                OSTimeTick
-                0x0000000000801370                OSVersion
-                0x0000000000801390                OS_Dummy
-                0x00000000008013b0                OS_EventTaskRdy
-                0x0000000000801548                OS_EventTaskWait
-                0x0000000000801658                OS_EventTaskWaitMulti
-                0x00000000008017a8                OS_EventTaskRemove
-                0x0000000000801860                OS_EventTaskRemoveMulti
-                0x0000000000801960                OS_EventWaitListInit
-                0x0000000000801d40                OS_MemClr
-                0x0000000000801d94                OS_MemCopy
-                0x0000000000801dfc                OS_Sched
-                0x0000000000801f40                OS_StrCopy
-                0x0000000000801fb4                OS_StrLen
-                0x0000000000802008                OS_TaskIdle
-                0x0000000000802064                OS_TaskStat
-                0x0000000000802130                OS_TaskStatStkChk
-                0x00000000008021fc                OS_TCBInit
- .text          0x00000000008024d0      0x190 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
-                0x00000000008024d0                OSDebugInit
- .text          0x0000000000802660     0x1714 ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
-                0x0000000000802660                OSFlagAccept
-                0x0000000000802968                OSFlagCreate
-                0x0000000000802a70                OSFlagDel
-                0x0000000000802cb8                OSFlagNameGet
-                0x0000000000802de0                OSFlagNameSet
-                0x0000000000802f2c                OSFlagPend
-                0x00000000008034e4                OSFlagPendGetFlagsRdy
-                0x0000000000803544                OSFlagPost
-                0x00000000008038d8                OSFlagQuery
-                0x0000000000803afc                OS_FlagInit
-                0x0000000000803cd0                OS_FlagUnlink
- .text          0x0000000000803d74      0x760 ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
-                0x0000000000803d74                OSMemCreate
-                0x0000000000803f48                OSMemGet
-                0x0000000000804038                OSMemNameGet
-                0x0000000000804128                OSMemNameSet
-                0x000000000080423c                OSMemPut
-                0x0000000000804314                OSMemQuery
-                0x00000000008043fc                OS_MemInit
- .text          0x00000000008044d4     0x1104 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
-                0x00000000008044d4                OSQAccept
-                0x0000000000804614                OSQCreate
-                0x00000000008047c0                OSQDel
-                0x0000000000804a40                OSQFlush
-                0x0000000000804af8                OSQPend
-                0x0000000000804d84                OSQPendAbort
-                0x0000000000804ef0                OSQPost
-                0x0000000000805058                OSQPostFront
-                0x00000000008051c8                OSQPostOpt
-                0x00000000008053d4                OSQQuery
-                0x0000000000805530                OS_QInit
- .text          0x00000000008055d8      0xa60 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
-                0x00000000008055d8                OSSemAccept
-                0x0000000000805688                OSSemCreate
-                0x0000000000805760                OSSemDel
-                0x00000000008059a0                OSSemPend
-                0x0000000000805bac                OSSemPendAbort
-                0x0000000000805d18                OSSemPost
-                0x0000000000805e28                OSSemQuery
-                0x0000000000805f38                OSSemSet
- .text          0x0000000000806038     0x176c ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
-                0x0000000000806038                OSTaskChangePrio
-                0x0000000000806528                OSTaskCreate
-                0x00000000008066d4                OSTaskCreateExt
-                0x00000000008068b8                OSTaskDel
-                0x0000000000806bfc                OSTaskDelReq
-                0x0000000000806d4c                OSTaskNameGet
-                0x0000000000806ee4                OSTaskNameSet
-                0x0000000000807098                OSTaskResume
-                0x000000000080726c                OSTaskStkChk
-                0x000000000080742c                OSTaskSuspend
-                0x0000000000807610                OSTaskQuery
-                0x0000000000807734                OS_TaskStkClr
- .text          0x00000000008077a4      0x510 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
-                0x00000000008077a4                OSTimeDly
-                0x00000000008078a8                OSTimeDlyHMSM
-                0x0000000000807a24                OSTimeDlyResume
-                0x0000000000807bf8                OSTimeGet
-                0x0000000000807c54                OSTimeSet
- .text          0x0000000000807cb4      0x11c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
-                0x0000000000807ce8                alt_irq_init
-                0x0000000000807d20                alt_sys_init
- .text          0x0000000000807dd0      0xafc ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
-                0x0000000000807e04                alt_epcs_flash_init
-                0x000000000080833c                alt_epcs_flash_write
-                0x000000000080859c                alt_epcs_flash_get_info
-                0x00000000008086bc                alt_epcs_flash_erase_block
-                0x0000000000808734                alt_epcs_flash_write_block
-                0x0000000000808834                alt_epcs_flash_read
- .text          0x00000000008088cc      0x164 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
-                0x00000000008088cc                altera_avalon_jtag_uart_read_fd
-                0x000000000080892c                altera_avalon_jtag_uart_write_fd
-                0x000000000080898c                altera_avalon_jtag_uart_close_fd
-                0x00000000008089dc                altera_avalon_jtag_uart_ioctl_fd
- .text          0x0000000000808a30      0x558 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
-                0x0000000000808a30                altera_avalon_jtag_uart_init
-                0x0000000000808f20                altera_avalon_jtag_uart_close
- .text          0x0000000000808f88       0xf0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
-                0x0000000000808f88                altera_avalon_jtag_uart_ioctl
- .text          0x0000000000809078      0x2bc ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
-                0x0000000000809078                altera_avalon_jtag_uart_read
- .text          0x0000000000809334      0x2c4 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
-                0x0000000000809334                altera_avalon_jtag_uart_write
- .text          0x00000000008095f8       0xf4 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
-                0x0000000000809670                alt_avalon_timer_sc_init
- .text          0x00000000008096ec      0x110 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
-                0x00000000008096ec                altera_avalon_uart_read_fd
-                0x000000000080974c                altera_avalon_uart_write_fd
-                0x00000000008097ac                altera_avalon_uart_close_fd
- .text          0x00000000008097fc      0x52c ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
-                0x00000000008097fc                altera_avalon_uart_init
-                0x0000000000809cd4                altera_avalon_uart_close
- .text          0x0000000000809d28      0x2a4 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
-                0x0000000000809d64                altera_avalon_uart_read
- .text          0x0000000000809fcc      0x274 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
-                0x000000000080a008                altera_avalon_uart_write
- .text          0x000000000080a240      0x63c ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
-                0x000000000080a240                epcs_read_status_register
-                0x000000000080a310                epcs_sector_erase
-                0x000000000080a40c                epcs_read_buffer
-                0x000000000080a500                epcs_write_enable
-                0x000000000080a554                epcs_write_status_register
-                0x000000000080a5c0                epcs_write_buffer
-                0x000000000080a6dc                epcs_read_electronic_signature
-                0x000000000080a744                epcs_read_device_id
-                0x000000000080a7c4                epcs_enter_4_bytes_mode
-                0x000000000080a820                epcs_exit_4_bytes_mode
- .text          0x000000000080a87c      0x12c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
-                0x000000000080a87c                alt_alarm_start
- .text          0x000000000080a9a8      0x114 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
-                0x000000000080a9e4                close
- .text          0x000000000080aabc       0x2c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
- .text          0x000000000080aae8       0xe0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
-                0x000000000080ab24                alt_dev_llist_insert
- .text          0x000000000080abc8       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
-                0x000000000080abc8                _do_ctors
- .text          0x000000000080ac28       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
-                0x000000000080ac28                _do_dtors
- .text          0x000000000080ac88        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
- .text          0x000000000080ac88       0xbc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
-                0x000000000080ac88                alt_flash_open_dev
-                0x000000000080acf0                alt_flash_close_dev
- .text          0x000000000080ad44      0x1b0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
-                0x000000000080ad44                alt_ic_isr_register
-                0x000000000080ad94                alt_ic_irq_enable
-                0x000000000080ae1c                alt_ic_irq_disable
-                0x000000000080aea8                alt_ic_irq_enabled
- .text          0x000000000080aef4       0xf0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
-                0x000000000080aef4                alt_iic_isr_register
- .text          0x000000000080afe4      0x160 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
-                0x000000000080b0c8                alt_io_redirect
- .text          0x000000000080b144        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
- .text          0x000000000080b144        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
- .text          0x000000000080b144        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
- .text          0x000000000080b144      0x284 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
-                0x000000000080b26c                open
- .text          0x000000000080b3c8       0x84 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
-                0x000000000080b3c8                alt_release_fd
- .text          0x000000000080b44c      0x1a4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
-                0x000000000080b44c                alt_alarm_stop
-                0x000000000080b4e8                alt_tick
- .text          0x000000000080b5f0       0x24 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
-                0x000000000080b5f0                altera_nios2_gen2_irq_init
- .text          0x000000000080b614       0xd0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
-                0x000000000080b614                OSCtxSw
-                0x000000000080b614                OSIntCtxSw
-                0x000000000080b6a0                OSStartHighRdy
-                0x000000000080b6c0                OSStartTsk
- .text          0x000000000080b6e4      0x288 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
-                0x000000000080b6e4                OSTaskStkInit
-                0x000000000080b840                OSTaskCreateHook
-                0x000000000080b864                OSTaskDelHook
-                0x000000000080b888                OSTaskSwHook
-                0x000000000080b8a8                OSTaskStatHook
-                0x000000000080b8c8                OSTimeTickHook
-                0x000000000080b8e8                OSInitHookBegin
-                0x000000000080b908                OSInitHookEnd
-                0x000000000080b928                OSTaskIdleHook
-                0x000000000080b948                OSTCBInitHook
- .text          0x000000000080b96c      0x1fc ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
-                0x000000000080b96c                alt_avalon_spi_command
- .text          0x000000000080bb68        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
- .text          0x000000000080bb68       0x90 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
-                0x000000000080bb68                alt_find_dev
- .text          0x000000000080bbf8      0x108 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
-                0x000000000080bbf8                alt_find_file
- .text          0x000000000080bd00       0xf4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
-                0x000000000080bd00                alt_get_fd
- .text          0x000000000080bdf4       0x9c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
-                0x000000000080bdf4                alt_exception_cause_generated_bad_addr
- .text          0x000000000080be90        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .text.atexit   0x000000000080be90       0x14 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
-                0x000000000080be90                atexit
- .text          0x000000000080bea4        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .text.exit     0x000000000080bea4       0x38 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
-                0x000000000080bea4                exit
- .text          0x000000000080bedc        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .text          0x000000000080bedc        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .text          0x000000000080bedc        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .text.memcmp   0x000000000080bedc       0x7c c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
-                0x000000000080bedc                memcmp
- .text          0x000000000080bf58        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .text.memcpy   0x000000000080bf58      0x148 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
-                0x000000000080bf58                memcpy
- .text          0x000000000080c0a0        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
- .text.memset   0x000000000080c0a0      0x128 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
-                0x000000000080c0a0                memset
- .text          0x000000000080c1c8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .text.strlen   0x000000000080c1c8       0x98 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
-                0x000000000080c1c8                strlen
- .text          0x000000000080c260        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .text          0x0000000000800038      0x128 obj/default/wat_test.o
+                0x0000000000800038                motor_test
+                0x000000000080004c                camera_test
+                0x0000000000800060                wifi_test
+                0x0000000000800074                main
+ .text          0x0000000000800160       0xbc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
+                0x0000000000800160                alt_main
+ .text          0x000000000080021c      0x124 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+                0x000000000080021c                __env_lock
+                0x00000000008002e0                __env_unlock
+ .text          0x0000000000800340      0x1ec ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
+                0x0000000000800340                __malloc_lock
+                0x0000000000800460                __malloc_unlock
+ .text          0x000000000080052c     0x2014 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+                0x000000000080052c                OSEventNameGet
+                0x000000000080064c                OSEventNameSet
+                0x000000000080078c                OSEventPendMulti
+                0x0000000000800d9c                OSInit
+                0x0000000000800df4                OSIntEnter
+                0x0000000000800e40                OSIntExit
+                0x0000000000800f38                OSSchedLock
+                0x0000000000800fc4                OSSchedUnlock
+                0x00000000008010a0                OSStart
+                0x0000000000801110                OSStatInit
+                0x00000000008011c0                OSTimeTick
+                0x00000000008013e0                OSVersion
+                0x0000000000801400                OS_Dummy
+                0x0000000000801420                OS_EventTaskRdy
+                0x00000000008015b8                OS_EventTaskWait
+                0x00000000008016c8                OS_EventTaskWaitMulti
+                0x0000000000801818                OS_EventTaskRemove
+                0x00000000008018d0                OS_EventTaskRemoveMulti
+                0x00000000008019d0                OS_EventWaitListInit
+                0x0000000000801db0                OS_MemClr
+                0x0000000000801e04                OS_MemCopy
+                0x0000000000801e6c                OS_Sched
+                0x0000000000801fb0                OS_StrCopy
+                0x0000000000802024                OS_StrLen
+                0x0000000000802078                OS_TaskIdle
+                0x00000000008020d4                OS_TaskStat
+                0x00000000008021a0                OS_TaskStatStkChk
+                0x000000000080226c                OS_TCBInit
+ .text          0x0000000000802540      0x190 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
+                0x0000000000802540                OSDebugInit
+ .text          0x00000000008026d0     0x1714 ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
+                0x00000000008026d0                OSFlagAccept
+                0x00000000008029d8                OSFlagCreate
+                0x0000000000802ae0                OSFlagDel
+                0x0000000000802d28                OSFlagNameGet
+                0x0000000000802e50                OSFlagNameSet
+                0x0000000000802f9c                OSFlagPend
+                0x0000000000803554                OSFlagPendGetFlagsRdy
+                0x00000000008035b4                OSFlagPost
+                0x0000000000803948                OSFlagQuery
+                0x0000000000803b6c                OS_FlagInit
+                0x0000000000803d40                OS_FlagUnlink
+ .text          0x0000000000803de4      0x760 ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
+                0x0000000000803de4                OSMemCreate
+                0x0000000000803fb8                OSMemGet
+                0x00000000008040a8                OSMemNameGet
+                0x0000000000804198                OSMemNameSet
+                0x00000000008042ac                OSMemPut
+                0x0000000000804384                OSMemQuery
+                0x000000000080446c                OS_MemInit
+ .text          0x0000000000804544     0x1104 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
+                0x0000000000804544                OSQAccept
+                0x0000000000804684                OSQCreate
+                0x0000000000804830                OSQDel
+                0x0000000000804ab0                OSQFlush
+                0x0000000000804b68                OSQPend
+                0x0000000000804df4                OSQPendAbort
+                0x0000000000804f60                OSQPost
+                0x00000000008050c8                OSQPostFront
+                0x0000000000805238                OSQPostOpt
+                0x0000000000805444                OSQQuery
+                0x00000000008055a0                OS_QInit
+ .text          0x0000000000805648      0xa60 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
+                0x0000000000805648                OSSemAccept
+                0x00000000008056f8                OSSemCreate
+                0x00000000008057d0                OSSemDel
+                0x0000000000805a10                OSSemPend
+                0x0000000000805c1c                OSSemPendAbort
+                0x0000000000805d88                OSSemPost
+                0x0000000000805e98                OSSemQuery
+                0x0000000000805fa8                OSSemSet
+ .text          0x00000000008060a8     0x176c ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
+                0x00000000008060a8                OSTaskChangePrio
+                0x0000000000806598                OSTaskCreate
+                0x0000000000806744                OSTaskCreateExt
+                0x0000000000806928                OSTaskDel
+                0x0000000000806c6c                OSTaskDelReq
+                0x0000000000806dbc                OSTaskNameGet
+                0x0000000000806f54                OSTaskNameSet
+                0x0000000000807108                OSTaskResume
+                0x00000000008072dc                OSTaskStkChk
+                0x000000000080749c                OSTaskSuspend
+                0x0000000000807680                OSTaskQuery
+                0x00000000008077a4                OS_TaskStkClr
+ .text          0x0000000000807814      0x510 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
+                0x0000000000807814                OSTimeDly
+                0x0000000000807918                OSTimeDlyHMSM
+                0x0000000000807a94                OSTimeDlyResume
+                0x0000000000807c68                OSTimeGet
+                0x0000000000807cc4                OSTimeSet
+ .text          0x0000000000807d24      0x11c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
+                0x0000000000807d58                alt_irq_init
+                0x0000000000807d90                alt_sys_init
+ .text          0x0000000000807e40      0xafc ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
+                0x0000000000807e74                alt_epcs_flash_init
+                0x00000000008083ac                alt_epcs_flash_write
+                0x000000000080860c                alt_epcs_flash_get_info
+                0x000000000080872c                alt_epcs_flash_erase_block
+                0x00000000008087a4                alt_epcs_flash_write_block
+                0x00000000008088a4                alt_epcs_flash_read
+ .text          0x000000000080893c      0x164 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
+                0x000000000080893c                altera_avalon_jtag_uart_read_fd
+                0x000000000080899c                altera_avalon_jtag_uart_write_fd
+                0x00000000008089fc                altera_avalon_jtag_uart_close_fd
+                0x0000000000808a4c                altera_avalon_jtag_uart_ioctl_fd
+ .text          0x0000000000808aa0      0x558 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
+                0x0000000000808aa0                altera_avalon_jtag_uart_init
+                0x0000000000808f90                altera_avalon_jtag_uart_close
+ .text          0x0000000000808ff8       0xf0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+                0x0000000000808ff8                altera_avalon_jtag_uart_ioctl
+ .text          0x00000000008090e8      0x2bc ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
+                0x00000000008090e8                altera_avalon_jtag_uart_read
+ .text          0x00000000008093a4      0x2c4 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
+                0x00000000008093a4                altera_avalon_jtag_uart_write
+ .text          0x0000000000809668       0xf4 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
+                0x00000000008096e0                alt_avalon_timer_sc_init
+ .text          0x000000000080975c      0x110 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
+                0x000000000080975c                altera_avalon_uart_read_fd
+                0x00000000008097bc                altera_avalon_uart_write_fd
+                0x000000000080981c                altera_avalon_uart_close_fd
+ .text          0x000000000080986c      0x52c ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
+                0x000000000080986c                altera_avalon_uart_init
+                0x0000000000809d44                altera_avalon_uart_close
+ .text          0x0000000000809d98      0x2a4 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
+                0x0000000000809dd4                altera_avalon_uart_read
+ .text          0x000000000080a03c      0x274 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
+                0x000000000080a078                altera_avalon_uart_write
+ .text          0x000000000080a2b0      0x63c ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
+                0x000000000080a2b0                epcs_read_status_register
+                0x000000000080a380                epcs_sector_erase
+                0x000000000080a47c                epcs_read_buffer
+                0x000000000080a570                epcs_write_enable
+                0x000000000080a5c4                epcs_write_status_register
+                0x000000000080a630                epcs_write_buffer
+                0x000000000080a74c                epcs_read_electronic_signature
+                0x000000000080a7b4                epcs_read_device_id
+                0x000000000080a834                epcs_enter_4_bytes_mode
+                0x000000000080a890                epcs_exit_4_bytes_mode
+ .text          0x000000000080a8ec      0x12c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
+                0x000000000080a8ec                alt_alarm_start
+ .text          0x000000000080aa18      0x114 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
+                0x000000000080aa54                close
+ .text          0x000000000080ab2c       0x2c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+ .text          0x000000000080ab58       0xe0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
+                0x000000000080ab94                alt_dev_llist_insert
+ .text          0x000000000080ac38       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
+                0x000000000080ac38                _do_ctors
+ .text          0x000000000080ac98       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
+                0x000000000080ac98                _do_dtors
+ .text          0x000000000080acf8        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
+ .text          0x000000000080acf8       0xbc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
+                0x000000000080acf8                alt_flash_open_dev
+                0x000000000080ad60                alt_flash_close_dev
+ .text          0x000000000080adb4      0x1b0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
+                0x000000000080adb4                alt_ic_isr_register
+                0x000000000080ae04                alt_ic_irq_enable
+                0x000000000080ae8c                alt_ic_irq_disable
+                0x000000000080af18                alt_ic_irq_enabled
+ .text          0x000000000080af64       0xf0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
+                0x000000000080af64                alt_iic_isr_register
+ .text          0x000000000080b054      0x160 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
+                0x000000000080b138                alt_io_redirect
+ .text          0x000000000080b1b4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
+ .text          0x000000000080b1b4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
+ .text          0x000000000080b1b4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
+ .text          0x000000000080b1b4      0x284 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
+                0x000000000080b2dc                open
+ .text          0x000000000080b438       0x84 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
+                0x000000000080b438                alt_release_fd
+ .text          0x000000000080b4bc      0x1a4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
+                0x000000000080b4bc                alt_alarm_stop
+                0x000000000080b558                alt_tick
+ .text          0x000000000080b660       0x24 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
+                0x000000000080b660                altera_nios2_gen2_irq_init
+ .text          0x000000000080b684       0xd0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
+                0x000000000080b684                OSCtxSw
+                0x000000000080b684                OSIntCtxSw
+                0x000000000080b710                OSStartHighRdy
+                0x000000000080b730                OSStartTsk
+ .text          0x000000000080b754      0x288 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
+                0x000000000080b754                OSTaskStkInit
+                0x000000000080b8b0                OSTaskCreateHook
+                0x000000000080b8d4                OSTaskDelHook
+                0x000000000080b8f8                OSTaskSwHook
+                0x000000000080b918                OSTaskStatHook
+                0x000000000080b938                OSTimeTickHook
+                0x000000000080b958                OSInitHookBegin
+                0x000000000080b978                OSInitHookEnd
+                0x000000000080b998                OSTaskIdleHook
+                0x000000000080b9b8                OSTCBInitHook
+ .text          0x000000000080b9dc      0x1fc ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
+                0x000000000080b9dc                alt_avalon_spi_command
+ .text          0x000000000080bbd8        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
+ .text          0x000000000080bbd8       0x90 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
+                0x000000000080bbd8                alt_find_dev
+ .text          0x000000000080bc68      0x108 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
+                0x000000000080bc68                alt_find_file
+ .text          0x000000000080bd70       0xf4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
+                0x000000000080bd70                alt_get_fd
+ .text          0x000000000080be64       0x9c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
+                0x000000000080be64                alt_exception_cause_generated_bad_addr
+ .text          0x000000000080bf00        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .text.atexit   0x000000000080bf00       0x14 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+                0x000000000080bf00                atexit
+ .text          0x000000000080bf14        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .text.exit     0x000000000080bf14       0x38 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+                0x000000000080bf14                exit
+ .text          0x000000000080bf4c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .text          0x000000000080bf4c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .text          0x000000000080bf4c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .text.memcmp   0x000000000080bf4c       0x7c c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+                0x000000000080bf4c                memcmp
+ .text          0x000000000080bfc8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .text.memcpy   0x000000000080bfc8      0x148 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+                0x000000000080bfc8                memcpy
+ .text          0x000000000080c110        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
+ .text.memset   0x000000000080c110      0x128 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
+                0x000000000080c110                memset
+ .text          0x000000000080c238        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .text.strlen   0x000000000080c238       0x98 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+                0x000000000080c238                strlen
+ .text          0x000000000080c2d0        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
  .text.__register_exitproc
-                0x000000000080c260      0x118 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
-                0x000000000080c260                __register_exitproc
- .text          0x000000000080c378        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+                0x000000000080c2d0      0x118 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+                0x000000000080c2d0                __register_exitproc
+ .text          0x000000000080c3e8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
  .text.__call_exitprocs
-                0x000000000080c378      0x180 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
-                0x000000000080c378                __call_exitprocs
- .text          0x000000000080c4f8      0x1b4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
-                0x000000000080c4f8                __divsi3
-                0x000000000080c57c                __modsi3
-                0x000000000080c5f0                __udivsi3
-                0x000000000080c654                __umodsi3
- .text          0x000000000080c6ac       0x28 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
-                0x000000000080c6ac                __mulsi3
- .text          0x000000000080c6d4       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
-                0x000000000080c6d4                _exit
+                0x000000000080c3e8      0x180 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+                0x000000000080c3e8                __call_exitprocs
+ .text          0x000000000080c568      0x1b4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
+                0x000000000080c568                __divsi3
+                0x000000000080c5ec                __modsi3
+                0x000000000080c660                __udivsi3
+                0x000000000080c6c4                __umodsi3
+ .text          0x000000000080c71c       0x28 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
+                0x000000000080c71c                __mulsi3
+ .text          0x000000000080c744       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
+                0x000000000080c744                _exit
  *(.gnu.warning.*)
  *(.fini)
                 [!provide]                        PROVIDE (__etext, ABSOLUTE (.))
                 [!provide]                        PROVIDE (_etext, ABSOLUTE (.))
                 [!provide]                        PROVIDE (etext, ABSOLUTE (.))
  *(.eh_frame_hdr)
-                0x000000000080c708                . = ALIGN (0x4)
+                0x000000000080c778                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__preinit_array_start, ABSOLUTE (.))
  *(.preinit_array)
                 [!provide]                        PROVIDE (__preinit_array_end, ABSOLUTE (.))
@@ -577,353 +580,354 @@ LOAD c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nio
  *(.eh_frame)
  *(.gcc_except_table .gcc_except_table.*)
  *(.dynamic)
-                0x000000000080c708                PROVIDE (__CTOR_LIST__, ABSOLUTE (.))
+                0x000000000080c778                PROVIDE (__CTOR_LIST__, ABSOLUTE (.))
  *(.ctors)
  *(SORT(.ctors.*))
-                0x000000000080c708                PROVIDE (__CTOR_END__, ABSOLUTE (.))
-                0x000000000080c708                PROVIDE (__DTOR_LIST__, ABSOLUTE (.))
+                0x000000000080c778                PROVIDE (__CTOR_END__, ABSOLUTE (.))
+                0x000000000080c778                PROVIDE (__DTOR_LIST__, ABSOLUTE (.))
  *(.dtors)
  *(SORT(.dtors.*))
-                0x000000000080c708                PROVIDE (__DTOR_END__, ABSOLUTE (.))
+                0x000000000080c778                PROVIDE (__DTOR_END__, ABSOLUTE (.))
  *(.jcr)
-                0x000000000080c708                . = ALIGN (0x4)
+                0x000000000080c778                . = ALIGN (0x4)
 
-.rodata         0x000000000080c708      0x19c
+.rodata         0x000000000080c778      0x19c
                 [!provide]                        PROVIDE (__ram_rodata_start, ABSOLUTE (.))
-                0x000000000080c708                . = ALIGN (0x4)
+                0x000000000080c778                . = ALIGN (0x4)
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x000000000080c708       0x11 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
- *fill*         0x000000000080c719        0x3 
- .rodata        0x000000000080c71c      0x11e ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
-                0x000000000080c71c                OSUnMapTbl
- *fill*         0x000000000080c83a        0x2 
- .rodata        0x000000000080c83c       0x53 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
- *fill*         0x000000000080c88f        0x1 
- .rodata        0x000000000080c890        0xa ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
- *fill*         0x000000000080c89a        0x2 
- .rodata        0x000000000080c89c        0x2 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
- *fill*         0x000000000080c89e        0x2 
+ .rodata        0x000000000080c778       0x11 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
+ *fill*         0x000000000080c789        0x3 
+ .rodata        0x000000000080c78c      0x11e ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+                0x000000000080c78c                OSUnMapTbl
+ *fill*         0x000000000080c8aa        0x2 
+ .rodata        0x000000000080c8ac       0x53 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
+ *fill*         0x000000000080c8ff        0x1 
+ .rodata        0x000000000080c900        0xa ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+ *fill*         0x000000000080c90a        0x2 
+ .rodata        0x000000000080c90c        0x2 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
+ *fill*         0x000000000080c90e        0x2 
  .rodata.str1.4
-                0x000000000080c8a0        0x4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+                0x000000000080c910        0x4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
                                           0x2 (size before relaxing)
  *(.rodata1)
-                0x000000000080c8a4                . = ALIGN (0x4)
+                0x000000000080c914                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__ram_rodata_end, ABSOLUTE (.))
                 [!provide]                        PROVIDE (__flash_rodata_start, LOADADDR (.rodata))
 
-.rwdata         0x000000000080c8a4     0x1954
+.rwdata         0x000000000080c914     0x1954
                 [!provide]                        PROVIDE (__ram_rwdata_start, ABSOLUTE (.))
-                0x000000000080c8a4                . = ALIGN (0x4)
+                0x000000000080c914                . = ALIGN (0x4)
  *(.got.plt)
  *(.got)
  *(.data1)
  *(.data .data.* .gnu.linkonce.d.*)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp//obj/HAL/src/crt0.o
- .data          0x000000000080c8a4        0x0 obj/default/wat_test.o
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
- .data          0x000000000080c8a4        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
- .data          0x000000000080c8a4     0x12d8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
- .data          0x000000000080db7c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
- .data          0x000000000080db7c      0x1a8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
-                0x000000000080db7c                alt_dev_null
-                0x000000000080dba4                alt_fd_list
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
- .data          0x000000000080dd24        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
- .data          0x000000000080dd24        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .data          0x000000000080dd24        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .data          0x000000000080dd24        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp//obj/HAL/src/crt0.o
+ .data          0x000000000080c914        0x0 obj/default/wat_test.o
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
+ .data          0x000000000080c914        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
+ .data          0x000000000080c914     0x12d8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
+ .data          0x000000000080dbec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
+ .data          0x000000000080dbec      0x1a8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+                0x000000000080dbec                alt_dev_null
+                0x000000000080dc14                alt_fd_list
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
+ .data          0x000000000080dd94        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
+ .data          0x000000000080dd94        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .data          0x000000000080dd94        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .data          0x000000000080dd94        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
  .data.impure_data
-                0x000000000080dd24      0x424 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .data          0x000000000080e148        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .data          0x000000000080e148        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .data          0x000000000080e148        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .data          0x000000000080e148        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
- .data          0x000000000080e148        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .data          0x000000000080e148        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .data          0x000000000080e148        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .data          0x000000000080e148        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .data          0x000000000080e148        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
- .data          0x000000000080e148        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
-                0x0000000000816148                _gp = ABSOLUTE ((. + 0x8000))
+                0x000000000080dd94      0x424 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .data          0x000000000080e1b8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .data          0x000000000080e1b8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .data          0x000000000080e1b8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .data          0x000000000080e1b8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
+ .data          0x000000000080e1b8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .data          0x000000000080e1b8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .data          0x000000000080e1b8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .data          0x000000000080e1b8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .data          0x000000000080e1b8        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .data          0x000000000080e1b8        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
+                0x00000000008161b8                _gp = ABSOLUTE ((. + 0x8000))
                 [!provide]                        PROVIDE (gp, _gp)
  *(.rwdata .rwdata.*)
  *(.sdata .sdata.* .gnu.linkonce.s.*)
- .sdata         0x000000000080e148        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
- .sdata         0x000000000080e14c        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
- .sdata         0x000000000080e150       0x72 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
-                0x000000000080e150                OSDebugEn
-                0x000000000080e154                OSEndiannessTest
-                0x000000000080e158                OSEventEn
-                0x000000000080e15a                OSEventMax
-                0x000000000080e15c                OSEventNameSize
-                0x000000000080e15e                OSEventSize
-                0x000000000080e160                OSEventTblSize
-                0x000000000080e162                OSEventMultiEn
-                0x000000000080e164                OSFlagEn
-                0x000000000080e166                OSFlagGrpSize
-                0x000000000080e168                OSFlagNodeSize
-                0x000000000080e16a                OSFlagWidth
-                0x000000000080e16c                OSFlagMax
-                0x000000000080e16e                OSFlagNameSize
-                0x000000000080e170                OSLowestPrio
-                0x000000000080e172                OSMboxEn
-                0x000000000080e174                OSMemEn
-                0x000000000080e176                OSMemMax
-                0x000000000080e178                OSMemNameSize
-                0x000000000080e17a                OSMemSize
-                0x000000000080e17c                OSMemTblSize
-                0x000000000080e17e                OSMutexEn
-                0x000000000080e180                OSPtrSize
-                0x000000000080e182                OSQEn
-                0x000000000080e184                OSQMax
-                0x000000000080e186                OSQSize
-                0x000000000080e188                OSRdyTblSize
-                0x000000000080e18a                OSSemEn
-                0x000000000080e18c                OSStkWidth
-                0x000000000080e18e                OSTaskCreateEn
-                0x000000000080e190                OSTaskCreateExtEn
-                0x000000000080e192                OSTaskDelEn
-                0x000000000080e194                OSTaskIdleStkSize
-                0x000000000080e196                OSTaskProfileEn
-                0x000000000080e198                OSTaskMax
-                0x000000000080e19a                OSTaskNameSize
-                0x000000000080e19c                OSTaskStatEn
-                0x000000000080e19e                OSTaskStatStkSize
-                0x000000000080e1a0                OSTaskStatStkChkEn
-                0x000000000080e1a2                OSTaskSwHookEn
-                0x000000000080e1a4                OSTCBPrioTblMax
-                0x000000000080e1a6                OSTCBSize
-                0x000000000080e1a8                OSTicksPerSec
-                0x000000000080e1aa                OSTimeTickHookEn
-                0x000000000080e1ac                OSVersionNbr
-                0x000000000080e1ae                OSTmrEn
-                0x000000000080e1b0                OSTmrCfgMax
-                0x000000000080e1b2                OSTmrCfgNameSize
-                0x000000000080e1b4                OSTmrCfgWheelSize
-                0x000000000080e1b6                OSTmrCfgTicksPerSec
-                0x000000000080e1b8                OSTmrSize
-                0x000000000080e1ba                OSTmrTblSize
-                0x000000000080e1bc                OSTmrWheelSize
-                0x000000000080e1be                OSTmrWheelTblSize
-                0x000000000080e1c0                OSDataSize
- *fill*         0x000000000080e1c2        0x2 
- .sdata         0x000000000080e1c4       0x14 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
-                0x000000000080e1c4                alt_fs_list
-                0x000000000080e1cc                alt_dev_list
-                0x000000000080e1d4                alt_max_fd
- .sdata         0x000000000080e1d8        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
-                0x000000000080e1d8                alt_errno
- .sdata         0x000000000080e1dc        0x8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
-                0x000000000080e1dc                alt_flash_dev_list
- .sdata         0x000000000080e1e4        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
-                0x000000000080e1e4                alt_priority_mask
- .sdata         0x000000000080e1e8        0x8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
-                0x000000000080e1e8                alt_alarm_list
+ .sdata         0x000000000080e1b8        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+ .sdata         0x000000000080e1bc        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
+ .sdata         0x000000000080e1c0       0x72 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
+                0x000000000080e1c0                OSDebugEn
+                0x000000000080e1c4                OSEndiannessTest
+                0x000000000080e1c8                OSEventEn
+                0x000000000080e1ca                OSEventMax
+                0x000000000080e1cc                OSEventNameSize
+                0x000000000080e1ce                OSEventSize
+                0x000000000080e1d0                OSEventTblSize
+                0x000000000080e1d2                OSEventMultiEn
+                0x000000000080e1d4                OSFlagEn
+                0x000000000080e1d6                OSFlagGrpSize
+                0x000000000080e1d8                OSFlagNodeSize
+                0x000000000080e1da                OSFlagWidth
+                0x000000000080e1dc                OSFlagMax
+                0x000000000080e1de                OSFlagNameSize
+                0x000000000080e1e0                OSLowestPrio
+                0x000000000080e1e2                OSMboxEn
+                0x000000000080e1e4                OSMemEn
+                0x000000000080e1e6                OSMemMax
+                0x000000000080e1e8                OSMemNameSize
+                0x000000000080e1ea                OSMemSize
+                0x000000000080e1ec                OSMemTblSize
+                0x000000000080e1ee                OSMutexEn
+                0x000000000080e1f0                OSPtrSize
+                0x000000000080e1f2                OSQEn
+                0x000000000080e1f4                OSQMax
+                0x000000000080e1f6                OSQSize
+                0x000000000080e1f8                OSRdyTblSize
+                0x000000000080e1fa                OSSemEn
+                0x000000000080e1fc                OSStkWidth
+                0x000000000080e1fe                OSTaskCreateEn
+                0x000000000080e200                OSTaskCreateExtEn
+                0x000000000080e202                OSTaskDelEn
+                0x000000000080e204                OSTaskIdleStkSize
+                0x000000000080e206                OSTaskProfileEn
+                0x000000000080e208                OSTaskMax
+                0x000000000080e20a                OSTaskNameSize
+                0x000000000080e20c                OSTaskStatEn
+                0x000000000080e20e                OSTaskStatStkSize
+                0x000000000080e210                OSTaskStatStkChkEn
+                0x000000000080e212                OSTaskSwHookEn
+                0x000000000080e214                OSTCBPrioTblMax
+                0x000000000080e216                OSTCBSize
+                0x000000000080e218                OSTicksPerSec
+                0x000000000080e21a                OSTimeTickHookEn
+                0x000000000080e21c                OSVersionNbr
+                0x000000000080e21e                OSTmrEn
+                0x000000000080e220                OSTmrCfgMax
+                0x000000000080e222                OSTmrCfgNameSize
+                0x000000000080e224                OSTmrCfgWheelSize
+                0x000000000080e226                OSTmrCfgTicksPerSec
+                0x000000000080e228                OSTmrSize
+                0x000000000080e22a                OSTmrTblSize
+                0x000000000080e22c                OSTmrWheelSize
+                0x000000000080e22e                OSTmrWheelTblSize
+                0x000000000080e230                OSDataSize
+ *fill*         0x000000000080e232        0x2 
+ .sdata         0x000000000080e234       0x14 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+                0x000000000080e234                alt_fs_list
+                0x000000000080e23c                alt_dev_list
+                0x000000000080e244                alt_max_fd
+ .sdata         0x000000000080e248        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
+                0x000000000080e248                alt_errno
+ .sdata         0x000000000080e24c        0x8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
+                0x000000000080e24c                alt_flash_dev_list
+ .sdata         0x000000000080e254        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
+                0x000000000080e254                alt_priority_mask
+ .sdata         0x000000000080e258        0x8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
+                0x000000000080e258                alt_alarm_list
  .sdata._global_impure_ptr
-                0x000000000080e1f0        0x4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
-                0x000000000080e1f0                _global_impure_ptr
+                0x000000000080e260        0x4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+                0x000000000080e260                _global_impure_ptr
  .sdata._impure_ptr
-                0x000000000080e1f4        0x4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
-                0x000000000080e1f4                _impure_ptr
+                0x000000000080e264        0x4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+                0x000000000080e264                _impure_ptr
  *(.sdata2 .sdata2.* .gnu.linkonce.s2.*)
-                0x000000000080e1f8                . = ALIGN (0x4)
-                0x000000000080e1f8                _edata = ABSOLUTE (.)
+                0x000000000080e268                . = ALIGN (0x4)
+                0x000000000080e268                _edata = ABSOLUTE (.)
                 [!provide]                        PROVIDE (edata, ABSOLUTE (.))
                 [!provide]                        PROVIDE (__ram_rwdata_end, ABSOLUTE (.))
                 [!provide]                        PROVIDE (__flash_rwdata_start, LOADADDR (.rwdata))
 
-.bss            0x000000000080e1f8     0x73a8
-                0x000000000080e1f8                __bss_start = ABSOLUTE (.)
+.bss            0x000000000080e268     0x93a8
+                0x000000000080e268                __bss_start = ABSOLUTE (.)
                 [!provide]                        PROVIDE (__sbss_start, ABSOLUTE (.))
                 [!provide]                        PROVIDE (___sbss_start, ABSOLUTE (.))
  *(.dynsbss)
  *(.sbss .sbss.* .gnu.linkonce.sb.*)
- .sbss          0x000000000080e1f8        0xc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
-                0x000000000080e1f8                alt_argc
-                0x000000000080e1fc                alt_argv
-                0x000000000080e200                alt_envp
- .sbss          0x000000000080e204        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
- .sbss          0x000000000080e208        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
-                0x000000000080e208                alt_envsem
- .sbss          0x000000000080e20c        0x8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
-                0x000000000080e210                alt_heapsem
- .sbss          0x000000000080e214       0x50 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
-                0x000000000080e214                OSLockNesting
-                0x000000000080e215                OSRunning
-                0x000000000080e218                OSIdleCtr
-                0x000000000080e21c                OSPrioHighRdy
-                0x000000000080e21d                OSPrioCur
-                0x000000000080e220                OSTCBList
-                0x000000000080e224                OSTickStepState
-                0x000000000080e228                OSCtxSwCtr
-                0x000000000080e22c                OSIdleCtrMax
-                0x000000000080e230                OSTCBFreeList
-                0x000000000080e234                OSCPUUsage
-                0x000000000080e235                OSTaskCtr
-                0x000000000080e238                OSMemFreeList
-                0x000000000080e23c                OSTCBHighRdy
-                0x000000000080e240                OSQFreeList
-                0x000000000080e244                OSRdyGrp
-                0x000000000080e245                OSRdyTbl
-                0x000000000080e248                OSEventFreeList
-                0x000000000080e24c                OSIntNesting
-                0x000000000080e250                OSTCBCur
-                0x000000000080e254                OSTime
-                0x000000000080e258                OSFlagFreeList
-                0x000000000080e25c                OSStatRdy
-                0x000000000080e260                OSIdleCtrRun
- .sbss          0x000000000080e264        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
-                0x000000000080e264                alt_fd_list_lock
- .sbss          0x000000000080e268        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
-                0x000000000080e268                alt_irq_active
- .sbss          0x000000000080e26c        0x8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
-                0x000000000080e26c                _alt_tick_rate
-                0x000000000080e270                _alt_nticks
- .sbss          0x000000000080e274        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
-                0x000000000080e274                alt_instruction_exception_handler
- .sbss          0x000000000080e278        0x4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
-                0x000000000080e278                errno
+ .sbss          0x000000000080e268        0xc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
+                0x000000000080e268                alt_argc
+                0x000000000080e26c                alt_argv
+                0x000000000080e270                alt_envp
+ .sbss          0x000000000080e274        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+ .sbss          0x000000000080e278        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+                0x000000000080e278                alt_envsem
+ .sbss          0x000000000080e27c        0x8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
+                0x000000000080e280                alt_heapsem
+ .sbss          0x000000000080e284       0x50 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+                0x000000000080e284                OSLockNesting
+                0x000000000080e285                OSRunning
+                0x000000000080e288                OSIdleCtr
+                0x000000000080e28c                OSPrioHighRdy
+                0x000000000080e28d                OSPrioCur
+                0x000000000080e290                OSTCBList
+                0x000000000080e294                OSTickStepState
+                0x000000000080e298                OSCtxSwCtr
+                0x000000000080e29c                OSIdleCtrMax
+                0x000000000080e2a0                OSTCBFreeList
+                0x000000000080e2a4                OSCPUUsage
+                0x000000000080e2a5                OSTaskCtr
+                0x000000000080e2a8                OSMemFreeList
+                0x000000000080e2ac                OSTCBHighRdy
+                0x000000000080e2b0                OSQFreeList
+                0x000000000080e2b4                OSRdyGrp
+                0x000000000080e2b5                OSRdyTbl
+                0x000000000080e2b8                OSEventFreeList
+                0x000000000080e2bc                OSIntNesting
+                0x000000000080e2c0                OSTCBCur
+                0x000000000080e2c4                OSTime
+                0x000000000080e2c8                OSFlagFreeList
+                0x000000000080e2cc                OSStatRdy
+                0x000000000080e2d0                OSIdleCtrRun
+ .sbss          0x000000000080e2d4        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+                0x000000000080e2d4                alt_fd_list_lock
+ .sbss          0x000000000080e2d8        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
+                0x000000000080e2d8                alt_irq_active
+ .sbss          0x000000000080e2dc        0x8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
+                0x000000000080e2dc                _alt_tick_rate
+                0x000000000080e2e0                _alt_nticks
+ .sbss          0x000000000080e2e4        0x4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
+                0x000000000080e2e4                alt_instruction_exception_handler
+ .sbss          0x000000000080e2e8        0x4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+                0x000000000080e2e8                errno
  *(.sbss2 .sbss2.* .gnu.linkonce.sb2.*)
  *(.scommon)
                 [!provide]                        PROVIDE (__sbss_end, ABSOLUTE (.))
                 [!provide]                        PROVIDE (___sbss_end, ABSOLUTE (.))
  *(.dynbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp//obj/HAL/src/crt0.o
- .bss           0x000000000080e27c        0x0 obj/default/wat_test.o
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .bss           0x000000000080e27c        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
- .bss           0x000000000080e27c        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp//obj/HAL/src/crt0.o
+ .bss           0x000000000080e2ec        0x0 obj/default/wat_test.o
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .bss           0x000000000080e2ec        0x0 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .bss           0x000000000080e2ec        0x0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
  *(COMMON)
- COMMON         0x000000000080e27c     0x4000 obj/default/wat_test.o
-                0x000000000080e27c                task1_stk
-                0x000000000081027c                task2_stk
- COMMON         0x000000000081227c     0x3224 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
-                0x000000000081227c                OSFlagTbl
-                0x00000000008125ec                OSMemTbl
-                0x000000000081321c                OSTaskStatStk
-                0x0000000000813a1c                OSQTbl
-                0x0000000000813bfc                OSTaskIdleStk
-                0x00000000008143fc                OSEventTbl
-                0x0000000000814f3c                OSTCBTbl
-                0x000000000081544c                OSTCBPrioTbl
- COMMON         0x00000000008154a0      0x100 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
-                0x00000000008154a0                alt_irq
-                0x00000000008155a0                . = ALIGN (0x4)
-                0x00000000008155a0                __bss_end = ABSOLUTE (.)
+ COMMON         0x000000000080e2ec     0x6000 obj/default/wat_test.o
+                0x000000000080e2ec                motor_test_stk
+                0x00000000008102ec                wifi_test_stk
+                0x00000000008122ec                camera_test_stk
+ COMMON         0x00000000008142ec     0x3224 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+                0x00000000008142ec                OSFlagTbl
+                0x000000000081465c                OSMemTbl
+                0x000000000081528c                OSTaskStatStk
+                0x0000000000815a8c                OSQTbl
+                0x0000000000815c6c                OSTaskIdleStk
+                0x000000000081646c                OSEventTbl
+                0x0000000000816fac                OSTCBTbl
+                0x00000000008174bc                OSTCBPrioTbl
+ COMMON         0x0000000000817510      0x100 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
+                0x0000000000817510                alt_irq
+                0x0000000000817610                . = ALIGN (0x4)
+                0x0000000000817610                __bss_end = ABSOLUTE (.)
 
 .sdram_controller_0
-                0x00000000008155a0        0x0
+                0x0000000000817610        0x0
                 [!provide]                        PROVIDE (_alt_partition_sdram_controller_0_start, ABSOLUTE (.))
  *(.sdram_controller_0 .sdram_controller_0. sdram_controller_0.*)
-                0x00000000008155a0                . = ALIGN (0x4)
+                0x0000000000817610                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (_alt_partition_sdram_controller_0_end, ABSOLUTE (.))
-                0x00000000008155a0                _end = ABSOLUTE (.)
-                0x00000000008155a0                end = ABSOLUTE (.)
-                0x00000000008155a0                __alt_stack_base = ABSOLUTE (.)
+                0x0000000000817610                _end = ABSOLUTE (.)
+                0x0000000000817610                end = ABSOLUTE (.)
+                0x0000000000817610                __alt_stack_base = ABSOLUTE (.)
                 [!provide]                        PROVIDE (_alt_partition_sdram_controller_0_load_addr, LOADADDR (.sdram_controller_0))
 
 .onchip_memory2_0
@@ -1173,393 +1177,393 @@ LOAD c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nio
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000    0x143f0
+.debug_info     0x0000000000000000    0x1441f
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000       0x5d ../WAT_TEST_bsp//obj/HAL/src/crt0.o
- .debug_info    0x000000000000005d      0x158 obj/default/wat_test.o
- .debug_info    0x00000000000001b5      0x26d ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
- .debug_info    0x0000000000000422      0xc67 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
- .debug_info    0x0000000000001089      0xdad ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
- .debug_info    0x0000000000001e36     0x15b9 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
- .debug_info    0x00000000000033ef      0xaa8 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
- .debug_info    0x0000000000003e97      0xf9c ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
- .debug_info    0x0000000000004e33      0x67a ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
- .debug_info    0x00000000000054ad      0xda3 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
- .debug_info    0x0000000000006250      0xa04 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
- .debug_info    0x0000000000006c54     0x1117 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
- .debug_info    0x0000000000007d6b      0x6e9 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
- .debug_info    0x0000000000008454      0xa31 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
- .debug_info    0x0000000000008e85      0x872 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
- .debug_info    0x00000000000096f7      0x67b ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
- .debug_info    0x0000000000009d72      0x6b3 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
- .debug_info    0x000000000000a425      0x3cd ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .debug_info    0x000000000000a7f2      0x57a ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
- .debug_info    0x000000000000ad6c      0x579 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
- .debug_info    0x000000000000b2e5      0x226 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
- .debug_info    0x000000000000b50b      0x5aa ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
- .debug_info    0x000000000000bab5      0x5ed ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
- .debug_info    0x000000000000c0a2      0x569 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
- .debug_info    0x000000000000c60b      0x56e ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
- .debug_info    0x000000000000cb79      0x44f ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
- .debug_info    0x000000000000cfc8      0x2cc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
- .debug_info    0x000000000000d294      0x355 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
- .debug_info    0x000000000000d5e9      0x585 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
- .debug_info    0x000000000000db6e      0x1a9 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
- .debug_info    0x000000000000dd17       0x83 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
- .debug_info    0x000000000000dd9a       0x83 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
- .debug_info    0x000000000000de1d       0xa6 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
- .debug_info    0x000000000000dec3      0x400 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
- .debug_info    0x000000000000e2c3      0x350 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
- .debug_info    0x000000000000e613      0x1ef ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
- .debug_info    0x000000000000e802      0x4d9 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
- .debug_info    0x000000000000ecdb       0x62 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
- .debug_info    0x000000000000ed3d      0x1b0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
- .debug_info    0x000000000000eeed       0x88 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
- .debug_info    0x000000000000ef75      0x3e4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
- .debug_info    0x000000000000f359      0x2f9 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
- .debug_info    0x000000000000f652      0x2a7 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
- .debug_info    0x000000000000f8f9       0x92 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
- .debug_info    0x000000000000f98b       0x61 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
- .debug_info    0x000000000000f9ec      0xcea ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
- .debug_info    0x00000000000106d6      0x18d ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
- .debug_info    0x0000000000010863       0x68 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
- .debug_info    0x00000000000108cb      0x31d ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
- .debug_info    0x0000000000010be8      0x31a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
- .debug_info    0x0000000000010f02      0x44b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
- .debug_info    0x000000000001134d      0x1e7 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
- .debug_info    0x0000000000011534       0xfe c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .debug_info    0x0000000000011632      0x8e4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .debug_info    0x0000000000011f16      0x8a1 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .debug_info    0x00000000000127b7       0x8a c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .debug_info    0x0000000000012841      0x11a c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .debug_info    0x000000000001295b      0x144 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .debug_info    0x0000000000012a9f      0x121 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
- .debug_info    0x0000000000012bc0       0xe2 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .debug_info    0x0000000000012ca2      0x934 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .debug_info    0x00000000000135d6      0x965 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .debug_info    0x0000000000013f3b      0x2c6 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .debug_info    0x0000000000014201       0xb4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
- .debug_info    0x00000000000142b5      0x13b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
+ .debug_info    0x000000000000005d      0x187 obj/default/wat_test.o
+ .debug_info    0x00000000000001e4      0x26d ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
+ .debug_info    0x0000000000000451      0xc67 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+ .debug_info    0x00000000000010b8      0xdad ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
+ .debug_info    0x0000000000001e65     0x15b9 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+ .debug_info    0x000000000000341e      0xaa8 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
+ .debug_info    0x0000000000003ec6      0xf9c ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
+ .debug_info    0x0000000000004e62      0x67a ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
+ .debug_info    0x00000000000054dc      0xda3 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
+ .debug_info    0x000000000000627f      0xa04 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
+ .debug_info    0x0000000000006c83     0x1117 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
+ .debug_info    0x0000000000007d9a      0x6e9 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
+ .debug_info    0x0000000000008483      0xa31 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
+ .debug_info    0x0000000000008eb4      0x872 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
+ .debug_info    0x0000000000009726      0x67b ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .debug_info    0x0000000000009da1      0x6b3 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
+ .debug_info    0x000000000000a454      0x3cd ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .debug_info    0x000000000000a821      0x57a ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
+ .debug_info    0x000000000000ad9b      0x579 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_info    0x000000000000b314      0x226 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
+ .debug_info    0x000000000000b53a      0x5aa ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
+ .debug_info    0x000000000000bae4      0x5ed ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
+ .debug_info    0x000000000000c0d1      0x569 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
+ .debug_info    0x000000000000c63a      0x56e ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
+ .debug_info    0x000000000000cba8      0x44f ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
+ .debug_info    0x000000000000cff7      0x2cc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
+ .debug_info    0x000000000000d2c3      0x355 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
+ .debug_info    0x000000000000d618      0x585 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+ .debug_info    0x000000000000db9d      0x1a9 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
+ .debug_info    0x000000000000dd46       0x83 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
+ .debug_info    0x000000000000ddc9       0x83 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
+ .debug_info    0x000000000000de4c       0xa6 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
+ .debug_info    0x000000000000def2      0x400 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
+ .debug_info    0x000000000000e2f2      0x350 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
+ .debug_info    0x000000000000e642      0x1ef ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
+ .debug_info    0x000000000000e831      0x4d9 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
+ .debug_info    0x000000000000ed0a       0x62 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
+ .debug_info    0x000000000000ed6c      0x1b0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
+ .debug_info    0x000000000000ef1c       0x88 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
+ .debug_info    0x000000000000efa4      0x3e4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
+ .debug_info    0x000000000000f388      0x2f9 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
+ .debug_info    0x000000000000f681      0x2a7 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
+ .debug_info    0x000000000000f928       0x92 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_info    0x000000000000f9ba       0x61 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
+ .debug_info    0x000000000000fa1b      0xcea ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
+ .debug_info    0x0000000000010705      0x18d ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
+ .debug_info    0x0000000000010892       0x68 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
+ .debug_info    0x00000000000108fa      0x31d ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
+ .debug_info    0x0000000000010c17      0x31a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
+ .debug_info    0x0000000000010f31      0x44b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
+ .debug_info    0x000000000001137c      0x1e7 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
+ .debug_info    0x0000000000011563       0xfe c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .debug_info    0x0000000000011661      0x8e4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .debug_info    0x0000000000011f45      0x8a1 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .debug_info    0x00000000000127e6       0x8a c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .debug_info    0x0000000000012870      0x11a c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .debug_info    0x000000000001298a      0x144 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .debug_info    0x0000000000012ace      0x121 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
+ .debug_info    0x0000000000012bef       0xe2 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .debug_info    0x0000000000012cd1      0x934 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .debug_info    0x0000000000013605      0x965 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .debug_info    0x0000000000013f6a      0x2c6 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .debug_info    0x0000000000014230       0xb4 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .debug_info    0x00000000000142e4      0x13b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
 
-.debug_abbrev   0x0000000000000000     0x52f9
+.debug_abbrev   0x0000000000000000     0x52e1
  *(.debug_abbrev)
  .debug_abbrev  0x0000000000000000       0x14 ../WAT_TEST_bsp//obj/HAL/src/crt0.o
- .debug_abbrev  0x0000000000000014       0xd4 obj/default/wat_test.o
- .debug_abbrev  0x00000000000000e8      0x139 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
- .debug_abbrev  0x0000000000000221      0x1e3 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
- .debug_abbrev  0x0000000000000404      0x26d ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
- .debug_abbrev  0x0000000000000671      0x302 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
- .debug_abbrev  0x0000000000000973       0xf7 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
- .debug_abbrev  0x0000000000000a6a      0x25a ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
- .debug_abbrev  0x0000000000000cc4      0x228 ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
- .debug_abbrev  0x0000000000000eec      0x248 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
- .debug_abbrev  0x0000000000001134      0x262 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
- .debug_abbrev  0x0000000000001396      0x247 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
- .debug_abbrev  0x00000000000015dd      0x20c ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
- .debug_abbrev  0x00000000000017e9      0x1cc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
- .debug_abbrev  0x00000000000019b5      0x1c9 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
- .debug_abbrev  0x0000000000001b7e      0x16c ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
- .debug_abbrev  0x0000000000001cea      0x24f ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
- .debug_abbrev  0x0000000000001f39      0x156 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .debug_abbrev  0x000000000000208f      0x1f8 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
- .debug_abbrev  0x0000000000002287      0x1f6 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
- .debug_abbrev  0x000000000000247d      0x155 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
- .debug_abbrev  0x00000000000025d2      0x145 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
- .debug_abbrev  0x0000000000002717      0x1f1 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
- .debug_abbrev  0x0000000000002908      0x1c8 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
- .debug_abbrev  0x0000000000002ad0      0x1cf ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
- .debug_abbrev  0x0000000000002c9f      0x169 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
- .debug_abbrev  0x0000000000002e08      0x162 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
- .debug_abbrev  0x0000000000002f6a      0x126 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
- .debug_abbrev  0x0000000000003090      0x11c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
- .debug_abbrev  0x00000000000031ac      0x114 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
- .debug_abbrev  0x00000000000032c0       0x79 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
- .debug_abbrev  0x0000000000003339       0x79 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
- .debug_abbrev  0x00000000000033b2       0x5a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
- .debug_abbrev  0x000000000000340c      0x121 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
- .debug_abbrev  0x000000000000352d      0x163 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
- .debug_abbrev  0x0000000000003690      0x169 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
- .debug_abbrev  0x00000000000037f9      0x11b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
- .debug_abbrev  0x0000000000003914       0x12 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
- .debug_abbrev  0x0000000000003926      0x13a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
- .debug_abbrev  0x0000000000003a60       0x40 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
- .debug_abbrev  0x0000000000003aa0      0x14f ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
- .debug_abbrev  0x0000000000003bef       0xe5 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
- .debug_abbrev  0x0000000000003cd4      0x15a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
- .debug_abbrev  0x0000000000003e2e       0x42 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
- .debug_abbrev  0x0000000000003e70       0x14 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
- .debug_abbrev  0x0000000000003e84      0x215 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
- .debug_abbrev  0x0000000000004099       0x8a ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
- .debug_abbrev  0x0000000000004123       0x12 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
- .debug_abbrev  0x0000000000004135       0xf7 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
- .debug_abbrev  0x000000000000422c       0xf7 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
- .debug_abbrev  0x0000000000004323      0x19b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
- .debug_abbrev  0x00000000000044be       0xdc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
- .debug_abbrev  0x000000000000459a       0xaa c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .debug_abbrev  0x0000000000004644      0x1e5 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .debug_abbrev  0x0000000000004829      0x18f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .debug_abbrev  0x00000000000049b8       0x37 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .debug_abbrev  0x00000000000049ef       0x7f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .debug_abbrev  0x0000000000004a6e       0xa3 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .debug_abbrev  0x0000000000004b11       0xae c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
- .debug_abbrev  0x0000000000004bbf       0x90 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .debug_abbrev  0x0000000000004c4f      0x21e c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .debug_abbrev  0x0000000000004e6d      0x22e c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .debug_abbrev  0x000000000000509b      0x10e c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .debug_abbrev  0x00000000000051a9       0x6f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
- .debug_abbrev  0x0000000000005218       0xe1 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
+ .debug_abbrev  0x0000000000000014       0xbc obj/default/wat_test.o
+ .debug_abbrev  0x00000000000000d0      0x139 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
+ .debug_abbrev  0x0000000000000209      0x1e3 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+ .debug_abbrev  0x00000000000003ec      0x26d ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
+ .debug_abbrev  0x0000000000000659      0x302 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+ .debug_abbrev  0x000000000000095b       0xf7 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
+ .debug_abbrev  0x0000000000000a52      0x25a ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
+ .debug_abbrev  0x0000000000000cac      0x228 ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
+ .debug_abbrev  0x0000000000000ed4      0x248 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
+ .debug_abbrev  0x000000000000111c      0x262 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
+ .debug_abbrev  0x000000000000137e      0x247 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
+ .debug_abbrev  0x00000000000015c5      0x20c ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
+ .debug_abbrev  0x00000000000017d1      0x1cc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
+ .debug_abbrev  0x000000000000199d      0x1c9 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
+ .debug_abbrev  0x0000000000001b66      0x16c ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .debug_abbrev  0x0000000000001cd2      0x24f ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
+ .debug_abbrev  0x0000000000001f21      0x156 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .debug_abbrev  0x0000000000002077      0x1f8 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
+ .debug_abbrev  0x000000000000226f      0x1f6 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_abbrev  0x0000000000002465      0x155 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
+ .debug_abbrev  0x00000000000025ba      0x145 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
+ .debug_abbrev  0x00000000000026ff      0x1f1 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
+ .debug_abbrev  0x00000000000028f0      0x1c8 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
+ .debug_abbrev  0x0000000000002ab8      0x1cf ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
+ .debug_abbrev  0x0000000000002c87      0x169 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
+ .debug_abbrev  0x0000000000002df0      0x162 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
+ .debug_abbrev  0x0000000000002f52      0x126 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
+ .debug_abbrev  0x0000000000003078      0x11c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+ .debug_abbrev  0x0000000000003194      0x114 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
+ .debug_abbrev  0x00000000000032a8       0x79 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
+ .debug_abbrev  0x0000000000003321       0x79 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
+ .debug_abbrev  0x000000000000339a       0x5a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
+ .debug_abbrev  0x00000000000033f4      0x121 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
+ .debug_abbrev  0x0000000000003515      0x163 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
+ .debug_abbrev  0x0000000000003678      0x169 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
+ .debug_abbrev  0x00000000000037e1      0x11b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
+ .debug_abbrev  0x00000000000038fc       0x12 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
+ .debug_abbrev  0x000000000000390e      0x13a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
+ .debug_abbrev  0x0000000000003a48       0x40 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
+ .debug_abbrev  0x0000000000003a88      0x14f ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
+ .debug_abbrev  0x0000000000003bd7       0xe5 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
+ .debug_abbrev  0x0000000000003cbc      0x15a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
+ .debug_abbrev  0x0000000000003e16       0x42 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_abbrev  0x0000000000003e58       0x14 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
+ .debug_abbrev  0x0000000000003e6c      0x215 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
+ .debug_abbrev  0x0000000000004081       0x8a ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
+ .debug_abbrev  0x000000000000410b       0x12 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
+ .debug_abbrev  0x000000000000411d       0xf7 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
+ .debug_abbrev  0x0000000000004214       0xf7 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
+ .debug_abbrev  0x000000000000430b      0x19b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
+ .debug_abbrev  0x00000000000044a6       0xdc ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
+ .debug_abbrev  0x0000000000004582       0xaa c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .debug_abbrev  0x000000000000462c      0x1e5 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .debug_abbrev  0x0000000000004811      0x18f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .debug_abbrev  0x00000000000049a0       0x37 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .debug_abbrev  0x00000000000049d7       0x7f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .debug_abbrev  0x0000000000004a56       0xa3 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .debug_abbrev  0x0000000000004af9       0xae c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
+ .debug_abbrev  0x0000000000004ba7       0x90 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .debug_abbrev  0x0000000000004c37      0x21e c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .debug_abbrev  0x0000000000004e55      0x22e c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .debug_abbrev  0x0000000000005083      0x10e c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .debug_abbrev  0x0000000000005191       0x6f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .debug_abbrev  0x0000000000005200       0xe1 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
 
-.debug_line     0x0000000000000000     0x6056
+.debug_line     0x0000000000000000     0x5fa2
  *(.debug_line)
  .debug_line    0x0000000000000000       0x51 ../WAT_TEST_bsp//obj/HAL/src/crt0.o
- .debug_line    0x0000000000000051      0x175 obj/default/wat_test.o
- .debug_line    0x00000000000001c6      0x12f ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
- .debug_line    0x00000000000002f5      0x1aa ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
- .debug_line    0x000000000000049f      0x20e ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
- .debug_line    0x00000000000006ad      0x68b ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
- .debug_line    0x0000000000000d38       0xd2 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
- .debug_line    0x0000000000000e0a      0x4ff ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
- .debug_line    0x0000000000001309      0x23f ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
- .debug_line    0x0000000000001548      0x3fb ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
- .debug_line    0x0000000000001943      0x2e0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
- .debug_line    0x0000000000001c23      0x52d ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
- .debug_line    0x0000000000002150      0x1a8 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
- .debug_line    0x00000000000022f8      0x201 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
- .debug_line    0x00000000000024f9      0x2d3 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
- .debug_line    0x00000000000027cc      0x155 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
- .debug_line    0x0000000000002921      0x225 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
- .debug_line    0x0000000000002b46      0x157 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .debug_line    0x0000000000002c9d      0x1db ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
- .debug_line    0x0000000000002e78      0x1dc ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
- .debug_line    0x0000000000003054       0xfd ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
- .debug_line    0x0000000000003151      0x132 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
- .debug_line    0x0000000000003283      0x22f ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
- .debug_line    0x00000000000034b2      0x1f8 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
- .debug_line    0x00000000000036aa      0x1e6 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
- .debug_line    0x0000000000003890      0x113 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
- .debug_line    0x00000000000039a3       0xf9 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
- .debug_line    0x0000000000003a9c      0x174 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
- .debug_line    0x0000000000003c10      0x13c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
- .debug_line    0x0000000000003d4c       0xcf ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
- .debug_line    0x0000000000003e1b       0x59 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
- .debug_line    0x0000000000003e74       0x59 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
- .debug_line    0x0000000000003ecd       0x51 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
- .debug_line    0x0000000000003f1e       0xed ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
- .debug_line    0x000000000000400b       0xeb ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
- .debug_line    0x00000000000040f6       0xdb ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
- .debug_line    0x00000000000041d1      0x144 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
- .debug_line    0x0000000000004315       0x6b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
- .debug_line    0x0000000000004380       0xc8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
- .debug_line    0x0000000000004448       0x50 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
- .debug_line    0x0000000000004498      0x13a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
- .debug_line    0x00000000000045d2       0xbf ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
- .debug_line    0x0000000000004691       0xff ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
- .debug_line    0x0000000000004790       0x51 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
- .debug_line    0x00000000000047e1       0x86 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
- .debug_line    0x0000000000004867      0x1b2 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
- .debug_line    0x0000000000004a19       0xb7 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
- .debug_line    0x0000000000004ad0       0xb3 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
- .debug_line    0x0000000000004b83       0xc4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
- .debug_line    0x0000000000004c47       0xe0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
- .debug_line    0x0000000000004d27      0x128 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
- .debug_line    0x0000000000004e4f       0xb9 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
- .debug_line    0x0000000000004f08       0xe7 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .debug_line    0x0000000000004fef      0x1fc c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .debug_line    0x00000000000051eb      0x160 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .debug_line    0x000000000000534b       0x5f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .debug_line    0x00000000000053aa      0x176 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .debug_line    0x0000000000005520      0x18c c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .debug_line    0x00000000000056ac      0x18f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
- .debug_line    0x000000000000583b      0x16f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .debug_line    0x00000000000059aa      0x21f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .debug_line    0x0000000000005bc9      0x23a c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .debug_line    0x0000000000005e03      0x105 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .debug_line    0x0000000000005f08       0x80 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
- .debug_line    0x0000000000005f88       0xce ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
+ .debug_line    0x0000000000000051       0xc1 obj/default/wat_test.o
+ .debug_line    0x0000000000000112      0x12f ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
+ .debug_line    0x0000000000000241      0x1aa ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+ .debug_line    0x00000000000003eb      0x20e ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
+ .debug_line    0x00000000000005f9      0x68b ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+ .debug_line    0x0000000000000c84       0xd2 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
+ .debug_line    0x0000000000000d56      0x4ff ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
+ .debug_line    0x0000000000001255      0x23f ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
+ .debug_line    0x0000000000001494      0x3fb ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
+ .debug_line    0x000000000000188f      0x2e0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
+ .debug_line    0x0000000000001b6f      0x52d ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
+ .debug_line    0x000000000000209c      0x1a8 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
+ .debug_line    0x0000000000002244      0x201 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
+ .debug_line    0x0000000000002445      0x2d3 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
+ .debug_line    0x0000000000002718      0x155 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .debug_line    0x000000000000286d      0x225 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
+ .debug_line    0x0000000000002a92      0x157 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .debug_line    0x0000000000002be9      0x1db ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
+ .debug_line    0x0000000000002dc4      0x1dc ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_line    0x0000000000002fa0       0xfd ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
+ .debug_line    0x000000000000309d      0x132 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
+ .debug_line    0x00000000000031cf      0x22f ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
+ .debug_line    0x00000000000033fe      0x1f8 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
+ .debug_line    0x00000000000035f6      0x1e6 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
+ .debug_line    0x00000000000037dc      0x113 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
+ .debug_line    0x00000000000038ef       0xf9 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
+ .debug_line    0x00000000000039e8      0x174 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
+ .debug_line    0x0000000000003b5c      0x13c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+ .debug_line    0x0000000000003c98       0xcf ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
+ .debug_line    0x0000000000003d67       0x59 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
+ .debug_line    0x0000000000003dc0       0x59 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
+ .debug_line    0x0000000000003e19       0x51 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
+ .debug_line    0x0000000000003e6a       0xed ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
+ .debug_line    0x0000000000003f57       0xeb ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
+ .debug_line    0x0000000000004042       0xdb ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
+ .debug_line    0x000000000000411d      0x144 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
+ .debug_line    0x0000000000004261       0x6b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_entry.o)
+ .debug_line    0x00000000000042cc       0xc8 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
+ .debug_line    0x0000000000004394       0x50 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
+ .debug_line    0x00000000000043e4      0x13a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
+ .debug_line    0x000000000000451e       0xbf ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
+ .debug_line    0x00000000000045dd       0xff ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
+ .debug_line    0x00000000000046dc       0x51 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_line    0x000000000000472d       0x86 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_a.o)
+ .debug_line    0x00000000000047b3      0x1b2 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
+ .debug_line    0x0000000000004965       0xb7 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
+ .debug_line    0x0000000000004a1c       0xb3 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exception_entry.o)
+ .debug_line    0x0000000000004acf       0xc4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
+ .debug_line    0x0000000000004b93       0xe0 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
+ .debug_line    0x0000000000004c73      0x128 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
+ .debug_line    0x0000000000004d9b       0xb9 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
+ .debug_line    0x0000000000004e54       0xe7 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .debug_line    0x0000000000004f3b      0x1fc c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .debug_line    0x0000000000005137      0x160 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .debug_line    0x0000000000005297       0x5f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .debug_line    0x00000000000052f6      0x176 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .debug_line    0x000000000000546c      0x18c c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .debug_line    0x00000000000055f8      0x18f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
+ .debug_line    0x0000000000005787      0x16f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .debug_line    0x00000000000058f6      0x21f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .debug_line    0x0000000000005b15      0x23a c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .debug_line    0x0000000000005d4f      0x105 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .debug_line    0x0000000000005e54       0x80 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .debug_line    0x0000000000005ed4       0xce ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
 
-.debug_frame    0x0000000000000000     0x2190
+.debug_frame    0x0000000000000000     0x21c8
  *(.debug_frame)
- .debug_frame   0x0000000000000000       0x54 obj/default/wat_test.o
- .debug_frame   0x0000000000000054       0x2c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
- .debug_frame   0x0000000000000080       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
- .debug_frame   0x00000000000000e0       0x64 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
- .debug_frame   0x0000000000000144      0x530 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
- .debug_frame   0x0000000000000674       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
- .debug_frame   0x00000000000006a8      0x200 ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
- .debug_frame   0x00000000000008a8      0x118 ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
- .debug_frame   0x00000000000009c0      0x1bc ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
- .debug_frame   0x0000000000000b7c      0x144 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
- .debug_frame   0x0000000000000cc0      0x1e4 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
- .debug_frame   0x0000000000000ea4       0xd8 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
- .debug_frame   0x0000000000000f7c       0x88 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
- .debug_frame   0x0000000000001004      0x198 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
- .debug_frame   0x000000000000119c       0xb0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
- .debug_frame   0x000000000000124c       0xac ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
- .debug_frame   0x00000000000012f8       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .debug_frame   0x000000000000132c       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
- .debug_frame   0x0000000000001364       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
- .debug_frame   0x000000000000139c       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
- .debug_frame   0x00000000000013fc       0x88 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
- .debug_frame   0x0000000000001484       0xd4 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
- .debug_frame   0x0000000000001558       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
- .debug_frame   0x00000000000015b8       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
- .debug_frame   0x0000000000001618      0x1f0 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
- .debug_frame   0x0000000000001808       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
- .debug_frame   0x000000000000183c       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
- .debug_frame   0x000000000000189c       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
- .debug_frame   0x00000000000018d0       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
- .debug_frame   0x0000000000001930       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
- .debug_frame   0x0000000000001968       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
- .debug_frame   0x00000000000019a0       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
- .debug_frame   0x0000000000001a00       0xa4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
- .debug_frame   0x0000000000001aa4       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
- .debug_frame   0x0000000000001adc       0x64 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
- .debug_frame   0x0000000000001b40       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
- .debug_frame   0x0000000000001b78       0x8c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
- .debug_frame   0x0000000000001c04       0x3c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
- .debug_frame   0x0000000000001c40       0x5c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
- .debug_frame   0x0000000000001c9c       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
- .debug_frame   0x0000000000001cd0      0x17c ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
- .debug_frame   0x0000000000001e4c       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
- .debug_frame   0x0000000000001e80       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
- .debug_frame   0x0000000000001eb8       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
- .debug_frame   0x0000000000001ef0       0x3c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
- .debug_frame   0x0000000000001f2c       0x5c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
- .debug_frame   0x0000000000001f88       0x20 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .debug_frame   0x0000000000001fa8       0x28 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .debug_frame   0x0000000000001fd0       0x20 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .debug_frame   0x0000000000001ff0       0x38 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .debug_frame   0x0000000000002028       0x20 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
- .debug_frame   0x0000000000002048       0x20 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .debug_frame   0x0000000000002068       0x38 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .debug_frame   0x00000000000020a0       0x54 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .debug_frame   0x00000000000020f4       0x50 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .debug_frame   0x0000000000002144       0x20 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
- .debug_frame   0x0000000000002164       0x2c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
+ .debug_frame   0x0000000000000000       0x8c obj/default/wat_test.o
+ .debug_frame   0x000000000000008c       0x2c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
+ .debug_frame   0x00000000000000b8       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+ .debug_frame   0x0000000000000118       0x64 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
+ .debug_frame   0x000000000000017c      0x530 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+ .debug_frame   0x00000000000006ac       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
+ .debug_frame   0x00000000000006e0      0x200 ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
+ .debug_frame   0x00000000000008e0      0x118 ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
+ .debug_frame   0x00000000000009f8      0x1bc ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
+ .debug_frame   0x0000000000000bb4      0x144 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
+ .debug_frame   0x0000000000000cf8      0x1e4 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
+ .debug_frame   0x0000000000000edc       0xd8 ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
+ .debug_frame   0x0000000000000fb4       0x88 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
+ .debug_frame   0x000000000000103c      0x198 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
+ .debug_frame   0x00000000000011d4       0xb0 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .debug_frame   0x0000000000001284       0xac ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
+ .debug_frame   0x0000000000001330       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .debug_frame   0x0000000000001364       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
+ .debug_frame   0x000000000000139c       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_frame   0x00000000000013d4       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
+ .debug_frame   0x0000000000001434       0x88 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
+ .debug_frame   0x00000000000014bc       0xd4 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
+ .debug_frame   0x0000000000001590       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
+ .debug_frame   0x00000000000015f0       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
+ .debug_frame   0x0000000000001650      0x1f0 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
+ .debug_frame   0x0000000000001840       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
+ .debug_frame   0x0000000000001874       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
+ .debug_frame   0x00000000000018d4       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+ .debug_frame   0x0000000000001908       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
+ .debug_frame   0x0000000000001968       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
+ .debug_frame   0x00000000000019a0       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
+ .debug_frame   0x00000000000019d8       0x60 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
+ .debug_frame   0x0000000000001a38       0xa4 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
+ .debug_frame   0x0000000000001adc       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
+ .debug_frame   0x0000000000001b14       0x64 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
+ .debug_frame   0x0000000000001b78       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
+ .debug_frame   0x0000000000001bb0       0x8c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
+ .debug_frame   0x0000000000001c3c       0x3c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
+ .debug_frame   0x0000000000001c78       0x5c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
+ .debug_frame   0x0000000000001cd4       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_frame   0x0000000000001d08      0x17c ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
+ .debug_frame   0x0000000000001e84       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
+ .debug_frame   0x0000000000001eb8       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
+ .debug_frame   0x0000000000001ef0       0x38 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
+ .debug_frame   0x0000000000001f28       0x3c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
+ .debug_frame   0x0000000000001f64       0x5c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
+ .debug_frame   0x0000000000001fc0       0x20 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .debug_frame   0x0000000000001fe0       0x28 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .debug_frame   0x0000000000002008       0x20 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .debug_frame   0x0000000000002028       0x38 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .debug_frame   0x0000000000002060       0x20 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
+ .debug_frame   0x0000000000002080       0x20 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .debug_frame   0x00000000000020a0       0x38 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .debug_frame   0x00000000000020d8       0x54 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x000000000000212c       0x50 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .debug_frame   0x000000000000217c       0x20 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .debug_frame   0x000000000000219c       0x2c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
 
-.debug_str      0x0000000000000000     0x34a7
+.debug_str      0x0000000000000000     0x34c6
  *(.debug_str)
- .debug_str     0x0000000000000000      0x13f obj/default/wat_test.o
-                                        0x18d (size before relaxing)
- .debug_str     0x000000000000013f      0x122 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
+ .debug_str     0x0000000000000000      0x15e obj/default/wat_test.o
+                                        0x1a3 (size before relaxing)
+ .debug_str     0x000000000000015e      0x122 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_main.o)
                                         0x24b (size before relaxing)
- .debug_str     0x0000000000000261      0x590 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
+ .debug_str     0x0000000000000280      0x590 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_env_lock.o)
                                         0x7b3 (size before relaxing)
- .debug_str     0x00000000000007f1       0x8b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
+ .debug_str     0x0000000000000810       0x8b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_malloc_lock.o)
                                         0x815 (size before relaxing)
- .debug_str     0x000000000000087c      0x536 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
+ .debug_str     0x000000000000089b      0x536 ../WAT_TEST_bsp/\libucosii_bsp.a(os_core.o)
                                         0x941 (size before relaxing)
- .debug_str     0x0000000000000db2      0x2e5 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
+ .debug_str     0x0000000000000dd1      0x2e5 ../WAT_TEST_bsp/\libucosii_bsp.a(os_dbg.o)
                                         0x8b0 (size before relaxing)
- .debug_str     0x0000000000001097      0x136 ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
+ .debug_str     0x00000000000010b6      0x136 ../WAT_TEST_bsp/\libucosii_bsp.a(os_flag.o)
                                         0x5dd (size before relaxing)
- .debug_str     0x00000000000011cd       0xcf ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
+ .debug_str     0x00000000000011ec       0xcf ../WAT_TEST_bsp/\libucosii_bsp.a(os_mem.o)
                                         0x2e6 (size before relaxing)
- .debug_str     0x000000000000129c       0xc0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
+ .debug_str     0x00000000000012bb       0xc0 ../WAT_TEST_bsp/\libucosii_bsp.a(os_q.o)
                                         0x560 (size before relaxing)
- .debug_str     0x000000000000135c       0x77 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
+ .debug_str     0x000000000000137b       0x77 ../WAT_TEST_bsp/\libucosii_bsp.a(os_sem.o)
                                         0x4e9 (size before relaxing)
- .debug_str     0x00000000000013d3      0x118 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
+ .debug_str     0x00000000000013f2      0x118 ../WAT_TEST_bsp/\libucosii_bsp.a(os_task.o)
                                         0x5ec (size before relaxing)
- .debug_str     0x00000000000014eb       0x6d ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
+ .debug_str     0x000000000000150a       0x6d ../WAT_TEST_bsp/\libucosii_bsp.a(os_time.o)
                                         0x48c (size before relaxing)
- .debug_str     0x0000000000001558      0x3e2 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
+ .debug_str     0x0000000000001577      0x3e2 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_sys_init.o)
                                         0x6bd (size before relaxing)
- .debug_str     0x000000000000193a      0x220 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
+ .debug_str     0x0000000000001959      0x220 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_epcs_flash_controller.o)
                                         0x546 (size before relaxing)
- .debug_str     0x0000000000001b5a       0xb2 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .debug_str     0x0000000000001b79       0xb2 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_fd.o)
                                         0x47f (size before relaxing)
- .debug_str     0x0000000000001c0c       0xf6 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
+ .debug_str     0x0000000000001c2b       0xf6 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_init.o)
                                         0x446 (size before relaxing)
- .debug_str     0x0000000000001d02       0x4a ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .debug_str     0x0000000000001d21       0x4a ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_ioctl.o)
                                         0x36e (size before relaxing)
- .debug_str     0x0000000000001d4c       0x63 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
+ .debug_str     0x0000000000001d6b       0x63 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_read.o)
                                         0x3e1 (size before relaxing)
- .debug_str     0x0000000000001daf       0x4a ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_str     0x0000000000001dce       0x4a ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_jtag_uart_write.o)
                                         0x3e2 (size before relaxing)
- .debug_str     0x0000000000001df9       0x66 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
+ .debug_str     0x0000000000001e18       0x66 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_timer_sc.o)
                                         0x236 (size before relaxing)
- .debug_str     0x0000000000001e5f       0x77 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
+ .debug_str     0x0000000000001e7e       0x77 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_fd.o)
                                         0x3eb (size before relaxing)
- .debug_str     0x0000000000001ed6       0xb7 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
+ .debug_str     0x0000000000001ef5       0xb7 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_init.o)
                                         0x3e0 (size before relaxing)
- .debug_str     0x0000000000001f8d       0x5d ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
+ .debug_str     0x0000000000001fac       0x5d ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_read.o)
                                         0x3b4 (size before relaxing)
- .debug_str     0x0000000000001fea       0x49 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
+ .debug_str     0x0000000000002009       0x49 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_uart_write.o)
                                         0x3a8 (size before relaxing)
- .debug_str     0x0000000000002033      0x171 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
+ .debug_str     0x0000000000002052      0x171 ../WAT_TEST_bsp/\libucosii_bsp.a(epcs_commands.o)
                                         0x2ca (size before relaxing)
- .debug_str     0x00000000000021a4       0x59 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
+ .debug_str     0x00000000000021c3       0x59 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_alarm_start.o)
                                         0x269 (size before relaxing)
- .debug_str     0x00000000000021fd       0x2c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
+ .debug_str     0x000000000000221c       0x2c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_close.o)
                                         0x226 (size before relaxing)
- .debug_str     0x0000000000002229      0x112 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
+ .debug_str     0x0000000000002248      0x112 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev.o)
                                         0x394 (size before relaxing)
- .debug_str     0x000000000000233b       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
+ .debug_str     0x000000000000235a       0x34 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_dev_llist_insert.o)
                                         0x1b7 (size before relaxing)
- .debug_str     0x000000000000236f       0x48 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
+ .debug_str     0x000000000000238e       0x48 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_ctors.o)
                                          0xbb (size before relaxing)
- .debug_str     0x00000000000023b7       0x4c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
+ .debug_str     0x00000000000023d6       0x4c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_do_dtors.o)
                                          0xba (size before relaxing)
- .debug_str     0x0000000000002403       0x14 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
+ .debug_str     0x0000000000002422       0x14 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_errno.o)
                                         0x130 (size before relaxing)
- .debug_str     0x0000000000002417       0x3f ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
+ .debug_str     0x0000000000002436       0x3f ../WAT_TEST_bsp/\libucosii_bsp.a(alt_flash_dev.o)
                                         0x31e (size before relaxing)
- .debug_str     0x0000000000002456       0xbd ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
+ .debug_str     0x0000000000002475       0xbd ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic.o)
                                         0x229 (size before relaxing)
- .debug_str     0x0000000000002513       0x4c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
+ .debug_str     0x0000000000002532       0x4c ../WAT_TEST_bsp/\libucosii_bsp.a(alt_iic_isr_register.o)
                                         0x1d3 (size before relaxing)
- .debug_str     0x000000000000255f       0x56 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
+ .debug_str     0x000000000000257e       0x56 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_io_redirect.o)
                                         0x331 (size before relaxing)
- .debug_str     0x00000000000025b5       0x3a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
+ .debug_str     0x00000000000025d4       0x3a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_handler.o)
                                         0x1aa (size before relaxing)
- .debug_str     0x00000000000025ef       0x17 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
+ .debug_str     0x000000000000260e       0x17 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_irq_vars.o)
                                         0x125 (size before relaxing)
- .debug_str     0x0000000000002606       0x29 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
+ .debug_str     0x0000000000002625       0x29 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_open.o)
                                         0x25e (size before relaxing)
- .debug_str     0x000000000000262f       0x28 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
+ .debug_str     0x000000000000264e       0x28 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_release_fd.o)
                                         0x210 (size before relaxing)
- .debug_str     0x0000000000002657       0x4a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
+ .debug_str     0x0000000000002676       0x4a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_tick.o)
                                         0x24a (size before relaxing)
- .debug_str     0x00000000000026a1       0x3b ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_str     0x00000000000026c0       0x3b ../WAT_TEST_bsp/\libucosii_bsp.a(altera_nios2_gen2_irq.o)
                                         0x147 (size before relaxing)
- .debug_str     0x00000000000026dc       0xd5 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
+ .debug_str     0x00000000000026fb       0xd5 ../WAT_TEST_bsp/\libucosii_bsp.a(os_cpu_c.o)
                                         0x828 (size before relaxing)
- .debug_str     0x00000000000027b1       0xa5 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
+ .debug_str     0x00000000000027d0       0xa5 ../WAT_TEST_bsp/\libucosii_bsp.a(altera_avalon_spi.o)
                                         0x1cb (size before relaxing)
- .debug_str     0x0000000000002856       0x24 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
+ .debug_str     0x0000000000002875       0x24 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_dev.o)
                                         0x207 (size before relaxing)
- .debug_str     0x000000000000287a       0x26 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
+ .debug_str     0x0000000000002899       0x26 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_find_file.o)
                                         0x215 (size before relaxing)
- .debug_str     0x00000000000028a0       0x30 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
+ .debug_str     0x00000000000028bf       0x30 ../WAT_TEST_bsp/\libucosii_bsp.a(alt_get_fd.o)
                                         0x2b3 (size before relaxing)
- .debug_str     0x00000000000028d0      0x48b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
+ .debug_str     0x00000000000028ef      0x48b ../WAT_TEST_bsp/\libucosii_bsp.a(alt_instruction_exception_entry.o)
                                         0x58b (size before relaxing)
- .debug_str     0x0000000000002d5b      0x17c c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .debug_str     0x0000000000002d7a      0x17c c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
                                         0x221 (size before relaxing)
- .debug_str     0x0000000000002ed7       0x5f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .debug_str     0x0000000000002ef6       0x5f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
                                         0x5be (size before relaxing)
- .debug_str     0x0000000000002f36       0xd6 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .debug_str     0x0000000000002f55       0xd6 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
                                         0x5b5 (size before relaxing)
- .debug_str     0x000000000000300c       0x3f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .debug_str     0x000000000000302b       0x3f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
                                         0x1dd (size before relaxing)
- .debug_str     0x000000000000304b       0xcc c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .debug_str     0x000000000000306a       0xcc c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
                                         0x1e4 (size before relaxing)
- .debug_str     0x0000000000003117       0x6b c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .debug_str     0x0000000000003136       0x6b c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
                                         0x20b (size before relaxing)
- .debug_str     0x0000000000003182       0x51 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
+ .debug_str     0x00000000000031a1       0x51 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memset.o)
                                         0x1f8 (size before relaxing)
- .debug_str     0x00000000000031d3       0x44 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .debug_str     0x00000000000031f2       0x44 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
                                         0x1f7 (size before relaxing)
- .debug_str     0x0000000000003217       0x3f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .debug_str     0x0000000000003236       0x3f c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
                                         0x5f6 (size before relaxing)
- .debug_str     0x0000000000003256       0x60 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .debug_str     0x0000000000003275       0x60 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
                                         0x5e2 (size before relaxing)
- .debug_str     0x00000000000032b6      0x187 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .debug_str     0x00000000000032d5      0x187 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-divmod.o)
                                         0x1d2 (size before relaxing)
- .debug_str     0x000000000000343d       0x40 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .debug_str     0x000000000000345c       0x40 c:/intelfpga_lite/16.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a(lib2-mul.o)
                                         0x193 (size before relaxing)
- .debug_str     0x000000000000347d       0x2a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
+ .debug_str     0x000000000000349c       0x2a ../WAT_TEST_bsp/\libucosii_bsp.a(alt_exit.o)
                                         0x17e (size before relaxing)
 
 .debug_loc      0x0000000000000000      0xe77

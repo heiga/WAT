@@ -30,39 +30,85 @@
 
 #include <stdio.h>
 #include <inttypes.h>
-#include <io.h>
 #include "includes.h"
 
 /* Definition of Task Stacks */
 #define   TASK_STACKSIZE       2048
-OS_STK    task1_stk[TASK_STACKSIZE];
-OS_STK    task2_stk[TASK_STACKSIZE];
+OS_STK    motor_test_stk[TASK_STACKSIZE];
+OS_STK    camera_test_stk[TASK_STACKSIZE];
+OS_STK    wifi_test_stk[TASK_STACKSIZE];
 
 /* Definition of Task Priorities */
 
-#define TASK1_PRIORITY      1
-#define TASK2_PRIORITY      2
+#define MOTOR_TEST_PRIORITY     1
+#define CAMERA_TEST_PRIORITY    2
+#define WIFI_TEST_PRIORITY		3
 
-//elf process failing at 0x008
-/* Prints "Hello World" and sleeps for three seconds */
-void task1(void* pdata)
-{
-	uint32_t *led_value = (uint32_t *) GREEN_LEDS_BASE;
+/*
+ * Drives FORWARD initially but when the INFRARED SENSOR
+ * detects something and it will REVERSE the direction
+ */
+void motor_test(void* pdata){
 	  while (1){
-			*led_value = *led_value ^ 0xFF;
-			OSTimeDlyHMSM(0, 0, 1, 0);
+		  //do stuff
 	  }
 }
+
+/*
+ * For this test it is assumed that the operator has two
+ * monotone images ready. Upon a BUTTON being pressed the
+ * camera will take a picture and output the average color
+ * value to the terminal. Operator will switch the image and
+ * press the button again. A different average color should
+ * appear in the terminal
+ */
+void camera_test(void* pdata){
+	  while (1){
+		  //do stuff
+	  }
+}
+
+/*
+ * Accept a command from the web interface and
+ * active some audio-visual peripheral based on the
+ * input from the web interface
+ */
+void wifi_test(void* pdata){
+	  while (1){
+		  //do stuff
+	  }
+}
+
 /* The main function creates two task and starts multi-tasking */
 int main(void)
 {
   
-  OSTaskCreateExt(task1,
+  OSTaskCreateExt(motor_test,
                   NULL,
-                  (void *)&task1_stk[TASK_STACKSIZE-1],
-                  TASK1_PRIORITY,
-                  TASK1_PRIORITY,
-                  task1_stk,
+                  (void *)&motor_test_stk[TASK_STACKSIZE-1],
+                  MOTOR_TEST_PRIORITY,
+                  MOTOR_TEST_PRIORITY,
+                  motor_test_stk,
+                  TASK_STACKSIZE,
+                  NULL,
+                  0);
+
+  OSTaskCreateExt(camera_test,
+                  NULL,
+                  (void *)&camera_test_stk[TASK_STACKSIZE-1],
+                  CAMERA_TEST_PRIORITY,
+                  CAMERA_TEST_PRIORITY,
+                  camera_test_stk,
+                  TASK_STACKSIZE,
+                  NULL,
+                  0);
+
+  OSTaskCreateExt(wifi_test,
+                  NULL,
+                  (void *)&wifi_test_stk[TASK_STACKSIZE-1],
+                  WIFI_TEST_PRIORITY,
+                  WIFI_TEST_PRIORITY,
+                  wifi_test_stk,
                   TASK_STACKSIZE,
                   NULL,
                   0);

@@ -1,5 +1,4 @@
-obj/default/wat_test.o: wat_test.c ../WAT_TEST_bsp//HAL/inc/io.h \
- ../WAT_TEST_bsp//HAL/inc/alt_types.h ../WAT_TEST_bsp//HAL/inc/includes.h \
+obj/default/wat_test.o: wat_test.c ../WAT_TEST_bsp//HAL/inc/includes.h \
  ../WAT_TEST_bsp//HAL/inc/os_cpu.h ../WAT_TEST_bsp//HAL/inc/sys/alt_irq.h \
  ../WAT_TEST_bsp//HAL/inc/nios2.h ../WAT_TEST_bsp//HAL/inc/alt_types.h \
  ../WAT_TEST_bsp/system.h ../WAT_TEST_bsp/linker.h \
@@ -8,10 +7,6 @@ obj/default/wat_test.o: wat_test.c ../WAT_TEST_bsp//HAL/inc/io.h \
  ../WAT_TEST_bsp//HAL/inc/sys/alt_llist.h \
  ../WAT_TEST_bsp//HAL/inc/priv/alt_alarm.h \
  ../WAT_TEST_bsp//UCOSII/inc/ucos_ii.h ../WAT_TEST_bsp//HAL/inc/os_cpu.h
-
-../WAT_TEST_bsp//HAL/inc/io.h:
-
-../WAT_TEST_bsp//HAL/inc/alt_types.h:
 
 ../WAT_TEST_bsp//HAL/inc/includes.h:
 
