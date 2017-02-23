@@ -34,8 +34,11 @@
 # Quartus Junk
 Quartus/db/**
 Quartus/incremental_db/**
+Quartus/.qsys_edit/**
+Quartus/trolley_system/**
 Quartus/output_files/**
 !Quartus/output_files/ECE492_g7_2017w_WAT.sof
+!Quartus/trolley_system/trolley_system_inst.vhd
 
 # =========================
 # Operating System Files
