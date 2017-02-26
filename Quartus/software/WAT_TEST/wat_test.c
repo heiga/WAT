@@ -29,9 +29,14 @@
 
 
 #include <stdio.h>
+#include <stdbool.h>
 #include <inttypes.h>
 #include <io.h>
 #include "includes.h"
+
+/* Redefine stdbool to use proper constants */
+#define TRUE   true
+#define FALSE  false
 
 /* Definition of Task Stacks */
 #define   TASK_STACKSIZE       2048
@@ -45,12 +50,24 @@ OS_STK    wifi_test_stk[TASK_STACKSIZE];
 #define CAMERA_TEST_PRIORITY    2
 #define WIFI_TEST_PRIORITY		3
 
-/* Definition of camera commands */
-#define CAM_WRITE_OFFSET        2
-#define CAM_READ_OFFSET         2
+/* Definition of Queue info */
+#define SEM_INIT_VALUE 0
+OS_EVENT *FREQ_SEM;
+
+/* Definition of camera constants */
+#define CAM_WRITE_OFFSET        0
+#define CAM_READ_OFFSET         0
 #define CAM_LENGTH      	    6
-static const CAM_START[CAM_LENGTH] = {0xAA, 0x01, 0x00, 0x07, 0x09, 0x03};
-static const CAM_ACK[CAM_LENGTH] = {0xAA, 0x0E, 0x00, 0x00, 0x00, 0x00}; //NEEDS REVISION
+#define CAM_MAX_SYNC_ATTEMPTS   60
+#define CAM_INIT_SYNC_DELAY     5
+
+/* Definition of camera commands */
+static const CAM_INIT[CAM_LENGTH] = {0xAA, 0x01, 0x00, 0x07, 0x07, 0x07};
+static const CAM_SYNC[CAM_LENGTH] = {0xAA, 0x0E, 0x00, 0x00, 0x00, 0x00};
+
+/* Definition of ACK commands to pair with each relevant command */
+static const CAM_ACK_INIT[CAM_LENGTH] = {0xAA, 0x0E, 0x01, 0x00, 0x00, 0x00};
+static const CAM_ACK_SYNC[CAM_LENGTH] = {0xAA, 0x0E, 0x0D, 0x00, 0x00, 0x00};
 
 /*
  * Drives FORWARD initially but when the INFRARED SENSOR
@@ -79,26 +96,70 @@ void motor_test(void* pdata){
  */
 void camera_test(void* pdata){
 
-	//add sync commands
+	uint8_t q = 0;
+	uint8_t err;
+	uint8_t sync_delay = CAM_INIT_SYNC_DELAY;
+	bool synced = FALSE;
 
-	for (uint8_t q=0; q< CAM_LENGTH;q++){
-		IOWR(CAM_UART_BASE,CAM_WRITE_OFFSET,CAM_START[q]);
+
+	/*
+	* Synchronise with camera
+	* Documentation mentions this will take 25-60 attempts
+	* Recommends an increasing delay between attempts
+	* with an initial time of 5ms
+	*/
+	for (q=0; q < CAM_MAX_SYNC_ATTEMPTS; q++){
+		for (q=0; q < CAM_LENGTH; q++){
+			IOWR(CAM_UART_BASE, CAM_WRITE_OFFSET, CAM_SYNC[q]);
+		}
+
+		OSTimeDlyHMSM(0, 0, 0, sync_delay);
+
+		for (uint8_t q=0; q< CAM_LENGTH;q++){
+			synced = TRUE;
+			if (IORD(CAM_UART_BASE, CAM_READ_OFFSET) != CAM_ACK_SYNC[q]){
+				synced = FALSE;
+			}
+		}
+
+		if (synced){
+			break;
+		}else{
+			sync_delay++;
+		}
 	}
 
-	OSTimeDlyHMSM(0, 0, 3, 0);
+	if (synced){
+		printf("Cam synced after %i attempts\n", sync_delay);
+	}else{
+		printf("Cam sync failure");
+		return;
+	}
 
-	for (uint8_t q=0; q< CAM_LENGTH;q++){
-		if (IORD(CAM_UART_BASE,CAM_WRITE_OFFSET) != CAM_ACK[q]){
-			printf("Camera start failure");
+	//Turn on camera
+	for (q=0; q < CAM_LENGTH; q++){
+		IOWR(CAM_UART_BASE, CAM_WRITE_OFFSET, CAM_INIT[q]);
+	}
+
+	//Wait for ACK that camera has turned on
+	OSTimeDlyHMSM(0, 0, 1, 0);
+	for (uint8_t q=0; q < CAM_LENGTH; q++){
+		if (IORD(CAM_UART_BASE, CAM_READ_OFFSET) != CAM_ACK_INIT[q]){
+			printf("Cam init failure");
 			return;
 		}
 	}
 
 	while (1){
 		//wait for button push
+		OSSemPend(FREQ_SEM, 0, &err);
+
 		//tell camera to take picture
+
 		//load image and process
+
 		//print to terminal
+
 		//repeat
 
 	}
@@ -118,7 +179,9 @@ void wifi_test(void* pdata){
 static void cam_button_interrupt(void * context){
 	//clear interrupt
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE,0);
+
 	//post semaphore for camera
+	OSSemPost(FREQ_SEM);
 }
 
 /* The main function creates two task and starts multi-tasking */
@@ -153,6 +216,9 @@ int main(void){
                     TASK_STACKSIZE,
                     NULL,
                     0);
+
+	//Semaphore for button controlling camera
+	FREQ_SEM = OSSemCreate(SEM_INIT_VALUE);
 
 	//Interrupt controller for button controlling camera
 	alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,

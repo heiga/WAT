@@ -91,3 +91,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+Quartus/.qsys_edit/preferences.xml
+Quartus/ECE492_g7_2017w_WAT.qws
