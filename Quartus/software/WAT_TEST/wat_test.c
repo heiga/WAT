@@ -57,17 +57,38 @@ OS_EVENT *FREQ_SEM;
 /* Definition of camera constants */
 #define CAM_WRITE_OFFSET        0
 #define CAM_READ_OFFSET         0
-#define CAM_LENGTH      	    6
-#define CAM_MAX_SYNC_ATTEMPTS   60
+#define CAM_LENGTH      	    14
+#define CAM_DATA_LENGTH	       	3
+#define CAM_MAX_ATTEMPTS   		60
 #define CAM_INIT_SYNC_DELAY     5
+#define ONE_COMMAND				1
+#define CAM_WAIT_SEC			1
+#define CAM_WAIT_MS				5
 
 /* Definition of camera commands */
-static const CAM_INIT[CAM_LENGTH] = {0xAA, 0x01, 0x00, 0x07, 0x07, 0x07};
-static const CAM_SYNC[CAM_LENGTH] = {0xAA, 0x0E, 0x00, 0x00, 0x00, 0x00};
+#define CAM_SYNC "0xAA0E00000000"
+#define CAM_INIT "0xAA0100070707"
+#define CAM_SIZE "0xAA0608000200"
+#define CAM_SNAP "0xAA0500000000"
+#define CAM_GRAB "0xAA0401000000"
+#define CAM_DATA "0xAA0A01XXXXXX" //NOTE sent by camera, last six bits are the package size
 
 /* Definition of ACK commands to pair with each relevant command */
-static const CAM_ACK_INIT[CAM_LENGTH] = {0xAA, 0x0E, 0x01, 0x00, 0x00, 0x00};
-static const CAM_ACK_SYNC[CAM_LENGTH] = {0xAA, 0x0E, 0x0D, 0x00, 0x00, 0x00};
+#define CAM_ACK_SYNC "0xAA0E0D000000"
+#define CAM_ACK_INIT "0xAA0E01000000"
+#define CAM_ACK_SIZE "0xAA0E06000000"
+#define CAM_ACK_SNAP "0xAA0E05000000"
+#define CAM_ACK_GRAB "0xAA0E04000000"
+#define CAM_ACK_DEND "0xAA0E0000F0F0"
+
+/* Defintion of the ACK commands for data processing
+ * NOTE there are two more commands consisting of the last packet ID
+ */
+#define CAM_DACK_ONE 0xAA
+#define CAM_DACK_TWO 0x0E
+#define CAM_DACK_TRE 0x00
+#define CAM_DACK_FOR 0x00
+
 
 /*
  * Drives FORWARD initially but when the INFRARED SENSOR
@@ -97,27 +118,35 @@ void motor_test(void* pdata){
 void camera_test(void* pdata){
 
 	uint8_t q = 0;
+	uint8_t z = 0;
 	uint8_t err;
 	uint8_t sync_delay = CAM_INIT_SYNC_DELAY;
+	uint16_t packet_count = 0;
 	bool synced = FALSE;
+	char cam_reply = 0;
+	FILE* cam;
 
-
+	//Open the serial connection
+	cam = fopen(CAM_UART_NAME,"r+");
+	if(!cam){
+		printf("Error opening connection to camera");
+		return;
+	}
 	/*
 	* Synchronise with camera
 	* Documentation mentions this will take 25-60 attempts
 	* Recommends an increasing delay between attempts
 	* with an initial time of 5ms
 	*/
-	for (q=0; q < CAM_MAX_SYNC_ATTEMPTS; q++){
-		for (q=0; q < CAM_LENGTH; q++){
-			IOWR(CAM_UART_BASE, CAM_WRITE_OFFSET, CAM_SYNC[q]);
-		}
+	for (q = 0; q < CAM_MAX_ATTEMPTS; q++){
+
+		fwrite(CAM_SYNC, CAM_LENGTH, ONE_COMMAND, cam);
 
 		OSTimeDlyHMSM(0, 0, 0, sync_delay);
-
-		for (uint8_t q=0; q< CAM_LENGTH;q++){
-			synced = TRUE;
-			if (IORD(CAM_UART_BASE, CAM_READ_OFFSET) != CAM_ACK_SYNC[q]){
+		synced = TRUE;
+		for (z = 0; z < CAM_LENGTH; z++){
+			cam_reply = fgetc(cam);
+			if (strcmp(cam_reply, CAM_ACK_SYNC[z]) != 0){
 				synced = FALSE;
 			}
 		}
@@ -137,26 +166,68 @@ void camera_test(void* pdata){
 	}
 
 	//Turn on camera
-	for (q=0; q < CAM_LENGTH; q++){
-		IOWR(CAM_UART_BASE, CAM_WRITE_OFFSET, CAM_INIT[q]);
-	}
-
-	//Wait for ACK that camera has turned on
-	OSTimeDlyHMSM(0, 0, 1, 0);
-	for (uint8_t q=0; q < CAM_LENGTH; q++){
-		if (IORD(CAM_UART_BASE, CAM_READ_OFFSET) != CAM_ACK_INIT[q]){
+	fwrite(CAM_INIT, CAM_LENGTH, ONE_COMMAND, cam);
+	OSTimeDlyHMSM(0, 0, 1, 500);
+	for (z = 0; z < CAM_LENGTH; z++){
+		cam_reply = fgetc(cam);
+		if (strcmp(cam_reply, CAM_ACK_INIT[z]) != 0){
 			printf("Cam init failure");
 			return;
 		}
 	}
+
+	//Wait the recommended second then check for ACK
 
 	while (1){
 		//wait for button push
 		OSSemPend(FREQ_SEM, 0, &err);
 
 		//tell camera to take picture
+		fwrite(CAM_SIZE, CAM_LENGTH, ONE_COMMAND, cam);
+		OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
+		for (z = 0; z < CAM_LENGTH; z++){
+			cam_reply = fgetc(cam);
+			if (strcmp(cam_reply, CAM_ACK_SIZE[z]) != 0){
+				printf("Cam size failure");
+				return;
+			}
+		}
+
+		//tell camera to take picture
+		fwrite(CAM_SNAP, CAM_LENGTH, ONE_COMMAND, cam);
+		OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
+		for (z = 0; z < CAM_LENGTH; z++){
+			cam_reply = fgetc(cam);
+			if (strcmp(cam_reply, CAM_ACK_SNAP[z]) != 0){
+				printf("Cam snap failure");
+				return;
+			}
+		}
+
+		//Tell camera we are reacy to recieve the picture
+		fwrite(CAM_GRAB, CAM_LENGTH, ONE_COMMAND, cam);
+		OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
+		for (z = 0; z < CAM_LENGTH; z++){
+			cam_reply = fgetc(cam);
+			if (strcmp(cam_reply, CAM_ACK_GRAB[z]) != 0){
+				printf("Cam grab failure");
+				return;
+			}
+		}
+
+		//Get total packet count
+		OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
+		for (z = 0; z < CAM_DATA_LENGTH; z++){
+			cam_reply = fgetc(cam);
+			if (strcmp(cam_reply, CAM_DATA[z]) != 0){
+				printf("Cam get data count failure");
+				return;
+			}
+		}
+		//get 6 hex characters, turn into an int
 
 		//load image and process
+
 
 		//print to terminal
 
