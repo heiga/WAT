@@ -29,7 +29,9 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include <inttypes.h>
 #include <io.h>
 #include "includes.h"
@@ -57,29 +59,31 @@ OS_EVENT *FREQ_SEM;
 /* Definition of camera constants */
 #define CAM_WRITE_OFFSET        0
 #define CAM_READ_OFFSET         0
-#define CAM_LENGTH      	    14
+#define CAM_LENGTH      	    12
 #define CAM_DATA_LENGTH	       	3
 #define CAM_MAX_ATTEMPTS   		60
 #define CAM_INIT_SYNC_DELAY     5
 #define ONE_COMMAND				1
 #define CAM_WAIT_SEC			1
 #define CAM_WAIT_MS				5
+#define CAM_LAST_PACKAGE		"F0FO"
+#define CAM_PACKAGE_SIZE		512
 
 /* Definition of camera commands */
-#define CAM_SYNC "0xAA0E00000000"
-#define CAM_INIT "0xAA0100070707"
-#define CAM_SIZE "0xAA0608000200"
-#define CAM_SNAP "0xAA0500000000"
-#define CAM_GRAB "0xAA0401000000"
-#define CAM_DATA "0xAA0A01XXXXXX" //NOTE sent by camera, last six bits are the package size
+#define CAM_SYNC "AA0E00000000"
+#define CAM_INIT "AA0100070707"
+#define CAM_SIZE "AA0608000200" //512 bytes
+#define CAM_SNAP "AA0500000000"
+#define CAM_GRAB "AA0401000000"
+#define CAM_DATA "AA0A01XXXXXX" //NOTE sent by camera, last six bits are the package size
 
 /* Definition of ACK commands to pair with each relevant command */
-#define CAM_ACK_SYNC "0xAA0E0D000000"
-#define CAM_ACK_INIT "0xAA0E01000000"
-#define CAM_ACK_SIZE "0xAA0E06000000"
-#define CAM_ACK_SNAP "0xAA0E05000000"
-#define CAM_ACK_GRAB "0xAA0E04000000"
-#define CAM_ACK_DEND "0xAA0E0000F0F0"
+#define CAM_ACK_SYNC "AA0E0D000000"
+#define CAM_ACK_INIT "AA0E01000000"
+#define CAM_ACK_SIZE "AA0E06000000"
+#define CAM_ACK_SNAP "AA0E05000000"
+#define CAM_ACK_GRAB "AA0E04000000"
+#define CAM_ACK_DEND "AA0E0000F0F0"
 
 /* Defintion of the ACK commands for data processing
  * NOTE there are two more commands consisting of the last packet ID
@@ -123,8 +127,13 @@ void camera_test(void* pdata){
 	uint8_t sync_delay = CAM_INIT_SYNC_DELAY;
 	uint16_t packet_count = 0;
 	bool synced = FALSE;
+	char *packet_count_string;
 	char cam_reply = 0;
+	char *end;
+	char *package_ID = "0000";
+	char *buffer;
 	FILE* cam;
+	FILE* picture;
 
 	//Open the serial connection
 	cam = fopen(CAM_UART_NAME,"r+");
@@ -146,12 +155,13 @@ void camera_test(void* pdata){
 		synced = TRUE;
 		for (z = 0; z < CAM_LENGTH; z++){
 			cam_reply = fgetc(cam);
-			if (strcmp(cam_reply, CAM_ACK_SYNC[z]) != 0){
+			if (strcmp(&cam_reply, &CAM_ACK_SYNC[z]) != 0){
 				synced = FALSE;
 			}
 		}
 
 		if (synced){
+			fwrite(CAM_ACK_SYNC, CAM_LENGTH, ONE_COMMAND, cam);
 			break;
 		}else{
 			sync_delay++;
@@ -170,7 +180,7 @@ void camera_test(void* pdata){
 	OSTimeDlyHMSM(0, 0, 1, 500);
 	for (z = 0; z < CAM_LENGTH; z++){
 		cam_reply = fgetc(cam);
-		if (strcmp(cam_reply, CAM_ACK_INIT[z]) != 0){
+		if (strcmp(&cam_reply, &CAM_ACK_INIT[z]) != 0){
 			printf("Cam init failure");
 			return;
 		}
@@ -187,7 +197,7 @@ void camera_test(void* pdata){
 		OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
 		for (z = 0; z < CAM_LENGTH; z++){
 			cam_reply = fgetc(cam);
-			if (strcmp(cam_reply, CAM_ACK_SIZE[z]) != 0){
+			if (strcmp(&cam_reply, &CAM_ACK_SIZE[z]) != 0){
 				printf("Cam size failure");
 				return;
 			}
@@ -198,7 +208,7 @@ void camera_test(void* pdata){
 		OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
 		for (z = 0; z < CAM_LENGTH; z++){
 			cam_reply = fgetc(cam);
-			if (strcmp(cam_reply, CAM_ACK_SNAP[z]) != 0){
+			if (strcmp(&cam_reply, &CAM_ACK_SNAP[z]) != 0){
 				printf("Cam snap failure");
 				return;
 			}
@@ -209,7 +219,7 @@ void camera_test(void* pdata){
 		OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
 		for (z = 0; z < CAM_LENGTH; z++){
 			cam_reply = fgetc(cam);
-			if (strcmp(cam_reply, CAM_ACK_GRAB[z]) != 0){
+			if (strcmp(&cam_reply, &CAM_ACK_GRAB[z]) != 0){
 				printf("Cam grab failure");
 				return;
 			}
@@ -219,14 +229,29 @@ void camera_test(void* pdata){
 		OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
 		for (z = 0; z < CAM_DATA_LENGTH; z++){
 			cam_reply = fgetc(cam);
-			if (strcmp(cam_reply, CAM_DATA[z]) != 0){
+			if (strcmp(&cam_reply, &CAM_DATA[z]) != 0){
 				printf("Cam get data count failure");
 				return;
 			}
 		}
-		//get 6 hex characters, turn into an int
+		//get last characters, turn into an int
+		fgets(packet_count_string, CAM_LENGTH - CAM_DATA_LENGTH, cam);
+		packet_count = strtoull(packet_count_string, &end, 16);
 
-		//load image and process
+		//Collect image
+		//note, package size = 512 -> Data = 506
+		//ID = 2, Size = 2, Data = 506, Verifification = 2
+
+		//TODO fix these constants
+		while(strcmp(package_ID, CAM_LAST_PACKAGE) != 0){
+			fgets(buffer, CAM_PACKAGE_SIZE, cam);
+			strncpy(package_ID, buffer, 4);
+
+			fseek(picture, 0, SEEK_END);
+			for (z = 5; z < CAM_PACKAGE_SIZE-2; z++){
+				fwrite(&buffer[z], sizeof(char), ONE_COMMAND, picture);
+			}
+		}
 
 
 		//print to terminal
