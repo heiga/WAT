@@ -34,6 +34,7 @@
 #include <string.h>
 #include <inttypes.h>
 #include <io.h>
+#include <altera_avalon_uart_regs.h>
 #include "includes.h"
 
 /* Redefine stdbool to use proper constants */
@@ -59,10 +60,10 @@ OS_EVENT *FREQ_SEM;
 /* Definition of camera constants */
 #define CAM_WRITE_OFFSET        0
 #define CAM_READ_OFFSET         0
-#define CAM_LENGTH      	    24
+#define CAM_LENGTH      	    12
 #define CAM_SERIAL_LEN			4
 #define CAM_DATA_LENGTH	       	3
-#define CAM_MAX_ATTEMPTS   		100
+#define CAM_MAX_ATTEMPTS   		60
 #define CAM_INIT_SYNC_DELAY     5
 #define ONE_COMMAND				1
 #define CAM_WAIT_SEC			1
@@ -71,20 +72,20 @@ OS_EVENT *FREQ_SEM;
 #define CAM_PACKAGE_SIZE		512
 
 /* Definition of camera commands */
-static const char *CAM_SYNC = "AA\n0E\n00\n00\n00\n00\n";
-#define CAM_INIT "AA0100070707"
-#define CAM_SIZE "AA0608000200" //512 bytes
-#define CAM_SNAP "AA0500000000"
-#define CAM_GRAB "AA0401000000"
-#define CAM_DATA "AA0A01XXXXXX" //NOTE sent by camera, last six bits are the package size
+static const char *CAM_SYNC = "AA0E00000000";
+static const char *CAM_INIT = "AA0100070707";
+static const char *CAM_SIZE = "AA0608000200"; //512 bytes
+static const char *CAM_SNAP = "AA0500000000";
+static const char *CAM_GRAB = "AA0401000000";
+static const char *CAM_DATA = "AA0A01XXXXXX"; //NOTE sent by camera, last six bits are the package size
 
 /* Definition of ACK commands to pair with each relevant command */
 static const char *CAM_ACK_SYNC = "AA0E0D000000";
-#define CAM_ACK_INIT "AA0E01000000"
-#define CAM_ACK_SIZE "AA0E06000000"
-#define CAM_ACK_SNAP "AA0E05000000"
-#define CAM_ACK_GRAB "AA0E04000000"
-#define CAM_ACK_DEND "AA0E0000F0F0"
+static const char *CAM_ACK_INIT = "AA0E01000000";
+static const char *CAM_ACK_SIZE = "AA0E06000000";
+static const char *CAM_ACK_SNAP = "AA0E05000000";
+static const char *CAM_ACK_GRAB = "AA0E04000000";
+static const char *CAM_ACK_DEND = "AA0E0000F0F0";
 
 /* Defintion of the ACK commands for data processing
  * NOTE there are two more commands consisting of the last packet ID
@@ -159,7 +160,7 @@ void camera_test(void* pdata){
 		fwrite("FF", 4, 1, cam);
 	}
 */
-
+/*
 	for (q = 0; q < CAM_MAX_ATTEMPTS; q++){
 		printf("Attempting sync %i\n", q);
 		fwrite(CAM_SYNC, CAM_LENGTH, CAM_SERIAL_LEN, cam);
@@ -185,7 +186,40 @@ void camera_test(void* pdata){
 			printf("Failed sync %i\n", q);
 		}
 	}
+*/
 
+		for (q=0; q < CAM_MAX_ATTEMPTS; q++){
+	 		for (z=0; z < CAM_LENGTH; z++){
+	 			while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_TRDY_MSK));
+	 			IOWR_ALTERA_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_SYNC[z]);
+	 		}
+
+	 		OSTimeDlyHMSM(0, 0, 0, sync_delay);
+
+
+	 		if((IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_RRDY_MSK)){
+	 			printf("got ack on %i\n", q);
+	 			synced = TRUE;
+	 			for (z=0; z< CAM_LENGTH;z++){
+	 				while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_TRDY_MSK));
+		 			cam_reply = IORD_ALTERA_AVALON_UART_RXDATA(CAM_UART_BASE);
+		 			printf("%i",cam_reply);
+		 			if (cam_reply == CAM_ACK_SYNC[z]){
+		 				synced = FALSE;
+		 			}
+		 		}
+	 			printf("\n");
+	 		}else{
+	 			synced = FALSE;
+	 		}
+
+	 		if (synced){
+	 			break;
+	 		}else{
+	 			sync_delay++;
+	 		}
+	 	}
+		IORD_ALTERA_AVALON_UART_RXDATA(CAM_UART_BASE);
 	if (synced){
 		printf("Cam synced after %i attempts\n", sync_delay);
 		*leds = *leds ^ 0xFF;
@@ -198,6 +232,7 @@ void camera_test(void* pdata){
 	fwrite(CAM_INIT, CAM_LENGTH, ONE_COMMAND, cam);
 	OSTimeDlyHMSM(0, 0, 1, 500);
 	for (z = 0; z < CAM_LENGTH; z++){
+		printf("Waiting where I think we are...");
 		cam_reply = fgetc(cam);
 		if (strcmp(&cam_reply, &CAM_ACK_INIT[z]) != 0){
 			printf("Cam init failure");
