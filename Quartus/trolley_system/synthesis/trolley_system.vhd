@@ -157,6 +157,20 @@ architecture rtl of trolley_system is
 		);
 	end component trolley_system_jtag_uart_0;
 
+	component trolley_system_key is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			in_port    : in  std_logic                     := 'X';             -- export
+			irq        : out std_logic                                         -- irq
+		);
+	end component trolley_system_key;
+
 	component trolley_system_motor_l is
 		port (
 			clk        : in  std_logic                     := 'X';             -- clk
@@ -874,7 +888,7 @@ begin
 			av_irq         => irq_mapper_receiver0_irq                                         --               irq.irq
 		);
 
-	key : component trolley_system_button_button
+	key : component trolley_system_key
 		port map (
 			clk        => altpll_0_c0_clk,                              --                 clk.clk
 			reset_n    => rst_controller_002_reset_out_reset_ports_inv, --               reset.reset_n

@@ -1,4 +1,5 @@
 	trolley_system u0 (
+		.altpll_0_c1_clk                          (<connected-to-altpll_0_c1_clk>),                          //                       altpll_0_c1.clk
 		.button_button_external_connection_export (<connected-to-button_button_external_connection_export>), // button_button_external_connection.export
 		.button_led_external_connection_export    (<connected-to-button_led_external_connection_export>),    //    button_led_external_connection.export
 		.cam_uart_external_connection_rxd         (<connected-to-cam_uart_external_connection_rxd>),         //      cam_uart_external_connection.rxd
@@ -9,6 +10,7 @@
 		.epcs_flash_controller_0_external_sdo     (<connected-to-epcs_flash_controller_0_external_sdo>),     //                                  .sdo
 		.epcs_flash_controller_0_external_data0   (<connected-to-epcs_flash_controller_0_external_data0>),   //                                  .data0
 		.green_leds_external_connection_export    (<connected-to-green_leds_external_connection_export>),    //    green_leds_external_connection.export
+		.key_external_connection_export           (<connected-to-key_external_connection_export>),           //           key_external_connection.export
 		.motor_l_external_connection_export       (<connected-to-motor_l_external_connection_export>),       //       motor_l_external_connection.export
 		.motor_r_external_connection_export       (<connected-to-motor_r_external_connection_export>),       //       motor_r_external_connection.export
 		.prox_sensor_external_connection_export   (<connected-to-prox_sensor_external_connection_export>),   //   prox_sensor_external_connection.export
@@ -24,8 +26,6 @@
 		.sdram_controller_0_wire_we_n             (<connected-to-sdram_controller_0_wire_we_n>),             //                                  .we_n
 		.speaker_external_connection_export       (<connected-to-speaker_external_connection_export>),       //       speaker_external_connection.export
 		.wifi_uart_external_connection_rxd        (<connected-to-wifi_uart_external_connection_rxd>),        //     wifi_uart_external_connection.rxd
-		.wifi_uart_external_connection_txd        (<connected-to-wifi_uart_external_connection_txd>),        //                                  .txd
-		.key_external_connection_export           (<connected-to-key_external_connection_export>),           //           key_external_connection.export
-		.altpll_0_c1_clk                          (<connected-to-altpll_0_c1_clk>)                           //                       altpll_0_c1.clk
+		.wifi_uart_external_connection_txd        (<connected-to-wifi_uart_external_connection_txd>)         //                                  .txd
 	);
 

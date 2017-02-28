@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>22-Feb-2017 6:51:29 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1487814689636</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>27-Feb-2017 3:48:02 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1488235682463</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\WAT\Quartus\software\WAT_TEST_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\trolley_system.sopcinfo</SopcDesignFile>

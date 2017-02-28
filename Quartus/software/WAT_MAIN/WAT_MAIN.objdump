@@ -79,7 +79,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  31 .jdi          0000448f  00000000  00000000  000592ff  2**0
                   CONTENTS, READONLY
- 32 .sopcinfo     00096e7a  00000000  00000000  0005d78e  2**0
+ 32 .sopcinfo     00096f3e  00000000  00000000  0005d78e  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 01009000 l    d  .entry	00000000 .entry
@@ -906,14 +906,14 @@ static ALT_INLINE alt_u32 ALT_ALWAYS_INLINE alt_irq_pending (void)
  10041a0:	e0bffd15 	stw	r2,-12(fp)
 
     } while (1);
- 10041a4:	003fe106 	br	100412c <__reset+0xffffb12c>
+ 10041a4:	003fe106 	br	100412c <__alt_mem_epcs_flash_controller_0+0xffffb12c>
 
     active = alt_irq_pending ();
  10041a8:	e0bffb15 	stw	r2,-20(fp)
     
   } while (active);
  10041ac:	e0bffb17 	ldw	r2,-20(fp)
- 10041b0:	103fdb1e 	bne	r2,zero,1004120 <__reset+0xffffb120>
+ 10041b0:	103fdb1e 	bne	r2,zero,1004120 <__alt_mem_epcs_flash_controller_0+0xffffb120>
 
   /*
    * Notify the operating system that interrupt processing is complete.
@@ -1030,7 +1030,7 @@ Disassembly of section .text:
     addi r2, r2, 4
   800028:	10800104 	addi	r2,r2,4
     bltu r2, r3, 0b
-  80002c:	10fffd36 	bltu	r2,r3,800024 <__reset+0xff7f7024>
+  80002c:	10fffd36 	bltu	r2,r3,800024 <__alt_mem_epcs_flash_controller_0+0xff7f7024>
 
     /* Log that alt_main is about to be called. */
     ALT_LOG_PUTS(alt_log_msg_alt_main)
@@ -1044,7 +1044,7 @@ Disassembly of section .text:
     /* Wait in infinite loop in case alt_main does return. */
 alt_after_alt_main:
     br alt_after_alt_main
-  800034:	003fff06 	br	800034 <__reset+0xff7f7034>
+  800034:	003fff06 	br	800034 <__alt_mem_epcs_flash_controller_0+0xff7f7034>
 
 00800038 <task1>:
 #define TASK1_PRIORITY      1
@@ -1071,7 +1071,7 @@ void task1(void* pdata)
   800064:	0009883a 	mov	r4,zero
   800068:	080aefc0 	call	80aefc <OSTimeDlyHMSM>
   }
-  80006c:	003ff706 	br	80004c <__reset+0xff7f704c>
+  80006c:	003ff706 	br	80004c <__alt_mem_epcs_flash_controller_0+0xff7f704c>
 
 00800070 <task2>:
 }
@@ -1096,7 +1096,7 @@ void task2(void* pdata)
   80009c:	0009883a 	mov	r4,zero
   8000a0:	080aefc0 	call	80aefc <OSTimeDlyHMSM>
   }
-  8000a4:	003ff706 	br	800084 <__reset+0xff7f7084>
+  8000a4:	003ff706 	br	800084 <__alt_mem_epcs_flash_controller_0+0xff7f7084>
 
 008000a8 <main>:
 }
@@ -1209,9 +1209,9 @@ int main(void)
   8001fc:	f800283a 	ret
   800200:	8009883a 	mov	r4,r16
   800204:	08006200 	call	800620 <__sinit>
-  800208:	003fe906 	br	8001b0 <__reset+0xff7f71b0>
+  800208:	003fe906 	br	8001b0 <__alt_mem_epcs_flash_controller_0+0xff7f71b0>
   80020c:	00bfffc4 	movi	r2,-1
-  800210:	003ff606 	br	8001ec <__reset+0xff7f71ec>
+  800210:	003ff606 	br	8001ec <__alt_mem_epcs_flash_controller_0+0xff7f71ec>
 
 00800214 <puts>:
   800214:	00802074 	movhi	r2,129
@@ -1231,7 +1231,7 @@ int main(void)
   800244:	18001826 	beq	r3,zero,8002a8 <strlen+0x80>
   800248:	10800044 	addi	r2,r2,1
   80024c:	10c000cc 	andi	r3,r2,3
-  800250:	183ffb1e 	bne	r3,zero,800240 <__reset+0xff7f7240>
+  800250:	183ffb1e 	bne	r3,zero,800240 <__alt_mem_epcs_flash_controller_0+0xff7f7240>
   800254:	10c00017 	ldw	r3,0(r2)
   800258:	01ffbff4 	movhi	r7,65279
   80025c:	39ffbfc4 	addi	r7,r7,-257
@@ -1248,15 +1248,15 @@ int main(void)
   800288:	00c6303a 	nor	r3,zero,r3
   80028c:	28c6703a 	and	r3,r5,r3
   800290:	1986703a 	and	r3,r3,r6
-  800294:	183ff926 	beq	r3,zero,80027c <__reset+0xff7f727c>
+  800294:	183ff926 	beq	r3,zero,80027c <__alt_mem_epcs_flash_controller_0+0xff7f727c>
   800298:	00000106 	br	8002a0 <strlen+0x78>
   80029c:	10800044 	addi	r2,r2,1
   8002a0:	10c00007 	ldb	r3,0(r2)
-  8002a4:	183ffd1e 	bne	r3,zero,80029c <__reset+0xff7f729c>
+  8002a4:	183ffd1e 	bne	r3,zero,80029c <__alt_mem_epcs_flash_controller_0+0xff7f729c>
   8002a8:	1105c83a 	sub	r2,r2,r4
   8002ac:	f800283a 	ret
   8002b0:	2005883a 	mov	r2,r4
-  8002b4:	003fe706 	br	800254 <__reset+0xff7f7254>
+  8002b4:	003fe706 	br	800254 <__alt_mem_epcs_flash_controller_0+0xff7f7254>
   8002b8:	0005883a 	mov	r2,zero
   8002bc:	f800283a 	ret
 
@@ -1440,11 +1440,11 @@ int main(void)
   800558:	213fffc4 	addi	r4,r4,-1
   80055c:	1c3ffd04 	addi	r16,r3,-12
   800560:	18c01a04 	addi	r3,r3,104
-  800564:	247ffa1e 	bne	r4,r17,800550 <__reset+0xff7f7550>
+  800564:	247ffa1e 	bne	r4,r17,800550 <__alt_mem_epcs_flash_controller_0+0xff7f7550>
   800568:	90800017 	ldw	r2,0(r18)
   80056c:	10001d26 	beq	r2,zero,8005e4 <__sfp+0xf4>
   800570:	1025883a 	mov	r18,r2
-  800574:	003fee06 	br	800530 <__reset+0xff7f7530>
+  800574:	003fee06 	br	800530 <__alt_mem_epcs_flash_controller_0+0xff7f7530>
   800578:	00bfffc4 	movi	r2,-1
   80057c:	8080038d 	sth	r2,14(r16)
   800580:	00800044 	movi	r2,1
@@ -1476,11 +1476,11 @@ int main(void)
   8005e8:	9809883a 	mov	r4,r19
   8005ec:	08004780 	call	800478 <__sfmoreglue>
   8005f0:	90800015 	stw	r2,0(r18)
-  8005f4:	103fde1e 	bne	r2,zero,800570 <__reset+0xff7f7570>
+  8005f4:	103fde1e 	bne	r2,zero,800570 <__alt_mem_epcs_flash_controller_0+0xff7f7570>
   8005f8:	00800304 	movi	r2,12
   8005fc:	98800015 	stw	r2,0(r19)
   800600:	0005883a 	mov	r2,zero
-  800604:	003ff006 	br	8005c8 <__reset+0xff7f75c8>
+  800604:	003ff006 	br	8005c8 <__alt_mem_epcs_flash_controller_0+0xff7f75c8>
 
 00800608 <_cleanup>:
   800608:	00802074 	movhi	r2,129
@@ -1569,7 +1569,7 @@ int main(void)
   800714:	90a5c83a 	sub	r18,r18,r2
   800718:	1885c83a 	sub	r2,r3,r2
   80071c:	a0800215 	stw	r2,8(r20)
-  800720:	103fef1e 	bne	r2,zero,8006e0 <__reset+0xff7f76e0>
+  800720:	103fef1e 	bne	r2,zero,8006e0 <__alt_mem_epcs_flash_controller_0+0xff7f76e0>
   800724:	0005883a 	mov	r2,zero
   800728:	dfc00b17 	ldw	ra,44(sp)
   80072c:	df000a17 	ldw	fp,40(sp)
@@ -1590,7 +1590,7 @@ int main(void)
   800768:	80c0030b 	ldhu	r3,12(r16)
   80076c:	a4400017 	ldw	r17,0(r20)
   800770:	1880008c 	andi	r2,r3,2
-  800774:	103fd61e 	bne	r2,zero,8006d0 <__reset+0xff7f76d0>
+  800774:	103fd61e 	bne	r2,zero,8006d0 <__alt_mem_epcs_flash_controller_0+0xff7f76d0>
   800778:	1880004c 	andi	r2,r3,1
   80077c:	1000421e 	bne	r2,zero,800888 <__sfvwrite_r+0x218>
   800780:	0039883a 	mov	fp,zero
@@ -1619,17 +1619,17 @@ int main(void)
   8007dc:	90a5c83a 	sub	r18,r18,r2
   8007e0:	18a7c83a 	sub	r19,r3,r2
   8007e4:	a4c00215 	stw	r19,8(r20)
-  8007e8:	983fce26 	beq	r19,zero,800724 <__reset+0xff7f7724>
+  8007e8:	983fce26 	beq	r19,zero,800724 <__alt_mem_epcs_flash_controller_0+0xff7f7724>
   8007ec:	80c0030b 	ldhu	r3,12(r16)
-  8007f0:	903fe61e 	bne	r18,zero,80078c <__reset+0xff7f778c>
+  8007f0:	903fe61e 	bne	r18,zero,80078c <__alt_mem_epcs_flash_controller_0+0xff7f778c>
   8007f4:	8f000017 	ldw	fp,0(r17)
   8007f8:	8c800117 	ldw	r18,4(r17)
   8007fc:	8c400204 	addi	r17,r17,8
-  800800:	003fe106 	br	800788 <__reset+0xff7f7788>
+  800800:	003fe106 	br	800788 <__alt_mem_epcs_flash_controller_0+0xff7f7788>
   800804:	8cc00017 	ldw	r19,0(r17)
   800808:	8c800117 	ldw	r18,4(r17)
   80080c:	8c400204 	addi	r17,r17,8
-  800810:	003fb306 	br	8006e0 <__reset+0xff7f76e0>
+  800810:	003fb306 	br	8006e0 <__alt_mem_epcs_flash_controller_0+0xff7f76e0>
   800814:	0005883a 	mov	r2,zero
   800818:	f800283a 	ret
   80081c:	81000017 	ldw	r4,0(r16)
@@ -1653,12 +1653,12 @@ int main(void)
   800864:	e00d883a 	mov	r6,fp
   800868:	a809883a 	mov	r4,r21
   80086c:	183ee83a 	callr	r3
-  800870:	00bfd816 	blt	zero,r2,8007d4 <__reset+0xff7f77d4>
+  800870:	00bfd816 	blt	zero,r2,8007d4 <__alt_mem_epcs_flash_controller_0+0xff7f77d4>
   800874:	8080030b 	ldhu	r2,12(r16)
   800878:	10801014 	ori	r2,r2,64
   80087c:	8080030d 	sth	r2,12(r16)
   800880:	00bfffc4 	movi	r2,-1
-  800884:	003fa806 	br	800728 <__reset+0xff7f7728>
+  800884:	003fa806 	br	800728 <__alt_mem_epcs_flash_controller_0+0xff7f7728>
   800888:	0027883a 	mov	r19,zero
   80088c:	0011883a 	mov	r8,zero
   800890:	0039883a 	mov	fp,zero
@@ -1685,7 +1685,7 @@ int main(void)
   8008e4:	103ee83a 	callr	r2
   8008e8:	102f883a 	mov	r23,r2
   8008ec:	da000117 	ldw	r8,4(sp)
-  8008f0:	00bfe00e 	bge	zero,r2,800874 <__reset+0xff7f7874>
+  8008f0:	00bfe00e 	bge	zero,r2,800874 <__alt_mem_epcs_flash_controller_0+0xff7f7874>
   8008f4:	9de7c83a 	sub	r19,r19,r23
   8008f8:	98001f26 	beq	r19,zero,800978 <__sfvwrite_r+0x308>
   8008fc:	a0800217 	ldw	r2,8(r20)
@@ -1693,13 +1693,13 @@ int main(void)
   800904:	95e5c83a 	sub	r18,r18,r23
   800908:	15efc83a 	sub	r23,r2,r23
   80090c:	a5c00215 	stw	r23,8(r20)
-  800910:	b83f8426 	beq	r23,zero,800724 <__reset+0xff7f7724>
-  800914:	903fe11e 	bne	r18,zero,80089c <__reset+0xff7f789c>
+  800910:	b83f8426 	beq	r23,zero,800724 <__alt_mem_epcs_flash_controller_0+0xff7f7724>
+  800914:	903fe11e 	bne	r18,zero,80089c <__alt_mem_epcs_flash_controller_0+0xff7f789c>
   800918:	8f000017 	ldw	fp,0(r17)
   80091c:	8c800117 	ldw	r18,4(r17)
   800920:	0011883a 	mov	r8,zero
   800924:	8c400204 	addi	r17,r17,8
-  800928:	003fdb06 	br	800898 <__reset+0xff7f7898>
+  800928:	003fdb06 	br	800898 <__alt_mem_epcs_flash_controller_0+0xff7f7898>
   80092c:	180d883a 	mov	r6,r3
   800930:	e00b883a 	mov	r5,fp
   800934:	da000115 	stw	r8,4(sp)
@@ -1715,16 +1715,16 @@ int main(void)
   80095c:	08025980 	call	802598 <_fflush_r>
   800960:	d8c00017 	ldw	r3,0(sp)
   800964:	da000117 	ldw	r8,4(sp)
-  800968:	103fc21e 	bne	r2,zero,800874 <__reset+0xff7f7874>
+  800968:	103fc21e 	bne	r2,zero,800874 <__alt_mem_epcs_flash_controller_0+0xff7f7874>
   80096c:	182f883a 	mov	r23,r3
   800970:	9de7c83a 	sub	r19,r19,r23
-  800974:	983fe11e 	bne	r19,zero,8008fc <__reset+0xff7f78fc>
+  800974:	983fe11e 	bne	r19,zero,8008fc <__alt_mem_epcs_flash_controller_0+0xff7f78fc>
   800978:	800b883a 	mov	r5,r16
   80097c:	a809883a 	mov	r4,r21
   800980:	08025980 	call	802598 <_fflush_r>
-  800984:	103fbb1e 	bne	r2,zero,800874 <__reset+0xff7f7874>
+  800984:	103fbb1e 	bne	r2,zero,800874 <__alt_mem_epcs_flash_controller_0+0xff7f7874>
   800988:	0011883a 	mov	r8,zero
-  80098c:	003fdb06 	br	8008fc <__reset+0xff7f78fc>
+  80098c:	003fdb06 	br	8008fc <__alt_mem_epcs_flash_controller_0+0xff7f78fc>
   800990:	94c0012e 	bgeu	r18,r19,800998 <__sfvwrite_r+0x328>
   800994:	9027883a 	mov	r19,r18
   800998:	980d883a 	mov	r6,r19
@@ -1738,7 +1738,7 @@ int main(void)
   8009b8:	80c00015 	stw	r3,0(r16)
   8009bc:	10004326 	beq	r2,zero,800acc <__sfvwrite_r+0x45c>
   8009c0:	9805883a 	mov	r2,r19
-  8009c4:	003f8306 	br	8007d4 <__reset+0xff7f77d4>
+  8009c4:	003f8306 	br	8007d4 <__alt_mem_epcs_flash_controller_0+0xff7f77d4>
   8009c8:	b00d883a 	mov	r6,r22
   8009cc:	e00b883a 	mov	r5,fp
   8009d0:	da000115 	stw	r8,4(sp)
@@ -1750,11 +1750,11 @@ int main(void)
   8009e8:	1dad883a 	add	r22,r3,r22
   8009ec:	80800215 	stw	r2,8(r16)
   8009f0:	85800015 	stw	r22,0(r16)
-  8009f4:	003fbf06 	br	8008f4 <__reset+0xff7f78f4>
+  8009f4:	003fbf06 	br	8008f4 <__alt_mem_epcs_flash_controller_0+0xff7f78f4>
   8009f8:	81000017 	ldw	r4,0(r16)
   8009fc:	9027883a 	mov	r19,r18
   800a00:	902f883a 	mov	r23,r18
-  800a04:	003f6906 	br	8007ac <__reset+0xff7f77ac>
+  800a04:	003f6906 	br	8007ac <__alt_mem_epcs_flash_controller_0+0xff7f77ac>
   800a08:	900d883a 	mov	r6,r18
   800a0c:	01400284 	movi	r5,10
   800a10:	e009883a 	mov	r4,fp
@@ -1763,7 +1763,7 @@ int main(void)
   800a1c:	10800044 	addi	r2,r2,1
   800a20:	1727c83a 	sub	r19,r2,fp
   800a24:	02000044 	movi	r8,1
-  800a28:	003f9d06 	br	8008a0 <__reset+0xff7f78a0>
+  800a28:	003f9d06 	br	8008a0 <__alt_mem_epcs_flash_controller_0+0xff7f78a0>
   800a2c:	80800517 	ldw	r2,20(r16)
   800a30:	81400417 	ldw	r5,16(r16)
   800a34:	81c00017 	ldw	r7,0(r16)
@@ -1803,16 +1803,16 @@ int main(void)
   800abc:	9027883a 	mov	r19,r18
   800ac0:	81c00215 	stw	r7,8(r16)
   800ac4:	902f883a 	mov	r23,r18
-  800ac8:	003f3806 	br	8007ac <__reset+0xff7f77ac>
+  800ac8:	003f3806 	br	8007ac <__alt_mem_epcs_flash_controller_0+0xff7f77ac>
   800acc:	800b883a 	mov	r5,r16
   800ad0:	a809883a 	mov	r4,r21
   800ad4:	08025980 	call	802598 <_fflush_r>
-  800ad8:	103fb926 	beq	r2,zero,8009c0 <__reset+0xff7f79c0>
-  800adc:	003f6506 	br	800874 <__reset+0xff7f7874>
+  800ad8:	103fb926 	beq	r2,zero,8009c0 <__alt_mem_epcs_flash_controller_0+0xff7f79c0>
+  800adc:	003f6506 	br	800874 <__alt_mem_epcs_flash_controller_0+0xff7f7874>
   800ae0:	a809883a 	mov	r4,r21
   800ae4:	080197c0 	call	80197c <_realloc_r>
   800ae8:	102f883a 	mov	r23,r2
-  800aec:	103fee1e 	bne	r2,zero,800aa8 <__reset+0xff7f7aa8>
+  800aec:	103fee1e 	bne	r2,zero,800aa8 <__alt_mem_epcs_flash_controller_0+0xff7f7aa8>
   800af0:	81400417 	ldw	r5,16(r16)
   800af4:	a809883a 	mov	r4,r21
   800af8:	08027480 	call	802748 <_free_r>
@@ -1821,16 +1821,16 @@ int main(void)
   800b04:	1884703a 	and	r2,r3,r2
   800b08:	00c00304 	movi	r3,12
   800b0c:	a8c00015 	stw	r3,0(r21)
-  800b10:	003f5906 	br	800878 <__reset+0xff7f7878>
+  800b10:	003f5906 	br	800878 <__alt_mem_epcs_flash_controller_0+0xff7f7878>
   800b14:	94c00044 	addi	r19,r18,1
   800b18:	02000044 	movi	r8,1
-  800b1c:	003f6006 	br	8008a0 <__reset+0xff7f78a0>
+  800b1c:	003f6006 	br	8008a0 <__alt_mem_epcs_flash_controller_0+0xff7f78a0>
   800b20:	00bfffc4 	movi	r2,-1
-  800b24:	003f0006 	br	800728 <__reset+0xff7f7728>
+  800b24:	003f0006 	br	800728 <__alt_mem_epcs_flash_controller_0+0xff7f7728>
   800b28:	00800304 	movi	r2,12
   800b2c:	a8800015 	stw	r2,0(r21)
   800b30:	8080030b 	ldhu	r2,12(r16)
-  800b34:	003f5006 	br	800878 <__reset+0xff7f7878>
+  800b34:	003f5006 	br	800878 <__alt_mem_epcs_flash_controller_0+0xff7f7878>
 
 00800b38 <_fwalk>:
   800b38:	defff704 	addi	sp,sp,-36
@@ -1865,9 +1865,9 @@ int main(void)
   800bac:	b8aeb03a 	or	r23,r23,r2
   800bb0:	84001a04 	addi	r16,r16,104
   800bb4:	94801a04 	addi	r18,r18,104
-  800bb8:	8cfff51e 	bne	r17,r19,800b90 <__reset+0xff7f7b90>
+  800bb8:	8cfff51e 	bne	r17,r19,800b90 <__alt_mem_epcs_flash_controller_0+0xff7f7b90>
   800bbc:	a5000017 	ldw	r20,0(r20)
-  800bc0:	a03fed1e 	bne	r20,zero,800b78 <__reset+0xff7f7b78>
+  800bc0:	a03fed1e 	bne	r20,zero,800b78 <__alt_mem_epcs_flash_controller_0+0xff7f7b78>
   800bc4:	b805883a 	mov	r2,r23
   800bc8:	dfc00817 	ldw	ra,32(sp)
   800bcc:	ddc00717 	ldw	r23,28(sp)
@@ -1881,7 +1881,7 @@ int main(void)
   800bec:	dec00904 	addi	sp,sp,36
   800bf0:	f800283a 	ret
   800bf4:	002f883a 	mov	r23,zero
-  800bf8:	003ff206 	br	800bc4 <__reset+0xff7f7bc4>
+  800bf8:	003ff206 	br	800bc4 <__alt_mem_epcs_flash_controller_0+0xff7f7bc4>
 
 00800bfc <_fwalk_reent>:
   800bfc:	defff704 	addi	sp,sp,-36
@@ -1916,9 +1916,9 @@ int main(void)
   800c70:	a83ee83a 	callr	r21
   800c74:	b8aeb03a 	or	r23,r23,r2
   800c78:	84001a04 	addi	r16,r16,104
-  800c7c:	8cbff51e 	bne	r17,r18,800c54 <__reset+0xff7f7c54>
+  800c7c:	8cbff51e 	bne	r17,r18,800c54 <__alt_mem_epcs_flash_controller_0+0xff7f7c54>
   800c80:	a5000017 	ldw	r20,0(r20)
-  800c84:	a03fee1e 	bne	r20,zero,800c40 <__reset+0xff7f7c40>
+  800c84:	a03fee1e 	bne	r20,zero,800c40 <__alt_mem_epcs_flash_controller_0+0xff7f7c40>
   800c88:	b805883a 	mov	r2,r23
   800c8c:	dfc00817 	ldw	ra,32(sp)
   800c90:	ddc00717 	ldw	r23,28(sp)
@@ -1932,7 +1932,7 @@ int main(void)
   800cb0:	dec00904 	addi	sp,sp,36
   800cb4:	f800283a 	ret
   800cb8:	002f883a 	mov	r23,zero
-  800cbc:	003ff206 	br	800c88 <__reset+0xff7f7c88>
+  800cbc:	003ff206 	br	800c88 <__alt_mem_epcs_flash_controller_0+0xff7f7c88>
 
 00800cc0 <_malloc_r>:
   800cc0:	defff504 	addi	sp,sp,-44
@@ -1985,7 +1985,7 @@ int main(void)
   800d7c:	80800117 	ldw	r2,4(r16)
   800d80:	1184703a 	and	r2,r2,r6
   800d84:	1447c83a 	sub	r3,r2,r17
-  800d88:	28fff90e 	bge	r5,r3,800d70 <__reset+0xff7f7d70>
+  800d88:	28fff90e 	bge	r5,r3,800d70 <__alt_mem_epcs_flash_controller_0+0xff7f7d70>
   800d8c:	3809883a 	mov	r4,r7
   800d90:	01802074 	movhi	r6,129
   800d94:	9c000417 	ldw	r16,16(r19)
@@ -2036,7 +2036,7 @@ int main(void)
   800e48:	294b883a 	add	r5,r5,r5
   800e4c:	28c4703a 	and	r2,r5,r3
   800e50:	21000104 	addi	r4,r4,4
-  800e54:	103ffc26 	beq	r2,zero,800e48 <__reset+0xff7f7e48>
+  800e54:	103ffc26 	beq	r2,zero,800e48 <__alt_mem_epcs_flash_controller_0+0xff7f7e48>
   800e58:	02bfff04 	movi	r10,-4
   800e5c:	024003c4 	movi	r9,15
   800e60:	21800044 	addi	r6,r4,1
@@ -2057,7 +2057,7 @@ int main(void)
   800e9c:	80800117 	ldw	r2,4(r16)
   800ea0:	1284703a 	and	r2,r2,r10
   800ea4:	1447c83a 	sub	r3,r2,r17
-  800ea8:	48fff90e 	bge	r9,r3,800e90 <__reset+0xff7f7e90>
+  800ea8:	48fff90e 	bge	r9,r3,800e90 <__alt_mem_epcs_flash_controller_0+0xff7f7e90>
   800eac:	80800317 	ldw	r2,12(r16)
   800eb0:	81000217 	ldw	r4,8(r16)
   800eb4:	89400054 	ori	r5,r17,1
@@ -2119,15 +2119,15 @@ int main(void)
   800f94:	00800304 	movi	r2,12
   800f98:	90800015 	stw	r2,0(r18)
   800f9c:	0005883a 	mov	r2,zero
-  800fa0:	003ff006 	br	800f64 <__reset+0xff7f7f64>
+  800fa0:	003ff006 	br	800f64 <__alt_mem_epcs_flash_controller_0+0xff7f7f64>
   800fa4:	01002004 	movi	r4,128
   800fa8:	02001004 	movi	r8,64
   800fac:	01c00fc4 	movi	r7,63
-  800fb0:	003f6106 	br	800d38 <__reset+0xff7f7d38>
+  800fb0:	003f6106 	br	800d38 <__alt_mem_epcs_flash_controller_0+0xff7f7d38>
   800fb4:	4009883a 	mov	r4,r8
-  800fb8:	003f7506 	br	800d90 <__reset+0xff7f7d90>
+  800fb8:	003f7506 	br	800d90 <__alt_mem_epcs_flash_controller_0+0xff7f7d90>
   800fbc:	81000317 	ldw	r4,12(r16)
-  800fc0:	003fde06 	br	800f3c <__reset+0xff7f7f3c>
+  800fc0:	003fde06 	br	800f3c <__alt_mem_epcs_flash_controller_0+0xff7f7f3c>
   800fc4:	81c5883a 	add	r2,r16,r7
   800fc8:	11400117 	ldw	r5,4(r2)
   800fcc:	9009883a 	mov	r4,r18
@@ -2135,7 +2135,7 @@ int main(void)
   800fd4:	11400115 	stw	r5,4(r2)
   800fd8:	0803a440 	call	803a44 <__malloc_unlock>
   800fdc:	80800204 	addi	r2,r16,8
-  800fe0:	003fe006 	br	800f64 <__reset+0xff7f7f64>
+  800fe0:	003fe006 	br	800f64 <__alt_mem_epcs_flash_controller_0+0xff7f7f64>
   800fe4:	9c000217 	ldw	r16,8(r19)
   800fe8:	00bfff04 	movi	r2,-4
   800fec:	85800117 	ldw	r22,4(r16)
@@ -2236,7 +2236,7 @@ int main(void)
   801168:	9009883a 	mov	r4,r18
   80116c:	0803a440 	call	803a44 <__malloc_unlock>
   801170:	0005883a 	mov	r2,zero
-  801174:	003f7b06 	br	800f64 <__reset+0xff7f7f64>
+  801174:	003f7b06 	br	800f64 <__alt_mem_epcs_flash_controller_0+0xff7f7f64>
   801178:	88c00054 	ori	r3,r17,1
   80117c:	80c00115 	stw	r3,4(r16)
   801180:	8463883a 	add	r17,r16,r17
@@ -2246,7 +2246,7 @@ int main(void)
   801190:	9009883a 	mov	r4,r18
   801194:	0803a440 	call	803a44 <__malloc_unlock>
   801198:	80800204 	addi	r2,r16,8
-  80119c:	003f7106 	br	800f64 <__reset+0xff7f7f64>
+  80119c:	003f7106 	br	800f64 <__alt_mem_epcs_flash_controller_0+0xff7f7f64>
   8011a0:	00c00504 	movi	r3,20
   8011a4:	18804a2e 	bgeu	r3,r2,8012d0 <_malloc_r+0x610>
   8011a8:	00c01504 	movi	r3,84
@@ -2255,7 +2255,7 @@ int main(void)
   8011b4:	12001bc4 	addi	r8,r2,111
   8011b8:	11c01b84 	addi	r7,r2,110
   8011bc:	4209883a 	add	r4,r8,r8
-  8011c0:	003edd06 	br	800d38 <__reset+0xff7f7d38>
+  8011c0:	003edd06 	br	800d38 <__alt_mem_epcs_flash_controller_0+0xff7f7d38>
   8011c4:	3804d27a 	srli	r2,r7,9
   8011c8:	00c00104 	movi	r3,4
   8011cc:	1880442e 	bgeu	r3,r2,8012e0 <_malloc_r+0x620>
@@ -2277,14 +2277,14 @@ int main(void)
   80120c:	1986703a 	and	r3,r3,r6
   801210:	38c0022e 	bgeu	r7,r3,80121c <_malloc_r+0x55c>
   801214:	10800217 	ldw	r2,8(r2)
-  801218:	28bffb1e 	bne	r5,r2,801208 <__reset+0xff7f8208>
+  801218:	28bffb1e 	bne	r5,r2,801208 <__alt_mem_epcs_flash_controller_0+0xff7f8208>
   80121c:	11400317 	ldw	r5,12(r2)
   801220:	98c00117 	ldw	r3,4(r19)
   801224:	81400315 	stw	r5,12(r16)
   801228:	80800215 	stw	r2,8(r16)
   80122c:	2c000215 	stw	r16,8(r5)
   801230:	14000315 	stw	r16,12(r2)
-  801234:	003ef806 	br	800e18 <__reset+0xff7f7e18>
+  801234:	003ef806 	br	800e18 <__alt_mem_epcs_flash_controller_0+0xff7f7e18>
   801238:	88c00054 	ori	r3,r17,1
   80123c:	80c00115 	stw	r3,4(r16)
   801240:	8463883a 	add	r17,r16,r17
@@ -2299,18 +2299,18 @@ int main(void)
   801264:	9009883a 	mov	r4,r18
   801268:	0803a440 	call	803a44 <__malloc_unlock>
   80126c:	80800204 	addi	r2,r16,8
-  801270:	003f3c06 	br	800f64 <__reset+0xff7f7f64>
+  801270:	003f3c06 	br	800f64 <__alt_mem_epcs_flash_controller_0+0xff7f7f64>
   801274:	30c00117 	ldw	r3,4(r6)
-  801278:	003ee706 	br	800e18 <__reset+0xff7f7e18>
+  801278:	003ee706 	br	800e18 <__alt_mem_epcs_flash_controller_0+0xff7f7e18>
   80127c:	5ac00044 	addi	r11,r11,1
   801280:	588000cc 	andi	r2,r11,3
   801284:	31800204 	addi	r6,r6,8
-  801288:	103efd1e 	bne	r2,zero,800e80 <__reset+0xff7f7e80>
+  801288:	103efd1e 	bne	r2,zero,800e80 <__alt_mem_epcs_flash_controller_0+0xff7f7e80>
   80128c:	00002406 	br	801320 <_malloc_r+0x660>
   801290:	14000317 	ldw	r16,12(r2)
-  801294:	143f251e 	bne	r2,r16,800f2c <__reset+0xff7f7f2c>
+  801294:	143f251e 	bne	r2,r16,800f2c <__alt_mem_epcs_flash_controller_0+0xff7f7f2c>
   801298:	21000084 	addi	r4,r4,2
-  80129c:	003ebc06 	br	800d90 <__reset+0xff7f7d90>
+  80129c:	003ebc06 	br	800d90 <__alt_mem_epcs_flash_controller_0+0xff7f7d90>
   8012a0:	8085883a 	add	r2,r16,r2
   8012a4:	10c00117 	ldw	r3,4(r2)
   8012a8:	81000317 	ldw	r4,12(r16)
@@ -2322,57 +2322,57 @@ int main(void)
   8012c0:	9009883a 	mov	r4,r18
   8012c4:	0803a440 	call	803a44 <__malloc_unlock>
   8012c8:	80800204 	addi	r2,r16,8
-  8012cc:	003f2506 	br	800f64 <__reset+0xff7f7f64>
+  8012cc:	003f2506 	br	800f64 <__alt_mem_epcs_flash_controller_0+0xff7f7f64>
   8012d0:	12001704 	addi	r8,r2,92
   8012d4:	11c016c4 	addi	r7,r2,91
   8012d8:	4209883a 	add	r4,r8,r8
-  8012dc:	003e9606 	br	800d38 <__reset+0xff7f7d38>
+  8012dc:	003e9606 	br	800d38 <__alt_mem_epcs_flash_controller_0+0xff7f7d38>
   8012e0:	3804d1ba 	srli	r2,r7,6
   8012e4:	11400e44 	addi	r5,r2,57
   8012e8:	10c00e04 	addi	r3,r2,56
   8012ec:	294b883a 	add	r5,r5,r5
-  8012f0:	003fbc06 	br	8011e4 <__reset+0xff7f81e4>
-  8012f4:	84ff5926 	beq	r16,r19,80105c <__reset+0xff7f805c>
+  8012f0:	003fbc06 	br	8011e4 <__alt_mem_epcs_flash_controller_0+0xff7f81e4>
+  8012f4:	84ff5926 	beq	r16,r19,80105c <__alt_mem_epcs_flash_controller_0+0xff7f805c>
   8012f8:	00802074 	movhi	r2,129
   8012fc:	10bf2804 	addi	r2,r2,-864
   801300:	14000217 	ldw	r16,8(r2)
   801304:	00bfff04 	movi	r2,-4
   801308:	80c00117 	ldw	r3,4(r16)
   80130c:	1886703a 	and	r3,r3,r2
-  801310:	003f9106 	br	801158 <__reset+0xff7f8158>
+  801310:	003f9106 	br	801158 <__alt_mem_epcs_flash_controller_0+0xff7f8158>
   801314:	60800217 	ldw	r2,8(r12)
   801318:	213fffc4 	addi	r4,r4,-1
   80131c:	1300651e 	bne	r2,r12,8014b4 <_malloc_r+0x7f4>
   801320:	208000cc 	andi	r2,r4,3
   801324:	633ffe04 	addi	r12,r12,-8
-  801328:	103ffa1e 	bne	r2,zero,801314 <__reset+0xff7f8314>
+  801328:	103ffa1e 	bne	r2,zero,801314 <__alt_mem_epcs_flash_controller_0+0xff7f8314>
   80132c:	98800117 	ldw	r2,4(r19)
   801330:	0146303a 	nor	r3,zero,r5
   801334:	1884703a 	and	r2,r3,r2
   801338:	98800115 	stw	r2,4(r19)
   80133c:	294b883a 	add	r5,r5,r5
-  801340:	117f2836 	bltu	r2,r5,800fe4 <__reset+0xff7f7fe4>
-  801344:	283f2726 	beq	r5,zero,800fe4 <__reset+0xff7f7fe4>
+  801340:	117f2836 	bltu	r2,r5,800fe4 <__alt_mem_epcs_flash_controller_0+0xff7f7fe4>
+  801344:	283f2726 	beq	r5,zero,800fe4 <__alt_mem_epcs_flash_controller_0+0xff7f7fe4>
   801348:	2886703a 	and	r3,r5,r2
   80134c:	5809883a 	mov	r4,r11
-  801350:	183ec31e 	bne	r3,zero,800e60 <__reset+0xff7f7e60>
+  801350:	183ec31e 	bne	r3,zero,800e60 <__alt_mem_epcs_flash_controller_0+0xff7f7e60>
   801354:	294b883a 	add	r5,r5,r5
   801358:	2886703a 	and	r3,r5,r2
   80135c:	21000104 	addi	r4,r4,4
-  801360:	183ffc26 	beq	r3,zero,801354 <__reset+0xff7f8354>
-  801364:	003ebe06 	br	800e60 <__reset+0xff7f7e60>
+  801360:	183ffc26 	beq	r3,zero,801354 <__alt_mem_epcs_flash_controller_0+0xff7f8354>
+  801364:	003ebe06 	br	800e60 <__alt_mem_epcs_flash_controller_0+0xff7f7e60>
   801368:	00c05504 	movi	r3,340
   80136c:	18801236 	bltu	r3,r2,8013b8 <_malloc_r+0x6f8>
   801370:	8804d3fa 	srli	r2,r17,15
   801374:	12001e04 	addi	r8,r2,120
   801378:	11c01dc4 	addi	r7,r2,119
   80137c:	4209883a 	add	r4,r8,r8
-  801380:	003e6d06 	br	800d38 <__reset+0xff7f7d38>
+  801380:	003e6d06 	br	800d38 <__alt_mem_epcs_flash_controller_0+0xff7f7d38>
   801384:	00c40004 	movi	r3,4096
-  801388:	003f4606 	br	8010a4 <__reset+0xff7f80a4>
+  801388:	003f4606 	br	8010a4 <__alt_mem_epcs_flash_controller_0+0xff7f80a4>
   80138c:	00800044 	movi	r2,1
   801390:	a0800115 	stw	r2,4(r20)
-  801394:	003f7406 	br	801168 <__reset+0xff7f8168>
+  801394:	003f7406 	br	801168 <__alt_mem_epcs_flash_controller_0+0xff7f8168>
   801398:	1805d0ba 	srai	r2,r3,2
   80139c:	01c00044 	movi	r7,1
   8013a0:	30c00117 	ldw	r3,4(r6)
@@ -2380,76 +2380,76 @@ int main(void)
   8013a8:	2805883a 	mov	r2,r5
   8013ac:	38c6b03a 	or	r3,r7,r3
   8013b0:	30c00115 	stw	r3,4(r6)
-  8013b4:	003f9b06 	br	801224 <__reset+0xff7f8224>
+  8013b4:	003f9b06 	br	801224 <__alt_mem_epcs_flash_controller_0+0xff7f8224>
   8013b8:	00c15504 	movi	r3,1364
   8013bc:	18801a36 	bltu	r3,r2,801428 <_malloc_r+0x768>
   8013c0:	8804d4ba 	srli	r2,r17,18
   8013c4:	12001f44 	addi	r8,r2,125
   8013c8:	11c01f04 	addi	r7,r2,124
   8013cc:	4209883a 	add	r4,r8,r8
-  8013d0:	003e5906 	br	800d38 <__reset+0xff7f7d38>
+  8013d0:	003e5906 	br	800d38 <__alt_mem_epcs_flash_controller_0+0xff7f7d38>
   8013d4:	ad400404 	addi	r21,r21,16
-  8013d8:	003f1706 	br	801038 <__reset+0xff7f8038>
+  8013d8:	003f1706 	br	801038 <__alt_mem_epcs_flash_controller_0+0xff7f8038>
   8013dc:	00c01504 	movi	r3,84
   8013e0:	18802336 	bltu	r3,r2,801470 <_malloc_r+0x7b0>
   8013e4:	3804d33a 	srli	r2,r7,12
   8013e8:	11401bc4 	addi	r5,r2,111
   8013ec:	10c01b84 	addi	r3,r2,110
   8013f0:	294b883a 	add	r5,r5,r5
-  8013f4:	003f7b06 	br	8011e4 <__reset+0xff7f81e4>
+  8013f4:	003f7b06 	br	8011e4 <__alt_mem_epcs_flash_controller_0+0xff7f81e4>
   8013f8:	9c000217 	ldw	r16,8(r19)
   8013fc:	00bfff04 	movi	r2,-4
   801400:	80c00117 	ldw	r3,4(r16)
   801404:	1886703a 	and	r3,r3,r2
-  801408:	003f5306 	br	801158 <__reset+0xff7f8158>
+  801408:	003f5306 	br	801158 <__alt_mem_epcs_flash_controller_0+0xff7f8158>
   80140c:	3083ffcc 	andi	r2,r6,4095
-  801410:	103f181e 	bne	r2,zero,801074 <__reset+0xff7f8074>
+  801410:	103f181e 	bne	r2,zero,801074 <__alt_mem_epcs_flash_controller_0+0xff7f8074>
   801414:	99000217 	ldw	r4,8(r19)
   801418:	b545883a 	add	r2,r22,r21
   80141c:	10800054 	ori	r2,r2,1
   801420:	20800115 	stw	r2,4(r4)
-  801424:	003f3e06 	br	801120 <__reset+0xff7f8120>
+  801424:	003f3e06 	br	801120 <__alt_mem_epcs_flash_controller_0+0xff7f8120>
   801428:	01003f84 	movi	r4,254
   80142c:	02001fc4 	movi	r8,127
   801430:	01c01f84 	movi	r7,126
-  801434:	003e4006 	br	800d38 <__reset+0xff7f7d38>
+  801434:	003e4006 	br	800d38 <__alt_mem_epcs_flash_controller_0+0xff7f7d38>
   801438:	00802074 	movhi	r2,129
   80143c:	10854c04 	addi	r2,r2,5424
   801440:	15000015 	stw	r20,0(r2)
-  801444:	003f1106 	br	80108c <__reset+0xff7f808c>
+  801444:	003f1106 	br	80108c <__alt_mem_epcs_flash_controller_0+0xff7f808c>
   801448:	00800044 	movi	r2,1
   80144c:	002b883a 	mov	r21,zero
-  801450:	003f1f06 	br	8010d0 <__reset+0xff7f80d0>
+  801450:	003f1f06 	br	8010d0 <__alt_mem_epcs_flash_controller_0+0xff7f80d0>
   801454:	81400204 	addi	r5,r16,8
   801458:	9009883a 	mov	r4,r18
   80145c:	08027480 	call	802748 <_free_r>
   801460:	00802074 	movhi	r2,129
   801464:	10859d04 	addi	r2,r2,5748
   801468:	10c00017 	ldw	r3,0(r2)
-  80146c:	003f2c06 	br	801120 <__reset+0xff7f8120>
+  80146c:	003f2c06 	br	801120 <__alt_mem_epcs_flash_controller_0+0xff7f8120>
   801470:	00c05504 	movi	r3,340
   801474:	18800536 	bltu	r3,r2,80148c <_malloc_r+0x7cc>
   801478:	3804d3fa 	srli	r2,r7,15
   80147c:	11401e04 	addi	r5,r2,120
   801480:	10c01dc4 	addi	r3,r2,119
   801484:	294b883a 	add	r5,r5,r5
-  801488:	003f5606 	br	8011e4 <__reset+0xff7f81e4>
+  801488:	003f5606 	br	8011e4 <__alt_mem_epcs_flash_controller_0+0xff7f81e4>
   80148c:	00c15504 	movi	r3,1364
   801490:	18800536 	bltu	r3,r2,8014a8 <_malloc_r+0x7e8>
   801494:	3804d4ba 	srli	r2,r7,18
   801498:	11401f44 	addi	r5,r2,125
   80149c:	10c01f04 	addi	r3,r2,124
   8014a0:	294b883a 	add	r5,r5,r5
-  8014a4:	003f4f06 	br	8011e4 <__reset+0xff7f81e4>
+  8014a4:	003f4f06 	br	8011e4 <__alt_mem_epcs_flash_controller_0+0xff7f81e4>
   8014a8:	01403f84 	movi	r5,254
   8014ac:	00c01f84 	movi	r3,126
-  8014b0:	003f4c06 	br	8011e4 <__reset+0xff7f81e4>
+  8014b0:	003f4c06 	br	8011e4 <__alt_mem_epcs_flash_controller_0+0xff7f81e4>
   8014b4:	98800117 	ldw	r2,4(r19)
-  8014b8:	003fa006 	br	80133c <__reset+0xff7f833c>
+  8014b8:	003fa006 	br	80133c <__alt_mem_epcs_flash_controller_0+0xff7f833c>
   8014bc:	8808d0fa 	srli	r4,r17,3
   8014c0:	20800044 	addi	r2,r4,1
   8014c4:	1085883a 	add	r2,r2,r2
-  8014c8:	003e9006 	br	800f0c <__reset+0xff7f7f0c>
+  8014c8:	003e9006 	br	800f0c <__alt_mem_epcs_flash_controller_0+0xff7f7f0c>
 
 008014cc <memchr>:
   8014cc:	208000cc 	andi	r2,r4,3
@@ -2467,7 +2467,7 @@ int main(void)
   8014fc:	30c01426 	beq	r6,r3,801550 <memchr+0x84>
   801500:	21000044 	addi	r4,r4,1
   801504:	20c000cc 	andi	r3,r4,3
-  801508:	183ff91e 	bne	r3,zero,8014f0 <__reset+0xff7f84f0>
+  801508:	183ff91e 	bne	r3,zero,8014f0 <__alt_mem_epcs_flash_controller_0+0xff7f84f0>
   80150c:	020000c4 	movi	r8,3
   801510:	40801136 	bltu	r8,r2,801558 <memchr+0x8c>
   801514:	10000c26 	beq	r2,zero,801548 <memchr+0x7c>
@@ -2482,7 +2482,7 @@ int main(void)
   801538:	197fffc3 	ldbu	r5,-1(r3)
   80153c:	31400526 	beq	r6,r5,801554 <memchr+0x88>
   801540:	1805883a 	mov	r2,r3
-  801544:	20fffb1e 	bne	r4,r3,801534 <__reset+0xff7f8534>
+  801544:	20fffb1e 	bne	r4,r3,801534 <__alt_mem_epcs_flash_controller_0+0xff7f8534>
   801548:	0005883a 	mov	r2,zero
   80154c:	f800283a 	ret
   801550:	2005883a 	mov	r2,r4
@@ -2502,13 +2502,13 @@ int main(void)
   801588:	00c6303a 	nor	r3,zero,r3
   80158c:	30c6703a 	and	r3,r6,r3
   801590:	1a86703a 	and	r3,r3,r10
-  801594:	183fe01e 	bne	r3,zero,801518 <__reset+0xff7f8518>
+  801594:	183fe01e 	bne	r3,zero,801518 <__alt_mem_epcs_flash_controller_0+0xff7f8518>
   801598:	10bfff04 	addi	r2,r2,-4
   80159c:	21000104 	addi	r4,r4,4
-  8015a0:	40bff636 	bltu	r8,r2,80157c <__reset+0xff7f857c>
-  8015a4:	003fdb06 	br	801514 <__reset+0xff7f8514>
+  8015a0:	40bff636 	bltu	r8,r2,80157c <__alt_mem_epcs_flash_controller_0+0xff7f857c>
+  8015a4:	003fdb06 	br	801514 <__alt_mem_epcs_flash_controller_0+0xff7f8514>
   8015a8:	3005883a 	mov	r2,r6
-  8015ac:	003fd706 	br	80150c <__reset+0xff7f850c>
+  8015ac:	003fd706 	br	80150c <__alt_mem_epcs_flash_controller_0+0xff7f850c>
 
 008015b0 <memcpy>:
   8015b0:	defffd04 	addi	sp,sp,-12
@@ -2550,7 +2550,7 @@ int main(void)
   801640:	5ac00404 	addi	r11,r11,16
   801644:	52800404 	addi	r10,r10,16
   801648:	4a400404 	addi	r9,r9,16
-  80164c:	1c3fef1e 	bne	r3,r16,80160c <__reset+0xff7f860c>
+  80164c:	1c3fef1e 	bne	r3,r16,80160c <__alt_mem_epcs_flash_controller_0+0xff7f860c>
   801650:	89c00044 	addi	r7,r17,1
   801654:	380e913a 	slli	r7,r7,4
   801658:	310003cc 	andi	r4,r6,15
@@ -2566,7 +2566,7 @@ int main(void)
   801680:	39ffff04 	addi	r7,r7,-4
   801684:	4abfff15 	stw	r10,-4(r9)
   801688:	42000104 	addi	r8,r8,4
-  80168c:	59fffa36 	bltu	r11,r7,801678 <__reset+0xff7f8678>
+  80168c:	59fffa36 	bltu	r11,r7,801678 <__alt_mem_epcs_flash_controller_0+0xff7f8678>
   801690:	213fff04 	addi	r4,r4,-4
   801694:	2008d0ba 	srli	r4,r4,2
   801698:	318000cc 	andi	r6,r6,3
@@ -2581,18 +2581,18 @@ int main(void)
   8016bc:	18c00044 	addi	r3,r3,1
   8016c0:	29400044 	addi	r5,r5,1
   8016c4:	19ffffc5 	stb	r7,-1(r3)
-  8016c8:	19bffb1e 	bne	r3,r6,8016b8 <__reset+0xff7f86b8>
+  8016c8:	19bffb1e 	bne	r3,r6,8016b8 <__alt_mem_epcs_flash_controller_0+0xff7f86b8>
   8016cc:	dfc00217 	ldw	ra,8(sp)
   8016d0:	dc400117 	ldw	r17,4(sp)
   8016d4:	dc000017 	ldw	r16,0(sp)
   8016d8:	dec00304 	addi	sp,sp,12
   8016dc:	f800283a 	ret
   8016e0:	2007883a 	mov	r3,r4
-  8016e4:	003ff206 	br	8016b0 <__reset+0xff7f86b0>
+  8016e4:	003ff206 	br	8016b0 <__alt_mem_epcs_flash_controller_0+0xff7f86b0>
   8016e8:	2007883a 	mov	r3,r4
-  8016ec:	003ff106 	br	8016b4 <__reset+0xff7f86b4>
+  8016ec:	003ff106 	br	8016b4 <__alt_mem_epcs_flash_controller_0+0xff7f86b4>
   8016f0:	200d883a 	mov	r6,r4
-  8016f4:	003fee06 	br	8016b0 <__reset+0xff7f86b0>
+  8016f4:	003fee06 	br	8016b0 <__alt_mem_epcs_flash_controller_0+0xff7f86b0>
 
 008016f8 <memmove>:
   8016f8:	2005883a 	mov	r2,r4
@@ -2606,7 +2606,7 @@ int main(void)
   801718:	39000003 	ldbu	r4,0(r7)
   80171c:	18ffffc4 	addi	r3,r3,-1
   801720:	19000005 	stb	r4,0(r3)
-  801724:	28fffb1e 	bne	r5,r3,801714 <__reset+0xff7f8714>
+  801724:	28fffb1e 	bne	r5,r3,801714 <__alt_mem_epcs_flash_controller_0+0xff7f8714>
   801728:	f800283a 	ret
   80172c:	00c003c4 	movi	r3,15
   801730:	1980412e 	bgeu	r3,r6,801838 <memmove+0x140>
@@ -2642,7 +2642,7 @@ int main(void)
   8017a8:	63000404 	addi	r12,r12,16
   8017ac:	52800404 	addi	r10,r10,16
   8017b0:	493ffc15 	stw	r4,-16(r9)
-  8017b4:	1bbfef1e 	bne	r3,r14,801774 <__reset+0xff7f8774>
+  8017b4:	1bbfef1e 	bne	r3,r14,801774 <__alt_mem_epcs_flash_controller_0+0xff7f8774>
   8017b8:	79000044 	addi	r4,r15,1
   8017bc:	2008913a 	slli	r4,r4,4
   8017c0:	328003cc 	andi	r10,r6,15
@@ -2658,7 +2658,7 @@ int main(void)
   8017e8:	39ffff04 	addi	r7,r7,-4
   8017ec:	493fff15 	stw	r4,-4(r9)
   8017f0:	42000104 	addi	r8,r8,4
-  8017f4:	59fffa36 	bltu	r11,r7,8017e0 <__reset+0xff7f87e0>
+  8017f4:	59fffa36 	bltu	r11,r7,8017e0 <__alt_mem_epcs_flash_controller_0+0xff7f87e0>
   8017f8:	513fff04 	addi	r4,r10,-4
   8017fc:	2008d0ba 	srli	r4,r4,2
   801800:	318000cc 	andi	r6,r6,3
@@ -2673,15 +2673,15 @@ int main(void)
   801824:	18c00044 	addi	r3,r3,1
   801828:	29400044 	addi	r5,r5,1
   80182c:	19ffffc5 	stb	r7,-1(r3)
-  801830:	19bffb1e 	bne	r3,r6,801820 <__reset+0xff7f8820>
+  801830:	19bffb1e 	bne	r3,r6,801820 <__alt_mem_epcs_flash_controller_0+0xff7f8820>
   801834:	f800283a 	ret
   801838:	1007883a 	mov	r3,r2
-  80183c:	003ff606 	br	801818 <__reset+0xff7f8818>
+  80183c:	003ff606 	br	801818 <__alt_mem_epcs_flash_controller_0+0xff7f8818>
   801840:	1007883a 	mov	r3,r2
-  801844:	003ff506 	br	80181c <__reset+0xff7f881c>
+  801844:	003ff506 	br	80181c <__alt_mem_epcs_flash_controller_0+0xff7f881c>
   801848:	f800283a 	ret
   80184c:	500d883a 	mov	r6,r10
-  801850:	003ff106 	br	801818 <__reset+0xff7f8818>
+  801850:	003ff106 	br	801818 <__alt_mem_epcs_flash_controller_0+0xff7f8818>
 
 00801854 <memset>:
   801854:	20c000cc 	andi	r3,r4,3
@@ -2700,7 +2700,7 @@ int main(void)
   801888:	18c00044 	addi	r3,r3,1
   80188c:	32400005 	stb	r9,0(r6)
   801890:	1a0000cc 	andi	r8,r3,3
-  801894:	403ff81e 	bne	r8,zero,801878 <__reset+0xff7f8878>
+  801894:	403ff81e 	bne	r8,zero,801878 <__alt_mem_epcs_flash_controller_0+0xff7f8878>
   801898:	010000c4 	movi	r4,3
   80189c:	21c02d2e 	bgeu	r4,r7,801954 <memset+0x100>
   8018a0:	29003fcc 	andi	r4,r5,255
@@ -2727,7 +2727,7 @@ int main(void)
   8018f4:	4a400404 	addi	r9,r9,16
   8018f8:	5ac00404 	addi	r11,r11,16
   8018fc:	52800404 	addi	r10,r10,16
-  801900:	413ff71e 	bne	r8,r4,8018e0 <__reset+0xff7f88e0>
+  801900:	413ff71e 	bne	r8,r4,8018e0 <__alt_mem_epcs_flash_controller_0+0xff7f88e0>
   801904:	63000044 	addi	r12,r12,1
   801908:	6018913a 	slli	r12,r12,4
   80190c:	39c003cc 	andi	r7,r7,15
@@ -2740,7 +2740,7 @@ int main(void)
   801928:	49800015 	stw	r6,0(r9)
   80192c:	423fff04 	addi	r8,r8,-4
   801930:	4a400104 	addi	r9,r9,4
-  801934:	223ffc36 	bltu	r4,r8,801928 <__reset+0xff7f8928>
+  801934:	223ffc36 	bltu	r4,r8,801928 <__alt_mem_epcs_flash_controller_0+0xff7f8928>
   801938:	393fff04 	addi	r4,r7,-4
   80193c:	2008d0ba 	srli	r4,r4,2
   801940:	39c000cc 	andi	r7,r7,3
@@ -2752,12 +2752,12 @@ int main(void)
   801958:	19cf883a 	add	r7,r3,r7
   80195c:	19400005 	stb	r5,0(r3)
   801960:	18c00044 	addi	r3,r3,1
-  801964:	38fffd1e 	bne	r7,r3,80195c <__reset+0xff7f895c>
+  801964:	38fffd1e 	bne	r7,r3,80195c <__alt_mem_epcs_flash_controller_0+0xff7f895c>
   801968:	f800283a 	ret
   80196c:	f800283a 	ret
   801970:	2007883a 	mov	r3,r4
   801974:	300f883a 	mov	r7,r6
-  801978:	003fc706 	br	801898 <__reset+0xff7f8898>
+  801978:	003fc706 	br	801898 <__alt_mem_epcs_flash_controller_0+0xff7f8898>
 
 0080197c <_realloc_r>:
   80197c:	defff604 	addi	sp,sp,-40
@@ -2836,7 +2836,7 @@ int main(void)
   801aa0:	00001206 	br	801aec <_realloc_r+0x170>
   801aa4:	00c00404 	movi	r3,16
   801aa8:	1823883a 	mov	r17,r3
-  801aac:	003fce06 	br	8019e8 <__reset+0xff7f89e8>
+  801aac:	003fce06 	br	8019e8 <__alt_mem_epcs_flash_controller_0+0xff7f89e8>
   801ab0:	a825883a 	mov	r18,r21
   801ab4:	8445c83a 	sub	r2,r16,r17
   801ab8:	00c003c4 	movi	r3,15
@@ -2874,11 +2874,11 @@ int main(void)
   801b38:	3021883a 	mov	r16,r6
   801b3c:	18800315 	stw	r2,12(r3)
   801b40:	10c00215 	stw	r3,8(r2)
-  801b44:	003fdb06 	br	801ab4 <__reset+0xff7f8ab4>
+  801b44:	003fdb06 	br	801ab4 <__alt_mem_epcs_flash_controller_0+0xff7f8ab4>
   801b48:	00800304 	movi	r2,12
   801b4c:	a0800015 	stw	r2,0(r20)
   801b50:	0005883a 	mov	r2,zero
-  801b54:	003fe506 	br	801aec <__reset+0xff7f8aec>
+  801b54:	003fe506 	br	801aec <__alt_mem_epcs_flash_controller_0+0xff7f8aec>
   801b58:	98c00117 	ldw	r3,4(r19)
   801b5c:	9c4b883a 	add	r5,r19,r17
   801b60:	11000054 	ori	r4,r2,1
@@ -2893,14 +2893,14 @@ int main(void)
   801b84:	18c00054 	ori	r3,r3,1
   801b88:	10c00115 	stw	r3,4(r2)
   801b8c:	08027480 	call	802748 <_free_r>
-  801b90:	003fd306 	br	801ae0 <__reset+0xff7f8ae0>
+  801b90:	003fd306 	br	801ae0 <__alt_mem_epcs_flash_controller_0+0xff7f8ae0>
   801b94:	017fff04 	movi	r5,-4
   801b98:	414a703a 	and	r5,r8,r5
   801b9c:	89800404 	addi	r6,r17,16
   801ba0:	8151883a 	add	r8,r16,r5
   801ba4:	4180590e 	bge	r8,r6,801d0c <_realloc_r+0x390>
   801ba8:	1080004c 	andi	r2,r2,1
-  801bac:	103f9e1e 	bne	r2,zero,801a28 <__reset+0xff7f8a28>
+  801bac:	103f9e1e 	bne	r2,zero,801a28 <__alt_mem_epcs_flash_controller_0+0xff7f8a28>
   801bb0:	adbffe17 	ldw	r22,-8(r21)
   801bb4:	00bfff04 	movi	r2,-4
   801bb8:	9dadc83a 	sub	r22,r19,r22
@@ -2939,9 +2939,9 @@ int main(void)
   801c3c:	9dadc83a 	sub	r22,r19,r22
   801c40:	b1000117 	ldw	r4,4(r22)
   801c44:	2084703a 	and	r2,r4,r2
-  801c48:	b03f7726 	beq	r22,zero,801a28 <__reset+0xff7f8a28>
+  801c48:	b03f7726 	beq	r22,zero,801a28 <__alt_mem_epcs_flash_controller_0+0xff7f8a28>
   801c4c:	80af883a 	add	r23,r16,r2
-  801c50:	b8ff7516 	blt	r23,r3,801a28 <__reset+0xff7f8a28>
+  801c50:	b8ff7516 	blt	r23,r3,801a28 <__alt_mem_epcs_flash_controller_0+0xff7f8a28>
   801c54:	b0800317 	ldw	r2,12(r22)
   801c58:	b0c00217 	ldw	r3,8(r22)
   801c5c:	81bfff04 	addi	r6,r16,-4
@@ -2949,13 +2949,13 @@ int main(void)
   801c64:	18800315 	stw	r2,12(r3)
   801c68:	10c00215 	stw	r3,8(r2)
   801c6c:	b4800204 	addi	r18,r22,8
-  801c70:	21bfe52e 	bgeu	r4,r6,801c08 <__reset+0xff7f8c08>
+  801c70:	21bfe52e 	bgeu	r4,r6,801c08 <__alt_mem_epcs_flash_controller_0+0xff7f8c08>
   801c74:	a80b883a 	mov	r5,r21
   801c78:	9009883a 	mov	r4,r18
   801c7c:	08016f80 	call	8016f8 <memmove>
   801c80:	b821883a 	mov	r16,r23
   801c84:	b027883a 	mov	r19,r22
-  801c88:	003f8a06 	br	801ab4 <__reset+0xff7f8ab4>
+  801c88:	003f8a06 	br	801ab4 <__alt_mem_epcs_flash_controller_0+0xff7f8ab4>
   801c8c:	300b883a 	mov	r5,r6
   801c90:	dfc00917 	ldw	ra,36(sp)
   801c94:	df000817 	ldw	fp,32(sp)
@@ -2977,7 +2977,7 @@ int main(void)
   801cd4:	19804536 	bltu	r3,r6,801dec <_realloc_r+0x470>
   801cd8:	90800204 	addi	r2,r18,8
   801cdc:	a8c00204 	addi	r3,r21,8
-  801ce0:	003f6306 	br	801a70 <__reset+0xff7f8a70>
+  801ce0:	003f6306 	br	801a70 <__alt_mem_epcs_flash_controller_0+0xff7f8a70>
   801ce4:	9005883a 	mov	r2,r18
   801ce8:	a8c00017 	ldw	r3,0(r21)
   801cec:	b821883a 	mov	r16,r23
@@ -2987,7 +2987,7 @@ int main(void)
   801cfc:	10c00115 	stw	r3,4(r2)
   801d00:	a8c00217 	ldw	r3,8(r21)
   801d04:	10c00215 	stw	r3,8(r2)
-  801d08:	003f6a06 	br	801ab4 <__reset+0xff7f8ab4>
+  801d08:	003f6a06 	br	801ab4 <__alt_mem_epcs_flash_controller_0+0xff7f8ab4>
   801d0c:	9c67883a 	add	r19,r19,r17
   801d10:	4445c83a 	sub	r2,r8,r17
   801d14:	e4c00215 	stw	r19,8(fp)
@@ -3000,13 +3000,13 @@ int main(void)
   801d30:	ac7fff15 	stw	r17,-4(r21)
   801d34:	0803a440 	call	803a44 <__malloc_unlock>
   801d38:	a805883a 	mov	r2,r21
-  801d3c:	003f6b06 	br	801aec <__reset+0xff7f8aec>
+  801d3c:	003f6b06 	br	801aec <__alt_mem_epcs_flash_controller_0+0xff7f8aec>
   801d40:	a80b883a 	mov	r5,r21
   801d44:	9009883a 	mov	r4,r18
   801d48:	08016f80 	call	8016f8 <memmove>
-  801d4c:	003f4e06 	br	801a88 <__reset+0xff7f8a88>
+  801d4c:	003f4e06 	br	801a88 <__alt_mem_epcs_flash_controller_0+0xff7f8a88>
   801d50:	89000404 	addi	r4,r17,16
-  801d54:	b93fbc16 	blt	r23,r4,801c48 <__reset+0xff7f8c48>
+  801d54:	b93fbc16 	blt	r23,r4,801c48 <__alt_mem_epcs_flash_controller_0+0xff7f8c48>
   801d58:	b0800317 	ldw	r2,12(r22)
   801d5c:	b0c00217 	ldw	r3,8(r22)
   801d60:	81bfff04 	addi	r6,r16,-4
@@ -3043,7 +3043,7 @@ int main(void)
   801ddc:	b4400115 	stw	r17,4(r22)
   801de0:	0803a440 	call	803a44 <__malloc_unlock>
   801de4:	9005883a 	mov	r2,r18
-  801de8:	003f4006 	br	801aec <__reset+0xff7f8aec>
+  801de8:	003f4006 	br	801aec <__alt_mem_epcs_flash_controller_0+0xff7f8aec>
   801dec:	a8c00217 	ldw	r3,8(r21)
   801df0:	90c00215 	stw	r3,8(r18)
   801df4:	a8c00317 	ldw	r3,12(r21)
@@ -3051,13 +3051,13 @@ int main(void)
   801dfc:	30801126 	beq	r6,r2,801e44 <_realloc_r+0x4c8>
   801e00:	90800404 	addi	r2,r18,16
   801e04:	a8c00404 	addi	r3,r21,16
-  801e08:	003f1906 	br	801a70 <__reset+0xff7f8a70>
+  801e08:	003f1906 	br	801a70 <__alt_mem_epcs_flash_controller_0+0xff7f8a70>
   801e0c:	90ffff17 	ldw	r3,-4(r18)
   801e10:	00bfff04 	movi	r2,-4
   801e14:	a825883a 	mov	r18,r21
   801e18:	1884703a 	and	r2,r3,r2
   801e1c:	80a1883a 	add	r16,r16,r2
-  801e20:	003f2406 	br	801ab4 <__reset+0xff7f8ab4>
+  801e20:	003f2406 	br	801ab4 <__alt_mem_epcs_flash_controller_0+0xff7f8ab4>
   801e24:	a8800217 	ldw	r2,8(r21)
   801e28:	b0800415 	stw	r2,16(r22)
   801e2c:	a8800317 	ldw	r2,12(r21)
@@ -3065,27 +3065,27 @@ int main(void)
   801e34:	31000a26 	beq	r6,r4,801e60 <_realloc_r+0x4e4>
   801e38:	b0800604 	addi	r2,r22,24
   801e3c:	ad400404 	addi	r21,r21,16
-  801e40:	003fa906 	br	801ce8 <__reset+0xff7f8ce8>
+  801e40:	003fa906 	br	801ce8 <__alt_mem_epcs_flash_controller_0+0xff7f8ce8>
   801e44:	a9000417 	ldw	r4,16(r21)
   801e48:	90800604 	addi	r2,r18,24
   801e4c:	a8c00604 	addi	r3,r21,24
   801e50:	91000415 	stw	r4,16(r18)
   801e54:	a9000517 	ldw	r4,20(r21)
   801e58:	91000515 	stw	r4,20(r18)
-  801e5c:	003f0406 	br	801a70 <__reset+0xff7f8a70>
+  801e5c:	003f0406 	br	801a70 <__alt_mem_epcs_flash_controller_0+0xff7f8a70>
   801e60:	a8c00417 	ldw	r3,16(r21)
   801e64:	ad400604 	addi	r21,r21,24
   801e68:	b0800804 	addi	r2,r22,32
   801e6c:	b0c00615 	stw	r3,24(r22)
   801e70:	a8ffff17 	ldw	r3,-4(r21)
   801e74:	b0c00715 	stw	r3,28(r22)
-  801e78:	003f9b06 	br	801ce8 <__reset+0xff7f8ce8>
+  801e78:	003f9b06 	br	801ce8 <__alt_mem_epcs_flash_controller_0+0xff7f8ce8>
   801e7c:	9005883a 	mov	r2,r18
-  801e80:	003fc706 	br	801da0 <__reset+0xff7f8da0>
+  801e80:	003fc706 	br	801da0 <__alt_mem_epcs_flash_controller_0+0xff7f8da0>
   801e84:	a80b883a 	mov	r5,r21
   801e88:	9009883a 	mov	r4,r18
   801e8c:	08016f80 	call	8016f8 <memmove>
-  801e90:	003fc906 	br	801db8 <__reset+0xff7f8db8>
+  801e90:	003fc906 	br	801db8 <__alt_mem_epcs_flash_controller_0+0xff7f8db8>
   801e94:	a8800217 	ldw	r2,8(r21)
   801e98:	b0800415 	stw	r2,16(r22)
   801e9c:	a8800317 	ldw	r2,12(r21)
@@ -3093,18 +3093,18 @@ int main(void)
   801ea4:	31000726 	beq	r6,r4,801ec4 <_realloc_r+0x548>
   801ea8:	b0800604 	addi	r2,r22,24
   801eac:	ad400404 	addi	r21,r21,16
-  801eb0:	003fbb06 	br	801da0 <__reset+0xff7f8da0>
+  801eb0:	003fbb06 	br	801da0 <__alt_mem_epcs_flash_controller_0+0xff7f8da0>
   801eb4:	a009883a 	mov	r4,r20
   801eb8:	0803a440 	call	803a44 <__malloc_unlock>
   801ebc:	0005883a 	mov	r2,zero
-  801ec0:	003f0a06 	br	801aec <__reset+0xff7f8aec>
+  801ec0:	003f0a06 	br	801aec <__alt_mem_epcs_flash_controller_0+0xff7f8aec>
   801ec4:	a8c00417 	ldw	r3,16(r21)
   801ec8:	ad400604 	addi	r21,r21,24
   801ecc:	b0800804 	addi	r2,r22,32
   801ed0:	b0c00615 	stw	r3,24(r22)
   801ed4:	a8ffff17 	ldw	r3,-4(r21)
   801ed8:	b0c00715 	stw	r3,28(r22)
-  801edc:	003fb006 	br	801da0 <__reset+0xff7f8da0>
+  801edc:	003fb006 	br	801da0 <__alt_mem_epcs_flash_controller_0+0xff7f8da0>
 
 00801ee0 <_sbrk_r>:
   801ee0:	defffd04 	addi	sp,sp,-12
@@ -3125,9 +3125,9 @@ int main(void)
   801f1c:	dec00304 	addi	sp,sp,12
   801f20:	f800283a 	ret
   801f24:	80c00017 	ldw	r3,0(r16)
-  801f28:	183ff926 	beq	r3,zero,801f10 <__reset+0xff7f8f10>
+  801f28:	183ff926 	beq	r3,zero,801f10 <__alt_mem_epcs_flash_controller_0+0xff7f8f10>
   801f2c:	88c00015 	stw	r3,0(r17)
-  801f30:	003ff706 	br	801f10 <__reset+0xff7f8f10>
+  801f30:	003ff706 	br	801f10 <__alt_mem_epcs_flash_controller_0+0xff7f8f10>
 
 00801f34 <__sread>:
   801f34:	defffe04 	addi	sp,sp,-8
@@ -3240,9 +3240,9 @@ int main(void)
   8020b8:	dec00304 	addi	sp,sp,12
   8020bc:	f800283a 	ret
   8020c0:	80c00017 	ldw	r3,0(r16)
-  8020c4:	183ff926 	beq	r3,zero,8020ac <__reset+0xff7f90ac>
+  8020c4:	183ff926 	beq	r3,zero,8020ac <__alt_mem_epcs_flash_controller_0+0xff7f90ac>
   8020c8:	88c00015 	stw	r3,0(r17)
-  8020cc:	003ff706 	br	8020ac <__reset+0xff7f90ac>
+  8020cc:	003ff706 	br	8020ac <__alt_mem_epcs_flash_controller_0+0xff7f90ac>
 
 008020d0 <__swsetup_r>:
   8020d0:	00802074 	movhi	r2,129
@@ -3283,33 +3283,33 @@ int main(void)
   80215c:	80c00417 	ldw	r3,16(r16)
   802160:	20800214 	ori	r2,r4,8
   802164:	8080030d 	sth	r2,12(r16)
-  802168:	183feb1e 	bne	r3,zero,802118 <__reset+0xff7f9118>
+  802168:	183feb1e 	bne	r3,zero,802118 <__alt_mem_epcs_flash_controller_0+0xff7f9118>
   80216c:	1100a00c 	andi	r4,r2,640
   802170:	01408004 	movi	r5,512
-  802174:	217fe826 	beq	r4,r5,802118 <__reset+0xff7f9118>
+  802174:	217fe826 	beq	r4,r5,802118 <__alt_mem_epcs_flash_controller_0+0xff7f9118>
   802178:	800b883a 	mov	r5,r16
   80217c:	8809883a 	mov	r4,r17
   802180:	0802ab80 	call	802ab8 <__smakebuf_r>
   802184:	8080030b 	ldhu	r2,12(r16)
   802188:	80c00417 	ldw	r3,16(r16)
-  80218c:	003fe206 	br	802118 <__reset+0xff7f9118>
+  80218c:	003fe206 	br	802118 <__alt_mem_epcs_flash_controller_0+0xff7f9118>
   802190:	80800517 	ldw	r2,20(r16)
   802194:	80000215 	stw	zero,8(r16)
   802198:	0085c83a 	sub	r2,zero,r2
   80219c:	80800615 	stw	r2,24(r16)
-  8021a0:	183fe41e 	bne	r3,zero,802134 <__reset+0xff7f9134>
+  8021a0:	183fe41e 	bne	r3,zero,802134 <__alt_mem_epcs_flash_controller_0+0xff7f9134>
   8021a4:	80c0030b 	ldhu	r3,12(r16)
   8021a8:	0005883a 	mov	r2,zero
   8021ac:	1900200c 	andi	r4,r3,128
-  8021b0:	203fe126 	beq	r4,zero,802138 <__reset+0xff7f9138>
+  8021b0:	203fe126 	beq	r4,zero,802138 <__alt_mem_epcs_flash_controller_0+0xff7f9138>
   8021b4:	18c01014 	ori	r3,r3,64
   8021b8:	80c0030d 	sth	r3,12(r16)
   8021bc:	00bfffc4 	movi	r2,-1
-  8021c0:	003fdd06 	br	802138 <__reset+0xff7f9138>
+  8021c0:	003fdd06 	br	802138 <__alt_mem_epcs_flash_controller_0+0xff7f9138>
   8021c4:	08006200 	call	800620 <__sinit>
-  8021c8:	003fcd06 	br	802100 <__reset+0xff7f9100>
+  8021c8:	003fcd06 	br	802100 <__alt_mem_epcs_flash_controller_0+0xff7f9100>
   8021cc:	0005883a 	mov	r2,zero
-  8021d0:	003fd606 	br	80212c <__reset+0xff7f912c>
+  8021d0:	003fd606 	br	80212c <__alt_mem_epcs_flash_controller_0+0xff7f912c>
   8021d4:	81400c17 	ldw	r5,48(r16)
   8021d8:	28000626 	beq	r5,zero,8021f4 <__swsetup_r+0x124>
   8021dc:	80801004 	addi	r2,r16,64
@@ -3323,13 +3323,13 @@ int main(void)
   8021fc:	1108703a 	and	r4,r2,r4
   802200:	80000115 	stw	zero,4(r16)
   802204:	80c00015 	stw	r3,0(r16)
-  802208:	003fd506 	br	802160 <__reset+0xff7f9160>
+  802208:	003fd506 	br	802160 <__alt_mem_epcs_flash_controller_0+0xff7f9160>
   80220c:	00800244 	movi	r2,9
   802210:	88800015 	stw	r2,0(r17)
   802214:	20801014 	ori	r2,r4,64
   802218:	8080030d 	sth	r2,12(r16)
   80221c:	00bfffc4 	movi	r2,-1
-  802220:	003fc506 	br	802138 <__reset+0xff7f9138>
+  802220:	003fc506 	br	802138 <__alt_mem_epcs_flash_controller_0+0xff7f9138>
 
 00802224 <_close_r>:
   802224:	defffd04 	addi	sp,sp,-12
@@ -3350,9 +3350,9 @@ int main(void)
   802260:	dec00304 	addi	sp,sp,12
   802264:	f800283a 	ret
   802268:	80c00017 	ldw	r3,0(r16)
-  80226c:	183ff926 	beq	r3,zero,802254 <__reset+0xff7f9254>
+  80226c:	183ff926 	beq	r3,zero,802254 <__alt_mem_epcs_flash_controller_0+0xff7f9254>
   802270:	88c00015 	stw	r3,0(r17)
-  802274:	003ff706 	br	802254 <__reset+0xff7f9254>
+  802274:	003ff706 	br	802254 <__alt_mem_epcs_flash_controller_0+0xff7f9254>
 
 00802278 <_fclose_r>:
   802278:	28003926 	beq	r5,zero,802360 <_fclose_r+0xe8>
@@ -3404,15 +3404,15 @@ int main(void)
   802330:	8000030d 	sth	zero,12(r16)
   802334:	08006340 	call	800634 <__sfp_lock_release>
   802338:	9005883a 	mov	r2,r18
-  80233c:	003fdc06 	br	8022b0 <__reset+0xff7f92b0>
+  80233c:	003fdc06 	br	8022b0 <__alt_mem_epcs_flash_controller_0+0xff7f92b0>
   802340:	08006200 	call	800620 <__sinit>
-  802344:	003fd706 	br	8022a4 <__reset+0xff7f92a4>
+  802344:	003fd706 	br	8022a4 <__alt_mem_epcs_flash_controller_0+0xff7f92a4>
   802348:	04bfffc4 	movi	r18,-1
-  80234c:	003fe806 	br	8022f0 <__reset+0xff7f92f0>
+  80234c:	003fe806 	br	8022f0 <__alt_mem_epcs_flash_controller_0+0xff7f92f0>
   802350:	81400417 	ldw	r5,16(r16)
   802354:	8809883a 	mov	r4,r17
   802358:	08027480 	call	802748 <_free_r>
-  80235c:	003fe706 	br	8022fc <__reset+0xff7f92fc>
+  80235c:	003fe706 	br	8022fc <__alt_mem_epcs_flash_controller_0+0xff7f92fc>
   802360:	0005883a 	mov	r2,zero
   802364:	f800283a 	ret
 
@@ -3485,7 +3485,7 @@ int main(void)
   802464:	dec00504 	addi	sp,sp,20
   802468:	f800283a 	ret
   80246c:	2c800417 	ldw	r18,16(r5)
-  802470:	903ff626 	beq	r18,zero,80244c <__reset+0xff7f944c>
+  802470:	903ff626 	beq	r18,zero,80244c <__alt_mem_epcs_flash_controller_0+0xff7f944c>
   802474:	2c000017 	ldw	r16,0(r5)
   802478:	108000cc 	andi	r2,r2,3
   80247c:	2c800015 	stw	r18,0(r5)
@@ -3494,9 +3494,9 @@ int main(void)
   802488:	28800517 	ldw	r2,20(r5)
   80248c:	88800215 	stw	r2,8(r17)
   802490:	04000316 	blt	zero,r16,8024a0 <__sflush_r+0x124>
-  802494:	003fed06 	br	80244c <__reset+0xff7f944c>
+  802494:	003fed06 	br	80244c <__alt_mem_epcs_flash_controller_0+0xff7f944c>
   802498:	90a5883a 	add	r18,r18,r2
-  80249c:	043feb0e 	bge	zero,r16,80244c <__reset+0xff7f944c>
+  80249c:	043feb0e 	bge	zero,r16,80244c <__alt_mem_epcs_flash_controller_0+0xff7f944c>
   8024a0:	88800917 	ldw	r2,36(r17)
   8024a4:	89400717 	ldw	r5,28(r17)
   8024a8:	800f883a 	mov	r7,r16
@@ -3504,19 +3504,19 @@ int main(void)
   8024b0:	9809883a 	mov	r4,r19
   8024b4:	103ee83a 	callr	r2
   8024b8:	80a1c83a 	sub	r16,r16,r2
-  8024bc:	00bff616 	blt	zero,r2,802498 <__reset+0xff7f9498>
+  8024bc:	00bff616 	blt	zero,r2,802498 <__alt_mem_epcs_flash_controller_0+0xff7f9498>
   8024c0:	88c0030b 	ldhu	r3,12(r17)
   8024c4:	00bfffc4 	movi	r2,-1
   8024c8:	18c01014 	ori	r3,r3,64
   8024cc:	88c0030d 	sth	r3,12(r17)
-  8024d0:	003fdf06 	br	802450 <__reset+0xff7f9450>
+  8024d0:	003fdf06 	br	802450 <__alt_mem_epcs_flash_controller_0+0xff7f9450>
   8024d4:	0005883a 	mov	r2,zero
-  8024d8:	003fec06 	br	80248c <__reset+0xff7f948c>
+  8024d8:	003fec06 	br	80248c <__alt_mem_epcs_flash_controller_0+0xff7f948c>
   8024dc:	88801415 	stw	r2,80(r17)
-  8024e0:	003fd206 	br	80242c <__reset+0xff7f942c>
+  8024e0:	003fd206 	br	80242c <__alt_mem_epcs_flash_controller_0+0xff7f942c>
   8024e4:	28c00f17 	ldw	r3,60(r5)
-  8024e8:	00ffb316 	blt	zero,r3,8023b8 <__reset+0xff7f93b8>
-  8024ec:	003fd706 	br	80244c <__reset+0xff7f944c>
+  8024e8:	00ffb316 	blt	zero,r3,8023b8 <__alt_mem_epcs_flash_controller_0+0xff7f93b8>
+  8024ec:	003fd706 	br	80244c <__alt_mem_epcs_flash_controller_0+0xff7f944c>
   8024f0:	89400717 	ldw	r5,28(r17)
   8024f4:	000d883a 	mov	r6,zero
   8024f8:	01c00044 	movi	r7,1
@@ -3527,9 +3527,9 @@ int main(void)
   80250c:	30801426 	beq	r6,r2,802560 <__sflush_r+0x1e4>
   802510:	8880030b 	ldhu	r2,12(r17)
   802514:	8a000a17 	ldw	r8,40(r17)
-  802518:	003fae06 	br	8023d4 <__reset+0xff7f93d4>
+  802518:	003fae06 	br	8023d4 <__alt_mem_epcs_flash_controller_0+0xff7f93d4>
   80251c:	98c00017 	ldw	r3,0(r19)
-  802520:	183fba26 	beq	r3,zero,80240c <__reset+0xff7f940c>
+  802520:	183fba26 	beq	r3,zero,80240c <__alt_mem_epcs_flash_controller_0+0xff7f940c>
   802524:	01000744 	movi	r4,29
   802528:	19000626 	beq	r3,r4,802544 <__sflush_r+0x1c8>
   80252c:	01000584 	movi	r4,22
@@ -3537,28 +3537,28 @@ int main(void)
   802534:	88c0030b 	ldhu	r3,12(r17)
   802538:	18c01014 	ori	r3,r3,64
   80253c:	88c0030d 	sth	r3,12(r17)
-  802540:	003fc306 	br	802450 <__reset+0xff7f9450>
+  802540:	003fc306 	br	802450 <__alt_mem_epcs_flash_controller_0+0xff7f9450>
   802544:	8880030b 	ldhu	r2,12(r17)
   802548:	88c00417 	ldw	r3,16(r17)
   80254c:	88000115 	stw	zero,4(r17)
   802550:	10bdffcc 	andi	r2,r2,63487
   802554:	8880030d 	sth	r2,12(r17)
   802558:	88c00015 	stw	r3,0(r17)
-  80255c:	003fb306 	br	80242c <__reset+0xff7f942c>
+  80255c:	003fb306 	br	80242c <__alt_mem_epcs_flash_controller_0+0xff7f942c>
   802560:	98800017 	ldw	r2,0(r19)
-  802564:	103fea26 	beq	r2,zero,802510 <__reset+0xff7f9510>
+  802564:	103fea26 	beq	r2,zero,802510 <__alt_mem_epcs_flash_controller_0+0xff7f9510>
   802568:	00c00744 	movi	r3,29
   80256c:	10c00226 	beq	r2,r3,802578 <__sflush_r+0x1fc>
   802570:	00c00584 	movi	r3,22
   802574:	10c0031e 	bne	r2,r3,802584 <__sflush_r+0x208>
   802578:	9c000015 	stw	r16,0(r19)
   80257c:	0005883a 	mov	r2,zero
-  802580:	003fb306 	br	802450 <__reset+0xff7f9450>
+  802580:	003fb306 	br	802450 <__alt_mem_epcs_flash_controller_0+0xff7f9450>
   802584:	88c0030b 	ldhu	r3,12(r17)
   802588:	3005883a 	mov	r2,r6
   80258c:	18c01014 	ori	r3,r3,64
   802590:	88c0030d 	sth	r3,12(r17)
-  802594:	003fae06 	br	802450 <__reset+0xff7f9450>
+  802594:	003fae06 	br	802450 <__alt_mem_epcs_flash_controller_0+0xff7f9450>
 
 00802598 <_fflush_r>:
   802598:	defffd04 	addi	sp,sp,-12
@@ -3583,7 +3583,7 @@ int main(void)
   8025e4:	d9400015 	stw	r5,0(sp)
   8025e8:	08006200 	call	800620 <__sinit>
   8025ec:	d9400017 	ldw	r5,0(sp)
-  8025f0:	003ff006 	br	8025b4 <__reset+0xff7f95b4>
+  8025f0:	003ff006 	br	8025b4 <__alt_mem_epcs_flash_controller_0+0xff7f95b4>
 
 008025f4 <fflush>:
   8025f4:	20000526 	beq	r4,zero,80260c <fflush+0x18>
@@ -3655,14 +3655,14 @@ int main(void)
   8026f4:	1c000015 	stw	r16,0(r3)
   8026f8:	0803a440 	call	803a44 <__malloc_unlock>
   8026fc:	00800044 	movi	r2,1
-  802700:	003fe706 	br	8026a0 <__reset+0xff7f96a0>
+  802700:	003fe706 	br	8026a0 <__alt_mem_epcs_flash_controller_0+0xff7f96a0>
   802704:	000b883a 	mov	r5,zero
   802708:	9009883a 	mov	r4,r18
   80270c:	0801ee00 	call	801ee0 <_sbrk_r>
   802710:	99000217 	ldw	r4,8(r19)
   802714:	014003c4 	movi	r5,15
   802718:	1107c83a 	sub	r3,r2,r4
-  80271c:	28ffdd0e 	bge	r5,r3,802694 <__reset+0xff7f9694>
+  80271c:	28ffdd0e 	bge	r5,r3,802694 <__alt_mem_epcs_flash_controller_0+0xff7f9694>
   802720:	01402074 	movhi	r5,129
   802724:	29454c04 	addi	r5,r5,5424
   802728:	29400017 	ldw	r5,0(r5)
@@ -3672,7 +3672,7 @@ int main(void)
   802738:	1145c83a 	sub	r2,r2,r5
   80273c:	18c59d04 	addi	r3,r3,5748
   802740:	18800015 	stw	r2,0(r3)
-  802744:	003fd306 	br	802694 <__reset+0xff7f9694>
+  802744:	003fd306 	br	802694 <__alt_mem_epcs_flash_controller_0+0xff7f9694>
 
 00802748 <_free_r>:
   802748:	28004126 	beq	r5,zero,802850 <_free_r+0x108>
@@ -3762,13 +3762,13 @@ int main(void)
   802898:	29ca703a 	and	r5,r5,r7
   80289c:	1140022e 	bgeu	r2,r5,8028a8 <_free_r+0x160>
   8028a0:	18c00217 	ldw	r3,8(r3)
-  8028a4:	20fffb1e 	bne	r4,r3,802894 <__reset+0xff7f9894>
+  8028a4:	20fffb1e 	bne	r4,r3,802894 <__alt_mem_epcs_flash_controller_0+0xff7f9894>
   8028a8:	19000317 	ldw	r4,12(r3)
   8028ac:	31000315 	stw	r4,12(r6)
   8028b0:	30c00215 	stw	r3,8(r6)
   8028b4:	21800215 	stw	r6,8(r4)
   8028b8:	19800315 	stw	r6,12(r3)
-  8028bc:	003fde06 	br	802838 <__reset+0xff7f9838>
+  8028bc:	003fde06 	br	802838 <__alt_mem_epcs_flash_controller_0+0xff7f9838>
   8028c0:	29c00217 	ldw	r7,8(r5)
   8028c4:	10c5883a 	add	r2,r2,r3
   8028c8:	00c02074 	movhi	r3,129
@@ -3781,7 +3781,7 @@ int main(void)
   8028e4:	41c00215 	stw	r7,8(r8)
   8028e8:	31400115 	stw	r5,4(r6)
   8028ec:	18800015 	stw	r2,0(r3)
-  8028f0:	003fbd06 	br	8027e8 <__reset+0xff7f97e8>
+  8028f0:	003fbd06 	br	8027e8 <__alt_mem_epcs_flash_controller_0+0xff7f97e8>
   8028f4:	39c0004c 	andi	r7,r7,1
   8028f8:	10c5883a 	add	r2,r2,r3
   8028fc:	3800071e 	bne	r7,zero,80291c <_free_r+0x1d4>
@@ -3798,13 +3798,13 @@ int main(void)
   802928:	18c54d04 	addi	r3,r3,5428
   80292c:	18c00017 	ldw	r3,0(r3)
   802930:	21800215 	stw	r6,8(r4)
-  802934:	10ffc036 	bltu	r2,r3,802838 <__reset+0xff7f9838>
+  802934:	10ffc036 	bltu	r2,r3,802838 <__alt_mem_epcs_flash_controller_0+0xff7f9838>
   802938:	00802074 	movhi	r2,129
   80293c:	10857b04 	addi	r2,r2,5612
   802940:	11400017 	ldw	r5,0(r2)
   802944:	8809883a 	mov	r4,r17
   802948:	08026240 	call	802624 <_malloc_trim_r>
-  80294c:	003fba06 	br	802838 <__reset+0xff7f9838>
+  80294c:	003fba06 	br	802838 <__alt_mem_epcs_flash_controller_0+0xff7f9838>
   802950:	28c9883a 	add	r4,r5,r3
   802954:	21000117 	ldw	r4,4(r4)
   802958:	2100004c 	andi	r4,r4,1
@@ -3818,13 +3818,13 @@ int main(void)
   802978:	30c00115 	stw	r3,4(r6)
   80297c:	308d883a 	add	r6,r6,r2
   802980:	30800015 	stw	r2,0(r6)
-  802984:	003fac06 	br	802838 <__reset+0xff7f9838>
+  802984:	003fac06 	br	802838 <__alt_mem_epcs_flash_controller_0+0xff7f9838>
   802988:	00c00504 	movi	r3,20
   80298c:	19401536 	bltu	r3,r5,8029e4 <_free_r+0x29c>
   802990:	28c01704 	addi	r3,r5,92
   802994:	18c7883a 	add	r3,r3,r3
   802998:	294016c4 	addi	r5,r5,91
-  80299c:	003fb406 	br	802870 <__reset+0xff7f9870>
+  80299c:	003fb406 	br	802870 <__alt_mem_epcs_flash_controller_0+0xff7f9870>
   8029a0:	280bd0ba 	srai	r5,r5,2
   8029a4:	00c00044 	movi	r3,1
   8029a8:	38800117 	ldw	r2,4(r7)
@@ -3832,7 +3832,7 @@ int main(void)
   8029b0:	2007883a 	mov	r3,r4
   8029b4:	2884b03a 	or	r2,r5,r2
   8029b8:	38800115 	stw	r2,4(r7)
-  8029bc:	003fbb06 	br	8028ac <__reset+0xff7f98ac>
+  8029bc:	003fbb06 	br	8028ac <__alt_mem_epcs_flash_controller_0+0xff7f98ac>
   8029c0:	21800515 	stw	r6,20(r4)
   8029c4:	21800415 	stw	r6,16(r4)
   8029c8:	10c00054 	ori	r3,r2,1
@@ -3841,36 +3841,36 @@ int main(void)
   8029d4:	30c00115 	stw	r3,4(r6)
   8029d8:	308d883a 	add	r6,r6,r2
   8029dc:	30800015 	stw	r2,0(r6)
-  8029e0:	003f9506 	br	802838 <__reset+0xff7f9838>
+  8029e0:	003f9506 	br	802838 <__alt_mem_epcs_flash_controller_0+0xff7f9838>
   8029e4:	00c01504 	movi	r3,84
   8029e8:	19400536 	bltu	r3,r5,802a00 <_free_r+0x2b8>
   8029ec:	100ad33a 	srli	r5,r2,12
   8029f0:	28c01bc4 	addi	r3,r5,111
   8029f4:	18c7883a 	add	r3,r3,r3
   8029f8:	29401b84 	addi	r5,r5,110
-  8029fc:	003f9c06 	br	802870 <__reset+0xff7f9870>
+  8029fc:	003f9c06 	br	802870 <__alt_mem_epcs_flash_controller_0+0xff7f9870>
   802a00:	00c05504 	movi	r3,340
   802a04:	19400536 	bltu	r3,r5,802a1c <_free_r+0x2d4>
   802a08:	100ad3fa 	srli	r5,r2,15
   802a0c:	28c01e04 	addi	r3,r5,120
   802a10:	18c7883a 	add	r3,r3,r3
   802a14:	29401dc4 	addi	r5,r5,119
-  802a18:	003f9506 	br	802870 <__reset+0xff7f9870>
+  802a18:	003f9506 	br	802870 <__alt_mem_epcs_flash_controller_0+0xff7f9870>
   802a1c:	00c15504 	movi	r3,1364
   802a20:	19400536 	bltu	r3,r5,802a38 <_free_r+0x2f0>
   802a24:	100ad4ba 	srli	r5,r2,18
   802a28:	28c01f44 	addi	r3,r5,125
   802a2c:	18c7883a 	add	r3,r3,r3
   802a30:	29401f04 	addi	r5,r5,124
-  802a34:	003f8e06 	br	802870 <__reset+0xff7f9870>
+  802a34:	003f8e06 	br	802870 <__alt_mem_epcs_flash_controller_0+0xff7f9870>
   802a38:	00c03f84 	movi	r3,254
   802a3c:	01401f84 	movi	r5,126
-  802a40:	003f8b06 	br	802870 <__reset+0xff7f9870>
+  802a40:	003f8b06 	br	802870 <__alt_mem_epcs_flash_controller_0+0xff7f9870>
   802a44:	10c00054 	ori	r3,r2,1
   802a48:	30c00115 	stw	r3,4(r6)
   802a4c:	308d883a 	add	r6,r6,r2
   802a50:	30800015 	stw	r2,0(r6)
-  802a54:	003f7806 	br	802838 <__reset+0xff7f9838>
+  802a54:	003f7806 	br	802838 <__alt_mem_epcs_flash_controller_0+0xff7f9838>
 
 00802a58 <_lseek_r>:
   802a58:	defffd04 	addi	sp,sp,-12
@@ -3894,9 +3894,9 @@ int main(void)
   802aa0:	dec00304 	addi	sp,sp,12
   802aa4:	f800283a 	ret
   802aa8:	80c00017 	ldw	r3,0(r16)
-  802aac:	183ff926 	beq	r3,zero,802a94 <__reset+0xff7f9a94>
+  802aac:	183ff926 	beq	r3,zero,802a94 <__alt_mem_epcs_flash_controller_0+0xff7f9a94>
   802ab0:	88c00015 	stw	r3,0(r17)
-  802ab4:	003ff706 	br	802a94 <__reset+0xff7f9a94>
+  802ab4:	003ff706 	br	802a94 <__alt_mem_epcs_flash_controller_0+0xff7f9a94>
 
 00802ab8 <__smakebuf_r>:
   802ab8:	2880030b 	ldhu	r2,12(r5)
@@ -3974,29 +3974,29 @@ int main(void)
   802bd8:	28800515 	stw	r2,20(r5)
   802bdc:	f800283a 	ret
   802be0:	04801004 	movi	r18,64
-  802be4:	003fe006 	br	802b68 <__reset+0xff7f9b68>
+  802be4:	003fe006 	br	802b68 <__alt_mem_epcs_flash_controller_0+0xff7f9b68>
   802be8:	81000a17 	ldw	r4,40(r16)
   802bec:	00c02034 	movhi	r3,128
   802bf0:	18c80304 	addi	r3,r3,8204
-  802bf4:	20ffc51e 	bne	r4,r3,802b0c <__reset+0xff7f9b0c>
+  802bf4:	20ffc51e 	bne	r4,r3,802b0c <__alt_mem_epcs_flash_controller_0+0xff7f9b0c>
   802bf8:	8080030b 	ldhu	r2,12(r16)
   802bfc:	04810004 	movi	r18,1024
   802c00:	84801315 	stw	r18,76(r16)
   802c04:	1484b03a 	or	r2,r2,r18
   802c08:	8080030d 	sth	r2,12(r16)
   802c0c:	0027883a 	mov	r19,zero
-  802c10:	003fd806 	br	802b74 <__reset+0xff7f9b74>
+  802c10:	003fd806 	br	802b74 <__alt_mem_epcs_flash_controller_0+0xff7f9b74>
   802c14:	8140038f 	ldh	r5,14(r16)
   802c18:	8809883a 	mov	r4,r17
   802c1c:	0802d300 	call	802d30 <_isatty_r>
-  802c20:	103fe226 	beq	r2,zero,802bac <__reset+0xff7f9bac>
+  802c20:	103fe226 	beq	r2,zero,802bac <__alt_mem_epcs_flash_controller_0+0xff7f9bac>
   802c24:	8080030b 	ldhu	r2,12(r16)
   802c28:	10800054 	ori	r2,r2,1
   802c2c:	8080030d 	sth	r2,12(r16)
-  802c30:	003fde06 	br	802bac <__reset+0xff7f9bac>
+  802c30:	003fde06 	br	802bac <__alt_mem_epcs_flash_controller_0+0xff7f9bac>
   802c34:	8080030b 	ldhu	r2,12(r16)
   802c38:	10c0800c 	andi	r3,r2,512
-  802c3c:	183fdb1e 	bne	r3,zero,802bac <__reset+0xff7f9bac>
+  802c3c:	183fdb1e 	bne	r3,zero,802bac <__alt_mem_epcs_flash_controller_0+0xff7f9bac>
   802c40:	10800094 	ori	r2,r2,2
   802c44:	80c010c4 	addi	r3,r16,67
   802c48:	8080030d 	sth	r2,12(r16)
@@ -4004,12 +4004,12 @@ int main(void)
   802c50:	80c00015 	stw	r3,0(r16)
   802c54:	80c00415 	stw	r3,16(r16)
   802c58:	80800515 	stw	r2,20(r16)
-  802c5c:	003fd306 	br	802bac <__reset+0xff7f9bac>
+  802c5c:	003fd306 	br	802bac <__alt_mem_epcs_flash_controller_0+0xff7f9bac>
   802c60:	04810004 	movi	r18,1024
-  802c64:	003fc306 	br	802b74 <__reset+0xff7f9b74>
+  802c64:	003fc306 	br	802b74 <__alt_mem_epcs_flash_controller_0+0xff7f9b74>
   802c68:	0027883a 	mov	r19,zero
   802c6c:	04810004 	movi	r18,1024
-  802c70:	003fc006 	br	802b74 <__reset+0xff7f9b74>
+  802c70:	003fc006 	br	802b74 <__alt_mem_epcs_flash_controller_0+0xff7f9b74>
 
 00802c74 <_read_r>:
   802c74:	defffd04 	addi	sp,sp,-12
@@ -4033,9 +4033,9 @@ int main(void)
   802cbc:	dec00304 	addi	sp,sp,12
   802cc0:	f800283a 	ret
   802cc4:	80c00017 	ldw	r3,0(r16)
-  802cc8:	183ff926 	beq	r3,zero,802cb0 <__reset+0xff7f9cb0>
+  802cc8:	183ff926 	beq	r3,zero,802cb0 <__alt_mem_epcs_flash_controller_0+0xff7f9cb0>
   802ccc:	88c00015 	stw	r3,0(r17)
-  802cd0:	003ff706 	br	802cb0 <__reset+0xff7f9cb0>
+  802cd0:	003ff706 	br	802cb0 <__alt_mem_epcs_flash_controller_0+0xff7f9cb0>
 
 00802cd4 <_fstat_r>:
   802cd4:	defffd04 	addi	sp,sp,-12
@@ -4058,9 +4058,9 @@ int main(void)
   802d18:	dec00304 	addi	sp,sp,12
   802d1c:	f800283a 	ret
   802d20:	80c00017 	ldw	r3,0(r16)
-  802d24:	183ff926 	beq	r3,zero,802d0c <__reset+0xff7f9d0c>
+  802d24:	183ff926 	beq	r3,zero,802d0c <__alt_mem_epcs_flash_controller_0+0xff7f9d0c>
   802d28:	88c00015 	stw	r3,0(r17)
-  802d2c:	003ff706 	br	802d0c <__reset+0xff7f9d0c>
+  802d2c:	003ff706 	br	802d0c <__alt_mem_epcs_flash_controller_0+0xff7f9d0c>
 
 00802d30 <_isatty_r>:
   802d30:	defffd04 	addi	sp,sp,-12
@@ -4081,9 +4081,9 @@ int main(void)
   802d6c:	dec00304 	addi	sp,sp,12
   802d70:	f800283a 	ret
   802d74:	80c00017 	ldw	r3,0(r16)
-  802d78:	183ff926 	beq	r3,zero,802d60 <__reset+0xff7f9d60>
+  802d78:	183ff926 	beq	r3,zero,802d60 <__alt_mem_epcs_flash_controller_0+0xff7f9d60>
   802d7c:	88c00015 	stw	r3,0(r17)
-  802d80:	003ff706 	br	802d60 <__reset+0xff7f9d60>
+  802d80:	003ff706 	br	802d60 <__alt_mem_epcs_flash_controller_0+0xff7f9d60>
 
 00802d84 <__divsi3>:
   802d84:	20001b16 	blt	r4,zero,802df4 <__divsi3+0x70>
@@ -4098,7 +4098,7 @@ int main(void)
   802da8:	294b883a 	add	r5,r5,r5
   802dac:	10bfffc4 	addi	r2,r2,-1
   802db0:	18c7883a 	add	r3,r3,r3
-  802db4:	293ffb36 	bltu	r5,r4,802da4 <__reset+0xff7f9da4>
+  802db4:	293ffb36 	bltu	r5,r4,802da4 <__alt_mem_epcs_flash_controller_0+0xff7f9da4>
   802db8:	0005883a 	mov	r2,zero
   802dbc:	18000726 	beq	r3,zero,802ddc <__divsi3+0x58>
   802dc0:	0005883a 	mov	r2,zero
@@ -4107,18 +4107,18 @@ int main(void)
   802dcc:	10c4b03a 	or	r2,r2,r3
   802dd0:	1806d07a 	srli	r3,r3,1
   802dd4:	280ad07a 	srli	r5,r5,1
-  802dd8:	183ffa1e 	bne	r3,zero,802dc4 <__reset+0xff7f9dc4>
+  802dd8:	183ffa1e 	bne	r3,zero,802dc4 <__alt_mem_epcs_flash_controller_0+0xff7f9dc4>
   802ddc:	38000126 	beq	r7,zero,802de4 <__divsi3+0x60>
   802de0:	0085c83a 	sub	r2,zero,r2
   802de4:	f800283a 	ret
   802de8:	014bc83a 	sub	r5,zero,r5
   802dec:	39c0005c 	xori	r7,r7,1
-  802df0:	003fe706 	br	802d90 <__reset+0xff7f9d90>
+  802df0:	003fe706 	br	802d90 <__alt_mem_epcs_flash_controller_0+0xff7f9d90>
   802df4:	0109c83a 	sub	r4,zero,r4
   802df8:	01c00044 	movi	r7,1
-  802dfc:	003fe306 	br	802d8c <__reset+0xff7f9d8c>
+  802dfc:	003fe306 	br	802d8c <__alt_mem_epcs_flash_controller_0+0xff7f9d8c>
   802e00:	00c00044 	movi	r3,1
-  802e04:	003fee06 	br	802dc0 <__reset+0xff7f9dc0>
+  802e04:	003fee06 	br	802dc0 <__alt_mem_epcs_flash_controller_0+0xff7f9dc0>
 
 00802e08 <__modsi3>:
   802e08:	20001716 	blt	r4,zero,802e68 <__modsi3+0x60>
@@ -4133,23 +4133,23 @@ int main(void)
   802e2c:	294b883a 	add	r5,r5,r5
   802e30:	31bfffc4 	addi	r6,r6,-1
   802e34:	18c7883a 	add	r3,r3,r3
-  802e38:	293ffb36 	bltu	r5,r4,802e28 <__reset+0xff7f9e28>
+  802e38:	293ffb36 	bltu	r5,r4,802e28 <__alt_mem_epcs_flash_controller_0+0xff7f9e28>
   802e3c:	18000526 	beq	r3,zero,802e54 <__modsi3+0x4c>
   802e40:	1806d07a 	srli	r3,r3,1
   802e44:	11400136 	bltu	r2,r5,802e4c <__modsi3+0x44>
   802e48:	1145c83a 	sub	r2,r2,r5
   802e4c:	280ad07a 	srli	r5,r5,1
-  802e50:	183ffb1e 	bne	r3,zero,802e40 <__reset+0xff7f9e40>
+  802e50:	183ffb1e 	bne	r3,zero,802e40 <__alt_mem_epcs_flash_controller_0+0xff7f9e40>
   802e54:	38000126 	beq	r7,zero,802e5c <__modsi3+0x54>
   802e58:	0085c83a 	sub	r2,zero,r2
   802e5c:	f800283a 	ret
   802e60:	014bc83a 	sub	r5,zero,r5
-  802e64:	003fec06 	br	802e18 <__reset+0xff7f9e18>
+  802e64:	003fec06 	br	802e18 <__alt_mem_epcs_flash_controller_0+0xff7f9e18>
   802e68:	0109c83a 	sub	r4,zero,r4
   802e6c:	01c00044 	movi	r7,1
-  802e70:	003fe706 	br	802e10 <__reset+0xff7f9e10>
+  802e70:	003fe706 	br	802e10 <__alt_mem_epcs_flash_controller_0+0xff7f9e10>
   802e74:	00c00044 	movi	r3,1
-  802e78:	003ff106 	br	802e40 <__reset+0xff7f9e40>
+  802e78:	003ff106 	br	802e40 <__alt_mem_epcs_flash_controller_0+0xff7f9e40>
 
 00802e7c <__udivsi3>:
   802e7c:	200d883a 	mov	r6,r4
@@ -4163,7 +4163,7 @@ int main(void)
   802e9c:	294b883a 	add	r5,r5,r5
   802ea0:	10bfffc4 	addi	r2,r2,-1
   802ea4:	18c7883a 	add	r3,r3,r3
-  802ea8:	293ffa36 	bltu	r5,r4,802e94 <__reset+0xff7f9e94>
+  802ea8:	293ffa36 	bltu	r5,r4,802e94 <__alt_mem_epcs_flash_controller_0+0xff7f9e94>
   802eac:	18000826 	beq	r3,zero,802ed0 <__udivsi3+0x54>
   802eb0:	0005883a 	mov	r2,zero
   802eb4:	31400236 	bltu	r6,r5,802ec0 <__udivsi3+0x44>
@@ -4171,12 +4171,12 @@ int main(void)
   802ebc:	10c4b03a 	or	r2,r2,r3
   802ec0:	1806d07a 	srli	r3,r3,1
   802ec4:	280ad07a 	srli	r5,r5,1
-  802ec8:	183ffa1e 	bne	r3,zero,802eb4 <__reset+0xff7f9eb4>
+  802ec8:	183ffa1e 	bne	r3,zero,802eb4 <__alt_mem_epcs_flash_controller_0+0xff7f9eb4>
   802ecc:	f800283a 	ret
   802ed0:	0005883a 	mov	r2,zero
   802ed4:	f800283a 	ret
   802ed8:	00c00044 	movi	r3,1
-  802edc:	003ff406 	br	802eb0 <__reset+0xff7f9eb0>
+  802edc:	003ff406 	br	802eb0 <__alt_mem_epcs_flash_controller_0+0xff7f9eb0>
 
 00802ee0 <__umodsi3>:
   802ee0:	2005883a 	mov	r2,r4
@@ -4190,17 +4190,17 @@ int main(void)
   802f00:	294b883a 	add	r5,r5,r5
   802f04:	31bfffc4 	addi	r6,r6,-1
   802f08:	18c7883a 	add	r3,r3,r3
-  802f0c:	293ffa36 	bltu	r5,r4,802ef8 <__reset+0xff7f9ef8>
+  802f0c:	293ffa36 	bltu	r5,r4,802ef8 <__alt_mem_epcs_flash_controller_0+0xff7f9ef8>
   802f10:	18000626 	beq	r3,zero,802f2c <__umodsi3+0x4c>
   802f14:	1806d07a 	srli	r3,r3,1
   802f18:	11400136 	bltu	r2,r5,802f20 <__umodsi3+0x40>
   802f1c:	1145c83a 	sub	r2,r2,r5
   802f20:	280ad07a 	srli	r5,r5,1
-  802f24:	183ffb1e 	bne	r3,zero,802f14 <__reset+0xff7f9f14>
+  802f24:	183ffb1e 	bne	r3,zero,802f14 <__alt_mem_epcs_flash_controller_0+0xff7f9f14>
   802f28:	f800283a 	ret
   802f2c:	f800283a 	ret
   802f30:	00c00044 	movi	r3,1
-  802f34:	003ff706 	br	802f14 <__reset+0xff7f9f14>
+  802f34:	003ff706 	br	802f14 <__alt_mem_epcs_flash_controller_0+0xff7f9f14>
 
 00802f38 <__mulsi3>:
   802f38:	0005883a 	mov	r2,zero
@@ -4210,7 +4210,7 @@ int main(void)
   802f48:	18000126 	beq	r3,zero,802f50 <__mulsi3+0x18>
   802f4c:	1145883a 	add	r2,r2,r5
   802f50:	294b883a 	add	r5,r5,r5
-  802f54:	203ffa1e 	bne	r4,zero,802f40 <__reset+0xff7f9f40>
+  802f54:	203ffa1e 	bne	r4,zero,802f40 <__alt_mem_epcs_flash_controller_0+0xff7f9f40>
   802f58:	f800283a 	ret
   802f5c:	f800283a 	ret
 
@@ -6093,7 +6093,7 @@ INT16U  OSEventPendMulti (OS_EVENT **pevents_pend, OS_EVENT **pevents_rdy, void 
     pevent      = *pevents;
     while  (pevent != (OS_EVENT *)0) {
   803e80:	e0bff017 	ldw	r2,-64(fp)
-  803e84:	103fe51e 	bne	r2,zero,803e1c <__reset+0xff7fae1c>
+  803e84:	103fe51e 	bne	r2,zero,803e1c <__alt_mem_epcs_flash_controller_0+0xff7fae1c>
         }
         pevents++;
         pevent = *pevents;
@@ -6386,7 +6386,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
     pevent         = *pevents;
     while (pevent != (OS_EVENT *)0) {                   /* See if any events already available         */
   804110:	e0bff017 	ldw	r2,-64(fp)
-  804114:	103f7d1e 	bne	r2,zero,803f0c <__reset+0xff7faf0c>
+  804114:	103f7d1e 	bne	r2,zero,803f0c <__alt_mem_epcs_flash_controller_0+0xff7faf0c>
         }
         pevents++;
         pevent = *pevents;
@@ -7424,7 +7424,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   804998:	10800c83 	ldbu	r2,50(r2)
   80499c:	10803fcc 	andi	r2,r2,255
   8049a0:	10800518 	cmpnei	r2,r2,20
-  8049a4:	103fb21e 	bne	r2,zero,804870 <__reset+0xff7fb870>
+  8049a4:	103fb21e 	bne	r2,zero,804870 <__alt_mem_epcs_flash_controller_0+0xff7fb870>
   8049a8:	00000106 	br	8049b0 <OSTimeTick+0x20c>
                  step            = OS_TRUE;
                  OSTickStepState = OS_TICK_STEP_DIS;
@@ -7794,7 +7794,7 @@ void  OS_EventTaskWaitMulti (OS_EVENT **pevents_wait)
     pevent  = *pevents;
     while (pevent != (OS_EVENT *)0) {                               /* Put task in waiting lists       */
   804d68:	e0bffd17 	ldw	r2,-12(fp)
-  804d6c:	103fde1e 	bne	r2,zero,804ce8 <__reset+0xff7fbce8>
+  804d6c:	103fde1e 	bne	r2,zero,804ce8 <__alt_mem_epcs_flash_controller_0+0xff7fbce8>
         pevent->OSEventGrp                   |= OSTCBCur->OSTCBBitY;
         pevents++;
         pevent = *pevents;
@@ -7993,7 +7993,7 @@ void  OS_EventTaskRemoveMulti (OS_TCB    *ptcb,
     pevent  = *pevents;
     while (pevent != (OS_EVENT *)0) {                   /* Remove task from all events' wait lists     */
   804f98:	e0bffc17 	ldw	r2,-16(fp)
-  804f9c:	103fd91e 	bne	r2,zero,804f04 <__reset+0xff7fbf04>
+  804f9c:	103fd91e 	bne	r2,zero,804f04 <__alt_mem_epcs_flash_controller_0+0xff7fbf04>
             pevent->OSEventGrp &= ~bity;
         }
         pevents++;
@@ -8049,7 +8049,7 @@ void  OS_EventWaitListInit (OS_EVENT *pevent)
   804ff8:	e0bffe05 	stb	r2,-8(fp)
   804ffc:	e0bffe03 	ldbu	r2,-8(fp)
   805000:	108000f0 	cmpltui	r2,r2,3
-  805004:	103ff61e 	bne	r2,zero,804fe0 <__reset+0xff7fbfe0>
+  805004:	103ff61e 	bne	r2,zero,804fe0 <__alt_mem_epcs_flash_controller_0+0xff7fbfe0>
         *ptbl++ = 0;
     }
 }
@@ -8126,7 +8126,7 @@ static  void  OS_InitEventList (void)
   8050a4:	e0bffd0d 	sth	r2,-12(fp)
   8050a8:	e0bffd0b 	ldhu	r2,-12(fp)
   8050ac:	10800ef0 	cmpltui	r2,r2,59
-  8050b0:	103fea1e 	bne	r2,zero,80505c <__reset+0xff7fc05c>
+  8050b0:	103fea1e 	bne	r2,zero,80505c <__alt_mem_epcs_flash_controller_0+0xff7fc05c>
         pevent1->OSEventName[1] = OS_ASCII_NUL;
 #endif
         pevent1++;
@@ -8249,7 +8249,7 @@ static  void  OS_InitRdyList (void)
   80517c:	e0bffe05 	stb	r2,-8(fp)
   805180:	e0bffe03 	ldbu	r2,-8(fp)
   805184:	108000f0 	cmpltui	r2,r2,3
-  805188:	103ff61e 	bne	r2,zero,805164 <__reset+0xff7fc164>
+  805188:	103ff61e 	bne	r2,zero,805164 <__alt_mem_epcs_flash_controller_0+0xff7fc164>
         *prdytbl++ = 0;
     }
 
@@ -8454,7 +8454,7 @@ static  void  OS_InitTCBList (void)
   805340:	e0bffd05 	stb	r2,-12(fp)
   805344:	e0bffd03 	ldbu	r2,-12(fp)
   805348:	108002f0 	cmpltui	r2,r2,11
-  80534c:	103fec1e 	bne	r2,zero,805300 <__reset+0xff7fc300>
+  80534c:	103fec1e 	bne	r2,zero,805300 <__alt_mem_epcs_flash_controller_0+0xff7fc300>
         ptcb1->OSTCBTaskName[1] = OS_ASCII_NUL;
 #endif
         ptcb1++;
@@ -8517,7 +8517,7 @@ void  OS_MemClr (INT8U *pdest, INT16U size)
 {
     while (size > 0) {
   8053cc:	e0bfff0b 	ldhu	r2,-4(fp)
-  8053d0:	103ff71e 	bne	r2,zero,8053b0 <__reset+0xff7fc3b0>
+  8053d0:	103ff71e 	bne	r2,zero,8053b0 <__alt_mem_epcs_flash_controller_0+0xff7fc3b0>
         *pdest++ = (INT8U)0;
         size--;
     }
@@ -8564,7 +8564,7 @@ void  OS_MemCopy (INT8U *pdest, INT8U *psrc, INT16U size)
 {
     while (size > 0) {
   805434:	e0bfff0b 	ldhu	r2,-4(fp)
-  805438:	103ff31e 	bne	r2,zero,805408 <__reset+0xff7fc408>
+  805438:	103ff31e 	bne	r2,zero,805408 <__alt_mem_epcs_flash_controller_0+0xff7fc408>
         *pdest++ = *psrc++;
         size--;
     }
@@ -8763,7 +8763,7 @@ INT8U  OS_StrCopy (INT8U *pdest, INT8U *psrc)
   8055dc:	e0bfff17 	ldw	r2,-4(fp)
   8055e0:	10800003 	ldbu	r2,0(r2)
   8055e4:	10803fcc 	andi	r2,r2,255
-  8055e8:	103ff11e 	bne	r2,zero,8055b0 <__reset+0xff7fc5b0>
+  8055e8:	103ff11e 	bne	r2,zero,8055b0 <__alt_mem_epcs_flash_controller_0+0xff7fc5b0>
         *pdest++ = *psrc++;
         len++;
     }
@@ -8813,7 +8813,7 @@ INT8U  OS_StrLen (INT8U *psrc)
   805638:	e0bfff17 	ldw	r2,-4(fp)
   80563c:	10800003 	ldbu	r2,0(r2)
   805640:	10803fcc 	andi	r2,r2,255
-  805644:	103ff61e 	bne	r2,zero,805620 <__reset+0xff7fc620>
+  805644:	103ff61e 	bne	r2,zero,805620 <__alt_mem_epcs_flash_controller_0+0xff7fc620>
         psrc++;
         len++;
     }
@@ -8882,7 +8882,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
         OSTaskIdleHook();                        /* Call user definable HOOK                           */
   8056b0:	080edb80 	call	80edb8 <OSTaskIdleHook>
     }
-  8056b4:	003fef06 	br	805674 <__reset+0xff7fc674>
+  8056b4:	003fef06 	br	805674 <__alt_mem_epcs_flash_controller_0+0xff7fc674>
 
 008056b8 <OS_TaskStat>:
 *********************************************************************************************************
@@ -8917,7 +8917,7 @@ void  OS_TaskStat (void *p_arg)
     while (OSStatRdy == OS_FALSE) {
   8056dc:	d0a04d03 	ldbu	r2,-32460(gp)
   8056e0:	10803fcc 	andi	r2,r2,255
-  8056e4:	103ffb26 	beq	r2,zero,8056d4 <__reset+0xff7fc6d4>
+  8056e4:	103ffb26 	beq	r2,zero,8056d4 <__alt_mem_epcs_flash_controller_0+0xff7fc6d4>
         OSTimeDly(2 * OS_TICKS_PER_SEC / 10);    /* Wait until statistic task is ready                 */
     }
     OSIdleCtrMax /= 100L;
@@ -8991,7 +8991,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   805778:	01001904 	movi	r4,100
   80577c:	080adf80 	call	80adf8 <OSTimeDly>
     }
-  805780:	003fe306 	br	805710 <__reset+0xff7fc710>
+  805780:	003fe306 	br	805710 <__alt_mem_epcs_flash_controller_0+0xff7fc710>
 
 00805784 <OS_TaskStatStkChk>:
 *********************************************************************************************************
@@ -9068,7 +9068,7 @@ void  OS_TaskStatStkChk (void)
   805828:	e0bffc05 	stb	r2,-16(fp)
   80582c:	e0bffc03 	ldbu	r2,-16(fp)
   805830:	10800570 	cmpltui	r2,r2,21
-  805834:	103fd91e 	bne	r2,zero,80579c <__reset+0xff7fc79c>
+  805834:	103fd91e 	bne	r2,zero,80579c <__alt_mem_epcs_flash_controller_0+0xff7fc79c>
 #endif
                 }
             }
@@ -10208,7 +10208,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
              pnode = (OS_FLAG_NODE *)pgrp->OSFlagWaitList;
              while (pnode != (OS_FLAG_NODE *)0) {          /* Ready ALL tasks waiting for flags        */
   80625c:	e0bff517 	ldw	r2,-44(fp)
-  806260:	103ff81e 	bne	r2,zero,806244 <__reset+0xff7fd244>
+  806260:	103ff81e 	bne	r2,zero,806244 <__alt_mem_epcs_flash_controller_0+0xff7fd244>
                  (void)OS_FlagTaskRdy(pnode, (OS_FLAGS)0);
                  pnode = (OS_FLAG_NODE *)pnode->OSFlagNodeNext;
              }
@@ -11540,7 +11540,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
     pnode = (OS_FLAG_NODE *)pgrp->OSFlagWaitList;
     while (pnode != (OS_FLAG_NODE *)0) {             /* Go through all tasks waiting on event flag(s)  */
   806ea8:	e0bff117 	ldw	r2,-60(fp)
-  806eac:	103f871e 	bne	r2,zero,806ccc <__reset+0xff7fdccc>
+  806eac:	103f871e 	bne	r2,zero,806ccc <__alt_mem_epcs_flash_controller_0+0xff7fdccc>
   806eb0:	e0bff317 	ldw	r2,-52(fp)
   806eb4:	e0bff715 	stw	r2,-36(fp)
   806eb8:	e0bff717 	ldw	r2,-36(fp)
@@ -11893,7 +11893,7 @@ void  OS_FlagInit (void)
   8071d8:	e0bffd0d 	sth	r2,-12(fp)
   8071dc:	e0bffd0b 	ldhu	r2,-12(fp)
   8071e0:	108004f0 	cmpltui	r2,r2,19
-  8071e4:	103fea1e 	bne	r2,zero,807190 <__reset+0xff7fe190>
+  8071e4:	103fea1e 	bne	r2,zero,807190 <__alt_mem_epcs_flash_controller_0+0xff7fe190>
         pgrp1->OSFlagName[1]  = OS_ASCII_NUL;
 #endif
         pgrp1++;
@@ -12256,7 +12256,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   80752c:	e0bffd17 	ldw	r2,-12(fp)
   807530:	10bfffc4 	addi	r2,r2,-1
   807534:	e0fff717 	ldw	r3,-36(fp)
-  807538:	18bff036 	bltu	r3,r2,8074fc <__reset+0xff7fe4fc>
+  807538:	18bff036 	bltu	r3,r2,8074fc <__alt_mem_epcs_flash_controller_0+0xff7fe4fc>
        *plink = (void *)pblk;                         /* Save pointer to NEXT block in CURRENT block   */
         plink = (void **)pblk;                        /* Position to  NEXT      block                  */
         pblk  = (INT8U *)((INT32U)pblk + blksize);    /* Point to the FOLLOWING block                  */
@@ -12934,7 +12934,7 @@ void  OS_MemInit (void)
   807ad8:	e0bfff0d 	sth	r2,-4(fp)
   807adc:	e0bfff0b 	ldhu	r2,-4(fp)
   807ae0:	10800ef0 	cmpltui	r2,r2,59
-  807ae4:	103fe71e 	bne	r2,zero,807a84 <__reset+0xff7fea84>
+  807ae4:	103fe71e 	bne	r2,zero,807a84 <__alt_mem_epcs_flash_controller_0+0xff7fea84>
         pmem->OSMemName[0]  = '?';                        /* Unknown name                              */
         pmem->OSMemName[1]  = OS_ASCII_NUL;
 #endif
@@ -13506,7 +13506,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   807fbc:	e0bffd17 	ldw	r2,-12(fp)
   807fc0:	10800283 	ldbu	r2,10(r2)
   807fc4:	10803fcc 	andi	r2,r2,255
-  807fc8:	103ff71e 	bne	r2,zero,807fa8 <__reset+0xff7fefa8>
+  807fc8:	103ff71e 	bne	r2,zero,807fa8 <__alt_mem_epcs_flash_controller_0+0xff7fefa8>
                  (void)OS_EventTaskRdy(pevent, (void *)0, OS_STAT_Q, OS_STAT_PEND_OK);
              }
 #if OS_EVENT_NAME_SIZE > 1
@@ -14068,7 +14068,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   8084b4:	e0bffd17 	ldw	r2,-12(fp)
   8084b8:	10800283 	ldbu	r2,10(r2)
   8084bc:	10803fcc 	andi	r2,r2,255
-  8084c0:	103ff41e 	bne	r2,zero,808494 <__reset+0xff7ff494>
+  8084c0:	103ff41e 	bne	r2,zero,808494 <__alt_mem_epcs_flash_controller_0+0xff7ff494>
                      (void)OS_EventTaskRdy(pevent, (void *)0, OS_STAT_Q, OS_STAT_PEND_ABORT);
                      nbr_tasks++;
                  }
@@ -14518,7 +14518,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   8088c0:	e0bffd17 	ldw	r2,-12(fp)
   8088c4:	10800283 	ldbu	r2,10(r2)
   8088c8:	10803fcc 	andi	r2,r2,255
-  8088cc:	103ff71e 	bne	r2,zero,8088ac <__reset+0xff7ff8ac>
+  8088cc:	103ff71e 	bne	r2,zero,8088ac <__alt_mem_epcs_flash_controller_0+0xff7ff8ac>
   8088d0:	00000506 	br	8088e8 <OSQPostOpt+0xcc>
                 (void)OS_EventTaskRdy(pevent, pmsg, OS_STAT_Q, OS_STAT_PEND_OK);
             }
@@ -14748,7 +14748,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   808af4:	e0bff705 	stb	r2,-36(fp)
   808af8:	e0bff703 	ldbu	r2,-36(fp)
   808afc:	108000f0 	cmpltui	r2,r2,3
-  808b00:	103ff21e 	bne	r2,zero,808acc <__reset+0xff7ffacc>
+  808b00:	103ff21e 	bne	r2,zero,808acc <__alt_mem_epcs_flash_controller_0+0xff7ffacc>
         *pdest++ = *psrc++;
     }
     pq = (OS_Q *)pevent->OSEventPtr;
@@ -14856,7 +14856,7 @@ void  OS_QInit (void)
   808bf0:	e0bffd0d 	sth	r2,-12(fp)
   808bf4:	e0bffd0b 	ldhu	r2,-12(fp)
   808bf8:	108004f0 	cmpltui	r2,r2,19
-  808bfc:	103ff11e 	bne	r2,zero,808bc4 <__reset+0xff7ffbc4>
+  808bfc:	103ff11e 	bne	r2,zero,808bc4 <__alt_mem_epcs_flash_controller_0+0xff7ffbc4>
         pq1->OSQPtr = pq2;
         pq1++;
         pq2++;
@@ -15268,7 +15268,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   808f3c:	e0bffd17 	ldw	r2,-12(fp)
   808f40:	10800283 	ldbu	r2,10(r2)
   808f44:	10803fcc 	andi	r2,r2,255
-  808f48:	103ff71e 	bne	r2,zero,808f28 <__reset+0xff7fff28>
+  808f48:	103ff71e 	bne	r2,zero,808f28 <__alt_mem_epcs_flash_controller_0+0xff7fff28>
                  (void)OS_EventTaskRdy(pevent, (void *)0, OS_STAT_SEM, OS_STAT_PEND_OK);
              }
 #if OS_EVENT_NAME_SIZE > 1
@@ -15692,7 +15692,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   8092dc:	e0bffd17 	ldw	r2,-12(fp)
   8092e0:	10800283 	ldbu	r2,10(r2)
   8092e4:	10803fcc 	andi	r2,r2,255
-  8092e8:	103ff41e 	bne	r2,zero,8092bc <__reset+0xff8002bc>
+  8092e8:	103ff41e 	bne	r2,zero,8092bc <__alt_mem_epcs_flash_controller_0+0xff8002bc>
                      (void)OS_EventTaskRdy(pevent, (void *)0, OS_STAT_SEM, OS_STAT_PEND_ABORT);
                      nbr_tasks++;
                  }
@@ -15978,7 +15978,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   809548:	e0bffa05 	stb	r2,-24(fp)
   80954c:	e0bffa03 	ldbu	r2,-24(fp)
   809550:	108000f0 	cmpltui	r2,r2,3
-  809554:	103ff21e 	bne	r2,zero,809520 <__reset+0xff800520>
+  809554:	103ff21e 	bne	r2,zero,809520 <__alt_mem_epcs_flash_controller_0+0xff800520>
         *pdest++ = *psrc++;
     }
     p_sem_data->OSCnt = pevent->OSEventCnt;                /* Get semaphore count                      */
@@ -16531,7 +16531,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
         pevent  = *pevents;
         while (pevent != (OS_EVENT *)0) {
   809afc:	e0bff317 	ldw	r2,-52(fp)
-  809b00:	103fc51e 	bne	r2,zero,809a18 <__reset+0xff800a18>
+  809b00:	103fc51e 	bne	r2,zero,809a18 <__alt_mem_epcs_flash_controller_0+0xff800a18>
         }
     }
 #endif
@@ -18193,7 +18193,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   80aa24:	10c00104 	addi	r3,r2,4
   80aa28:	e0fff415 	stw	r3,-48(fp)
   80aa2c:	10800017 	ldw	r2,0(r2)
-  80aa30:	103ff826 	beq	r2,zero,80aa14 <__reset+0xff801a14>
+  80aa30:	103ff826 	beq	r2,zero,80aa14 <__alt_mem_epcs_flash_controller_0+0xff801a14>
 #else
     while (*pchk-- == (OS_STK)0) {
         nfree++;
@@ -18590,7 +18590,7 @@ void  OS_TaskStkClr (OS_STK *pbos, INT32U size, INT16U opt)
 #if OS_STK_GROWTH == 1
             while (size > 0) {                         /* Stack grows from HIGH to LOW memory          */
   80addc:	e0bffe17 	ldw	r2,-8(fp)
-  80ade0:	103ff71e 	bne	r2,zero,80adc0 <__reset+0xff801dc0>
+  80ade0:	103ff71e 	bne	r2,zero,80adc0 <__alt_mem_epcs_flash_controller_0+0xff801dc0>
                 *pbos-- = (OS_STK)0;                   /* Clear from bottom of stack and down          */
             }
 #endif
@@ -18869,7 +18869,7 @@ INT8U  OSTimeDlyHMSM (INT8U hours, INT8U minutes, INT8U seconds, INT16U ms)
     OSTimeDly((INT16U)ticks);
     while (loops > 0) {
   80b054:	e0bff90b 	ldhu	r2,-28(fp)
-  80b058:	103ff71e 	bne	r2,zero,80b038 <__reset+0xff802038>
+  80b058:	103ff71e 	bne	r2,zero,80b038 <__alt_mem_epcs_flash_controller_0+0xff802038>
         OSTimeDly((INT16U)32768u);
         OSTimeDly((INT16U)32768u);
         loops--;
@@ -19864,7 +19864,7 @@ static int alt_epcs_flash_query(alt_flash_epcs_dev* flash)
 
   while (n > 0)
   80b970:	e0bfff17 	ldw	r2,-4(fp)
-  80b974:	103fd71e 	bne	r2,zero,80b8d4 <__reset+0xff8028d4>
+  80b974:	103fd71e 	bne	r2,zero,80b8d4 <__alt_mem_epcs_flash_controller_0+0xff8028d4>
   }
 
   /*
@@ -20107,7 +20107,7 @@ int alt_epcs_flash_write(alt_flash_dev* flash_info, int offset,
   80bbac:	10800f04 	addi	r2,r2,60
   80bbb0:	10800017 	ldw	r2,0(r2)
   80bbb4:	e0fff917 	ldw	r3,-28(fp)
-  80bbb8:	18bfa016 	blt	r3,r2,80ba3c <__reset+0xff802a3c>
+  80bbb8:	18bfa016 	blt	r3,r2,80ba3c <__alt_mem_epcs_flash_controller_0+0xff802a3c>
   int         current_offset;
 
   /*
@@ -20120,7 +20120,7 @@ int alt_epcs_flash_write(alt_flash_dev* flash_info, int offset,
   80bbc8:	e0bffc17 	ldw	r2,-16(fp)
   80bbcc:	10800c17 	ldw	r2,48(r2)
   80bbd0:	e0fff817 	ldw	r3,-32(fp)
-  80bbd4:	18bf7916 	blt	r3,r2,80b9bc <__reset+0xff8029bc>
+  80bbd4:	18bf7916 	blt	r3,r2,80b9bc <__alt_mem_epcs_flash_controller_0+0xff8029bc>
       }
     }
   }
@@ -20430,7 +20430,7 @@ int alt_epcs_flash_write_block(alt_flash_dev* flash_info, int block_offset,
      */
     while (length)
   80be68:	e0800217 	ldw	r2,8(fp)
-  80be6c:	103fd81e 	bne	r2,zero,80bdd0 <__reset+0xff802dd0>
+  80be6c:	103fd81e 	bne	r2,zero,80bdd0 <__alt_mem_epcs_flash_controller_0+0xff802dd0>
       length -= length_of_current_write;
       buffer_offset += length_of_current_write;
       data_offset = next_page_start;
@@ -20894,7 +20894,7 @@ static void altera_avalon_jtag_uart_irq(void* context, alt_u32 id)
   if (OSRunning)
   80c2b4:	d0a03b43 	ldbu	r2,-32531(gp)
   80c2b8:	10803fcc 	andi	r2,r2,255
-  80c2bc:	103fd926 	beq	r2,zero,80c224 <__reset+0xff803224>
+  80c2bc:	103fd926 	beq	r2,zero,80c224 <__alt_mem_epcs_flash_controller_0+0xff803224>
   {
     OSFlagPost (group, flags, opt, &err);
   80c2c0:	e0bffc0b 	ldhu	r2,-16(fp)
@@ -20906,7 +20906,7 @@ static void altera_avalon_jtag_uart_irq(void* context, alt_u32 id)
   80c2d8:	e13ffb17 	ldw	r4,-20(fp)
   80c2dc:	0806b980 	call	806b98 <OSFlagPost>
       }
-  80c2e0:	003fd006 	br	80c224 <__reset+0xff803224>
+  80c2e0:	003fd006 	br	80c224 <__alt_mem_epcs_flash_controller_0+0xff803224>
         /* Check whether there is space in the buffer.  If not then we must not
          * read any characters from the buffer as they will be lost.
          */
@@ -20961,7 +20961,7 @@ static void altera_avalon_jtag_uart_irq(void* context, alt_u32 id)
     if (control & ALTERA_AVALON_JTAG_UART_CONTROL_WI_MSK)
   80c338:	e0bff817 	ldw	r2,-32(fp)
   80c33c:	1080800c 	andi	r2,r2,512
-  80c340:	103fac26 	beq	r2,zero,80c1f4 <__reset+0xff8031f4>
+  80c340:	103fac26 	beq	r2,zero,80c1f4 <__alt_mem_epcs_flash_controller_0+0xff8031f4>
     {
       /* process a write irq */
       unsigned int space = (control & ALTERA_AVALON_JTAG_UART_CONTROL_WSPACE_MSK) >> ALTERA_AVALON_JTAG_UART_CONTROL_WSPACE_OFST;
@@ -21038,7 +21038,7 @@ static void altera_avalon_jtag_uart_irq(void* context, alt_u32 id)
   80c3f8:	10c01017 	ldw	r3,64(r2)
   80c3fc:	e0bff617 	ldw	r2,-40(fp)
   80c400:	10800f17 	ldw	r2,60(r2)
-  80c404:	18bfd31e 	bne	r3,r2,80c354 <__reset+0xff803354>
+  80c404:	18bfd31e 	bne	r3,r2,80c354 <__alt_mem_epcs_flash_controller_0+0xff803354>
         ALT_FLAG_POST (sp->events, ALT_JTAG_UART_WRITE_RDY, OS_FLAG_SET);
 
         space--;
@@ -21046,7 +21046,7 @@ static void altera_avalon_jtag_uart_irq(void* context, alt_u32 id)
 
       if (space > 0)
   80c408:	e0bff517 	ldw	r2,-44(fp)
-  80c40c:	103f7926 	beq	r2,zero,80c1f4 <__reset+0xff8031f4>
+  80c40c:	103f7926 	beq	r2,zero,80c1f4 <__alt_mem_epcs_flash_controller_0+0xff8031f4>
       {
         /* If we don't have any more data available then turn off the TX interrupt */
         sp->irq_enable &= ~ALTERA_AVALON_JTAG_UART_CONTROL_WE_MSK;
@@ -21073,7 +21073,7 @@ static void altera_avalon_jtag_uart_irq(void* context, alt_u32 id)
       }
     }
   }
-  80c450:	003f6806 	br	80c1f4 <__reset+0xff8031f4>
+  80c450:	003f6806 	br	80c1f4 <__alt_mem_epcs_flash_controller_0+0xff8031f4>
   {
     unsigned int control = IORD_ALTERA_AVALON_JTAG_UART_CONTROL(base);
 
@@ -21235,7 +21235,7 @@ int altera_avalon_jtag_uart_close(altera_avalon_jtag_uart_state* sp, int flags)
   80c5b8:	10c00917 	ldw	r3,36(r2)
   80c5bc:	e0bffe17 	ldw	r2,-8(fp)
   80c5c0:	10800117 	ldw	r2,4(r2)
-  80c5c4:	18bff136 	bltu	r3,r2,80c58c <__reset+0xff80358c>
+  80c5c4:	18bff136 	bltu	r3,r2,80c58c <__alt_mem_epcs_flash_controller_0+0xff80358c>
     if (flags & O_NONBLOCK) {
       return -EWOULDBLOCK; 
     }
@@ -21483,7 +21483,7 @@ static ALT_INLINE int ALT_ALWAYS_INLINE alt_sem_pend (OS_EVENT* sem,
     }
     while (space > 0);
   80c7dc:	e0bffe17 	ldw	r2,-8(fp)
-  80c7e0:	00bfcf16 	blt	zero,r2,80c720 <__reset+0xff803720>
+  80c7e0:	00bfcf16 	blt	zero,r2,80c720 <__alt_mem_epcs_flash_controller_0+0xff803720>
   80c7e4:	00000106 	br	80c7ec <altera_avalon_jtag_uart_read+0x120>
         n = in - out;
       else
@@ -21568,7 +21568,7 @@ static ALT_INLINE int ALT_ALWAYS_INLINE alt_sem_pend (OS_EVENT* sem,
   80c884:	10c00917 	ldw	r3,36(r2)
   80c888:	e0bffc17 	ldw	r2,-16(fp)
   80c88c:	10800117 	ldw	r2,4(r2)
-  80c890:	18bff736 	bltu	r3,r2,80c870 <__reset+0xff803870>
+  80c890:	18bff736 	bltu	r3,r2,80c870 <__alt_mem_epcs_flash_controller_0+0xff803870>
     /* No OS: Always spin */
     while (in == sp->rx_in && sp->host_inactive < sp->timeout)
       ;
@@ -21586,7 +21586,7 @@ static ALT_INLINE int ALT_ALWAYS_INLINE alt_sem_pend (OS_EVENT* sem,
 
   while (space > 0)
   80c8a4:	e0bffe17 	ldw	r2,-8(fp)
-  80c8a8:	00bf9d16 	blt	zero,r2,80c720 <__reset+0xff803720>
+  80c8a8:	00bf9d16 	blt	zero,r2,80c720 <__alt_mem_epcs_flash_controller_0+0xff803720>
   80c8ac:	00000506 	br	80c8c4 <altera_avalon_jtag_uart_read+0x1f8>
     }
     while (space > 0);
@@ -21829,7 +21829,7 @@ altera_avalon_jtag_uart_write(altera_avalon_jtag_uart_state* sp,
     /* Copy as much as we can into the transmit buffer */
     while (count > 0)
   80cabc:	e0bffe17 	ldw	r2,-8(fp)
-  80cac0:	00bfc716 	blt	zero,r2,80c9e0 <__reset+0xff8039e0>
+  80cac0:	00bfc716 	blt	zero,r2,80c9e0 <__alt_mem_epcs_flash_controller_0+0xff8039e0>
   80cac4:	00000106 	br	80cacc <altera_avalon_jtag_uart_write+0x144>
         n = ALTERA_AVALON_JTAG_UART_BUF_LEN - in;
       else
@@ -21959,7 +21959,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   80cbc0:	10c00917 	ldw	r3,36(r2)
   80cbc4:	e0bffc17 	ldw	r2,-16(fp)
   80cbc8:	10800117 	ldw	r2,4(r2)
-  80cbcc:	18bff736 	bltu	r3,r2,80cbac <__reset+0xff803bac>
+  80cbcc:	18bff736 	bltu	r3,r2,80cbac <__alt_mem_epcs_flash_controller_0+0xff803bac>
        */
       while (out == sp->tx_out && sp->host_inactive < sp->timeout)
         ;
@@ -21974,7 +21974,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   }
   while (count > 0);
   80cbdc:	e0bffe17 	ldw	r2,-8(fp)
-  80cbe0:	00bfb616 	blt	zero,r2,80cabc <__reset+0xff803abc>
+  80cbe0:	00bfb616 	blt	zero,r2,80cabc <__alt_mem_epcs_flash_controller_0+0xff803abc>
   80cbe4:	00000306 	br	80cbf4 <altera_avalon_jtag_uart_write+0x26c>
      */
     /* consider: test whether there is anything there while doing this and delay for at most 2s. */
@@ -22875,7 +22875,7 @@ int altera_avalon_uart_close(altera_avalon_uart_state* sp, int flags)
   80d358:	10c00417 	ldw	r3,16(r2)
   80d35c:	e0bffe17 	ldw	r2,-8(fp)
   80d360:	10800517 	ldw	r2,20(r2)
-  80d364:	18bff61e 	bne	r3,r2,80d340 <__reset+0xff804340>
+  80d364:	18bff61e 	bne	r3,r2,80d340 <__alt_mem_epcs_flash_controller_0+0xff804340>
     if (flags & O_NONBLOCK) {
       return -EWOULDBLOCK; 
     }
@@ -23012,7 +23012,7 @@ static ALT_INLINE int ALT_ALWAYS_INLINE alt_sem_pend (OS_EVENT* sem,
   80d47c:	10c00217 	ldw	r3,8(r2)
   80d480:	e0bffc17 	ldw	r2,-16(fp)
   80d484:	10800317 	ldw	r2,12(r2)
-  80d488:	18bfe51e 	bne	r3,r2,80d420 <__reset+0xff804420>
+  80d488:	18bfe51e 	bne	r3,r2,80d420 <__alt_mem_epcs_flash_controller_0+0xff804420>
     /*
      * If no data has been transferred, the circular buffer is empty, and
      * this is not a non-blocking access, block waiting for data to arrive.
@@ -23134,7 +23134,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   80d57c:	e0bff017 	ldw	r2,-64(fp)
   80d580:	1000021e 	bne	r2,zero,80d58c <altera_avalon_uart_read+0x1d4>
   80d584:	e0bffe17 	ldw	r2,-8(fp)
-  80d588:	103fb81e 	bne	r2,zero,80d46c <__reset+0xff80446c>
+  80d588:	103fb81e 	bne	r2,zero,80d46c <__alt_mem_epcs_flash_controller_0+0xff80446c>
   /*
    * Now that access to the circular buffer is complete, release the read
    * semaphore so that other threads can access the buffer.
@@ -23413,7 +23413,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
   80d7ac:	e0bffc17 	ldw	r2,-16(fp)
   80d7b0:	10c00417 	ldw	r3,16(r2)
   80d7b4:	e0bff217 	ldw	r2,-56(fp)
-  80d7b8:	18bfe726 	beq	r3,r2,80d758 <__reset+0xff804758>
+  80d7b8:	18bfe726 	beq	r3,r2,80d758 <__alt_mem_epcs_flash_controller_0+0xff804758>
       }
     }
 
@@ -23447,7 +23447,7 @@ static ALT_INLINE alt_irq_context ALT_ALWAYS_INLINE
 
   while (count)
   80d800:	e0bfef17 	ldw	r2,-68(fp)
-  80d804:	103fad1e 	bne	r2,zero,80d6bc <__reset+0xff8046bc>
+  80d804:	103fad1e 	bne	r2,zero,80d6bc <__alt_mem_epcs_flash_controller_0+0xff8046bc>
   /*
    * Now that access to the circular buffer is complete, release the write
    * semaphore so that other threads can access the buffer.
@@ -23597,7 +23597,7 @@ static ALT_INLINE void epcs_await_wip_released(alt_u32 base)
   80d93c:	0001883a 	nop
   80d940:	e13fff17 	ldw	r4,-4(fp)
   80d944:	080d8f00 	call	80d8f0 <epcs_test_wip>
-  80d948:	103ffd1e 	bne	r2,zero,80d940 <__reset+0xff804940>
+  80d948:	103ffd1e 	bne	r2,zero,80d940 <__alt_mem_epcs_flash_controller_0+0xff804940>
   {
   }
 }
@@ -24495,7 +24495,7 @@ void _do_ctors(void)
   80e114:	e0ffff17 	ldw	r3,-4(fp)
   80e118:	00802074 	movhi	r2,129
   80e11c:	10bdad04 	addi	r2,r2,-2380
-  80e120:	18bff62e 	bgeu	r3,r2,80e0fc <__reset+0xff8050fc>
+  80e120:	18bff62e 	bgeu	r3,r2,80e0fc <__alt_mem_epcs_flash_controller_0+0xff8050fc>
         (*ctor) (); 
 }
   80e124:	0001883a 	nop
@@ -24539,7 +24539,7 @@ void _do_dtors(void)
   80e174:	e0ffff17 	ldw	r3,-4(fp)
   80e178:	00802074 	movhi	r2,129
   80e17c:	10bdad04 	addi	r2,r2,-2380
-  80e180:	18bff62e 	bgeu	r3,r2,80e15c <__reset+0xff80515c>
+  80e180:	18bff62e 	bgeu	r3,r2,80e15c <__alt_mem_epcs_flash_controller_0+0xff80515c>
         (*dtor) (); 
 }
   80e184:	0001883a 	nop
@@ -25184,7 +25184,7 @@ static int alt_file_locked (alt_fd* fd)
   80e754:	d0a00817 	ldw	r2,-32736(gp)
   80e758:	1007883a 	mov	r3,r2
   80e75c:	e0bffd17 	ldw	r2,-12(fp)
-  80e760:	18bfd92e 	bgeu	r3,r2,80e6c8 <__reset+0xff8056c8>
+  80e760:	18bfd92e 	bgeu	r3,r2,80e6c8 <__alt_mem_epcs_flash_controller_0+0xff8056c8>
     }
   }
   
@@ -25561,7 +25561,7 @@ void alt_tick (void)
   while (alarm != (alt_alarm*) &alt_alarm_list)
   80ea58:	e0fffd17 	ldw	r3,-12(fp)
   80ea5c:	d0a02d04 	addi	r2,gp,-32588
-  80ea60:	18bfcf1e 	bne	r3,r2,80e9a0 <__reset+0xff8059a0>
+  80ea60:	18bfcf1e 	bne	r3,r2,80e9a0 <__alt_mem_epcs_flash_controller_0+0xff8059a0>
 
   /* 
    * Update the operating system specific timer facilities.
@@ -25766,7 +25766,7 @@ void altera_nios2_gen2_irq_init(void)
        */
 
       br 9b
-  80eb4c:	003fe506 	br	80eae4 <__reset+0xff805ae4>
+  80eb4c:	003fe506 	br	80eae4 <__alt_mem_epcs_flash_controller_0+0xff805ae4>
 
 0080eb50 <OSStartTsk>:
 
@@ -26188,7 +26188,7 @@ int alt_avalon_spi_command(alt_u32 base, alt_u32 slave,
       status = IORD_ALTERA_AVALON_SPI_STATUS(base);
     }
     while (((status & ALTERA_AVALON_SPI_STATUS_TRDY_MSK) == 0 || credits == 0) &&
-  80eec0:	103ff426 	beq	r2,zero,80ee94 <__reset+0xff805e94>
+  80eec0:	103ff426 	beq	r2,zero,80ee94 <__alt_mem_epcs_flash_controller_0+0xff805e94>
             (status & ALTERA_AVALON_SPI_STATUS_RRDY_MSK) == 0);
 
     if ((status & ALTERA_AVALON_SPI_STATUS_TRDY_MSK) != 0 && credits > 0)
@@ -26242,7 +26242,7 @@ int alt_avalon_spi_command(alt_u32 base, alt_u32 slave,
     if ((status & ALTERA_AVALON_SPI_STATUS_RRDY_MSK) != 0)
   80ef48:	e0bffa17 	ldw	r2,-24(fp)
   80ef4c:	1080200c 	andi	r2,r2,128
-  80ef50:	103fd026 	beq	r2,zero,80ee94 <__reset+0xff805e94>
+  80ef50:	103fd026 	beq	r2,zero,80ee94 <__alt_mem_epcs_flash_controller_0+0xff805e94>
     {
       alt_u32 rxdata = IORD_ALTERA_AVALON_SPI_RXDATA(base);
   80ef54:	e0bffc17 	ldw	r2,-16(fp)
@@ -26271,10 +26271,10 @@ int alt_avalon_spi_command(alt_u32 base, alt_u32 slave,
 
       if (read_ignore == 0 && read_data == read_end)
   80ef98:	e0bff617 	ldw	r2,-40(fp)
-  80ef9c:	103fbd1e 	bne	r2,zero,80ee94 <__reset+0xff805e94>
+  80ef9c:	103fbd1e 	bne	r2,zero,80ee94 <__alt_mem_epcs_flash_controller_0+0xff805e94>
   80efa0:	e0c00217 	ldw	r3,8(fp)
   80efa4:	e0bff917 	ldw	r2,-28(fp)
-  80efa8:	18bfba1e 	bne	r3,r2,80ee94 <__reset+0xff805e94>
+  80efa8:	18bfba1e 	bne	r3,r2,80ee94 <__alt_mem_epcs_flash_controller_0+0xff805e94>
   }
 
   /* Wait until the interface has finished transmitting */
@@ -26289,7 +26289,7 @@ int alt_avalon_spi_command(alt_u32 base, alt_u32 slave,
   while ((status & ALTERA_AVALON_SPI_STATUS_TMT_MSK) == 0);
   80efbc:	e0bffa17 	ldw	r2,-24(fp)
   80efc0:	1080080c 	andi	r2,r2,32
-  80efc4:	103ff926 	beq	r2,zero,80efac <__reset+0xff805fac>
+  80efc4:	103ff926 	beq	r2,zero,80efac <__alt_mem_epcs_flash_controller_0+0xff805fac>
 
   /* Clear SSO (release chipselect) unless the caller is going to
    * keep using this chip
@@ -26376,7 +26376,7 @@ alt_dev* alt_find_dev(const char* name, alt_llist* llist)
   while (next != (alt_dev*) llist)
   80f064:	e0fffc17 	ldw	r3,-16(fp)
   80f068:	e0bfff17 	ldw	r2,-4(fp)
-  80f06c:	18bff01e 	bne	r3,r2,80f030 <__reset+0xff806030>
+  80f06c:	18bff01e 	bne	r3,r2,80f030 <__alt_mem_epcs_flash_controller_0+0xff806030>
     next = (alt_dev*) next->llist.next;
   }
   
@@ -26493,7 +26493,7 @@ alt_dev* alt_find_file (const char* name)
   while (next != (alt_dev*) &alt_fs_list)
   80f16c:	e0fffd17 	ldw	r3,-12(fp)
   80f170:	d0a00404 	addi	r2,gp,-32752
-  80f174:	18bfcc1e 	bne	r3,r2,80f0a8 <__reset+0xff8060a8>
+  80f174:	18bfcc1e 	bne	r3,r2,80f0a8 <__alt_mem_epcs_flash_controller_0+0xff8060a8>
     next = (alt_dev*) next->llist.next;
   }
   
@@ -26595,7 +26595,7 @@ int alt_get_fd (alt_dev* dev)
   80f24c:	e0bffa15 	stw	r2,-24(fp)
   80f250:	e0bffa17 	ldw	r2,-24(fp)
   80f254:	10800810 	cmplti	r2,r2,32
-  80f258:	103fe01e 	bne	r2,zero,80f1dc <__reset+0xff8061dc>
+  80f258:	103fe01e 	bne	r2,zero,80f1dc <__alt_mem_epcs_flash_controller_0+0xff8061dc>
   /*
    * Release the alt_fd_list_lock semaphore now that we are done with the
    * file descriptor pool.
@@ -26720,18 +26720,18 @@ alt_exception_cause_generated_bad_addr(alt_exception_cause cause)
   80f3a4:	10c00e1e 	bne	r2,r3,80f3e0 <memcmp+0x74>
   80f3a8:	21000044 	addi	r4,r4,1
   80f3ac:	29400044 	addi	r5,r5,1
-  80f3b0:	31fff91e 	bne	r6,r7,80f398 <__reset+0xff806398>
+  80f3b0:	31fff91e 	bne	r6,r7,80f398 <__alt_mem_epcs_flash_controller_0+0xff806398>
   80f3b4:	0005883a 	mov	r2,zero
   80f3b8:	f800283a 	ret
   80f3bc:	20c00017 	ldw	r3,0(r4)
   80f3c0:	28800017 	ldw	r2,0(r5)
-  80f3c4:	18bfee1e 	bne	r3,r2,80f380 <__reset+0xff806380>
+  80f3c4:	18bfee1e 	bne	r3,r2,80f380 <__alt_mem_epcs_flash_controller_0+0xff806380>
   80f3c8:	31bfff04 	addi	r6,r6,-4
   80f3cc:	21000104 	addi	r4,r4,4
   80f3d0:	29400104 	addi	r5,r5,4
-  80f3d4:	39bff936 	bltu	r7,r6,80f3bc <__reset+0xff8063bc>
-  80f3d8:	303fe91e 	bne	r6,zero,80f380 <__reset+0xff806380>
-  80f3dc:	003ff506 	br	80f3b4 <__reset+0xff8063b4>
+  80f3d4:	39bff936 	bltu	r7,r6,80f3bc <__alt_mem_epcs_flash_controller_0+0xff8063bc>
+  80f3d8:	303fe91e 	bne	r6,zero,80f380 <__alt_mem_epcs_flash_controller_0+0xff806380>
+  80f3dc:	003ff506 	br	80f3b4 <__alt_mem_epcs_flash_controller_0+0xff8063b4>
   80f3e0:	10c5c83a 	sub	r2,r2,r3
   80f3e4:	f800283a 	ret
 
@@ -26784,7 +26784,7 @@ alt_exception_cause_generated_bad_addr(alt_exception_cause cause)
   80f49c:	20805215 	stw	r2,328(r4)
   80f4a0:	10006215 	stw	zero,392(r2)
   80f4a4:	10006315 	stw	zero,396(r2)
-  80f4a8:	883fde26 	beq	r17,zero,80f424 <__reset+0xff806424>
+  80f4a8:	883fde26 	beq	r17,zero,80f424 <__alt_mem_epcs_flash_controller_0+0xff806424>
   80f4ac:	18c9883a 	add	r4,r3,r3
   80f4b0:	2109883a 	add	r4,r4,r4
   80f4b4:	1109883a 	add	r4,r2,r4
@@ -26796,16 +26796,16 @@ alt_exception_cause_generated_bad_addr(alt_exception_cause cause)
   80f4cc:	12406215 	stw	r9,392(r2)
   80f4d0:	21c04215 	stw	r7,264(r4)
   80f4d4:	01000084 	movi	r4,2
-  80f4d8:	893fd21e 	bne	r17,r4,80f424 <__reset+0xff806424>
+  80f4d8:	893fd21e 	bne	r17,r4,80f424 <__alt_mem_epcs_flash_controller_0+0xff806424>
   80f4dc:	11006317 	ldw	r4,396(r2)
   80f4e0:	218cb03a 	or	r6,r4,r6
   80f4e4:	11806315 	stw	r6,396(r2)
-  80f4e8:	003fce06 	br	80f424 <__reset+0xff806424>
+  80f4e8:	003fce06 	br	80f424 <__alt_mem_epcs_flash_controller_0+0xff806424>
   80f4ec:	18805304 	addi	r2,r3,332
   80f4f0:	18805215 	stw	r2,328(r3)
-  80f4f4:	003fc606 	br	80f410 <__reset+0xff806410>
+  80f4f4:	003fc606 	br	80f410 <__alt_mem_epcs_flash_controller_0+0xff806410>
   80f4f8:	00bfffc4 	movi	r2,-1
-  80f4fc:	003fd006 	br	80f440 <__reset+0xff806440>
+  80f4fc:	003fd006 	br	80f440 <__alt_mem_epcs_flash_controller_0+0xff806440>
 
 0080f500 <__call_exitprocs>:
   80f500:	defff504 	addi	sp,sp,-44
@@ -26844,7 +26844,7 @@ alt_exception_cause_generated_bad_addr(alt_exception_cause cause)
   80f584:	bdffffc4 	addi	r23,r23,-1
   80f588:	843fff04 	addi	r16,r16,-4
   80f58c:	8c7fff04 	addi	r17,r17,-4
-  80f590:	bd7ff91e 	bne	r23,r21,80f578 <__reset+0xff806578>
+  80f590:	bd7ff91e 	bne	r23,r21,80f578 <__alt_mem_epcs_flash_controller_0+0xff806578>
   80f594:	00800034 	movhi	r2,0
   80f598:	10800004 	addi	r2,r2,0
   80f59c:	10000926 	beq	r2,zero,80f5c4 <__call_exitprocs+0xc4>
@@ -26856,7 +26856,7 @@ alt_exception_cause_generated_bad_addr(alt_exception_cause cause)
   80f5b4:	98800015 	stw	r2,0(r19)
   80f5b8:	00000000 	call	0 <OSTCBStkPtr_OFFSET>
   80f5bc:	9d000017 	ldw	r20,0(r19)
-  80f5c0:	a03fe41e 	bne	r20,zero,80f554 <__reset+0xff806554>
+  80f5c0:	a03fe41e 	bne	r20,zero,80f554 <__alt_mem_epcs_flash_controller_0+0xff806554>
   80f5c4:	dfc00a17 	ldw	ra,40(sp)
   80f5c8:	df000917 	ldw	fp,36(sp)
   80f5cc:	ddc00817 	ldw	r23,32(sp)
@@ -26874,7 +26874,7 @@ alt_exception_cause_generated_bad_addr(alt_exception_cause cause)
   80f5fc:	10bfffc4 	addi	r2,r2,-1
   80f600:	15c01426 	beq	r2,r23,80f654 <__call_exitprocs+0x154>
   80f604:	80000015 	stw	zero,0(r16)
-  80f608:	183fde26 	beq	r3,zero,80f584 <__reset+0xff806584>
+  80f608:	183fde26 	beq	r3,zero,80f584 <__alt_mem_epcs_flash_controller_0+0xff806584>
   80f60c:	95c8983a 	sll	r4,r18,r23
   80f610:	a0806217 	ldw	r2,392(r20)
   80f614:	a5800117 	ldw	r22,4(r20)
@@ -26887,23 +26887,23 @@ alt_exception_cause_generated_bad_addr(alt_exception_cause cause)
   80f630:	d9000017 	ldw	r4,0(sp)
   80f634:	183ee83a 	callr	r3
   80f638:	a0800117 	ldw	r2,4(r20)
-  80f63c:	15bfbf1e 	bne	r2,r22,80f53c <__reset+0xff80653c>
+  80f63c:	15bfbf1e 	bne	r2,r22,80f53c <__alt_mem_epcs_flash_controller_0+0xff80653c>
   80f640:	98800017 	ldw	r2,0(r19)
-  80f644:	153fcf26 	beq	r2,r20,80f584 <__reset+0xff806584>
-  80f648:	003fbc06 	br	80f53c <__reset+0xff80653c>
+  80f644:	153fcf26 	beq	r2,r20,80f584 <__alt_mem_epcs_flash_controller_0+0xff806584>
+  80f648:	003fbc06 	br	80f53c <__alt_mem_epcs_flash_controller_0+0xff80653c>
   80f64c:	183ee83a 	callr	r3
-  80f650:	003ff906 	br	80f638 <__reset+0xff806638>
+  80f650:	003ff906 	br	80f638 <__alt_mem_epcs_flash_controller_0+0xff806638>
   80f654:	a5c00115 	stw	r23,4(r20)
-  80f658:	003feb06 	br	80f608 <__reset+0xff806608>
+  80f658:	003feb06 	br	80f608 <__alt_mem_epcs_flash_controller_0+0xff806608>
   80f65c:	89000017 	ldw	r4,0(r17)
   80f660:	183ee83a 	callr	r3
-  80f664:	003ff406 	br	80f638 <__reset+0xff806638>
+  80f664:	003ff406 	br	80f638 <__alt_mem_epcs_flash_controller_0+0xff806638>
   80f668:	a0800017 	ldw	r2,0(r20)
   80f66c:	a027883a 	mov	r19,r20
   80f670:	1029883a 	mov	r20,r2
-  80f674:	003fb606 	br	80f550 <__reset+0xff806550>
+  80f674:	003fb606 	br	80f550 <__alt_mem_epcs_flash_controller_0+0xff806550>
   80f678:	0005883a 	mov	r2,zero
-  80f67c:	003ffb06 	br	80f66c <__reset+0xff80666c>
+  80f67c:	003ffb06 	br	80f66c <__alt_mem_epcs_flash_controller_0+0xff80666c>
 
 0080f680 <_exit>:
  *
@@ -26951,4 +26951,4 @@ static ALT_INLINE ALT_ALWAYS_INLINE void alt_sim_halt(int exit_code)
 
   ALT_LOG_PRINT_BOOT("[alt_exit.c] Spinning forever.\r\n");
   while (1);
-  80f6b0:	003fff06 	br	80f6b0 <__reset+0xff8066b0>
+  80f6b0:	003fff06 	br	80f6b0 <__alt_mem_epcs_flash_controller_0+0xff8066b0>

@@ -48,8 +48,8 @@ OS_STK    wifi_test_stk[TASK_STACKSIZE];
 
 /* Definition of Task Priorities */
 
-#define MOTOR_TEST_PRIORITY     1
-#define CAMERA_TEST_PRIORITY    2
+#define MOTOR_TEST_PRIORITY     2
+#define CAMERA_TEST_PRIORITY    1
 #define WIFI_TEST_PRIORITY		3
 
 /* Definition of Queue info */
@@ -59,9 +59,10 @@ OS_EVENT *FREQ_SEM;
 /* Definition of camera constants */
 #define CAM_WRITE_OFFSET        0
 #define CAM_READ_OFFSET         0
-#define CAM_LENGTH      	    12
+#define CAM_LENGTH      	    24
+#define CAM_SERIAL_LEN			4
 #define CAM_DATA_LENGTH	       	3
-#define CAM_MAX_ATTEMPTS   		60
+#define CAM_MAX_ATTEMPTS   		100
 #define CAM_INIT_SYNC_DELAY     5
 #define ONE_COMMAND				1
 #define CAM_WAIT_SEC			1
@@ -70,7 +71,7 @@ OS_EVENT *FREQ_SEM;
 #define CAM_PACKAGE_SIZE		512
 
 /* Definition of camera commands */
-#define CAM_SYNC "AA0E00000000"
+static const char *CAM_SYNC = "AA\n0E\n00\n00\n00\n00\n";
 #define CAM_INIT "AA0100070707"
 #define CAM_SIZE "AA0608000200" //512 bytes
 #define CAM_SNAP "AA0500000000"
@@ -78,7 +79,7 @@ OS_EVENT *FREQ_SEM;
 #define CAM_DATA "AA0A01XXXXXX" //NOTE sent by camera, last six bits are the package size
 
 /* Definition of ACK commands to pair with each relevant command */
-#define CAM_ACK_SYNC "AA0E0D000000"
+static const char *CAM_ACK_SYNC = "AA0E0D000000";
 #define CAM_ACK_INIT "AA0E01000000"
 #define CAM_ACK_SIZE "AA0E06000000"
 #define CAM_ACK_SNAP "AA0E05000000"
@@ -99,9 +100,10 @@ OS_EVENT *FREQ_SEM;
  * detects something and it will REVERSE the direction
  */
 void motor_test(void* pdata){
-	  while (1){
+	  //while (1){
 		  //do stuff
-	  }
+	  //}
+	OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
 }
 
 //section 7 is the UART reference
@@ -120,6 +122,8 @@ void motor_test(void* pdata){
  * appear in the terminal. Repeat as needed.
  */
 void camera_test(void* pdata){
+
+	uint32_t *leds = GREEN_LEDS_BASE;
 
 	uint8_t q = 0;
 	uint8_t z = 0;
@@ -140,6 +144,9 @@ void camera_test(void* pdata){
 	if(!cam){
 		printf("Error opening connection to camera");
 		return;
+	}else{
+		printf("Found cam\n");
+		*leds = *leds ^ 0xFF;
 	}
 	/*
 	* Synchronise with camera
@@ -147,29 +154,41 @@ void camera_test(void* pdata){
 	* Recommends an increasing delay between attempts
 	* with an initial time of 5ms
 	*/
-	for (q = 0; q < CAM_MAX_ATTEMPTS; q++){
+/*
+	while(1){
+		fwrite("FF", 4, 1, cam);
+	}
+*/
 
-		fwrite(CAM_SYNC, CAM_LENGTH, ONE_COMMAND, cam);
+	for (q = 0; q < CAM_MAX_ATTEMPTS; q++){
+		printf("Attempting sync %i\n", q);
+		fwrite(CAM_SYNC, CAM_LENGTH, CAM_SERIAL_LEN, cam);
 
 		OSTimeDlyHMSM(0, 0, 0, sync_delay);
 		synced = TRUE;
-		for (z = 0; z < CAM_LENGTH; z++){
+		printf("After attempt %i\n", q);
+		//for (z = 0; z < CAM_LENGTH; z++){
+			//fgets(buffer, CAM_SERIAL_LEN, cam);
+
 			cam_reply = fgetc(cam);
-			if (strcmp(&cam_reply, &CAM_ACK_SYNC[z]) != 0){
+			if (strcmp(cam_reply, &CAM_ACK_SYNC) != 0){
 				synced = FALSE;
+				printf("Failed with %s\n", buffer);
 			}
-		}
+		//}
 
 		if (synced){
 			fwrite(CAM_ACK_SYNC, CAM_LENGTH, ONE_COMMAND, cam);
 			break;
 		}else{
 			sync_delay++;
+			printf("Failed sync %i\n", q);
 		}
 	}
 
 	if (synced){
 		printf("Cam synced after %i attempts\n", sync_delay);
+		*leds = *leds ^ 0xFF;
 	}else{
 		printf("Cam sync failure");
 		return;
@@ -190,7 +209,7 @@ void camera_test(void* pdata){
 
 	while (1){
 		//wait for button push
-		OSSemPend(FREQ_SEM, 0, &err);
+		//OSSemPend(FREQ_SEM, 0, &err);
 
 		//tell camera to take picture
 		fwrite(CAM_SIZE, CAM_LENGTH, ONE_COMMAND, cam);
@@ -267,22 +286,26 @@ void camera_test(void* pdata){
  * input from the web interface
  */
 void wifi_test(void* pdata){
-	  while (1){
+	  //while (1){
 		  //do stuff
-	  }
+	  //}
+	OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
 }
 
 static void cam_button_interrupt(void * context){
 	//clear interrupt
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE,0);
+	//IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE,0);
 
 	//post semaphore for camera
-	OSSemPost(FREQ_SEM);
+	//OSSemPost(FREQ_SEM);
 }
 
 /* The main function creates two task and starts multi-tasking */
 int main(void){
   
+	printf("START OF MAIN\n");
+
+
 	OSTaskCreateExt(motor_test,
                   	NULL,
                   	(void *)&motor_test_stk[TASK_STACKSIZE-1],
@@ -292,6 +315,8 @@ int main(void){
                   	TASK_STACKSIZE,
                   	NULL,
                   	0);
+
+	printf("START OF MOTOR\n");
 
 	OSTaskCreateExt(camera_test,
                   	NULL,
@@ -303,6 +328,8 @@ int main(void){
                   	NULL,
                   	0);
 
+	printf("START OF CAM\n");
+
 	OSTaskCreateExt(wifi_test,
                     NULL,
                     (void *)&wifi_test_stk[TASK_STACKSIZE-1],
@@ -313,19 +340,24 @@ int main(void){
                     NULL,
                     0);
 
+	printf("START OF WIFI\n");
+
 	//Semaphore for button controlling camera
-	FREQ_SEM = OSSemCreate(SEM_INIT_VALUE);
+	//FREQ_SEM = OSSemCreate(SEM_INIT_VALUE);
 
 	//Interrupt controller for button controlling camera
-	alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
-					    BUTTON_BUTTON_IRQ,
-					    cam_button_interrupt,
-					    NULL,
-					    NULL);
-	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTON_BUTTON_BASE, 0x1);
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 0x0);
+	//alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
+	//				    BUTTON_BUTTON_IRQ,
+	//				    cam_button_interrupt,
+	//				    NULL,
+	//				    NULL);
+	//IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTON_BUTTON_BASE, 0x1);
+	//IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 0x0);
 
 	OSStart();
+
+	printf("END OF MAIN\n");
+
 	return 0;
 }
 

@@ -1,5 +1,6 @@
 	component trolley_system is
 		port (
+			altpll_0_c1_clk                          : out   std_logic;                                        -- clk
 			button_button_external_connection_export : in    std_logic                     := 'X';             -- export
 			button_led_external_connection_export    : out   std_logic;                                        -- export
 			cam_uart_external_connection_rxd         : in    std_logic                     := 'X';             -- rxd
@@ -10,6 +11,7 @@
 			epcs_flash_controller_0_external_sdo     : out   std_logic;                                        -- sdo
 			epcs_flash_controller_0_external_data0   : in    std_logic                     := 'X';             -- data0
 			green_leds_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
+			key_external_connection_export           : in    std_logic                     := 'X';             -- export
 			motor_l_external_connection_export       : out   std_logic_vector(2 downto 0);                     -- export
 			motor_r_external_connection_export       : out   std_logic_vector(2 downto 0);                     -- export
 			prox_sensor_external_connection_export   : in    std_logic                     := 'X';             -- export
@@ -25,14 +27,13 @@
 			sdram_controller_0_wire_we_n             : out   std_logic;                                        -- we_n
 			speaker_external_connection_export       : out   std_logic;                                        -- export
 			wifi_uart_external_connection_rxd        : in    std_logic                     := 'X';             -- rxd
-			wifi_uart_external_connection_txd        : out   std_logic;                                        -- txd
-			key_external_connection_export           : in    std_logic                     := 'X';             -- export
-			altpll_0_c1_clk                          : out   std_logic                                         -- clk
+			wifi_uart_external_connection_txd        : out   std_logic                                         -- txd
 		);
 	end component trolley_system;
 
 	u0 : component trolley_system
 		port map (
+			altpll_0_c1_clk                          => CONNECTED_TO_altpll_0_c1_clk,                          --                       altpll_0_c1.clk
 			button_button_external_connection_export => CONNECTED_TO_button_button_external_connection_export, -- button_button_external_connection.export
 			button_led_external_connection_export    => CONNECTED_TO_button_led_external_connection_export,    --    button_led_external_connection.export
 			cam_uart_external_connection_rxd         => CONNECTED_TO_cam_uart_external_connection_rxd,         --      cam_uart_external_connection.rxd
@@ -43,6 +44,7 @@
 			epcs_flash_controller_0_external_sdo     => CONNECTED_TO_epcs_flash_controller_0_external_sdo,     --                                  .sdo
 			epcs_flash_controller_0_external_data0   => CONNECTED_TO_epcs_flash_controller_0_external_data0,   --                                  .data0
 			green_leds_external_connection_export    => CONNECTED_TO_green_leds_external_connection_export,    --    green_leds_external_connection.export
+			key_external_connection_export           => CONNECTED_TO_key_external_connection_export,           --           key_external_connection.export
 			motor_l_external_connection_export       => CONNECTED_TO_motor_l_external_connection_export,       --       motor_l_external_connection.export
 			motor_r_external_connection_export       => CONNECTED_TO_motor_r_external_connection_export,       --       motor_r_external_connection.export
 			prox_sensor_external_connection_export   => CONNECTED_TO_prox_sensor_external_connection_export,   --   prox_sensor_external_connection.export
@@ -58,8 +60,6 @@
 			sdram_controller_0_wire_we_n             => CONNECTED_TO_sdram_controller_0_wire_we_n,             --                                  .we_n
 			speaker_external_connection_export       => CONNECTED_TO_speaker_external_connection_export,       --       speaker_external_connection.export
 			wifi_uart_external_connection_rxd        => CONNECTED_TO_wifi_uart_external_connection_rxd,        --     wifi_uart_external_connection.rxd
-			wifi_uart_external_connection_txd        => CONNECTED_TO_wifi_uart_external_connection_txd,        --                                  .txd
-			key_external_connection_export           => CONNECTED_TO_key_external_connection_export,           --           key_external_connection.export
-			altpll_0_c1_clk                          => CONNECTED_TO_altpll_0_c1_clk                           --                       altpll_0_c1.clk
+			wifi_uart_external_connection_txd        => CONNECTED_TO_wifi_uart_external_connection_txd         --                                  .txd
 		);
 

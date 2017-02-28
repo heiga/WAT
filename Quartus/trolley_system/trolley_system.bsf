@@ -264,7 +264,7 @@ agreement for further details.
 		(text "wifi_uart_external_connection" (rect 66 755 306 1523)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "rxd" (rect 245 779 508 1568)(font "Arial" (color 0 0 0)))
 		(text "txd" (rect 245 795 508 1600)(font "Arial" (color 0 0 0)))
-		(text " trolley_system " (rect 476 816 1048 1642)(font "Arial" ))
+		(text " system " (rect 509 816 1066 1642)(font "Arial" ))
 		(line (pt 240 32)(pt 304 32)(line_width 1))
 		(line (pt 304 32)(pt 304 816)(line_width 1))
 		(line (pt 240 816)(pt 304 816)(line_width 1))
