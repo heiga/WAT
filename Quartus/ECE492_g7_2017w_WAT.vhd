@@ -120,7 +120,7 @@ begin
          sdram_controller_0_wire_ras_n            => DRAM_RAS_N,                     
          sdram_controller_0_wire_we_n             => DRAM_WE_N,    
 			cam_uart_external_connection_rxd         => GPIO_0(4),   
-			cam_uart_external_connection_txd         => GPIO_0(7),
+			cam_uart_external_connection_txd         => GPIO_0(2),
 			wifi_uart_external_connection_rxd        => GPIO_0(0),
 			wifi_uart_external_connection_txd        => GPIO_0(3),
 			prox_sensor_external_connection_export   => GPIO_0(30),
