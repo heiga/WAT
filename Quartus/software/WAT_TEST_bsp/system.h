@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'trolley_system'
  * SOPC Builder design path: ../../trolley_system.sopcinfo
  *
- * Generated: Mon Feb 27 15:48:11 MST 2017
+ * Generated: Wed Mar 01 16:22:50 MST 2017
  */
 
 /*
@@ -241,7 +241,7 @@
 
 #define ALT_MODULE_CLASS_cam_uart altera_avalon_uart
 #define CAM_UART_BASE 0x100a040
-#define CAM_UART_BAUD 38400
+#define CAM_UART_BAUD 57600
 #define CAM_UART_DATA_BITS 8
 #define CAM_UART_FIXED_BAUD 1
 #define CAM_UART_FREQ 50000000
@@ -545,7 +545,7 @@
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1488230603
+#define SYSID_QSYS_0_TIMESTAMP 1488410108
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 

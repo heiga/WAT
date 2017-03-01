@@ -278,23 +278,6 @@ architecture rtl of trolley_system is
 		);
 	end component trolley_system_timer_0;
 
-	component trolley_system_wifi_uart is
-		port (
-			clk           : in  std_logic                     := 'X';             -- clk
-			reset_n       : in  std_logic                     := 'X';             -- reset_n
-			address       : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- address
-			begintransfer : in  std_logic                     := 'X';             -- begintransfer
-			chipselect    : in  std_logic                     := 'X';             -- chipselect
-			read_n        : in  std_logic                     := 'X';             -- read_n
-			write_n       : in  std_logic                     := 'X';             -- write_n
-			writedata     : in  std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
-			readdata      : out std_logic_vector(15 downto 0);                    -- readdata
-			rxd           : in  std_logic                     := 'X';             -- export
-			txd           : out std_logic;                                        -- export
-			irq           : out std_logic                                         -- irq
-		);
-	end component trolley_system_wifi_uart;
-
 	component trolley_system_mm_interconnect_0 is
 		port (
 			altpll_0_c0_clk                                      : in  std_logic                     := 'X';             -- clk
@@ -1039,7 +1022,7 @@ begin
 			irq        => irq_mapper_receiver5_irq                      --   irq.irq
 		);
 
-	wifi_uart : component trolley_system_wifi_uart
+	wifi_uart : component trolley_system_cam_uart
 		port map (
 			clk           => altpll_0_c0_clk,                                --                 clk.clk
 			reset_n       => rst_controller_001_reset_out_reset_ports_inv,   --               reset.reset_n

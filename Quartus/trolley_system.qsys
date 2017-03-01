@@ -589,7 +589,7 @@
   <parameter name="width" value="1" />
  </module>
  <module name="cam_uart" kind="altera_avalon_uart" version="16.1" enabled="1">
-  <parameter name="baud" value="38400" />
+  <parameter name="baud" value="57600" />
   <parameter name="clockRate" value="50000000" />
   <parameter name="dataBits" value="8" />
   <parameter name="fixedBaud" value="true" />
