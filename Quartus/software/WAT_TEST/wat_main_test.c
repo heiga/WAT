@@ -149,8 +149,8 @@ int main(void){
 	  printf("cam interrupt failed\n");
 	}
 
-	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_LENGTH);
-	camPackageQueue = OSQCreate(camPackageBuffer, CAM_PACKAGE_LENGTH);
+	camCommandQueue = OSQCreate(&camCommandBuffer[0], CAM_COMMAND_LENGTH);
+	camPackageQueue = OSQCreate(&camPackageBuffer[0], CAM_PACKAGE_LENGTH);
 
 	printf("END OF MAIN\n");
 

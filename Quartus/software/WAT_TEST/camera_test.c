@@ -24,6 +24,7 @@ void camera_test(void* pdata){
 	uint8_t err;
 	uint16_t temp;
 
+	void* cam_reply_void;
 	uint8_t cam_reply = 0;
 	uint16_t packet_count = 0;
 
@@ -41,11 +42,6 @@ void camera_test(void* pdata){
 		//Assume false until proven otherwise
 		synced = FALSE;
 
-		//Query queue and check if a good ACK was received
-		OSQQuery(camCommandQueue, camQueueStatus);
-		temp = *(uint16_t*)camQueueStatus->OSQSize;
-		//printf("Queue sitting at %i\n", temp);
-
 		//Send the sync command
 		for (z=0; z < CAM_COMMAND_LENGTH; z++){
 			while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_TRDY_MSK));
@@ -55,15 +51,17 @@ void camera_test(void* pdata){
 		//Wait the recommended sync time as per doc
 		OSTimeDlyHMSM(0, 0, 0, sync_delay);
 
-		if(temp == CAM_COMMAND_LENGTH){
-			synced = TRUE;
-			for (z=0; z < CAM_COMMAND_LENGTH; z++){
-				cam_reply = (uint8_t) OSQPend(camCommandQueue, 0, &err);
+		for (z=0; z < CAM_COMMAND_LENGTH; z++){
+			cam_reply_void = OSQAccept(camCommandQueue, &err);
+			if (cam_reply_void != NULL){
+				cam_reply = (uint8_t) cam_reply_void;
+				printf("%x\n", cam_reply);
 				if (cam_reply != CAM_ACK_SYNC[z]){
 					synced = FALSE;
 				}
 			}
 		}
+
 
 		if (synced){
 			break;
@@ -113,8 +111,10 @@ void camera_test(void* pdata){
 
 void cam_uart_interrupt(void * context){
 	uint8_t read = 0;
+
 	while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_RRDY_MSK));
 	read = IORD_ALTERA_AVALON_UART_RXDATA(CAM_UART_BASE);
+
 	if (useData){
 		OSQPost(camPackageQueue, (void*) read);
 	}else{
