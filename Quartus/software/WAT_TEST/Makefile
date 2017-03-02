@@ -142,7 +142,10 @@ ACDS_VERSION := 16.1
 ELF := WAT_TEST.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS := wat_test.c
+C_SRCS += wat_main_test.c
+C_SRCS += camera_test.c
+C_SRCS += motor_test.c
+C_SRCS += wifi_test.c
 CXX_SRCS :=
 ASM_SRCS :=
 
