@@ -21,4 +21,10 @@ void sensor_interrupt(void * context);
 #define SEM_INIT_VALUE 0
 OS_EVENT *SENSOR_SEM;
 
+/* Definition of direction info */
+//PWM 1 2
+#define MOTOR_FORWARD		0b110 //CW
+#define MOTOR_REVERSE		0b111 //CCW
+#define MOTOR_STOP	  		0b100 //STOP
+
 #endif /* MOTOR_TEST_H_ */
