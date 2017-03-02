@@ -122,17 +122,35 @@ int main(void){
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 0x1);
 
 	//Interrupt controller
-	alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
+	if(alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
 					    BUTTON_BUTTON_IRQ,
 					    button_interrupt,
 					    NULL,
-					    NULL);
+					    NULL))
+	{
+	  printf("button interrupt failed\n");
+	}
 
-	alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
+	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
 					    PROX_SENSOR_IRQ,
 					    sensor_interrupt,
 					    NULL,
-					    NULL);
+					    NULL))
+	{
+	  printf("proximity sensor interrupt failed\n");
+	}
+
+	if(alt_ic_isr_register(CAM_UART_IRQ_INTERRUPT_CONTROLLER_ID,
+				  	  	   CAM_UART_IRQ,
+				  	  	   &cam_uart_interrupt,
+				  	  	   NULL,
+				  	  	   NULL))
+	{
+	  printf("cam interrupt failed\n");
+	}
+
+	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_LENGTH);
+	camPackageQueue = OSQCreate(camPackageBuffer, CAM_PACKAGE_LENGTH);
 
 	printf("END OF MAIN\n");
 
