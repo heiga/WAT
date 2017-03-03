@@ -22,9 +22,9 @@ void sensor_interrupt(void * context);
 OS_EVENT *SENSOR_SEM;
 
 /* Definition of direction info */
-//PWM 1 2
-#define MOTOR_FORWARD		0b110 //CW
-#define MOTOR_REVERSE		0b111 //CCW
-#define MOTOR_STOP	  		0b100 //STOP
+//2 1 PWM
+#define MOTOR_FORWARD		0b011 //CW
+#define MOTOR_REVERSE		0b101 //CCW
+#define MOTOR_STOP	  		0b001 //STOP
 
 #endif /* MOTOR_TEST_H_ */

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'trolley_system'
  * SOPC Builder design path: ../../trolley_system.sopcinfo
  *
- * Generated: Wed Mar 01 16:22:50 MST 2017
+ * Generated: Thu Mar 02 15:51:41 MST 2017
  */
 
 /*
@@ -200,7 +200,7 @@
 #define BUTTON_BUTTON_HAS_TRI 0
 #define BUTTON_BUTTON_IRQ 4
 #define BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define BUTTON_BUTTON_IRQ_TYPE "EDGE"
+#define BUTTON_BUTTON_IRQ_TYPE "LEVEL"
 #define BUTTON_BUTTON_NAME "/dev/button_button"
 #define BUTTON_BUTTON_RESET_VALUE 0
 #define BUTTON_BUTTON_SPAN 16
@@ -460,7 +460,7 @@
 #define PROX_SENSOR_HAS_TRI 0
 #define PROX_SENSOR_IRQ 3
 #define PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define PROX_SENSOR_IRQ_TYPE "EDGE"
+#define PROX_SENSOR_IRQ_TYPE "LEVEL"
 #define PROX_SENSOR_NAME "/dev/prox_sensor"
 #define PROX_SENSOR_RESET_VALUE 0
 #define PROX_SENSOR_SPAN 16
@@ -545,7 +545,7 @@
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1488410108
+#define SYSID_QSYS_0_TIMESTAMP 1488494737
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 

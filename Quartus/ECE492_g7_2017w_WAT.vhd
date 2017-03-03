@@ -123,7 +123,7 @@ begin
 			cam_uart_external_connection_txd         => GPIO_0(2),
 			wifi_uart_external_connection_rxd        => GPIO_0(0),
 			wifi_uart_external_connection_txd        => GPIO_0(3),
-			prox_sensor_external_connection_export   => GPIO_0(30),
+			prox_sensor_external_connection_export   => NOT(GPIO_0(30)),
 			motor_r_external_connection_export(0)    => GPIO_0(11), --APWM
 			motor_r_external_connection_export(1)    => GPIO_0(12), --A1
 			motor_r_external_connection_export(2)    => GPIO_0(15), --A2
@@ -131,7 +131,7 @@ begin
 			motor_l_external_connection_export(1)    => GPIO_0(16), --B1
 			motor_l_external_connection_export(2)    => GPIO_0(19), --B2
 			green_leds_external_connection_export    => LED,
-			button_button_external_connection_export => GPIO_0(25), 
+			button_button_external_connection_export => NOT(GPIO_0(25)), 
 			speaker_external_connection_export       => GPIO_0(29),       
 			button_led_external_connection_export    => GPIO_0(26),
 			key_external_connection_export           => KEY(1),
