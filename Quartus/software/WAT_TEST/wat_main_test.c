@@ -157,9 +157,20 @@ int main(void){
 	{
 	  printf("cam interrupt failed\n");
 	}
+    
+    OSTimeDlyHMSM(0, 0, 1, 0);
+    if(alt_ic_isr_register(WIFI_UART_IRQ_INTERRUPT_CONTROLLER_ID,
+				  	  	   WIFI_UART_IRQ,
+				  	  	   &wifi_uart_interrupt,
+				  	  	   NULL,
+				  	  	   NULL))
+	{
+	  printf("wifi interrupt failed\n");
+	}
 
 	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_LENGTH);
 	camPackageQueue = OSQCreate(camPackageBuffer, CAM_PACKAGE_LENGTH);
+    wifiQueue = OSQCreate(WifiBuffer, Wifi_PACKAGE_LENGTH);
 
 	printf("END OF MAIN\n");
 

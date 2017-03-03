@@ -15,10 +15,15 @@
 #include "includes.h"
 
 void wifi_test(void* pdata);
-void button_interrupt(void * context);
 
 /* Definition of Queue info */
 #define SEM_INIT_VALUE 0
-OS_EVENT *BUTTON_SEM;
+#define Wifi_PACKAGE_LENGTH     1
+#define MOTOR_CW                1
+#define MOTOR_CCW               2
+#define MOTOR_STOP              3
+
+
+void* WifiBuffer[Wifi_PACKAGE_LENGTH];
 
 #endif /* WIFI_TEST_H_ */

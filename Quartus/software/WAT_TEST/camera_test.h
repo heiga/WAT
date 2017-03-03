@@ -17,6 +17,7 @@
 
 void camera_test(void* pdata);
 void cam_uart_interrupt(void * context);
+void button_interrupt(void * context);
 
 /* Redefine stdbool to use proper constant names */
 #define TRUE   true
@@ -29,6 +30,8 @@ void cam_uart_interrupt(void * context);
 #define CAM_INIT_SYNC_DELAY     5
 #define CAM_ACK_IGNORE			3
 #define CAM_LAST_PACKAGE		"F0FO"
+
+OS_EVENT *BUTTON_SEM;
 
 /* Definition of camera commands */
 static const uint8_t CAM_SYNC[CAM_COMMAND_LENGTH] = {0xAA, 0x0D, 0x00, 0x00, 0x00, 0x00};

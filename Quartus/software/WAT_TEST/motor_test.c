@@ -16,6 +16,7 @@ void motor_test(void* pdata){
 	while (1){
 		//OSSemPend(SENSOR_SEM, 0, &err);
 
+        /*
 		//Drive straight for one second
 		OSTimeDlyHMSM(0, 0, 1, 0);
 		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, MOTOR_FORWARD);
@@ -63,6 +64,8 @@ void motor_test(void* pdata){
 		OSTimeDlyHMSM(0, 0, 0, 500);
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_SHORTSTOP);
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_SHORTSTOP);
+
+        */
 	}
 }
 
