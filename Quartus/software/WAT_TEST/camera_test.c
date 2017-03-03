@@ -24,7 +24,6 @@ void camera_test(void* pdata){
 	uint8_t err;
 	uint16_t temp;
 
-	void* cam_reply_void;
 	uint8_t cam_reply = 0;
 	uint16_t packet_count = 0;
 
@@ -37,6 +36,7 @@ void camera_test(void* pdata){
 	* Recommends an increasing delay between attempts
 	* with an initial time of 5ms
 	*/
+
 	useData = FALSE;
 	for (q=0; q < CAM_MAX_ATTEMPTS; q++){
 		//Assume false until proven otherwise
@@ -51,22 +51,29 @@ void camera_test(void* pdata){
 		//Wait the recommended sync time as per doc
 		OSTimeDlyHMSM(0, 0, 0, sync_delay);
 
-		for (z=0; z < CAM_COMMAND_LENGTH; z++){
-			cam_reply_void = OSQAccept(camCommandQueue, &err);
-			if (cam_reply_void != NULL){
-				cam_reply = (uint8_t) cam_reply_void;
-				printf("%x\n", cam_reply);
-				if (cam_reply != CAM_ACK_SYNC[z]){
+//		OSQQuery(camCommandQueue, camQueueStatus);
+//		temp = camQueueStatus->OSMsg;
+//		printf("temp = %i\n", temp);
+		cam_reply = (uint8_t)OSQAccept(camCommandQueue, &err);
+		if (cam_reply == CAM_ACK_SYNC[0]){
+			synced = TRUE;
+			printf("Receiving %x", cam_reply);
+			for (z=1; z < CAM_COMMAND_LENGTH; z++){
+				cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
+				if ((cam_reply != CAM_ACK_SYNC[z]) && (z != CAM_ACK_IGNORE)){
+					printf("Got %x expected %x\n", cam_reply, CAM_ACK_SYNC[z]);
 					synced = FALSE;
+					break;
+				}else{
+					printf(" %x", cam_reply);
 				}
 			}
+			printf("\n");
 		}
-
 
 		if (synced){
 			break;
 		}else{
-
 			sync_delay++;
 		}
 	}
@@ -76,13 +83,42 @@ void camera_test(void* pdata){
 		*leds = *leds ^ 0xFF;
 	}else{
 		printf("Cam sync failure after %i attempts\n", sync_delay);
-		return;
+		//return;
 	}
 
-	//Turn on camera
+	//Send ACK to camera to ACK its SYNC
+	for (z=0; z < CAM_COMMAND_LENGTH; z++){
+		while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_TRDY_MSK));
+		IOWR_ALTERA_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_ACK_SYNC[z]);
+	}
 
+	//Flush queue then turn on camera
+	OSQFlush(camCommandQueue);
+	for (z=0; z < CAM_COMMAND_LENGTH; z++){
+		while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_TRDY_MSK));
+		IOWR_ALTERA_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_INIT[z]);
+	}
 	//Wait the recommended second then check for ACK
-
+	OSTimeDlyHMSM(0, 0, 2, 0);
+	printf("Done waiting\n");
+	//for (z=0; z < CAM_MAX_ATTEMPTS; z++){
+		cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
+		if (cam_reply == CAM_ACK_INIT[0]){
+			printf("Receiving %x", cam_reply);
+			for (z=1; z < CAM_COMMAND_LENGTH; z++){
+				cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
+				if ((cam_reply != CAM_ACK_INIT[z]) && (z != CAM_ACK_IGNORE)){
+					printf("Got %x expected %x\n", cam_reply, CAM_ACK_INIT[z]);
+					//break;
+				}else{
+					printf(" %x", cam_reply);
+				}
+			}
+			printf("\n");
+		}else{
+			printf("Got %x expected %x\n", cam_reply, CAM_ACK_INIT[0]);
+		}
+	//}
 	while (1){
 		//wait for button push
 		//OSSemPend(FREQ_SEM, 0, &err);

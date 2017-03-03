@@ -75,39 +75,48 @@ int main(void){
 	printf("START OF MAIN\n");
 
 
-	OSTaskCreateExt(motor_test,
-                  	NULL,
-                  	(void *)&motor_test_stk[TASK_STACKSIZE-1],
-                  	MOTOR_TEST_PRIORITY,
-                  	MOTOR_TEST_PRIORITY,
-                  	motor_test_stk,
-                  	TASK_STACKSIZE,
-                  	NULL,
-                  	0);
+	if(OSTaskCreateExt(motor_test,
+                  		NULL,
+                  		(void *)&motor_test_stk[TASK_STACKSIZE-1],
+                  		MOTOR_TEST_PRIORITY,
+                  		MOTOR_TEST_PRIORITY,
+                  		motor_test_stk,
+                  		TASK_STACKSIZE,
+                  		NULL,
+                  		0))
+	{
+		printf("Motor task creation failure\n");
+	}
 
 	printf("START OF MOTOR\n");
 
-	OSTaskCreateExt(camera_test,
-                  	NULL,
-                  	(void *)&camera_test_stk[TASK_STACKSIZE-1],
-                  	CAMERA_TEST_PRIORITY,
-                  	CAMERA_TEST_PRIORITY,
-                  	camera_test_stk,
-                  	TASK_STACKSIZE,
-                  	NULL,
-                  	0);
+	if(OSTaskCreateExt(camera_test,
+                  		NULL,
+                  		(void *)&camera_test_stk[TASK_STACKSIZE-1],
+                  		CAMERA_TEST_PRIORITY,
+                  		CAMERA_TEST_PRIORITY,
+                  		camera_test_stk,
+                  		TASK_STACKSIZE,
+                  		NULL,
+                  		0))
+	{
+		printf("Camera task creation failure\n");
+	}
 
 	printf("START OF CAM\n");
 
-	OSTaskCreateExt(wifi_test,
-                    NULL,
-                    (void *)&wifi_test_stk[TASK_STACKSIZE-1],
-                    WIFI_TEST_PRIORITY,
-                    WIFI_TEST_PRIORITY,
-                    wifi_test_stk,
-                    TASK_STACKSIZE,
-                    NULL,
-                    0);
+	if(OSTaskCreateExt(wifi_test,
+                    	NULL,
+                    	(void *)&wifi_test_stk[TASK_STACKSIZE-1],
+                    	WIFI_TEST_PRIORITY,
+                    	WIFI_TEST_PRIORITY,
+                    	wifi_test_stk,
+                    	TASK_STACKSIZE,
+                    	NULL,
+                    	0))
+	{
+		printf("Wifi task creation failure\n");
+	}
 
 	printf("START OF WIFI\n");
 
@@ -117,25 +126,25 @@ int main(void){
 
 	//Interrupt masks
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTON_BUTTON_BASE, 0xF);
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 0x1);
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PROX_SENSOR_BASE, 0xF);
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 0x1);
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 0x0);
 
 	//Interrupt controller
 	if(alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
-					    BUTTON_BUTTON_IRQ,
-					    button_interrupt,
-					    NULL,
-					    NULL))
+					    	BUTTON_BUTTON_IRQ,
+					    	button_interrupt,
+					    	NULL,
+					    	NULL))
 	{
 	  printf("button interrupt failed\n");
 	}
 
 	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
-					    PROX_SENSOR_IRQ,
-					    sensor_interrupt,
-					    NULL,
-					    NULL))
+					    	PROX_SENSOR_IRQ,
+					    	sensor_interrupt,
+					    	NULL,
+					    	NULL))
 	{
 	  printf("proximity sensor interrupt failed\n");
 	}
@@ -149,8 +158,8 @@ int main(void){
 	  printf("cam interrupt failed\n");
 	}
 
-	camCommandQueue = OSQCreate(&camCommandBuffer[0], CAM_COMMAND_LENGTH);
-	camPackageQueue = OSQCreate(&camPackageBuffer[0], CAM_PACKAGE_LENGTH);
+	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_LENGTH);
+	camPackageQueue = OSQCreate(camPackageBuffer, CAM_PACKAGE_LENGTH);
 
 	printf("END OF MAIN\n");
 

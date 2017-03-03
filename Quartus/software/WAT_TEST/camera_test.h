@@ -27,12 +27,12 @@ void cam_uart_interrupt(void * context);
 #define CAM_PACKAGE_LENGTH		512
 #define CAM_MAX_ATTEMPTS   		60
 #define CAM_INIT_SYNC_DELAY     5
+#define CAM_ACK_IGNORE			3
 #define CAM_LAST_PACKAGE		"F0FO"
 
 /* Definition of camera commands */
-static const uint8_t CAM_SYNC[CAM_COMMAND_LENGTH] = {0xAA, 0x0D, 0x00, 0x00, 0x00,0x00};
-//static const uint8_t CAM_SYNC[CAM_LENGTH] = {0xAA, 0x0D, 0x00, 0x00, 0x00, 0x00};
-static const char *CAM_INIT = "AA0100070707";
+static const uint8_t CAM_SYNC[CAM_COMMAND_LENGTH] = {0xAA, 0x0D, 0x00, 0x00, 0x00, 0x00};
+static const uint8_t CAM_INIT[CAM_COMMAND_LENGTH] = {0xAA, 0x01, 0x00, 0x07, 0x07, 0x07};
 static const char *CAM_SIZE = "AA0608000200"; //512 bytes
 static const char *CAM_SNAP = "AA0500000000";
 static const char *CAM_GRAB = "AA0401000000";
@@ -40,7 +40,7 @@ static const char *CAM_DATA = "AA0A01XXXXXX"; //NOTE sent by camera, last six bi
 
 /* Definition of ACK commands to pair with each relevant command */
 static const uint8_t CAM_ACK_SYNC[CAM_COMMAND_LENGTH] = {0xAA, 0x0E, 0x0D, 0x00, 0x00, 0x00};
-static const char *CAM_ACK_INIT = "AA0E01000000";
+static const uint8_t CAM_ACK_INIT[CAM_COMMAND_LENGTH] = {0xAA, 0x0E, 0x01, 0x00, 0x00, 0x00};
 static const char *CAM_ACK_SIZE = "AA0E06000000";
 static const char *CAM_ACK_SNAP = "AA0E05000000";
 static const char *CAM_ACK_GRAB = "AA0E04000000";
