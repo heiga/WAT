@@ -25,6 +25,7 @@ OS_EVENT *SENSOR_SEM;
 //2 1 PWM
 #define MOTOR_FORWARD		0b011 //CW
 #define MOTOR_REVERSE		0b101 //CCW
-#define MOTOR_STOP	  		0b001 //STOP
+#define MOTOR_SHORTSTOP		0b111 //SHORT STOP, low voltage output
+#define MOTOR_FULLSTOP	  	0b001 //FULL STOP, high impedance output
 
 #endif /* MOTOR_TEST_H_ */
