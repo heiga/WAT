@@ -6,6 +6,7 @@
  */
 
 #include "wifi_test.h"
+#include "motor_test.h"
 
 void wifi_test(void* pdata){
 	uint8_t err;
@@ -26,24 +27,23 @@ void wifi_test(void* pdata){
 
 void wifi_uart_interrupt(void * context){
     uint8_t read = 0;
-
-    while(!(IORD_ALTERA_AVALON_UART_STATUS(WIFI_UART_BASE) &
-ALTER_AVALON_UART_STATUS_RRDY_MSK));
+    printf("Hello from wifi interrupt\n");
+    while(!(IORD_ALTERA_AVALON_UART_STATUS(WIFI_UART_BASE) & ALTERA_AVALON_UART_STATUS_RRDY_MSK));
     read = IORD_ALTERA_AVALON_UART_RXDATA(WIFI_UART_BASE);
     
     OSQPost(wifiQueue, (void*) read);
 }
 
 void motorCommand(uint8_t input) {
-    if (input == 1) {
+    if (input == MOTOR_CW) {
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_FORWARD);
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_FORWARD);
     }
-    if (input == 2) {
+    if (input == MOTOR_CCW) {
         IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_REVERSE);
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_REVERSE);
     }
-    if (input == 3) {
+    if (input == MOTOR_STOP) {
         IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_SHORTSTOP);
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_SHORTSTOP);
     }

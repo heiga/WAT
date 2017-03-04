@@ -66,6 +66,7 @@ void motor_test(void* pdata){
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_SHORTSTOP);
 
         */
+		OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 }
 

@@ -158,7 +158,8 @@ int main(void){
 	  printf("cam interrupt failed\n");
 	}
     
-    OSTimeDlyHMSM(0, 0, 1, 0);
+    //OSTimeDlyHMSM(0, 0, 1, 0);
+	printf("wifi interrupt init\n");
     if(alt_ic_isr_register(WIFI_UART_IRQ_INTERRUPT_CONTROLLER_ID,
 				  	  	   WIFI_UART_IRQ,
 				  	  	   &wifi_uart_interrupt,
