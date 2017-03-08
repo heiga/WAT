@@ -16,9 +16,8 @@
 #include "altera_avalon_uart_regs.h"
 #include "altera_avalon_pio_regs.h"
 
-void camera_test(void* pdata);
+void camera_task(void* pdata);
 void cam_uart_interrupt(void * context);
-void button_interrupt(void * context);
 bool cam_send_command(uint8_t* to_send, uint8_t* to_recieve, uint16_t size, OS_EVENT* used_queue);
 
 /* Redefine stdbool to use proper constant names */

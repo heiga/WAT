@@ -169,7 +169,7 @@ int main(void){
 	  printf("wifi interrupt failed\n");
 	}
 
-	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_LENGTH);
+	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_BUFFER);
 	camPackageQueue = OSQCreate(camPackageBuffer, CAM_PACKAGE_LENGTH);
     wifiQueue = OSQCreate(WifiBuffer, Wifi_PACKAGE_LENGTH);
 

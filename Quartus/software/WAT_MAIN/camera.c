@@ -5,7 +5,7 @@
  *      Author: Randy Baron
  */
 
-#include "camera_test.h"
+#include "camera.h"
 
 /*
  * For this test it is assumed that the operator has minimum
@@ -15,7 +15,7 @@
  * press the button again. A different average color should
  * appear in the terminal. Repeat as needed.
  */
-void camera_test(void* pdata){
+void camera_task(void* pdata){
 
 	uint32_t *leds = GREEN_LEDS_BASE;
 
@@ -207,16 +207,4 @@ void cam_uart_interrupt(void * context){
 	}else{
 		OSQPost(camCommandQueue, (void*) read);
 	}
-}
-
-void button_interrupt(void * context){
-	printf("button\n");
-	OSTimeDlyHMSM(0, 0, 0, 400);
-
-	//clear interrupt
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 1);
-	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTON_BUTTON_BASE, 0xF);
-
-	//post semaphore for camera
-	OSSemPost(BUTTON_SEM);
 }

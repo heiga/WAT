@@ -142,7 +142,11 @@ ACDS_VERSION := 16.1
 ELF := WAT_MAIN.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS := wat_main.c
+C_SRCS += wat_main.c
+C_SRCS += camera.c
+C_SRCS += motor.c
+C_SRCS += wifi.c
+C_SRCS += interrupt_peripherals.c
 CXX_SRCS :=
 ASM_SRCS :=
 
