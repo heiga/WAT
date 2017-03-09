@@ -31,6 +31,7 @@
 #include <stdio.h>
 #include "includes.h"
 
+#include "wat_main.h"
 #include "camera.h"
 #include "motor.h"
 #include "wifi.h"
@@ -63,8 +64,6 @@ int main(void){
 		//printf("Motor task creation failure\n");
 	}
 
-	printf("START OF MOTOR\n");
-
 	if(OSTaskCreateExt(camera_task,
                   		NULL,
                   		(void *)&camera_stk[TASK_STACKSIZE-1],
@@ -77,8 +76,6 @@ int main(void){
 	{
 		//printf("Camera task creation failure\n");
 	}
-
-	printf("START OF CAM\n");
 
 	if(OSTaskCreateExt(wifi_task,
                     	NULL,
@@ -93,19 +90,13 @@ int main(void){
 		//printf("Wifi task creation failure\n");
 	}
 
-	printf("START OF WIFI\n");
-
-	//Semaphore
-	BUTTON_SEM = OSSemCreate(SEM_INIT_VALUE);
-	SENSOR_SEM = OSSemCreate(SEM_INIT_VALUE);
-
 	//Interrupt masks
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTON_BUTTON_BASE, 0xF);
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PROX_SENSOR_BASE, 0xF);
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 0x0);
 
-	//Interrupt controller
+	//Initialize the interrupt controllers
 	if(alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
 					    	BUTTON_BUTTON_IRQ,
 					    	button_interrupt,
@@ -143,9 +134,16 @@ int main(void){
     	//printf("wifi interrupt failed\n");
 	}
 
-	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_BUFFER);
-	camPackageQueue = OSQCreate(camPackageBuffer, CAM_PACKAGE_LENGTH);
-    wifiQueue = OSQCreate(WifiBuffer, Wifi_PACKAGE_LENGTH);
+    //Initialize internal queues
+	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_BUFFER_LENGTH);
+	camPackageQueue = OSQCreate(camPackageBuffer, CAM_PACKAGE_BUFFER_LENGTH);
+    wifiPackageQueue = OSQCreate(wifiPackageBuffer, WIFI_PACKAGE_BUFFER_LENGTH);
+
+    //Initialize intertask queues
+    initCommandQueue = OSQCreate(initCommandBuffer, INIT_COMMAND_BUFFER_LENGTH);
+    findCommandQueue = OSQCreate(findCommandBuffer, FIND_COMMAND_BUFFER_LENGTH);
+    moveCommandQueue = OSQCreate(moveCommandBuffer, MOVE_COMMAND_BUFFER_LENGTH);
+    foundCommandQueue = OSQCreate(foundCommandBuffer, FOUND_COMMAND_BUFFER_LENGTH);
 
 	OSStart();
 	return 0;

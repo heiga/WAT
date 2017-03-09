@@ -10,8 +10,9 @@
 
 #include <stdlib.h>
 #include <inttypes.h>
-#include "altera_avalon_pio_regs.h"
+
 #include "includes.h"
+#include "altera_avalon_pio_regs.h"
 
 void button_interrupt(void * context);
 void sensor_interrupt(void * context);

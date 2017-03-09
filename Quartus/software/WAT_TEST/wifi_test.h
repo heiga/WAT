@@ -25,8 +25,4 @@ void wifi_uart_interrupt(void * context);
 #define MOTOR_CCW               50
 #define MOTOR_STOP              51
 
-
-OS_EVENT* wifiQueue;
-void* WifiBuffer[Wifi_PACKAGE_LENGTH];
-
 #endif /* WIFI_TEST_H_ */

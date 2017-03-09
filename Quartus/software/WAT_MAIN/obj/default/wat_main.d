@@ -6,7 +6,12 @@ obj/default/wat_main.o: wat_main.c ../WAT_TEST_bsp//HAL/inc/includes.h \
  ../WAT_TEST_bsp//HAL/inc/sys/alt_alarm.h \
  ../WAT_TEST_bsp//HAL/inc/sys/alt_llist.h \
  ../WAT_TEST_bsp//HAL/inc/priv/alt_alarm.h \
- ../WAT_TEST_bsp//UCOSII/inc/ucos_ii.h ../WAT_TEST_bsp//HAL/inc/os_cpu.h
+ ../WAT_TEST_bsp//UCOSII/inc/ucos_ii.h ../WAT_TEST_bsp//HAL/inc/os_cpu.h \
+ wat_main.h camera.h \
+ ../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h \
+ ../WAT_TEST_bsp//HAL/inc/io.h ../WAT_TEST_bsp//HAL/inc/alt_types.h \
+ motor.h ../WAT_TEST_bsp//drivers/inc/altera_avalon_pio_regs.h wifi.h \
+ interrupt_peripherals.h
 
 ../WAT_TEST_bsp//HAL/inc/includes.h:
 
@@ -33,3 +38,21 @@ obj/default/wat_main.o: wat_main.c ../WAT_TEST_bsp//HAL/inc/includes.h \
 ../WAT_TEST_bsp//UCOSII/inc/ucos_ii.h:
 
 ../WAT_TEST_bsp//HAL/inc/os_cpu.h:
+
+wat_main.h:
+
+camera.h:
+
+../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h:
+
+../WAT_TEST_bsp//HAL/inc/io.h:
+
+../WAT_TEST_bsp//HAL/inc/alt_types.h:
+
+motor.h:
+
+../WAT_TEST_bsp//drivers/inc/altera_avalon_pio_regs.h:
+
+wifi.h:
+
+interrupt_peripherals.h:

@@ -8,18 +8,19 @@
 #ifndef MOTOR_TEST_H_
 #define MOTOR_TEST_H_
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <inttypes.h>
-#include "altera_avalon_pio_regs.h"
+
 #include "includes.h"
+#include "altera_avalon_pio_regs.h"
+#include "wat_main.h"
 
 void motor_task(void* pdata);
 
-
-/* Definition of Queue info */
-#define SEM_INIT_VALUE 0
-OS_EVENT *SENSOR_SEM;
+/* Redefine stdbool to use proper constant names */
+#define TRUE   true
+#define FALSE  false
 
 /* Definition of direction info */
 //2 1 PWM
