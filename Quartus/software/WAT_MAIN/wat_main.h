@@ -47,12 +47,12 @@ void* foundCommandBuffer[FOUND_COMMAND_BUFFER_LENGTH];
 /*Definition of intertask constants, WiFi to motor*/
 #define INIT_RED         0x01
 #define INIT_BLUE        0x02
-#define INIT_GREEN       0x02
+#define INIT_GREEN       0x03
 
 /*Definition of intertask constants, motor to camera*/
 #define FIND_RED         0x01
 #define FIND_BLUE        0x02
-#define FIND_GREEN       0x02
+#define FIND_GREEN       0x03
 
 /*Definition of intertask constants, motor to camera*/
 #define MOVE_STOP        0xFF
@@ -60,6 +60,6 @@ void* foundCommandBuffer[FOUND_COMMAND_BUFFER_LENGTH];
 /*Definition of intertask constants, camera to WiFi*/
 #define FOUND_RED        0x01
 #define FOUND_BLUE       0x02
-#define FOUND_GREEN      0x02
+#define FOUND_GREEN      0x03
 
 #endif /* WAT_MAIN_H_ */
