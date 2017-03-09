@@ -19,10 +19,16 @@ void wifi_test(void* pdata);
 void wifi_uart_interrupt(void * context);
 
 /* Definition of Queue info */
+
+/*Definition of internal WiFi queues*/
+#define WIFI_PACKAGE_BUFFER_LENGTH     1
+OS_EVENT* wifiPackageQueue;
+void* wifiPackageBuffer[WIFI_PACKAGE_BUFFER_LENGTH];
+
+/*Definition of internal WiFi queues*/
 #define SEM_INIT_VALUE 0
-#define Wifi_PACKAGE_LENGTH     1
-#define MOTOR_CW                49
-#define MOTOR_CCW               50
-#define MOTOR_STOP              51
+#define WIFI_MOTOR_CW                  49
+#define WIFI_MOTOR_CCW                 50
+#define WIFI_MOTOR_STOP                51
 
 #endif /* WIFI_TEST_H_ */
