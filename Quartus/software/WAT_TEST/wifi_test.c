@@ -18,7 +18,7 @@ void wifi_test(void* pdata){
 		// OSSemPend(BUTTON_SEM, 0, &err);
 		printf("Hello from wifi\n");
 
-        wifiReceive = (uint8_t) OSQPend(wifiQueue, 0, &err);
+        wifiReceive = (uint8_t) OSQPend(wifiPackageQueue, 0, &err);
         printf("Received form Wifi: %d \n", wifiReceive);
         motorCommand(wifiReceive);
 	}
@@ -31,19 +31,19 @@ void wifi_uart_interrupt(void * context){
     while(!(IORD_ALTERA_AVALON_UART_STATUS(WIFI_UART_BASE) & ALTERA_AVALON_UART_STATUS_RRDY_MSK));
     read = IORD_ALTERA_AVALON_UART_RXDATA(WIFI_UART_BASE);
     
-    OSQPost(wifiQueue, (void*) read);
+    OSQPost(wifiPackageQueue, (void*) read);
 }
 
 void motorCommand(uint8_t input) {
-    if (input == MOTOR_CW) {
+    if (input == WIFI_MOTOR_CW) {
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_FORWARD);
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_FORWARD);
     }
-    if (input == MOTOR_CCW) {
+    if (input == WIFI_MOTOR_CCW) {
         IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_REVERSE);
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_REVERSE);
     }
-    if (input == MOTOR_STOP) {
+    if (input == WIFI_MOTOR_STOP) {
         IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_SHORTSTOP);
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_SHORTSTOP);
     }

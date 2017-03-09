@@ -171,7 +171,7 @@ int main(void){
 
 	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_BUFFER);
 	camPackageQueue = OSQCreate(camPackageBuffer, CAM_PACKAGE_LENGTH);
-    wifiQueue = OSQCreate(WifiBuffer, Wifi_PACKAGE_LENGTH);
+    wifiPackageQueue = OSQCreate(wifiPackageBuffer, WIFI_PACKAGE_BUFFER_LENGTH);
 
 	printf("END OF MAIN\n");
 
