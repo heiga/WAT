@@ -1,49 +1,35 @@
 #include <ESP8266WiFi.h>
 
+// Wifi networks name and password
 char ssid[] = "ESP8266_NETWORK";
 char pass[] = "genericpassword";
 
 WiFiServer server(80);
 
+// Creates wifi network
 void createWifi(char* ssid, char* pass) {
-  //Serial.println("Starting Network");
-  //Serial.println(ssid);
   WiFi.disconnect();
   WiFi.mode(WIFI_AP);
   WiFi.softAP(ssid, pass);
-  //Serial.println("Success!");
-  /*
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Trying to connect...");
-  }
-
-  Serial.println("Successfully Set Up");
-  Serial.println("IP:");
-  Serial.println(WiFi.localIP());
-  */
 }
 
 void setup() {
+  // baud rate for the Nano is set to 57600
   Serial.begin(57600);
+  
   createWifi(ssid, pass);
-  //Serial.println("Ehh Limao");
-  server.begin();
+
   // Server stuff from
   // http://www.esp8266.com/viewtopic.php?f=32&t=8329&start=4
-  //Serial.print("Use this URL to connect: ");
-  //Serial.print("http://");
-  //Serial.print(WiFi.softAPIP());
-  //Serial.println("/");
+  server.begin();
+
   delay(500);
-  
 }
 
 void loop() {
 
   WiFiClient client = server.available();
   if (!client) {
-    //Serial.println("Something wrong with client");
     return;
   }
  
@@ -51,34 +37,55 @@ void loop() {
   s += "Connect-Type: text/html\r\n\r\n";
   s += "<!DOCTYPE HTML>\r\n<html>\r\n";
 
-  s += "<h1> WAT Control Interface Webpage </h1>";
-  
-  s += ("Click <a href=\"/status=cw\">here</a> to spin motors clockwise<br>");
-  s += ("Click <a href=\"/status=ccw\">here</a> to spin motors counter-clockwise<br>");
-  s += ("Click <a href=\"/status=stop\">here</a> to stop motors<br>");
+  s += "<h1> WAT Control Interface </h1>";
+
+  s += "<form>";
+  s += "First Stop: <br>"
+  s += "<select id = \"firststop\">"
+  s += "<option value1 = \"/red\"> RED </option>"
+  s += "<option value1 = \"/blue\"> BLUE </option>"
+  s += "<option value1 = \"/green\"> GREEN </option>"
+  s += "</select>"
+  s += "<br>"
+  s += "<br>"
+  s += "Final Destination: <br>"
+  s += "<select id = \"destination\">"
+  s += "<option value2 = \"/red\"> RED</option>"
+  s += "<option value2 = \"/blue\"> BLUE </option>"
+  s += "<option value2 = \"/green\"> GREEN </option>"
+  s += "</select>"
+  s += "<br>"
+  s += "<br>"
+  s += "<button class=\"button\">Launch</a>"
+  s += "</form>"
 
   s += "</html>\n";
 
   String request = client.readStringUntil('\r');
-  //Serial.print("Client request read: ");
-  //Serial.println(request);
   client.flush();
 
-  
-  if(request.indexOf("/status=cw") != -1) {
+  // sends 
+    if(request.indexOf("/redgreen") != -1) {
     Serial.print("1");
   }
-  if(request.indexOf("/status=ccw") != -1) {
+    if(request.indexOf("/redblue") != -1) {
     Serial.print("2");
   }
-  if(request.indexOf("/status=stop") != -1) {
+    if(request.indexOf("/greenred") != -1) {
     Serial.print("3");
   }
+    if(request.indexOf("/greenblue") != -1) {
+    Serial.print("4");
+  }
+    if(request.indexOf("/bluered") != -1) {
+    Serial.print("5");
+  }
+      if(request.indexOf("/bluegreen") != -1) {
+    Serial.print("6");
+  }
   
-  
+  // Sends the HTML file made from string s to the client
   client.print(s);
   delay(10);
-  //Serial.println("Client disconnected");
-  // server.send(200, "text/plain", "hello from ESP9266!");
 }
 
