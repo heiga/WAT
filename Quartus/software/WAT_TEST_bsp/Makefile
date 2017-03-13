@@ -259,6 +259,13 @@ altera_avalon_uart_driver_C_LIB_SRCS := \
 	$(altera_avalon_uart_driver_SRCS_ROOT)/src/altera_avalon_uart_read.c \
 	$(altera_avalon_uart_driver_SRCS_ROOT)/src/altera_avalon_uart_write.c
 
+# altera_hostfs sources root 
+altera_hostfs_SRCS_ROOT := drivers
+
+# altera_hostfs sources 
+altera_hostfs_C_LIB_SRCS := \
+	$(altera_hostfs_SRCS_ROOT)/src/altera_hostfs.c
+
 # altera_nios2_gen2_ucosii_driver sources root 
 altera_nios2_gen2_ucosii_driver_SRCS_ROOT := HAL
 
@@ -297,6 +304,14 @@ altera_nios2_gen2_ucosii_driver_ASM_LIB_SRCS := \
 	$(altera_nios2_gen2_ucosii_driver_SRCS_ROOT)/src/alt_log_macro.S \
 	$(altera_nios2_gen2_ucosii_driver_SRCS_ROOT)/src/crt0.S \
 	$(altera_nios2_gen2_ucosii_driver_SRCS_ROOT)/src/os_cpu_a.S
+
+# fifoed_avalon_uart_driver sources root 
+fifoed_avalon_uart_driver_SRCS_ROOT := drivers
+
+# fifoed_avalon_uart_driver sources 
+fifoed_avalon_uart_driver_C_LIB_SRCS := \
+	$(fifoed_avalon_uart_driver_SRCS_ROOT)/src/fifoed_avalon_uart_fd.c \
+	$(fifoed_avalon_uart_driver_SRCS_ROOT)/src/fifoed_avalon_uart.c
 
 # hal sources root 
 hal_SRCS_ROOT := HAL
@@ -382,7 +397,9 @@ COMPONENT_C_LIB_SRCS += \
 	$(altera_avalon_sysid_qsys_driver_C_LIB_SRCS) \
 	$(altera_avalon_timer_driver_C_LIB_SRCS) \
 	$(altera_avalon_uart_driver_C_LIB_SRCS) \
+	$(altera_hostfs_C_LIB_SRCS) \
 	$(altera_nios2_gen2_ucosii_driver_C_LIB_SRCS) \
+	$(fifoed_avalon_uart_driver_C_LIB_SRCS) \
 	$(hal_C_LIB_SRCS) \
 	$(ucosii_C_LIB_SRCS)
 

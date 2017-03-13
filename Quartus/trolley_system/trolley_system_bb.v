@@ -3,8 +3,6 @@ module trolley_system (
 	altpll_0_c1_clk,
 	button_button_external_connection_export,
 	button_led_external_connection_export,
-	cam_uart_external_connection_rxd,
-	cam_uart_external_connection_txd,
 	clk_clk,
 	epcs_flash_controller_0_external_dclk,
 	epcs_flash_controller_0_external_sce,
@@ -27,13 +25,13 @@ module trolley_system (
 	sdram_controller_0_wire_we_n,
 	speaker_external_connection_export,
 	wifi_uart_external_connection_rxd,
-	wifi_uart_external_connection_txd);	
+	wifi_uart_external_connection_txd,
+	cam_uart_external_connection_rxd,
+	cam_uart_external_connection_txd);	
 
 	output		altpll_0_c1_clk;
 	input		button_button_external_connection_export;
 	output		button_led_external_connection_export;
-	input		cam_uart_external_connection_rxd;
-	output		cam_uart_external_connection_txd;
 	input		clk_clk;
 	output		epcs_flash_controller_0_external_dclk;
 	output		epcs_flash_controller_0_external_sce;
@@ -57,4 +55,6 @@ module trolley_system (
 	output		speaker_external_connection_export;
 	input		wifi_uart_external_connection_rxd;
 	output		wifi_uart_external_connection_txd;
+	input		cam_uart_external_connection_rxd;
+	output		cam_uart_external_connection_txd;
 endmodule

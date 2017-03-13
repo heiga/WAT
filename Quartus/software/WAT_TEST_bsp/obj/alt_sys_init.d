@@ -14,7 +14,8 @@ obj/alt_sys_init.o: alt_sys_init.c system.h linker.h \
  drivers/inc/altera_avalon_jtag_uart_fd.h HAL/inc/sys/alt_dev.h \
  drivers/inc/altera_avalon_sysid_qsys.h drivers/inc/altera_avalon_timer.h \
  drivers/inc/altera_avalon_uart.h HAL/inc/sys/termios.h \
- drivers/inc/altera_avalon_uart_fd.h
+ drivers/inc/altera_avalon_uart_fd.h drivers/inc/altera_hostfs.h \
+ drivers/inc/fifoed_avalon_uart.h drivers/inc/fifoed_avalon_uart_fd.h
 
 system.h:
 
@@ -85,3 +86,9 @@ drivers/inc/altera_avalon_uart.h:
 HAL/inc/sys/termios.h:
 
 drivers/inc/altera_avalon_uart_fd.h:
+
+drivers/inc/altera_hostfs.h:
+
+drivers/inc/fifoed_avalon_uart.h:
+
+drivers/inc/fifoed_avalon_uart_fd.h:

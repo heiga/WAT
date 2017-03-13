@@ -27,6 +27,7 @@
 *     minutes per iteration.                                             *
 **************************************************************************/
 
+//TODO find nonvolatile way to store destination info for reset
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -88,8 +89,8 @@ int main(void){
 //		printf("Motor task creation failure\n");
 //	}
 
-//	printf("START OF MOTOR\n");
-//
+	printf("START OF MOTOR\n");
+
 	if(OSTaskCreateExt(camera_test,
                   		NULL,
                   		(void *)&camera_test_stk[TASK_STACKSIZE-1],
@@ -104,21 +105,21 @@ int main(void){
 	}
 
 	printf("START OF CAM\n");
-//
-//	if(OSTaskCreateExt(wifi_test,
-//                    	NULL,
-//                    	(void *)&wifi_test_stk[TASK_STACKSIZE-1],
-//                    	WIFI_TEST_PRIORITY,
-//                    	WIFI_TEST_PRIORITY,
-//                    	wifi_test_stk,
-//                    	TASK_STACKSIZE,
-//                    	NULL,
-//                    	0))
-//	{
-//		printf("Wifi task creation failure\n");
-//	}
-//
-//	printf("START OF WIFI\n");
+
+	if(OSTaskCreateExt(wifi_test,
+                    	NULL,
+                    	(void *)&wifi_test_stk[TASK_STACKSIZE-1],
+                    	WIFI_TEST_PRIORITY,
+                    	WIFI_TEST_PRIORITY,
+                    	wifi_test_stk,
+                    	TASK_STACKSIZE,
+                    	NULL,
+                    	0))
+	{
+		printf("Wifi task creation failure\n");
+	}
+
+	printf("START OF WIFI\n");
 
 	//Semaphore
 	BUTTON_SEM = OSSemCreate(SEM_INIT_VALUE);
@@ -158,14 +159,14 @@ int main(void){
 	  printf("cam interrupt failed\n");
 	}
     
-//    if(alt_ic_isr_register(WIFI_UART_IRQ_INTERRUPT_CONTROLLER_ID,
-//				  	  	   WIFI_UART_IRQ,
-//				  	  	   &wifi_uart_interrupt,
-//				  	  	   NULL,
-//				  	  	   NULL))
-//	{
-//	  printf("wifi interrupt failed\n");
-//	}
+    if(alt_ic_isr_register(WIFI_UART_IRQ_INTERRUPT_CONTROLLER_ID,
+				  	  	   WIFI_UART_IRQ,
+				  	  	   &wifi_uart_interrupt,
+				  	  	   NULL,
+				  	  	   NULL))
+	{
+	  printf("wifi interrupt failed\n");
+	}
 
 	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_LENGTH*2);
 	camPackageQueue = OSQCreate(camPackageBuffer, CAM_PACKAGE_LENGTH*2);

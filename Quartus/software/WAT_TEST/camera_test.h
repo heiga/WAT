@@ -10,10 +10,11 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
 #include <inttypes.h>
 #include "includes.h"
-#include "altera_avalon_uart_regs.h"
+#include "fifoed_avalon_uart_regs.h"
 #include "altera_avalon_pio_regs.h"
 
 void camera_test(void* pdata);
@@ -38,7 +39,7 @@ OS_EVENT *BUTTON_SEM;
 /* Definition of camera commands */
 static const uint8_t CAM_SYNC[CAM_COMMAND_LENGTH] = {0xAA, 0x0D, 0x00, 0x00, 0x00, 0x00};
 static const uint8_t CAM_REST[CAM_COMMAND_LENGTH] = {0xAA, 0x08, 0x00, 0x00, 0x00, 0xFF};
-static const uint8_t CAM_INIT[CAM_COMMAND_LENGTH] = {0xAA, 0x01, 0x00, 0x07, 0x07, 0x03};
+static const uint8_t CAM_INIT[CAM_COMMAND_LENGTH] = {0xAA, 0x01, 0x00, 0x07, 0x07, 0x07};
 static const uint8_t CAM_SIZE[CAM_COMMAND_LENGTH] = {0xAA, 0x06, 0x08, 0x00, 0x02, 0x00}; //512 bytes
 static const uint8_t CAM_SNAP[CAM_COMMAND_LENGTH] = {0xAA, 0x05, 0x00, 0x00, 0x00, 0x00};
 static const uint8_t CAM_GRAB[CAM_COMMAND_LENGTH] = {0xAA, 0x04, 0x01, 0x00, 0x00, 0x00};
@@ -74,6 +75,9 @@ OS_EVENT* camCommandQueue;
 OS_EVENT* camPackageQueue;
 void* camCommandBuffer[CAM_COMMAND_LENGTH*2];
 void* camPackageBuffer[CAM_PACKAGE_LENGTH*2];
+
+/*Defintion of output settings */
+static const char* CAM_PICTURE_OUTPUT = "/mnt/host/picture.jpg";
 
 
 #endif /* CAMERA_TEST_H_ */

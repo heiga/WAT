@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'trolley_system'
  * SOPC Builder design path: ../../trolley_system.sopcinfo
  *
- * Generated: Sat Mar 11 18:24:19 MST 2017
+ * Generated: Sun Mar 12 17:29:28 MDT 2017
  */
 
 /*
@@ -64,6 +64,8 @@
 #include "altera_avalon_sysid_qsys.h"
 #include "altera_avalon_timer.h"
 #include "altera_avalon_uart.h"
+#include "altera_hostfs.h"
+#include "fifoed_avalon_uart.h"
 
 /*
  * Allocate the device storage
@@ -74,8 +76,9 @@ ALTERA_AVALON_EPCS_FLASH_CONTROLLER_INSTANCE ( EPCS_FLASH_CONTROLLER_0, epcs_fla
 ALTERA_AVALON_JTAG_UART_INSTANCE ( JTAG_UART_0, jtag_uart_0);
 ALTERA_AVALON_SYSID_QSYS_INSTANCE ( SYSID_QSYS_0, sysid_qsys_0);
 ALTERA_AVALON_TIMER_INSTANCE ( TIMER_0, timer_0);
-ALTERA_AVALON_UART_INSTANCE ( CAM_UART, cam_uart);
 ALTERA_AVALON_UART_INSTANCE ( WIFI_UART, wifi_uart);
+ALTERA_HOSTFS_INSTANCE ( ALTERA_HOSTFS, altera_hostfs);
+FIFOED_AVALON_UART_INSTANCE ( CAM_UART, cam_uart);
 
 /*
  * Initialize the interrupt controller devices
@@ -102,6 +105,7 @@ void alt_sys_init( void )
     ALTERA_AVALON_EPCS_FLASH_CONTROLLER_INIT ( EPCS_FLASH_CONTROLLER_0, epcs_flash_controller_0);
     ALTERA_AVALON_JTAG_UART_INIT ( JTAG_UART_0, jtag_uart_0);
     ALTERA_AVALON_SYSID_QSYS_INIT ( SYSID_QSYS_0, sysid_qsys_0);
-    ALTERA_AVALON_UART_INIT ( CAM_UART, cam_uart);
     ALTERA_AVALON_UART_INIT ( WIFI_UART, wifi_uart);
+    ALTERA_HOSTFS_INIT ( ALTERA_HOSTFS, altera_hostfs);
+    FIFOED_AVALON_UART_INIT ( CAM_UART, cam_uart);
 }

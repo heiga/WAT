@@ -138,25 +138,25 @@ module trolley_system_mm_interconnect_0_router
     localparam PAD1 = log2ceil(64'h1008000 - 64'h1004000); 
     localparam PAD2 = log2ceil(64'h1009800 - 64'h1009000); 
     localparam PAD3 = log2ceil(64'h100a000 - 64'h1009800); 
-    localparam PAD4 = log2ceil(64'h100a020 - 64'h100a000); 
-    localparam PAD5 = log2ceil(64'h100a040 - 64'h100a020); 
-    localparam PAD6 = log2ceil(64'h100a060 - 64'h100a040); 
-    localparam PAD7 = log2ceil(64'h100a070 - 64'h100a060); 
-    localparam PAD8 = log2ceil(64'h100a080 - 64'h100a070); 
-    localparam PAD9 = log2ceil(64'h100a090 - 64'h100a080); 
-    localparam PAD10 = log2ceil(64'h100a0a0 - 64'h100a090); 
-    localparam PAD11 = log2ceil(64'h100a0b0 - 64'h100a0a0); 
-    localparam PAD12 = log2ceil(64'h100a0c0 - 64'h100a0b0); 
-    localparam PAD13 = log2ceil(64'h100a0d0 - 64'h100a0c0); 
-    localparam PAD14 = log2ceil(64'h100a0e0 - 64'h100a0d0); 
-    localparam PAD15 = log2ceil(64'h100a0e8 - 64'h100a0e0); 
-    localparam PAD16 = log2ceil(64'h100a0f0 - 64'h100a0e8); 
+    localparam PAD4 = log2ceil(64'h100a040 - 64'h100a000); 
+    localparam PAD5 = log2ceil(64'h100a060 - 64'h100a040); 
+    localparam PAD6 = log2ceil(64'h100a080 - 64'h100a060); 
+    localparam PAD7 = log2ceil(64'h100a090 - 64'h100a080); 
+    localparam PAD8 = log2ceil(64'h100a0a0 - 64'h100a090); 
+    localparam PAD9 = log2ceil(64'h100a0b0 - 64'h100a0a0); 
+    localparam PAD10 = log2ceil(64'h100a0c0 - 64'h100a0b0); 
+    localparam PAD11 = log2ceil(64'h100a0d0 - 64'h100a0c0); 
+    localparam PAD12 = log2ceil(64'h100a0e0 - 64'h100a0d0); 
+    localparam PAD13 = log2ceil(64'h100a0f0 - 64'h100a0e0); 
+    localparam PAD14 = log2ceil(64'h100a100 - 64'h100a0f0); 
+    localparam PAD15 = log2ceil(64'h100a108 - 64'h100a100); 
+    localparam PAD16 = log2ceil(64'h100a110 - 64'h100a108); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
     // address range of the slaves. If the required width is too
     // large or too small, we use the address field width instead.
     // -------------------------------------------------------
-    localparam ADDR_RANGE = 64'h100a0f0;
+    localparam ADDR_RANGE = 64'h100a110;
     localparam RANGE_ADDR_WIDTH = log2ceil(ADDR_RANGE);
     localparam OPTIMIZED_ADDR_H = (RANGE_ADDR_WIDTH > PKT_ADDR_W) ||
                                   (RANGE_ADDR_WIDTH == 0) ?
@@ -233,80 +233,80 @@ module trolley_system_mm_interconnect_0_router
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 9;
     end
 
-    // ( 0x100a000 .. 0x100a020 )
+    // ( 0x100a000 .. 0x100a040 )
     if ( {address[RG:PAD4],{PAD4{1'b0}}} == 25'h100a000   ) begin
-            src_channel = 17'b01000000000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 15;
-    end
-
-    // ( 0x100a020 .. 0x100a040 )
-    if ( {address[RG:PAD5],{PAD5{1'b0}}} == 25'h100a020   ) begin
-            src_channel = 17'b00000000010000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 16;
-    end
-
-    // ( 0x100a040 .. 0x100a060 )
-    if ( {address[RG:PAD6],{PAD6{1'b0}}} == 25'h100a040   ) begin
-            src_channel = 17'b00000000001000000;
+            src_channel = 17'b10000000000000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 
-    // ( 0x100a060 .. 0x100a070 )
-    if ( {address[RG:PAD7],{PAD7{1'b0}}} == 25'h100a060   ) begin
-            src_channel = 17'b10000000000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 6;
+    // ( 0x100a040 .. 0x100a060 )
+    if ( {address[RG:PAD5],{PAD5{1'b0}}} == 25'h100a040   ) begin
+            src_channel = 17'b00100000000000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 15;
     end
 
-    // ( 0x100a070 .. 0x100a080 )
-    if ( {address[RG:PAD8],{PAD8{1'b0}}} == 25'h100a070   ) begin
-            src_channel = 17'b00100000000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 13;
+    // ( 0x100a060 .. 0x100a080 )
+    if ( {address[RG:PAD6],{PAD6{1'b0}}} == 25'h100a060   ) begin
+            src_channel = 17'b00000000001000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 16;
     end
 
     // ( 0x100a080 .. 0x100a090 )
-    if ( {address[RG:PAD9],{PAD9{1'b0}}} == 25'h100a080   ) begin
-            src_channel = 17'b00010000000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 1;
+    if ( {address[RG:PAD7],{PAD7{1'b0}}} == 25'h100a080   ) begin
+            src_channel = 17'b01000000000000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 6;
     end
 
     // ( 0x100a090 .. 0x100a0a0 )
-    if ( {address[RG:PAD10],{PAD10{1'b0}}} == 25'h100a090   ) begin
-            src_channel = 17'b00001000000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
+    if ( {address[RG:PAD8],{PAD8{1'b0}}} == 25'h100a090   ) begin
+            src_channel = 17'b00010000000000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 13;
     end
 
     // ( 0x100a0a0 .. 0x100a0b0 )
-    if ( {address[RG:PAD11],{PAD11{1'b0}}} == 25'h100a0a0   ) begin
-            src_channel = 17'b00000100000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
+    if ( {address[RG:PAD9],{PAD9{1'b0}}} == 25'h100a0a0   ) begin
+            src_channel = 17'b00001000000000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 1;
     end
 
     // ( 0x100a0b0 .. 0x100a0c0 )
-    if ( {address[RG:PAD12],{PAD12{1'b0}}} == 25'h100a0b0   ) begin
-            src_channel = 17'b00000010000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 7;
+    if ( {address[RG:PAD10],{PAD10{1'b0}}} == 25'h100a0b0   ) begin
+            src_channel = 17'b00000100000000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
     end
 
     // ( 0x100a0c0 .. 0x100a0d0 )
-    if ( {address[RG:PAD13],{PAD13{1'b0}}} == 25'h100a0c0   ) begin
-            src_channel = 17'b00000001000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 8;
+    if ( {address[RG:PAD11],{PAD11{1'b0}}} == 25'h100a0c0   ) begin
+            src_channel = 17'b00000010000000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
     end
 
     // ( 0x100a0d0 .. 0x100a0e0 )
-    if ( {address[RG:PAD14],{PAD14{1'b0}}} == 25'h100a0d0   ) begin
+    if ( {address[RG:PAD12],{PAD12{1'b0}}} == 25'h100a0d0   ) begin
+            src_channel = 17'b00000001000000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 7;
+    end
+
+    // ( 0x100a0e0 .. 0x100a0f0 )
+    if ( {address[RG:PAD13],{PAD13{1'b0}}} == 25'h100a0e0   ) begin
             src_channel = 17'b00000000100000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 8;
+    end
+
+    // ( 0x100a0f0 .. 0x100a100 )
+    if ( {address[RG:PAD14],{PAD14{1'b0}}} == 25'h100a0f0   ) begin
+            src_channel = 17'b00000000010000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 11;
     end
 
-    // ( 0x100a0e0 .. 0x100a0e8 )
-    if ( {address[RG:PAD15],{PAD15{1'b0}}} == 25'h100a0e0  && read_transaction  ) begin
+    // ( 0x100a100 .. 0x100a108 )
+    if ( {address[RG:PAD15],{PAD15{1'b0}}} == 25'h100a100  && read_transaction  ) begin
             src_channel = 17'b00000000000000010;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 14;
     end
 
-    // ( 0x100a0e8 .. 0x100a0f0 )
-    if ( {address[RG:PAD16],{PAD16{1'b0}}} == 25'h100a0e8   ) begin
+    // ( 0x100a108 .. 0x100a110 )
+    if ( {address[RG:PAD16],{PAD16{1'b0}}} == 25'h100a108   ) begin
             src_channel = 17'b00000000000000001;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
     end

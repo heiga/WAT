@@ -2,8 +2,6 @@
 		.altpll_0_c1_clk                          (<connected-to-altpll_0_c1_clk>),                          //                       altpll_0_c1.clk
 		.button_button_external_connection_export (<connected-to-button_button_external_connection_export>), // button_button_external_connection.export
 		.button_led_external_connection_export    (<connected-to-button_led_external_connection_export>),    //    button_led_external_connection.export
-		.cam_uart_external_connection_rxd         (<connected-to-cam_uart_external_connection_rxd>),         //      cam_uart_external_connection.rxd
-		.cam_uart_external_connection_txd         (<connected-to-cam_uart_external_connection_txd>),         //                                  .txd
 		.clk_clk                                  (<connected-to-clk_clk>),                                  //                               clk.clk
 		.epcs_flash_controller_0_external_dclk    (<connected-to-epcs_flash_controller_0_external_dclk>),    //  epcs_flash_controller_0_external.dclk
 		.epcs_flash_controller_0_external_sce     (<connected-to-epcs_flash_controller_0_external_sce>),     //                                  .sce
@@ -26,6 +24,8 @@
 		.sdram_controller_0_wire_we_n             (<connected-to-sdram_controller_0_wire_we_n>),             //                                  .we_n
 		.speaker_external_connection_export       (<connected-to-speaker_external_connection_export>),       //       speaker_external_connection.export
 		.wifi_uart_external_connection_rxd        (<connected-to-wifi_uart_external_connection_rxd>),        //     wifi_uart_external_connection.rxd
-		.wifi_uart_external_connection_txd        (<connected-to-wifi_uart_external_connection_txd>)         //                                  .txd
+		.wifi_uart_external_connection_txd        (<connected-to-wifi_uart_external_connection_txd>),        //                                  .txd
+		.cam_uart_external_connection_rxd         (<connected-to-cam_uart_external_connection_rxd>),         //      cam_uart_external_connection.rxd
+		.cam_uart_external_connection_txd         (<connected-to-cam_uart_external_connection_txd>)          //                                  .txd
 	);
 

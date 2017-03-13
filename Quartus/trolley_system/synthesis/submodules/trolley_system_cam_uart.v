@@ -93,7 +93,7 @@ reg     [  9: 0] unxshiftxtx_shift_register_contentsxtx_shift_reg_outxx5_out;
           if (tx_wr_strobe_onset)
               tx_ready <= 0;
           else if (do_load_shifter)
-              tx_ready <= -1;
+              tx_ready <= 1'b1;
     end
 
 
@@ -140,8 +140,8 @@ reg     [  9: 0] unxshiftxtx_shift_register_contentsxtx_shift_reg_outxx5_out;
     end
 
 
-  assign do_shift = baud_clk_en  && 
-    (~shift_done) && 
+  assign do_shift = baud_clk_en  &&
+    (~shift_done) &&
     (~do_load_shifter);
 
   always @(posedge clk or negedge reset_n)
@@ -288,7 +288,6 @@ endmodule
 module trolley_system_cam_uart_rx (
                                     // inputs:
                                      baud_divisor,
-                                     begintransfer,
                                      clk,
                                      clk_en,
                                      reset_n,
@@ -313,7 +312,6 @@ module trolley_system_cam_uart_rx (
   output  [  7: 0] rx_data;
   output           rx_overrun;
   input   [  9: 0] baud_divisor;
-  input            begintransfer;
   input            clk;
   input            clk_en;
   input            reset_n;
@@ -397,7 +395,7 @@ reg     [  9: 0] unxshiftxrxd_shift_regxshift_reg_start_bit_nxx6_out;
 
 
   assign rxd_edge = (sync_rxd) ^  (delayed_unxsync_rxdxx2);
-  assign rx_rd_strobe_onset = rx_rd_strobe && begintransfer;
+  assign rx_rd_strobe_onset = rx_rd_strobe;
   assign half_bit_cell_divisor = baud_divisor[9 : 1];
   assign baud_load_value = (rxd_edge)? half_bit_cell_divisor :
     baud_divisor;
@@ -544,13 +542,80 @@ endmodule
 // altera message_level Level1 
 // altera message_off 10034 10035 10036 10037 10230 10240 10030 
 
+module trolley_system_cam_uart_rxfifo (
+                                        // inputs:
+                                         clk,
+                                         d1_rx_fifo_rd_strobe,
+                                         d1_rx_rd_strobe,
+                                         in_rx_data,
+                                         reset,
+
+                                        // outputs:
+                                         rx_data_b,
+                                         rx_empty,
+                                         rx_full,
+                                         rx_used
+                                      )
+;
+
+  output  [  7: 0] rx_data_b;
+  output           rx_empty;
+  output           rx_full;
+  output  [  8: 0] rx_used;
+  input            clk;
+  input            d1_rx_fifo_rd_strobe;
+  input            d1_rx_rd_strobe;
+  input   [  7: 0] in_rx_data;
+  input            reset;
+
+
+wire    [  7: 0] rx_data_b;
+wire             rx_empty;
+wire             rx_full;
+wire    [  8: 0] rx_used;
+  scfifo rxfifo
+    (
+      .clock (clk),
+      .data (in_rx_data),
+      .empty (rx_empty),
+      .full (rx_full),
+      .q (rx_data_b),
+      .rdreq (d1_rx_fifo_rd_strobe),
+      .sclr (reset),
+      .usedw (rx_used),
+      .wrreq (d1_rx_rd_strobe)
+    );
+
+  defparam rxfifo.lpm_numwords = 512,
+           rxfifo.lpm_showahead = "ON",
+           rxfifo.lpm_type = "scfifo",
+           rxfifo.lpm_width = 8,
+           rxfifo.lpm_widthu = 9,
+           rxfifo.overflow_checking = "ON",
+           rxfifo.underflow_checking = "ON",
+           rxfifo.use_eab = "ON";
+
+
+endmodule
+
+
+// synthesis translate_off
+`timescale 1ns / 1ps
+// synthesis translate_on
+
+// turn off superfluous verilog processor warnings 
+// altera message_level Level1 
+// altera message_off 10034 10035 10036 10037 10230 10240 10030 
+
 module trolley_system_cam_uart_regs (
                                       // inputs:
                                        address,
+                                       begintransfer,
                                        break_detect,
                                        chipselect,
                                        clk,
                                        clk_en,
+                                       d1_tx_ready,
                                        framing_error,
                                        parity_error,
                                        read_n,
@@ -568,6 +633,8 @@ module trolley_system_cam_uart_regs (
                                        baud_divisor,
                                        dataavailable,
                                        do_force_break,
+                                       gap_detect,
+                                       gap_timeout,
                                        irq,
                                        readdata,
                                        readyfordata,
@@ -581,18 +648,22 @@ module trolley_system_cam_uart_regs (
   output  [  9: 0] baud_divisor;
   output           dataavailable;
   output           do_force_break;
+  output           gap_detect;
+  output           gap_timeout;
   output           irq;
-  output  [ 15: 0] readdata;
+  output  [ 31: 0] readdata;
   output           readyfordata;
   output           rx_rd_strobe;
   output           status_wr_strobe;
   output  [  7: 0] tx_data;
   output           tx_wr_strobe;
-  input   [  2: 0] address;
+  input   [  3: 0] address;
+  input            begintransfer;
   input            break_detect;
   input            chipselect;
   input            clk;
   input            clk_en;
+  input            d1_tx_ready;
   input            framing_error;
   input            parity_error;
   input            read_n;
@@ -604,16 +675,17 @@ module trolley_system_cam_uart_regs (
   input            tx_ready;
   input            tx_shift_empty;
   input            write_n;
-  input   [ 15: 0] writedata;
+  input   [ 31: 0] writedata;
 
 
 wire             any_error;
 wire    [  9: 0] baud_divisor;
-reg     [  9: 0] control_reg;
+reg     [ 15: 0] control_reg;
 wire             control_wr_strobe;
 wire             cts_status_bit;
-reg              d1_rx_char_ready;
-reg              d1_tx_ready;
+reg              d1_rx_fifo_rd_strobe;
+reg              d1_rx_not_empty;
+reg              d1_rx_rd_strobe;
 wire             dataavailable;
 wire             dcts_status_bit;
 reg              delayed_unxtx_readyxx4;
@@ -621,25 +693,46 @@ wire    [  9: 0] divisor_constant;
 wire             do_force_break;
 wire             do_write_char;
 wire             eop_status_bit;
+wire             gap_detect;
+wire             gap_timeout;
 wire             ie_any_error;
 wire             ie_break_detect;
+wire             ie_dcts;
+wire             ie_eop;
 wire             ie_framing_error;
+wire             ie_gap_detection;
 wire             ie_parity_error;
 wire             ie_rx_char_ready;
 wire             ie_rx_overrun;
 wire             ie_tx_overrun;
 wire             ie_tx_ready;
 wire             ie_tx_shift_empty;
+wire    [  7: 0] in_rx_data;
 reg              irq;
+wire             pparity_even;
+wire             pparity_odd;
 wire             qualified_irq;
-reg     [ 15: 0] readdata;
+reg     [ 31: 0] readdata;
 wire             readyfordata;
+wire             reset;
+wire             rts_control_bit;
+wire             rx_at_threshold;
+wire    [  9: 0] rx_buff_used;
+wire    [  7: 0] rx_data_b;
+wire             rx_empty;
+wire             rx_fifo_rd_strobe;
+wire             rx_full;
+wire             rx_not_empty;
+wire             rx_not_full;
 wire             rx_rd_strobe;
-wire    [ 15: 0] selected_read_data;
-wire    [ 12: 0] status_reg;
+wire    [  8: 0] rx_used;
+wire    [ 31: 0] selected_read_data;
+wire    [ 14: 0] status_reg;
 wire             status_wr_strobe;
+wire             timer_timout;
 reg     [  7: 0] tx_data;
 wire             tx_wr_strobe;
+  //CJR changed to 32 bits wide
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -658,10 +751,12 @@ wire             tx_wr_strobe;
     end
 
 
-  assign rx_rd_strobe = chipselect && ~read_n  && (address == 3'd0);
-  assign tx_wr_strobe = chipselect && ~write_n && (address == 3'd1);
-  assign status_wr_strobe = chipselect && ~write_n && (address == 3'd2);
-  assign control_wr_strobe = chipselect && ~write_n && (address == 3'd3);
+  assign rx_fifo_rd_strobe = chipselect && ~read_n  && (address == 4'd0) && begintransfer;
+  assign rx_rd_strobe = rx_char_ready && rx_not_full;
+  assign tx_wr_strobe = chipselect && ~write_n && (address == 4'd1);
+  assign status_wr_strobe = chipselect && ~write_n && (address == 4'd2);
+  assign control_wr_strobe = chipselect && ~write_n && (address == 4'd3);
+  assign reset = ~reset_n;
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -676,14 +771,20 @@ wire             tx_wr_strobe;
       if (reset_n == 0)
           control_reg <= 0;
       else if (control_wr_strobe)
-          control_reg <= writedata[9 : 0];
+          control_reg <= writedata[15 : 0];
     end
 
 
   assign baud_divisor = divisor_constant;
   assign cts_status_bit = 0;
   assign dcts_status_bit = 0;
-  assign {do_force_break,
+  assign {pparity_even,
+pparity_odd,
+ie_gap_detection,
+ie_eop,
+rts_control_bit,
+ie_dcts,
+do_force_break,
 ie_any_error,
 ie_rx_char_ready,
 ie_tx_ready,
@@ -699,12 +800,14 @@ ie_parity_error} = control_reg;
     framing_error ||
     break_detect;
 
-  assign status_reg = {eop_status_bit,
+  assign status_reg = {rx_at_threshold,
+    1'b0,
+    eop_status_bit,
     cts_status_bit,
     dcts_status_bit,
     1'b0,
     any_error,
-    rx_char_ready,
+    rx_not_empty,
     tx_ready,
     tx_shift_empty,
     tx_overrun,
@@ -713,31 +816,65 @@ ie_parity_error} = control_reg;
     framing_error,
     parity_error};
 
+  //Register the rx_not_empty for timing
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
-          d1_rx_char_ready <= 0;
+          d1_rx_not_empty <= 0;
       else if (clk_en)
-          d1_rx_char_ready <= rx_char_ready;
+          d1_rx_not_empty <= rx_not_empty;
     end
 
 
+  //Register the rx_rd_strobe for timing
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
-          d1_tx_ready <= 0;
+          d1_rx_rd_strobe <= 0;
       else if (clk_en)
-          d1_tx_ready <= tx_ready;
+          d1_rx_rd_strobe <= rx_rd_strobe;
     end
 
 
-  assign dataavailable = d1_rx_char_ready;
+  //Register the rx_fifo_strobe for timing
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          d1_rx_fifo_rd_strobe <= 0;
+      else if (clk_en)
+          d1_rx_fifo_rd_strobe <= rx_fifo_rd_strobe;
+    end
+
+
+  assign dataavailable = d1_rx_not_empty;
   assign readyfordata = d1_tx_ready;
+  assign gap_detect = 1'b0;
+  assign in_rx_data = rx_data;
+  trolley_system_cam_uart_rxfifo the_trolley_system_cam_uart_rxfifo
+    (
+      .clk                  (clk),
+      .d1_rx_fifo_rd_strobe (d1_rx_fifo_rd_strobe),
+      .d1_rx_rd_strobe      (d1_rx_rd_strobe),
+      .in_rx_data           (in_rx_data),
+      .reset                (reset),
+      .rx_data_b            (rx_data_b),
+      .rx_empty             (rx_empty),
+      .rx_full              (rx_full),
+      .rx_used              (rx_used)
+    );
+
+  assign rx_buff_used = {rx_full,rx_used};
+  assign rx_not_empty = ~rx_empty;
+  assign rx_at_threshold = (rx_used >=1) || rx_full || timer_timout;
+  assign rx_not_full = ~rx_full;
+  assign gap_timeout = 0;
+  assign timer_timout = 0;
   assign eop_status_bit = 1'b0;
-  assign selected_read_data = ({16 {(address == 3'd0)}} & rx_data) |
-    ({16 {(address == 3'd1)}} & tx_data) |
-    ({16 {(address == 3'd2)}} & status_reg) |
-    ({16 {(address == 3'd3)}} & control_reg);
+  assign selected_read_data = ({32 {(address == 4'd1)}} & tx_data) |
+    ({32 {(address == 4'd2)}} & status_reg) |
+    ({32 {(address == 4'd3)}} & control_reg) |
+    ({32 {(address == 4'd0)}} & rx_data_b) |
+    ({32 {(address == 4'd6)}} & rx_buff_used);
 
   assign qualified_irq = (ie_any_error      && any_error      ) ||
     (ie_tx_shift_empty && tx_shift_empty ) ||
@@ -746,7 +883,7 @@ ie_parity_error} = control_reg;
     (ie_break_detect   && break_detect   ) ||
     (ie_framing_error  && framing_error  ) ||
     (ie_parity_error   && parity_error   ) ||
-    (ie_rx_char_ready  && rx_char_ready  ) ||
+    (ie_rx_char_ready  && rx_at_threshold  ) ||
     (ie_tx_ready       && tx_ready       );
 
 
@@ -790,12 +927,53 @@ endmodule
 // altera message_level Level1 
 // altera message_off 10034 10035 10036 10037 10230 10240 10030 
 
+//Generation parameters:
+//--add_error_bits=0
+//--baud=57600
+//--baud_divisor_constant=868
+//--clock_freq=50000000
+//--data_bits=8
+//--divisor_bits=10
+//--fifo_export_used=0
+//--fifo_size_rx=512
+//--fifo_size_tx=8
+//--fixed_baud=1
+//--gap_value=4
+//--hw_cts=0
+//--num_control_reg_bits=16
+//--num_status_reg_bits=15
+//--parity=N
+//--project_info=HASH(0x6593168)
+//--relativepath=1
+//--rx_IRQ_Threshold=1
+//--rx_fifo_LE=0
+//--sim_char_stream=
+//--sim_true_baud=0
+//--stop_bits=1
+//--sync_reg_depth=2
+//--system_clk_freq=50000000
+//--timeout_value=4
+//--timestamp_width=8
+//--trans_pin=0
+//--tx_IRQ_Threshold=1
+//--tx_fifo_LE=0
+//--use_cts_rts=0
+//--use_eop_register=0
+//--use_ext_timestamp=0
+//--use_gap_detection=0
+//--use_rx_fifo=1
+//--use_status_bit_clear=0
+//--use_timestamp=0
+//--use_timout=0
+//--use_tx_fifo=0
+
 module trolley_system_cam_uart (
                                  // inputs:
                                   address,
                                   begintransfer,
                                   chipselect,
                                   clk,
+                                  d1_tx_ready,
                                   read_n,
                                   reset_n,
                                   rxd,
@@ -804,6 +982,8 @@ module trolley_system_cam_uart (
 
                                  // outputs:
                                   dataavailable,
+                                  gap_detect,
+                                  gap_timeout,
                                   irq,
                                   readdata,
                                   readyfordata,
@@ -812,19 +992,22 @@ module trolley_system_cam_uart (
   /* synthesis altera_attribute = "-name SYNCHRONIZER_IDENTIFICATION OFF" */ ;
 
   output           dataavailable;
+  output           gap_detect;
+  output           gap_timeout;
   output           irq;
-  output  [ 15: 0] readdata;
+  output  [ 31: 0] readdata;
   output           readyfordata;
   output           txd;
-  input   [  2: 0] address;
+  input   [  3: 0] address;
   input            begintransfer;
   input            chipselect;
   input            clk;
+  input            d1_tx_ready;
   input            read_n;
   input            reset_n;
   input            rxd;
   input            write_n;
-  input   [ 15: 0] writedata;
+  input   [ 31: 0] writedata;
 
 
 wire    [  9: 0] baud_divisor;
@@ -833,9 +1016,11 @@ wire             clk_en;
 wire             dataavailable;
 wire             do_force_break;
 wire             framing_error;
+wire             gap_detect;
+wire             gap_timeout;
 wire             irq;
 wire             parity_error;
-wire    [ 15: 0] readdata;
+wire    [ 31: 0] readdata;
 wire             readyfordata;
 wire             rx_char_ready;
 wire    [  7: 0] rx_data;
@@ -869,7 +1054,6 @@ wire             txd;
   trolley_system_cam_uart_rx the_trolley_system_cam_uart_rx
     (
       .baud_divisor     (baud_divisor),
-      .begintransfer    (begintransfer),
       .break_detect     (break_detect),
       .clk              (clk),
       .clk_en           (clk_en),
@@ -888,13 +1072,17 @@ wire             txd;
     (
       .address          (address),
       .baud_divisor     (baud_divisor),
+      .begintransfer    (begintransfer),
       .break_detect     (break_detect),
       .chipselect       (chipselect),
       .clk              (clk),
       .clk_en           (clk_en),
+      .d1_tx_ready      (d1_tx_ready),
       .dataavailable    (dataavailable),
       .do_force_break   (do_force_break),
       .framing_error    (framing_error),
+      .gap_detect       (gap_detect),
+      .gap_timeout      (gap_timeout),
       .irq              (irq),
       .parity_error     (parity_error),
       .read_n           (read_n),

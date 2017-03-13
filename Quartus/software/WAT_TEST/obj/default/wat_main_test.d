@@ -9,8 +9,9 @@ obj/default/wat_main_test.o: wat_main_test.c \
  ../WAT_TEST_bsp//HAL/inc/sys/alt_llist.h \
  ../WAT_TEST_bsp//HAL/inc/priv/alt_alarm.h \
  ../WAT_TEST_bsp//UCOSII/inc/ucos_ii.h ../WAT_TEST_bsp//HAL/inc/os_cpu.h \
- camera_test.h ../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h \
- motor_test.h wifi_test.h
+ camera_test.h ../WAT_TEST_bsp//drivers/inc/fifoed_avalon_uart_regs.h \
+ motor_test.h wifi_test.h \
+ ../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h
 
 ../WAT_TEST_bsp//HAL/inc/io.h:
 
@@ -46,8 +47,10 @@ obj/default/wat_main_test.o: wat_main_test.c \
 
 camera_test.h:
 
-../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h:
+../WAT_TEST_bsp//drivers/inc/fifoed_avalon_uart_regs.h:
 
 motor_test.h:
 
 wifi_test.h:
+
+../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h:

@@ -23,7 +23,7 @@ void camera_test(void* pdata){
 	uint16_t z = 0;
 	uint8_t err;
 
-	uint32_t cam_reply = 0;
+	uint8_t cam_reply = 0;
 	uint16_t bit_count = 0;
 	uint16_t packet_count = 0;
 	uint16_t last_packet_byte_count = 0;
@@ -33,9 +33,14 @@ void camera_test(void* pdata){
 	uint32_t tempsum = 0;
 	uint16_t data_length = 0;
 	uint8_t cam_data_ack[CAM_COMMAND_LENGTH];
+	FILE* picture;
 
 	uint8_t sync_delay = CAM_INIT_SYNC_DELAY;
 	bool synced = FALSE;
+
+//	printf("Starting to open...");
+//	picture = fopen(CAM_PICTURE_OUTPUT, "a");
+//	printf(" and done\n");
 
 	for(q = 0; q< CAM_COMMAND_LENGTH; q++){
 		cam_data_ack[q] = CAM_ACK_DATA[q];
@@ -43,8 +48,8 @@ void camera_test(void* pdata){
 
 	//Reset to deal with any junk transmissions
 	for (z = 0; z < CAM_COMMAND_LENGTH; z++){
-		while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_TRDY_MSK));
-		IOWR_ALTERA_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_REST[z]);
+		while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
+		IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_REST[z]);
 	}
 
 	/*
@@ -61,25 +66,25 @@ void camera_test(void* pdata){
 
 		//Send the sync command
 		for (z=0; z < CAM_COMMAND_LENGTH; z++){
-			while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_TRDY_MSK));
-			IOWR_ALTERA_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_SYNC[z]);
+			while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
+			IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_SYNC[z]);
 		}
 
 		//Wait the recommended sync time as per doc
 		OSTimeDlyHMSM(0, 0, 0, sync_delay);
 
-		cam_reply = (uint32_t)OSQAccept(camCommandQueue, &err);
+		cam_reply = (uint8_t)OSQAccept(camCommandQueue, &err);
 		if (cam_reply == CAM_ACK_SYNC[0]){
 			synced = TRUE;
-			printf("Receiving %lx", cam_reply);
+			printf("Receiving %x", cam_reply);
 			for (z=1; z < CAM_COMMAND_LENGTH; z++){
-				cam_reply = (uint32_t)OSQPend(camCommandQueue, 0, &err);
+				cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
 				if ((cam_reply != CAM_ACK_SYNC[z]) && (z != CAM_ACK_IGNORE)){
-					printf("Got %lx expected %lx\n", cam_reply, CAM_ACK_SYNC[z]);
+					printf("Got %x expected %x\n", cam_reply, CAM_ACK_SYNC[z]);
 					synced = FALSE;
 					break;
 				}else{
-					printf(" %lx", cam_reply);
+					printf(" %x", cam_reply);
 				}
 			}
 			printf("\n");
@@ -102,9 +107,12 @@ void camera_test(void* pdata){
 
 	//Send ACK to camera to ACK its SYNC
 	for (z=0; z < CAM_COMMAND_LENGTH; z++){
-		while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_TRDY_MSK));
-		IOWR_ALTERA_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_ACK_SYNC[z]);
+		while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
+		IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_ACK_SYNC[z]);
 	}
+
+	//Recommended by doc
+	OSTimeDlyHMSM(0, 0, 2, 0);
 
 	//Turn on camera
 	printf("INIT ");
@@ -132,11 +140,11 @@ void camera_test(void* pdata){
 
 	//Receive the package count, not an ACK and needs special parsing
 	printf ("PARSE ");
-	cam_reply = (uint32_t)OSQPend(camCommandQueue, 0, &err);
+	cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
 	if (cam_reply == CAM_DATA[0]){
 		printf("receiving %x", cam_reply);
 		for (z = 1; z < CAM_DATA_START; z++){
-			cam_reply = (uint32_t)OSQPend(camCommandQueue, 0, &err);
+			cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
 			if ((cam_reply != CAM_DATA[z])){
 				printf("got %x expected %x\n", cam_reply, CAM_DATA[z]);
 			}else{
@@ -149,15 +157,15 @@ void camera_test(void* pdata){
 		//that will be sent by the camera
 
 		bit_count = 0;
-		cam_reply = (uint32_t)OSQPend(camCommandQueue, 0, &err);
+		cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
 		printf(" %x", cam_reply);
 		bit_count = cam_reply;
 
-		cam_reply = (uint32_t)OSQPend(camCommandQueue, 0, &err);
+		cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
 		printf(" %lx", cam_reply);
 		bit_count = bit_count + (0x100 * cam_reply);
 
-		cam_reply = (uint32_t)OSQPend(camCommandQueue, 0, &err);
+		cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
 		printf(" %x", cam_reply);
 		bit_count = bit_count + (0x10000 * cam_reply);
 		printf("\nByte count of %i\n", bit_count);
@@ -186,7 +194,7 @@ void camera_test(void* pdata){
 		if (q == (packet_count - 1)){
 			data_length = last_packet_byte_count;
 		}else{
-			data_length = CAM_PACKAGE_LENGTH - 6;
+			data_length = CAM_PACKAGE_LENGTH - 2;
 		}
 
 		OSQFlush(camPackageQueue);
@@ -194,14 +202,14 @@ void camera_test(void* pdata){
 		//Indicate which packet we intend to receive
 		cam_data_ack[4] = q;
 		for (z = 0; z < CAM_COMMAND_LENGTH; z++){
-			while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_TRDY_MSK));
-			IOWR_ALTERA_AVALON_UART_TXDATA(CAM_UART_BASE, cam_data_ack[z]);
+			while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
+			IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, cam_data_ack[z]);
 		}
 
 		//First two bytes are ID, make sure they match the ID we want
 		for(z = 0; z < 2; z++){
 			if(isGoodPacket){
-				cam_reply = (uint32_t)OSQPend(camPackageQueue, MAX_TIME, &err);
+				cam_reply = (uint8_t)OSQPend(camPackageQueue, MAX_TIME, &err);
 				if(err == OS_TIMEOUT){
 					printf("TIMEOUT AT ID\n");
 					isGoodPacket = FALSE;
@@ -224,7 +232,7 @@ void camera_test(void* pdata){
 		//as the loop counter for data parsing loop
 		for(z = 0; z < 2; z++){
 			if(isGoodPacket){
-				cam_reply = (uint32_t)OSQPend(camPackageQueue, MAX_TIME, &err);
+				cam_reply = (uint8_t)OSQPend(camPackageQueue, MAX_TIME, &err);
 				if(err == OS_TIMEOUT){
 					printf("TIMEOUT AT SIZE\n");
 					isGoodPacket = FALSE;
@@ -236,22 +244,26 @@ void camera_test(void* pdata){
 		}
 		printf("\n");
 
-		for(z = 4; z < CAM_PACKAGE_LENGTH-2; z++){
+		for(z = 4; z < data_length; z++){
 			if(isGoodPacket){
-				cam_reply = (uint32_t)OSQPend(camPackageQueue, MAX_TIME, &err);
+				cam_reply = (uint8_t)OSQPend(camPackageQueue, MAX_TIME, &err);
 				if(err == OS_TIMEOUT){
 					printf("TIMEOUT AT DATA on byte %i\n", z);
 					isGoodPacket = FALSE;
+					cam_reply = 0x00;
 				}else{
 					checksum = checksum + cam_reply;
 				}
+			}else{
+				cam_reply = 0x00;
 			}
+			//putc(cam_reply, picture);
 		}
 
 		//Next two bytes are checksum
 		for (z = 0; z < 2; z++){
 			if(isGoodPacket){
-				cam_reply = (uint32_t)OSQPend(camPackageQueue, MAX_TIME, &err);
+				cam_reply = (uint8_t)OSQPend(camPackageQueue, MAX_TIME, &err);
 				if(err == OS_TIMEOUT){
 					printf("TIMEOUT AT CHECKSUM");
 					isGoodPacket = FALSE;
@@ -283,6 +295,13 @@ void camera_test(void* pdata){
 		printf("Camera done with err\n");
 	}
 
+	for (z = 0; z < CAM_COMMAND_LENGTH; z++){
+		while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
+		IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_ACK_DEND[z]);
+	}
+
+	fclose(picture);
+
 	while (1){
 		//wait for button push
 		//OSSemPend(FREQ_SEM, 0, &err);
@@ -300,15 +319,15 @@ bool cam_send_command(uint8_t* to_send, uint8_t* to_recieve, uint16_t size, OS_E
 	//Flush queue so we know we have an empty one
 	OSQFlush(used_queue);
 	for (z = 0; z < size; z++){
-		while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_TRDY_MSK));
-		IOWR_ALTERA_AVALON_UART_TXDATA(CAM_UART_BASE, to_send[z]);
+		while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
+		IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, to_send[z]);
 	}
 
-	cam_reply = (uint32_t)OSQPend(used_queue, 0, &err);
+	cam_reply = (uint8_t)OSQPend(used_queue, 0, &err);
 	if (cam_reply == to_recieve[0]){
 		printf("receiving %x", cam_reply);
 		for (z = 1; z < size; z++){
-			cam_reply = (uint32_t)OSQPend(used_queue, 0, &err);
+			cam_reply = (uint8_t)OSQPend(used_queue, 0, &err);
 			if ((cam_reply != to_recieve[z]) && (z != CAM_ACK_IGNORE)){
 				printf("got %x expected %x\n", cam_reply, to_recieve[z]);
 				return FALSE;
@@ -326,10 +345,10 @@ bool cam_send_command(uint8_t* to_send, uint8_t* to_recieve, uint16_t size, OS_E
 }
 
 void cam_uart_interrupt(void * context){
-	uint32_t read = 0;
+	uint8_t read = 0;
 
-	while(!(IORD_ALTERA_AVALON_UART_STATUS(CAM_UART_BASE) & ALTERA_AVALON_UART_STATUS_RRDY_MSK));
-	read = IORD_ALTERA_AVALON_UART_RXDATA(CAM_UART_BASE);
+	while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_RRDY_MSK));
+	read = IORD_FIFOED_AVALON_UART_RXDATA(CAM_UART_BASE);
 
 	if (useData){
 		OSQPost(camPackageQueue, (void*) read);

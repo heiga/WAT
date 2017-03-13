@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>11-Mar-2017 7:02:23 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1489284143644</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>12-Mar-2017 5:29:18 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1489361358522</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\WAT\Quartus\software\WAT_TEST_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\trolley_system.sopcinfo</SopcDesignFile>
@@ -1715,6 +1715,42 @@
                 <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </Setting>
         <Setting>
+                <SettingName>altera_hostfs.hostfs_name</SettingName>
+                <Identifier>ALTERA_HOSTFS_NAME</Identifier>
+                <Type>QuotedString</Type>
+                <Value>/mnt/host</Value>
+                <DefaultValue>/mnt/host</DefaultValue>
+                <DestinationFile>system_h_define</DestinationFile>
+                <Description>Mount point</Description>
+                <Restrictions>none</Restrictions>
+                <Enabled>false</Enabled>
+                <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        </Setting>
+        <Setting>
+                <SettingName>fifoed_avalon_uart_driver.enable_small_driver</SettingName>
+                <Identifier>FIFOED_AVALON_UART_SMALL</Identifier>
+                <Type>BooleanDefineOnly</Type>
+                <Value>false</Value>
+                <DefaultValue>false</DefaultValue>
+                <DestinationFile>public_mk_define</DestinationFile>
+                <Description>Small-footprint (polled mode) driver</Description>
+                <Restrictions>none</Restrictions>
+                <Enabled>false</Enabled>
+                <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        </Setting>
+        <Setting>
+                <SettingName>fifoed_avalon_uart_driver.enable_ioctl</SettingName>
+                <Identifier>FIFOED_AVALON_UART_USE_IOCTL</Identifier>
+                <Type>BooleanDefineOnly</Type>
+                <Value>false</Value>
+                <DefaultValue>false</DefaultValue>
+                <DestinationFile>public_mk_define</DestinationFile>
+                <Description>Enable driver ioctl() support. This feature is not compatible with the 'small' driver; ioctl() support will not be compiled if either the UART 'enable_small_driver' or HAL 'enable_reduced_device_drivers' settings are enabled.</Description>
+                <Restrictions>none</Restrictions>
+                <Enabled>false</Enabled>
+                <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        </Setting>
+        <Setting>
                 <SettingName>altera_avalon_uart_driver.enable_small_driver</SettingName>
                 <Identifier>ALTERA_AVALON_UART_SMALL</Identifier>
                 <Type>BooleanDefineOnly</Type>
@@ -1781,80 +1817,80 @@
                 <attributes>flash, memory, non-volatile</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>cam_uart</slaveDescriptor>
+                <addressRange>0x0100A000 - 0x0100A03F</addressRange>
+                <addressSpan>64</addressSpan>
+                <attributes>printable</attributes>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>timer_0</slaveDescriptor>
-                <addressRange>0x0100A000 - 0x0100A01F</addressRange>
+                <addressRange>0x0100A040 - 0x0100A05F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>wifi_uart</slaveDescriptor>
-                <addressRange>0x0100A020 - 0x0100A03F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes>printable</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>cam_uart</slaveDescriptor>
-                <addressRange>0x0100A040 - 0x0100A05F</addressRange>
+                <addressRange>0x0100A060 - 0x0100A07F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>key</slaveDescriptor>
-                <addressRange>0x0100A060 - 0x0100A06F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>speaker</slaveDescriptor>
-                <addressRange>0x0100A070 - 0x0100A07F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>button_led</slaveDescriptor>
                 <addressRange>0x0100A080 - 0x0100A08F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>button_button</slaveDescriptor>
+                <slaveDescriptor>speaker</slaveDescriptor>
                 <addressRange>0x0100A090 - 0x0100A09F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>green_leds</slaveDescriptor>
+                <slaveDescriptor>button_led</slaveDescriptor>
                 <addressRange>0x0100A0A0 - 0x0100A0AF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>motor_l</slaveDescriptor>
+                <slaveDescriptor>button_button</slaveDescriptor>
                 <addressRange>0x0100A0B0 - 0x0100A0BF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>motor_r</slaveDescriptor>
+                <slaveDescriptor>green_leds</slaveDescriptor>
                 <addressRange>0x0100A0C0 - 0x0100A0CF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>prox_sensor</slaveDescriptor>
+                <slaveDescriptor>motor_l</slaveDescriptor>
                 <addressRange>0x0100A0D0 - 0x0100A0DF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>motor_r</slaveDescriptor>
+                <addressRange>0x0100A0E0 - 0x0100A0EF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>prox_sensor</slaveDescriptor>
+                <addressRange>0x0100A0F0 - 0x0100A0FF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>sysid_qsys_0</slaveDescriptor>
-                <addressRange>0x0100A0E0 - 0x0100A0E7</addressRange>
+                <addressRange>0x0100A100 - 0x0100A107</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>
-                <addressRange>0x0100A0E8 - 0x0100A0EF</addressRange>
+                <addressRange>0x0100A108 - 0x0100A10F</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
@@ -1882,4 +1918,8 @@
                 <sectionName>.stack</sectionName>
                 <regionName>sdram_controller_0</regionName>
         </LinkerSection>
+        <SoftwarePackageInfo>
+                <name>altera_hostfs</name>
+                <version>default</version>
+        </SoftwarePackageInfo>
 </sch:Settings>

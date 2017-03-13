@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'trolley_system'
  * SOPC Builder design path: ../../trolley_system.sopcinfo
  *
- * Generated: Sat Mar 11 19:02:34 MST 2017
+ * Generated: Sun Mar 12 17:29:29 MDT 2017
  */
 
 /*
@@ -142,6 +142,7 @@
 #define __ALTERA_AVALON_TIMER
 #define __ALTERA_AVALON_UART
 #define __ALTERA_NIOS2_GEN2
+#define __FIFOED_AVALON_UART
 
 
 /*
@@ -160,19 +161,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0x100a0e8
+#define ALT_STDERR_BASE 0x100a108
 #define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0x100a0e8
+#define ALT_STDIN_BASE 0x100a108
 #define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0x100a0e8
+#define ALT_STDOUT_BASE 0x100a108
 #define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -181,12 +182,20 @@
 
 
 /*
+ * altera_hostfs configuration
+ *
+ */
+
+#define ALTERA_HOSTFS_NAME "/mnt/host"
+
+
+/*
  * button_button configuration
  *
  */
 
 #define ALT_MODULE_CLASS_button_button altera_avalon_pio
-#define BUTTON_BUTTON_BASE 0x100a090
+#define BUTTON_BUTTON_BASE 0x100a0b0
 #define BUTTON_BUTTON_BIT_CLEARING_EDGE_REGISTER 1
 #define BUTTON_BUTTON_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define BUTTON_BUTTON_CAPTURE 1
@@ -198,7 +207,7 @@
 #define BUTTON_BUTTON_HAS_IN 1
 #define BUTTON_BUTTON_HAS_OUT 0
 #define BUTTON_BUTTON_HAS_TRI 0
-#define BUTTON_BUTTON_IRQ 4
+#define BUTTON_BUTTON_IRQ 3
 #define BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define BUTTON_BUTTON_IRQ_TYPE "LEVEL"
 #define BUTTON_BUTTON_NAME "/dev/button_button"
@@ -213,7 +222,7 @@
  */
 
 #define ALT_MODULE_CLASS_button_led altera_avalon_pio
-#define BUTTON_LED_BASE 0x100a080
+#define BUTTON_LED_BASE 0x100a0a0
 #define BUTTON_LED_BIT_CLEARING_EDGE_REGISTER 0
 #define BUTTON_LED_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define BUTTON_LED_CAPTURE 0
@@ -239,24 +248,45 @@
  *
  */
 
-#define ALT_MODULE_CLASS_cam_uart altera_avalon_uart
-#define CAM_UART_BASE 0x100a040
+#define ALT_MODULE_CLASS_cam_uart fifoed_avalon_uart
+#define CAM_UART_ADD_ERROR_BITS 0
+#define CAM_UART_BASE 0x100a000
 #define CAM_UART_BAUD 57600
 #define CAM_UART_DATA_BITS 8
+#define CAM_UART_FIFO_EXPORT_USED 0
 #define CAM_UART_FIXED_BAUD 1
 #define CAM_UART_FREQ 50000000
-#define CAM_UART_IRQ 1
+#define CAM_UART_GAP_VALUE 4
+#define CAM_UART_IRQ 7
 #define CAM_UART_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define CAM_UART_NAME "/dev/cam_uart"
 #define CAM_UART_PARITY 'N'
+#define CAM_UART_PASS_ERROR_BITS 0
+#define CAM_UART_RX_FIFO_LE 0
+#define CAM_UART_RX_FIFO_SIZE 512
+#define CAM_UART_RX_IRQ_THRESHOLD 1
 #define CAM_UART_SIM_CHAR_STREAM ""
 #define CAM_UART_SIM_TRUE_BAUD 0
-#define CAM_UART_SPAN 32
+#define CAM_UART_SPAN 64
 #define CAM_UART_STOP_BITS 1
 #define CAM_UART_SYNC_REG_DEPTH 2
-#define CAM_UART_TYPE "altera_avalon_uart"
+#define CAM_UART_TIMEOUT_VALUE 4
+#define CAM_UART_TIMESTAMP_WIDTH 8
+#define CAM_UART_TRANSMIT_PIN 0
+#define CAM_UART_TX_FIFO_LE 0
+#define CAM_UART_TX_FIFO_SIZE 8
+#define CAM_UART_TX_IRQ_THRESHOLD 1
+#define CAM_UART_TYPE "fifoed_avalon_uart"
+#define CAM_UART_UHW_CTS 0
 #define CAM_UART_USE_CTS_RTS 0
 #define CAM_UART_USE_EOP_REGISTER 0
+#define CAM_UART_USE_EXT_TIMESTAMP 0
+#define CAM_UART_USE_GAP_DETECTION 0
+#define CAM_UART_USE_RX_FIFO 1
+#define CAM_UART_USE_RX_TIMEOUT 0
+#define CAM_UART_USE_STATUS_BIT_CLEAR 0
+#define CAM_UART_USE_TIMESTAMP 0
+#define CAM_UART_USE_TX_FIFO 0
 
 
 /*
@@ -266,7 +296,7 @@
 
 #define ALT_MODULE_CLASS_epcs_flash_controller_0 altera_avalon_epcs_flash_controller
 #define EPCS_FLASH_CONTROLLER_0_BASE 0x1009000
-#define EPCS_FLASH_CONTROLLER_0_IRQ 6
+#define EPCS_FLASH_CONTROLLER_0_IRQ 5
 #define EPCS_FLASH_CONTROLLER_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define EPCS_FLASH_CONTROLLER_0_NAME "/dev/epcs_flash_controller_0"
 #define EPCS_FLASH_CONTROLLER_0_REGISTER_OFFSET 1024
@@ -280,7 +310,7 @@
  */
 
 #define ALT_MODULE_CLASS_green_leds altera_avalon_pio
-#define GREEN_LEDS_BASE 0x100a0a0
+#define GREEN_LEDS_BASE 0x100a0c0
 #define GREEN_LEDS_BIT_CLEARING_EDGE_REGISTER 0
 #define GREEN_LEDS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define GREEN_LEDS_CAPTURE 0
@@ -318,7 +348,7 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
-#define JTAG_UART_0_BASE 0x100a0e8
+#define JTAG_UART_0_BASE 0x100a108
 #define JTAG_UART_0_IRQ 0
 #define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_0_NAME "/dev/jtag_uart_0"
@@ -336,7 +366,7 @@
  */
 
 #define ALT_MODULE_CLASS_key altera_avalon_pio
-#define KEY_BASE 0x100a060
+#define KEY_BASE 0x100a080
 #define KEY_BIT_CLEARING_EDGE_REGISTER 0
 #define KEY_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define KEY_CAPTURE 0
@@ -348,7 +378,7 @@
 #define KEY_HAS_IN 1
 #define KEY_HAS_OUT 0
 #define KEY_HAS_TRI 0
-#define KEY_IRQ 7
+#define KEY_IRQ 6
 #define KEY_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define KEY_IRQ_TYPE "LEVEL"
 #define KEY_NAME "/dev/key"
@@ -363,7 +393,7 @@
  */
 
 #define ALT_MODULE_CLASS_motor_l altera_avalon_pio
-#define MOTOR_L_BASE 0x100a0b0
+#define MOTOR_L_BASE 0x100a0d0
 #define MOTOR_L_BIT_CLEARING_EDGE_REGISTER 0
 #define MOTOR_L_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define MOTOR_L_CAPTURE 0
@@ -390,7 +420,7 @@
  */
 
 #define ALT_MODULE_CLASS_motor_r altera_avalon_pio
-#define MOTOR_R_BASE 0x100a0c0
+#define MOTOR_R_BASE 0x100a0e0
 #define MOTOR_R_BIT_CLEARING_EDGE_REGISTER 0
 #define MOTOR_R_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define MOTOR_R_CAPTURE 0
@@ -446,7 +476,7 @@
  */
 
 #define ALT_MODULE_CLASS_prox_sensor altera_avalon_pio
-#define PROX_SENSOR_BASE 0x100a0d0
+#define PROX_SENSOR_BASE 0x100a0f0
 #define PROX_SENSOR_BIT_CLEARING_EDGE_REGISTER 1
 #define PROX_SENSOR_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PROX_SENSOR_CAPTURE 1
@@ -458,7 +488,7 @@
 #define PROX_SENSOR_HAS_IN 1
 #define PROX_SENSOR_HAS_OUT 0
 #define PROX_SENSOR_HAS_TRI 0
-#define PROX_SENSOR_IRQ 3
+#define PROX_SENSOR_IRQ 2
 #define PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define PROX_SENSOR_IRQ_TYPE "LEVEL"
 #define PROX_SENSOR_NAME "/dev/prox_sensor"
@@ -512,7 +542,7 @@
  */
 
 #define ALT_MODULE_CLASS_speaker altera_avalon_pio
-#define SPEAKER_BASE 0x100a070
+#define SPEAKER_BASE 0x100a090
 #define SPEAKER_BIT_CLEARING_EDGE_REGISTER 0
 #define SPEAKER_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define SPEAKER_CAPTURE 0
@@ -539,13 +569,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid_qsys_0 altera_avalon_sysid_qsys
-#define SYSID_QSYS_0_BASE 0x100a0e0
+#define SYSID_QSYS_0_BASE 0x100a100
 #define SYSID_QSYS_0_ID 0
 #define SYSID_QSYS_0_IRQ -1
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1489283459
+#define SYSID_QSYS_0_TIMESTAMP 1489360562
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -556,11 +586,11 @@
 
 #define ALT_MODULE_CLASS_timer_0 altera_avalon_timer
 #define TIMER_0_ALWAYS_RUN 0
-#define TIMER_0_BASE 0x100a000
+#define TIMER_0_BASE 0x100a040
 #define TIMER_0_COUNTER_SIZE 32
 #define TIMER_0_FIXED_PERIOD 0
 #define TIMER_0_FREQ 50000000
-#define TIMER_0_IRQ 5
+#define TIMER_0_IRQ 4
 #define TIMER_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define TIMER_0_LOAD_VALUE 49999
 #define TIMER_0_MULT 0.001
@@ -659,12 +689,12 @@
  */
 
 #define ALT_MODULE_CLASS_wifi_uart altera_avalon_uart
-#define WIFI_UART_BASE 0x100a020
+#define WIFI_UART_BASE 0x100a060
 #define WIFI_UART_BAUD 57600
 #define WIFI_UART_DATA_BITS 8
 #define WIFI_UART_FIXED_BAUD 1
 #define WIFI_UART_FREQ 50000000
-#define WIFI_UART_IRQ 2
+#define WIFI_UART_IRQ 1
 #define WIFI_UART_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define WIFI_UART_NAME "/dev/wifi_uart"
 #define WIFI_UART_PARITY 'N'
