@@ -27,7 +27,6 @@ void wifi_test(void* pdata){
 
 void wifi_uart_interrupt(void * context){
     uint8_t read = 0;
-    printf("Hello from wifi interrupt\n");
     while(!(IORD_ALTERA_AVALON_UART_STATUS(WIFI_UART_BASE) & ALTERA_AVALON_UART_STATUS_RRDY_MSK));
     read = IORD_ALTERA_AVALON_UART_RXDATA(WIFI_UART_BASE);
     
@@ -35,6 +34,11 @@ void wifi_uart_interrupt(void * context){
 }
 
 void motorCommand(uint8_t input) {
+
+    IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_SHORTSTOP);
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_SHORTSTOP);
+	OSTimeDlyHMSM(0, 0, 0, 100);
+
     if (input == WIFI_MOTOR_CW) {
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_FORWARD);
 		IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_FORWARD);

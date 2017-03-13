@@ -89,13 +89,26 @@ architecture structure of ECE492_g7_2017w_WAT is
 			epcs_flash_controller_0_external_data0   : in    std_logic                     := 'X'              -- data0
 		);
 	end component trolley_system;
+	
+	component debounce is
+		port (
+			clk     : IN  STD_LOGIC;  --input clock
+			button  : IN  STD_LOGIC;  --input signal to be debounced
+			result  : OUT STD_LOGIC   --debounced signal
+		);
+	end component debounce;
 --	These signals are for matching the provided IP core to
 -- The specific SDRAM chip in our system	 
 --	signal BA	: std_logic_vector (1 downto 0);
 --	signal DQM	:	std_logic_vector (1 downto 0);
+
+	signal button_out : std_logic;
+	signal sensor_out : std_logic;
 	 
 
 begin
+
+	
 
 --	DRAM_BA(1)  <= BA(1);
 --	DRAM_BA(0)  <= BA(0);
@@ -104,6 +117,20 @@ begin
 --	DRAM_DQM(0) <= DQM(0);
 	
 -- FL_RST_N(0) <= 'H';
+	
+	debounce_button : component debounce
+		port map (
+			clk     => CLOCK_50,
+			button  => NOT(GPIO_0(25)),
+			result  => button_out
+		);
+		
+	debounce_sensor : component debounce
+		port map (
+			clk     => CLOCK_50,
+			button  => NOT(GPIO_0(30)),
+			result  => sensor_out
+		);
 	
 	u0 : component trolley_system
 		port map (
@@ -123,7 +150,7 @@ begin
 			cam_uart_external_connection_txd         => GPIO_0(2),
 			wifi_uart_external_connection_rxd        => GPIO_0(0),
 			wifi_uart_external_connection_txd        => GPIO_0(3),
-			prox_sensor_external_connection_export   => NOT(GPIO_0(30)),
+			prox_sensor_external_connection_export   => sensor_out,
 			motor_r_external_connection_export(0)    => GPIO_0(11), --APWM
 			motor_r_external_connection_export(1)    => GPIO_0(12), --A1
 			motor_r_external_connection_export(2)    => GPIO_0(15), --A2
@@ -131,7 +158,7 @@ begin
 			motor_l_external_connection_export(1)    => GPIO_0(16), --B1
 			motor_l_external_connection_export(2)    => GPIO_0(19), --B2
 			green_leds_external_connection_export    => LED,
-			button_button_external_connection_export => NOT(GPIO_0(25)), 
+			button_button_external_connection_export => button_out, 
 			speaker_external_connection_export       => GPIO_0(29),       
 			button_led_external_connection_export    => GPIO_0(26),
 			key_external_connection_export           => KEY(1),

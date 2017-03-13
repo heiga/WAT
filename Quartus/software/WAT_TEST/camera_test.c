@@ -359,11 +359,9 @@ void cam_uart_interrupt(void * context){
 
 void button_interrupt(void * context){
 	printf("button\n");
-	OSTimeDlyHMSM(0, 0, 0, 400);
 
 	//clear interrupt
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 1);
-	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTON_BUTTON_BASE, 0xF);
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 0);
 
 	//post semaphore for camera
 	OSSemPost(BUTTON_SEM);
