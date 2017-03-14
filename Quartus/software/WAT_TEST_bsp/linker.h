@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'trolley_system'
  * SOPC Builder design path: ../../trolley_system.sopcinfo
  *
- * Generated: Fri Feb 17 20:10:08 MST 2017
+ * Generated: Tue Mar 14 01:40:43 MDT 2017
  */
 
 /*
