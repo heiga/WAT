@@ -18,6 +18,20 @@
 #include "imagepro.h"
 
 int main(void) {
+	FILE * infile;        /* source file */
+
+	if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
+		fprintf(stderr, "can't open %s\n", JPEGNAME);
+		return 0;
+	}
+	printf("LOADED\n");
+
+	find_region(infile, REDREG_RED, REDREG_GRN, REDREG_BLU);
+
+	fclose(infile);
+}
+
+int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 	uint8_t r;			//Red RGB value, between 0-255
 	uint8_t g;			//Green RGB value, between 0-255
 	uint8_t b;			//Blue RGB value, between 0-255
@@ -38,7 +52,7 @@ int main(void) {
 	uint32_t startTime;
 	uint32_t endTime;
 
-	FILE * infile;        /* source file */
+
 	JSAMPARRAY pJpegBuffer;       /* Output row buffer */
 	int row_stride;       /* physical row width in output buffer */
 
@@ -46,15 +60,9 @@ int main(void) {
 
 	printf("START\n");
 
-	if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
-		fprintf(stderr, "can't open %s\n", JPEGNAME);
-		return 0;
-	}
-	printf("LOADED\n");
-
 	cinfo.err = jpeg_std_error(&jerr);
 	jpeg_create_decompress(&cinfo);
-	jpeg_stdio_src(&cinfo, infile);
+	jpeg_stdio_src(&cinfo, picture);
 	(void) jpeg_read_header(&cinfo, TRUE);
 	(void) jpeg_start_decompress(&cinfo);
 	width = cinfo.output_width;
@@ -96,7 +104,7 @@ int main(void) {
 				b = r;
 			}
 
-			if ((r > REDREG_RED) && (b < REDREG_BLU) && (g < REDREG_GRN)){
+			if ((r > reg_r) && (g < reg_g) && (b < reg_b)){
 				temp_row_count++;
 				temp_x = x;
 				region_found = TRUE;
@@ -126,12 +134,11 @@ int main(void) {
 	printf("confidence=%i\n", regions[0].confidence);
 	printf("clock ticks=%i\n", endTime);
 
-	fclose(infile);
 	(void) jpeg_finish_decompress(&cinfo);
 	jpeg_destroy_decompress(&cinfo);
 
 	printf("DONE\n");
 
 	return EXIT_SUCCESS;
-
+	return 1;
 }

@@ -7,6 +7,8 @@
 
 #include <inttypes.h>
 
+int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b);
+
 #define JPEGNAME "C:\\Users\\Randy Baron\\Pictures\\sample50.jpg"
 
 #define REGION_COUNT 10
