@@ -42,6 +42,9 @@ Quartus/software/WAT_TEST/.metadata/**
 !Quartus/output_files/ECE492_g7_2017w_WAT.sof
 !Quartus/trolley_system/trolley_system_inst.vhd
 
+#Used external libraries
+!localtest/libjpeg/libjpeg.a
+
 # =========================
 # Operating System Files
 # =========================
@@ -99,3 +102,5 @@ Quartus/software/WAT_TEST/.settings/language.settings.xml
 Quartus/.qsys_edit/preferences.xml
 Quartus/.qsys_edit/trolley_system.xml
 Quartus/.qsys_edit/trolley_system_schematic.nlv
+Quartus/.qsys_edit/filters.xml
+*.xml
