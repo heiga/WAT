@@ -184,9 +184,9 @@ SYS_LIB :=
 BSP_ROOT_DIR := ../WAT_TEST_bsp/
 
 # List of application specific include directories, library directories and library names
-APP_INCLUDE_DIRS :=
-APP_LIBRARY_DIRS :=
-APP_LIBRARY_NAMES :=
+APP_INCLUDE_DIRS := extra_includes
+APP_LIBRARY_DIRS := libjpeg
+APP_LIBRARY_NAMES := jpeg
 
 # Pre- and post- processor settings.
 BUILD_PRE_PROCESS :=
