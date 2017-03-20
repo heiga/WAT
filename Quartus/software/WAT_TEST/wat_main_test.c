@@ -89,7 +89,7 @@ int main(void){
 //		printf("Motor task creation failure\n");
 //	}
 
-	printf("START OF MOTOR\n");
+	//printf("START OF MOTOR\n");
 
 //	if(OSTaskCreateExt(camera_test,
 //                  		NULL,
@@ -106,18 +106,18 @@ int main(void){
 //
 //	printf("START OF CAM\n");
 
-//	if(OSTaskCreateExt(wifi_test,
-//                    	NULL,
-//                    	(void *)&wifi_test_stk[TASK_STACKSIZE-1],
-//                    	WIFI_TEST_PRIORITY,
-//                    	WIFI_TEST_PRIORITY,
-//                    	wifi_test_stk,
-//                    	TASK_STACKSIZE,
-//                    	NULL,
-//                    	0))
-//	{
-//		printf("Wifi task creation failure\n");
-//	}
+	if(OSTaskCreateExt(wifi_test,
+                    	NULL,
+                    	(void *)&wifi_test_stk[TASK_STACKSIZE-1],
+                    	WIFI_TEST_PRIORITY,
+                    	WIFI_TEST_PRIORITY,
+                    	wifi_test_stk,
+                    	TASK_STACKSIZE,
+                    	NULL,
+                    	0))
+	{
+		printf("Wifi task creation failure\n");
+	}
 
 	printf("START OF WIFI\n");
 

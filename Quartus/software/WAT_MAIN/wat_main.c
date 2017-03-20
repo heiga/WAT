@@ -35,6 +35,7 @@
 #include "camera.h"
 #include "motor.h"
 #include "wifi.h"
+#include "imagepro.h"
 #include "interrupt_peripherals.h"
 
 /* Definition of Task Stacks */
@@ -51,6 +52,18 @@ OS_STK    wifi_stk[TASK_STACKSIZE];
 
 int main(void){
 
+		FILE * infile;        /* source file */
+
+		if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
+			//fprintf(stderr, "can't open %s\n", JPEGNAME);
+			return 0;
+		}
+
+		find_region(infile, REDREG_RED, REDREG_GRN, REDREG_BLU);
+
+		fclose(infile);
+
+	/*
 	if(OSTaskCreateExt(motor_task,
                   		NULL,
                   		(void *)&motor_stk[TASK_STACKSIZE-1],
@@ -144,9 +157,10 @@ int main(void){
     findCommandQueue = OSQCreate(findCommandBuffer, FIND_COMMAND_BUFFER_LENGTH);
     moveCommandQueue = OSQCreate(moveCommandBuffer, MOVE_COMMAND_BUFFER_LENGTH);
     foundCommandQueue = OSQCreate(foundCommandBuffer, FOUND_COMMAND_BUFFER_LENGTH);
-
+*/
 	OSStart();
 	return 0;
+
 }
 
 /******************************************************************************

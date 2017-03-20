@@ -10,26 +10,7 @@
 
 //http://stackoverflow.com/questions/694080/how-do-i-read-jpeg-and-png-pixels-in-c-on-linux
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <jpeglib.h>
-#include <time.h>
-#include <math.h>
 #include "imagepro.h"
-
-int main(void) {
-	FILE * infile;        /* source file */
-
-	if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
-		fprintf(stderr, "can't open %s\n", JPEGNAME);
-		return 0;
-	}
-	printf("LOADED\n");
-
-	find_region(infile, REDREG_RED, REDREG_GRN, REDREG_BLU);
-
-	fclose(infile);
-}
 
 int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 	uint8_t r;			//Red RGB value, between 0-255
@@ -52,30 +33,29 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 	uint32_t startTime;
 	uint32_t endTime;
 
-
 	JSAMPARRAY pJpegBuffer;       /* Output row buffer */
 	int row_stride;       /* physical row width in output buffer */
 
 	startTime = clock();
 
-	printf("START\n");
+	//printf("START\n");
 
 	cinfo.err = jpeg_std_error(&jerr);
 	jpeg_create_decompress(&cinfo);
 	jpeg_stdio_src(&cinfo, picture);
-	(void) jpeg_read_header(&cinfo, TRUE);
+	//(void) jpeg_read_header(&cinfo, TRUE);
 	(void) jpeg_start_decompress(&cinfo);
 	width = cinfo.output_width;
 	height = cinfo.output_height;
 
-	printf("INFO\n");
+	//printf("INFO\n");
 
 	//Initialize... something. Clearly important
 	row_stride = width * cinfo.output_components;
 	pJpegBuffer = (*cinfo.mem->alloc_sarray)
 	((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
 
-	printf("BUFFER\n");
+	//printf("BUFFER\n");
 
 	//Initialize the regions struct array
 	for (y=0; y < REGION_COUNT; y++){
@@ -128,17 +108,16 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 	int row_mid = regions[0].x - (regions[0].rows_traversed / 2);
 	int col_mid = regions[0].y - (regions[0].cols_traversed / 2);
 
-	printf("height_end=%i width_end=%i\n", regions[0].y, regions[0].x);
-	printf("height_mid=%i width_mid=%i\n", col_mid, row_mid);
-	printf("cols=%i rows=%i\n", regions[0].cols_traversed, regions[0].rows_traversed);
-	printf("confidence=%i\n", regions[0].confidence);
-	printf("clock ticks=%i\n", endTime);
+	//printf("height_end=%i width_end=%i\n", regions[0].y, regions[0].x);
+	//printf("height_mid=%i width_mid=%i\n", col_mid, row_mid);
+	//printf("cols=%i rows=%i\n", regions[0].cols_traversed, regions[0].rows_traversed);
+	//printf("confidence=%i\n", regions[0].confidence);
+	//printf("clock ticks=%i\n", endTime);
 
 	(void) jpeg_finish_decompress(&cinfo);
 	jpeg_destroy_decompress(&cinfo);
 
-	printf("DONE\n");
+	//printf("DONE\n");
 
-	return EXIT_SUCCESS;
 	return 1;
 }

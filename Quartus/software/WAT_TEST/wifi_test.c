@@ -17,6 +17,8 @@ void wifi_test(void* pdata){
 		  //do stuff
 		// OSSemPend(BUTTON_SEM, 0, &err);
 		printf("Hello from wifi\n");
+	    IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
+	    printf("buzz buzz\n");
 
         wifiReceive = (uint8_t) OSQPend(wifiPackageQueue, 0, &err);
         printf("Received form Wifi: %d \n", wifiReceive);

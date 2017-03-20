@@ -5,11 +5,18 @@
  *      Author: Randy Baron
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include "jpeglib.h"
+#include <time.h>
+#include <math.h>
 #include <inttypes.h>
 
 int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b);
 
-#define JPEGNAME "C:\\Users\\Randy Baron\\Pictures\\sample50.jpg"
+//#define JPEGNAME "C:\\Users\\Randy Baron\\Pictures\\sample50.jpg"
+//static const char* JPEGNAME = "/mnt/host/test.jpg";
+static const char* JPEGNAME = "/mnt/host/tiny.jpg";
 
 #define REGION_COUNT 10
 

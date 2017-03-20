@@ -147,6 +147,7 @@ C_SRCS += camera.c
 C_SRCS += motor.c
 C_SRCS += wifi.c
 C_SRCS += interrupt_peripherals.c
+C_SRCS += imagepro.c
 CXX_SRCS :=
 ASM_SRCS :=
 
