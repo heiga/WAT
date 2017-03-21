@@ -52,11 +52,20 @@ library ieee;
 	);
 end ECE492_g7_2017w_WAT;
 
+library ieee;
+use ieee.std_logic_1164.all;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
 
 architecture structure of ECE492_g7_2017w_WAT is
 
 	-- Declarations (optional)
-	
+	signal enable	: std_logic;
+	signal buttonsig : std_logic;
+	signal infraredsig : std_logic;
+	--signal dummy 	: std_logic;
+
 	component trolley_system is
 		port (
 			clk_clk                         : in    std_logic                     := 'X';   -- clk
@@ -89,26 +98,26 @@ architecture structure of ECE492_g7_2017w_WAT is
 			epcs_flash_controller_0_external_data0   : in    std_logic                     := 'X'              -- data0
 		);
 	end component trolley_system;
-	
-	component debounce is
-		port (
-			clk     : IN  STD_LOGIC;  --input clock
-			button  : IN  STD_LOGIC;  --input signal to be debounced
-			result  : OUT STD_LOGIC   --debounced signal
-		);
-	end component debounce;
 --	These signals are for matching the provided IP core to
 -- The specific SDRAM chip in our system	 
 --	signal BA	: std_logic_vector (1 downto 0);
 --	signal DQM	:	std_logic_vector (1 downto 0);
-
-	signal button_out : std_logic;
-	signal sensor_out : std_logic;
 	 
+	component speakerinterface is 
+		port (
+			clk : in std_logic;
+			ena : in std_logic;
+			tospeaker : out std_logic);
+	end component speakerinterface;
+	
+	component debouncer is
+		port (
+			clk : in std_logic;
+			input : in std_logic;
+			tonano : out std_logic);
+	end component debouncer;
 
 begin
-
-	
 
 --	DRAM_BA(1)  <= BA(1);
 --	DRAM_BA(0)  <= BA(0);
@@ -117,21 +126,8 @@ begin
 --	DRAM_DQM(0) <= DQM(0);
 	
 -- FL_RST_N(0) <= 'H';
-	
-	debounce_button : component debounce
-		port map (
-			clk     => CLOCK_50,
-			button  => NOT(GPIO_0(25)),
-			result  => button_out
-		);
 		
-	debounce_sensor : component debounce
-		port map (
-			clk     => CLOCK_50,
-			button  => NOT(GPIO_0(30)),
-			result  => sensor_out
-		);
-	
+		
 	u0 : component trolley_system
 		port map (
 			clk_clk                                  => CLOCK_50,    
@@ -150,7 +146,7 @@ begin
 			cam_uart_external_connection_txd         => GPIO_0(2),
 			wifi_uart_external_connection_rxd        => GPIO_0(0),
 			wifi_uart_external_connection_txd        => GPIO_0(3),
-			prox_sensor_external_connection_export   => sensor_out,
+			prox_sensor_external_connection_export   => infraredsig, --NOT(GPIO_0(30))
 			motor_r_external_connection_export(0)    => GPIO_0(11), --APWM
 			motor_r_external_connection_export(1)    => GPIO_0(12), --A1
 			motor_r_external_connection_export(2)    => GPIO_0(15), --A2
@@ -158,8 +154,8 @@ begin
 			motor_l_external_connection_export(1)    => GPIO_0(16), --B1
 			motor_l_external_connection_export(2)    => GPIO_0(19), --B2
 			green_leds_external_connection_export    => LED,
-			button_button_external_connection_export => button_out, 
-			speaker_external_connection_export       => GPIO_0(29),       
+			button_button_external_connection_export => buttonsig, -- NOT(GPIO_0(25))
+			speaker_external_connection_export       => enable,       
 			button_led_external_connection_export    => GPIO_0(26),
 			key_external_connection_export           => KEY(1),
 			epcs_flash_controller_0_external_dclk    => EPCS_DCLK,
@@ -167,6 +163,30 @@ begin
 			epcs_flash_controller_0_external_sdo     => EPCS_ASDO,
 			epcs_flash_controller_0_external_data0   => EPCS_DATA0   
 		);
+		
+	u1 : component speakerinterface
+		port map (
+			clk => CLOCK_50,
+			ena => enable,
+			tospeaker => GPIO_0(29)
+		);
+		
+	-- BUTTON DEBOUNCER
+	u2 : component debouncer
+		port map (
+			clk => CLOCK_50,
+			input => NOT(GPIO_0(25)),
+			tonano => buttonsig
+		);
+		
+	-- IR DEBOUNCER
+	u3 : component debouncer
+		port map (
+			clk => CLOCK_50,
+			input => NOT(GPIO_0(30)),
+			tonano => infraredsig
+		);
+		
 
 end structure;
 
