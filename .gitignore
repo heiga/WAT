@@ -32,7 +32,6 @@
 *.dSYM/
 
 # Quartus Junk
-libjpeg/**
 Quartus/db/**
 Quartus/incremental_db/**
 Quartus/.qsys_edit/**

@@ -8,6 +8,7 @@
 #include <inttypes.h>
 
 int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b);
+long mult(long left, long right);
 
 #define JPEGNAME "C:\\Users\\Randy Baron\\Pictures\\sample50.jpg"
 

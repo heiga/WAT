@@ -1,0 +1,12 @@
+Files have been modified from those available from
+the Independant JPEG Group ( http://www.ijg.org/ )
+and are derived from version 9.0b of the open source
+release.
+
+I claim ownership to only one of the files in the 
+enclosed folder, jaltfixes.c
+
+It proved nescessary to create this file to facilitate the 
+porting of this library to the DE0 Nano FPGA system. Some 
+files in the library were modified to include the needed
+changes in jaltfixes.c

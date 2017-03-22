@@ -18,17 +18,104 @@
 #include "imagepro.h"
 
 int main(void) {
-	FILE * infile;        /* source file */
+//	FILE * infile;        /* source file */
+//
+//	if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
+//		fprintf(stderr, "can't open %s\n", JPEGNAME);
+//		return 0;
+//	}
+//	printf("LOADED\n");
+//
+//	find_region(infile, REDREG_RED, REDREG_GRN, REDREG_BLU);
+//
+//	fclose(infile);
 
-	if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
-		fprintf(stderr, "can't open %s\n", JPEGNAME);
+	long q;
+	long z;
+	long k;
+
+	q = 0;
+	z = 0;
+	k = mult(q, z);
+	printf("%li expect 0\n", k);
+
+	q = 2;
+	z = 0;
+	k = mult(q, z);
+	printf("%liexpect 0\n", k);
+
+	q = 0;
+	z = 2;
+	k = mult(q, z);
+	printf("%li expect 0\n", k);
+
+	q = 2;
+	z = 2;
+	k = mult(q, z);
+	printf("%li expect 4\n", k);
+
+	q = -3;
+	z = 2;
+	k = mult(q, z);
+	printf("%li expect -6\n", k);
+
+	q = 3;
+	z = -2;
+	k = mult(q, z);
+	printf("%li expect -6\n", k);
+
+	q = -2;
+	z = -3;
+	k = mult(q, z);
+	printf("%li expect 6\n", k);
+}
+
+long mult(long left, long right){
+	long result = 0;
+	long big = 0;
+	long sml = 0;
+	long q = 0;
+	boolean negative = FALSE;
+
+
+	//Simple case of either term being 0
+	if((left == 0) || (right == 0)){
 		return 0;
 	}
-	printf("LOADED\n");
 
-	find_region(infile, REDREG_RED, REDREG_GRN, REDREG_BLU);
+	//Determine sign and invert if needed to ensure absolute values
+	if(left < 0){
+		negative = TRUE;
+		left = -left;
+	}
+	if(right < 0){
+		right = -right;
+		if(negative){
+			negative = FALSE;
+		}else{
+			negative = TRUE;
+		}
+	}
 
-	fclose(infile);
+	//Choose the least amount of iterations possible
+	if (left > right){
+		big = left;
+		sml = right;
+	}else{
+		big = right;
+		sml = left;
+	}
+
+	//Now "mutiply"
+	for(q = 0; q < sml; q++){
+		result += big;
+	}
+
+	//Invert if we had a (+ * -) situation
+	if (negative){
+		result = -result;
+	}
+	return result;
 }
 
 int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
