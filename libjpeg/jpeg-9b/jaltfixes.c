@@ -10,7 +10,8 @@
 
 /*For whatever reason multiplication causes a crash but addition does not */
 EXTERN(long)
-mult(long left, long right){
+mult(long left, long right)
+{
 	long result = 0;
 	long big = 0;
 	long sml = 0;

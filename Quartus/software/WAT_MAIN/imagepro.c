@@ -43,7 +43,7 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 	cinfo.err = jpeg_std_error(&jerr);
 	jpeg_create_decompress(&cinfo);
 	jpeg_stdio_src(&cinfo, picture);
-	//(void) jpeg_read_header(&cinfo, TRUE);
+	(void) jpeg_read_header(&cinfo, TRUE);
 	(void) jpeg_start_decompress(&cinfo);
 	width = cinfo.output_width;
 	height = cinfo.output_height;

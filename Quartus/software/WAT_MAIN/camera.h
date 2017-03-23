@@ -15,6 +15,7 @@
 #include "includes.h"
 #include "altera_avalon_uart_regs.h"
 #include "wat_main.h"
+#include "imagepro.h"
 
 void camera_task(void* pdata);
 void cam_uart_interrupt(void * context);

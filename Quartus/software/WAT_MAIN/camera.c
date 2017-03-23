@@ -34,6 +34,16 @@ void camera_task(void* pdata){
 	uint8_t sync_delay = CAM_INIT_SYNC_DELAY;
 	bool synced = FALSE;
 
+	FILE * infile;        /* source file */
+
+	if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
+		//fprintf(stderr, "can't open %s\n", JPEGNAME);
+	}
+
+	find_region(infile, REDREG_RED, REDREG_GRN, REDREG_BLU);
+
+	fclose(infile);
+
 	while (1){
 
 		findCommand = (uint8_t) OSQPend(findCommandQueue, 0, &err);

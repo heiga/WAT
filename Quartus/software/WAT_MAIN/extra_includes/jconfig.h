@@ -3,8 +3,8 @@
 /* see jconfig.txt for explanations */
 
 #define HAVE_PROTOTYPES 1
-#undef HAVE_UNSIGNED_CHAR
-#undef HAVE_UNSIGNED_SHORT
+#define HAVE_UNSIGNED_CHAR  1
+#define HAVE_UNSIGNED_SHORT 1
 #undef void
 #undef const
 #undef CHAR_IS_UNSIGNED

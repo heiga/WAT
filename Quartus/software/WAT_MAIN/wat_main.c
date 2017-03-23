@@ -35,13 +35,13 @@
 #include "camera.h"
 #include "motor.h"
 #include "wifi.h"
-#include "imagepro.h"
 #include "interrupt_peripherals.h"
 
 /* Definition of Task Stacks */
 #define   TASK_STACKSIZE       2048
+#define	  TASK_PICASTACK      16384
 OS_STK    motor_stk[TASK_STACKSIZE];
-OS_STK    camera_stk[TASK_STACKSIZE];
+OS_STK    camera_stk[TASK_PICASTACK];
 OS_STK    wifi_stk[TASK_STACKSIZE];
 
 /* Definition of Task Priorities */
@@ -51,17 +51,6 @@ OS_STK    wifi_stk[TASK_STACKSIZE];
 #define WIFI_PRIORITY	   1
 
 int main(void){
-
-		FILE * infile;        /* source file */
-
-		if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
-			//fprintf(stderr, "can't open %s\n", JPEGNAME);
-			return 0;
-		}
-
-		find_region(infile, REDREG_RED, REDREG_GRN, REDREG_BLU);
-
-		fclose(infile);
 
 	/*
 	if(OSTaskCreateExt(motor_task,
@@ -76,6 +65,7 @@ int main(void){
 	{
 		//printf("Motor task creation failure\n");
 	}
+
 
 	if(OSTaskCreateExt(camera_task,
                   		NULL,
@@ -92,11 +82,11 @@ int main(void){
 
 	if(OSTaskCreateExt(wifi_task,
                     	NULL,
-                    	(void *)&wifi_stk[TASK_STACKSIZE-1],
+                    	(void *)&wifi_stk[TASK_PICASTACK-1],
                     	WIFI_PRIORITY,
                     	WIFI_PRIORITY,
                     	wifi_stk,
-                    	TASK_STACKSIZE,
+                    	TASK_PICASTACK,
                     	NULL,
                     	0))
 	{

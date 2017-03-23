@@ -242,6 +242,7 @@ get_sof (j_decompress_ptr cinfo, boolean is_baseline, boolean is_prog,
 /* Process a SOFn marker */
 {
   INT32 length;
+  INT32 temp;
   int c, ci, i;
   jpeg_component_info * compptr;
   INPUT_VARS(cinfo);
@@ -276,8 +277,11 @@ get_sof (j_decompress_ptr cinfo, boolean is_baseline, boolean is_prog,
   if (length != (cinfo->num_components * 3))
     ERREXIT(cinfo, JERR_BAD_LENGTH);
 
-  if (cinfo->comp_info == NULL)	/* do only once, even if suspend */
-    cinfo->comp_info = (jpeg_component_info *) (*cinfo->mem->alloc_small) ((j_common_ptr) cinfo, JPOOL_IMAGE, cinfo->num_components * SIZEOF(jpeg_component_info));
+  if (cinfo->comp_info == NULL){/* do only once, even if suspend */
+	temp = mult(cinfo->num_components, SIZEOF(jpeg_component_info));
+    cinfo->comp_info = (jpeg_component_info *) (*cinfo->mem->alloc_small)
+    					((j_common_ptr) cinfo, JPOOL_IMAGE, temp);
+  }
 
   for (ci = 0; ci < cinfo->num_components; ci++) {
     INPUT_BYTE(cinfo, c, return FALSE);
@@ -723,14 +727,14 @@ examine_app0 (j_decompress_ptr cinfo, JOCTET FAR * data,
  */
 {
   INT32 totallen = (INT32) datalen + remaining;
-  INT32 temp1 = 1;
-  INT32 temp2 = 1;
+  INT32 temp1 = -2;
+  INT32 temp2 = 3;
   INT32 temp3 = 1;
 
   temp3 = temp1 * 1;
   temp3 = 1 * temp2;
   temp3 = temp1 + temp2;
-  temp3 = temp1 * temp2;
+  temp3 = mult(temp1, temp2);
 
 //  int potato = 0;
 //  int seven = 0;
@@ -791,7 +795,7 @@ examine_app0 (j_decompress_ptr cinfo, JOCTET FAR * data,
     totallen -= APP0_DATA_LEN;
     temp1 = (INT32)GETJOCTET(data[12]);
     temp2 = (INT32)GETJOCTET(data[13]);
-    temp3 = temp1 * temp2;
+    temp3 = mult(temp1, temp2);
     temp1 = temp3 * (INT32)3;
     if (totallen != temp1){
     	TRACEMS1(cinfo, 1, JTRC_JFIF_BADTHUMBNAILSIZE, (int) totallen);
