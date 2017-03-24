@@ -9,6 +9,8 @@ char buttonfullwidth[] = "345";
 char buttonsmallwidth[] = "57";
 char buttonheight[] = "36";
 
+char tosend = 0;
+
 WiFiServer server(80);
 
 void createWifi(char* ssid, char* pass) {
@@ -48,7 +50,7 @@ void loop() {
 
   s += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
   s += "<h1> WAT RC Mode </h1>";
-  s += "<input type=\"button\" onclick=\"location.href='Automata';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/';\" ";
   s += "value = \"Switch to Autonomous mode\" style=\"height:36px; width:200px\"/>";
   s += "<br>";
   s += "<br>";
@@ -56,7 +58,7 @@ void loop() {
   // Inputs that use href to send a request
 
   // Forward buttons
-  s += "<input type=\"button\" onclick=\"location.href='/forward/3';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/forward/3';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
@@ -64,7 +66,7 @@ void loop() {
   s += "px\" value=\"Forward forever\"/>";
   s += "<br>";
 
-  s += "<input type=\"button\" onclick=\"location.href='/forward/2';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/forward/2';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
@@ -72,7 +74,7 @@ void loop() {
   s += "px\" value=\"Forward 1m\"/>";
   s += "<br>";
 
-  s += "<input type=\"button\" onclick=\"location.href='/forward/1';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/forward/1';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
@@ -83,21 +85,21 @@ void loop() {
   s += "<br>";
 
   // Left buttons
-  s += "<input type=\"button\" onclick=\"location.href='/left/3';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/left/3';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
   s += buttonsmallwidth; 
   s += "px\" value=\"<<<\"/>";
 
-  s += "<input type=\"button\" onclick=\"location.href='/left/2';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/left/2';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
   s += buttonsmallwidth; 
   s += "px\" value=\"<<\"/>";
 
-  s += "<input type=\"button\" onclick=\"location.href='/left/1';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/left/1';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
@@ -105,21 +107,21 @@ void loop() {
   s += "px\" value=\"<\"/>";
 
   // Right buttons
-  s += "<input type=\"button\" onclick=\"location.href='/right/1';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/right/1';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
   s += buttonsmallwidth; 
   s += "px\" value=\">\"/>";
 
-  s += "<input type=\"button\" onclick=\"location.href='/right/2';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/right/2';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
   s += buttonsmallwidth; 
   s += "px\" value=\">>\"/>";
 
-  s += "<input type=\"button\" onclick=\"location.href='/right/3';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/right/3';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
@@ -130,7 +132,7 @@ void loop() {
   s += "<br>";
 
   // backwards buttons
-  s += "<input type=\"button\" onclick=\"location.href='/backward/1';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/backward/1';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
@@ -138,7 +140,7 @@ void loop() {
   s += "px\" value=\"Backward 25cm\"/>";
   s += "<br>";
 
-  s += "<input type=\"button\" onclick=\"location.href='/backward/2';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/backward/2';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
@@ -146,7 +148,7 @@ void loop() {
   s += "px\" value=\"Backward 1m\"/>";
   s += "<br>";
 
-  s += "<input type=\"button\" onclick=\"location.href='/backward/3';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/backward/3';\" ";
   s += "style=\"height:";
   s += buttonheight;
   s += "px;width:";
@@ -157,7 +159,7 @@ void loop() {
   s += "<br>";
 
   // stop button
-  s += "<input type=\"button\" onclick=\"location.href='/stop';\" ";
+  s += "<input type=\"button\" onclick=\"location.href='/RC/stop';\" ";
   s += "style=\"height:";
   s += "80";
   s += "px;width:";
@@ -165,33 +167,56 @@ void loop() {
   s += "px\" value=\"STOP\"/>";
   s += "<br>";
 
-
-  /*
-  s += "<input type=\"button\" onclick=\"location.href='/status=ccw';\" ";
-  s += "style=\"height:80px;width:200px\" value=\"COUNTER-CLOCKWISE\" />";
-  s += "<br>";
-  s += "<br>";
-  s += "<input type=\"button\" onclick=\"location.href='/status=stop';\" ";
-  s += "style=\"height:80px;width:200px\" value=\"STOP\"/>";
-  */
   s += "</html>\n";
 
   // Read request from the user
   String request = client.readStringUntil('\r');
   client.flush();
 
+ 
   // Get "status" from the client 
   // and send a corresponding code via serial to the DE2/DE0
-  if(request.indexOf("/status=cw") != -1) {
-    Serial.print("1");
+
+  tosend = 0;
+  
+  // RC indicator = 0b 1100 0000
+  tosend = tosend | 192;
+
+  // stop indicator = 0b XXXX X000
+  if(request.indexOf("/stop") != -1) {
+    // do nothing, keep it at 0
   }
-  if(request.indexOf("/status=ccw") != -1) {
-    Serial.print("2");
+  // forward indicator = 0b XXXX X001
+  if(request.indexOf("/forward") != -1) {
+    tosend = tosend | 1;
   }
-  if(request.indexOf("/status=stop") != -1) {
-    Serial.print("3");
+  // reverse indicator = 0b XXXX X010
+  if(request.indexOf("/backward") != -1) {
+    tosend = tosend | 2;
+  }
+  // left indicator = 0b XXXX X011
+  if(request.indexOf("/left") != -1) {
+    tosend = tosend | 3;
+  }
+  // right indicator = 0b XXXX X100
+  if(request.indexOf("/right") != -1) {
+    tosend = tosend | 4;
   }
   
+  // increment 1 indicator = 0b XX00 1XXX
+  if(request.indexOf("/1") != -1) {
+    tosend = tosend | 8;
+  }
+  // increment 2 indicator = 0b XX01 0XXX
+  if(request.indexOf("/2") != -1) {
+    tosend = tosend | 16;
+  }
+  // increment 3 indicator = 0b XX01 1XXX
+  if(request.indexOf("/3") != -1) {
+    tosend = tosend | 24;
+  }
+
+  Serial.print(tosend);
   
   client.print(s);
   delay(10);
