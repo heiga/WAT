@@ -42,8 +42,14 @@ Quartus/software/WAT_TEST/.metadata/**
 !Quartus/output_files/ECE492_g7_2017w_WAT.sof
 !Quartus/trolley_system/trolley_system_inst.vhd
 
+#Nios 2 libraries that don't need to be pushed (anymore)
+backuplib/**
+libjpeg/**
+libjpeg2/**
+
 #Used external libraries
 !localtest/libjpeg/libjpeg.a
+!Quartus/software/WAT_MAIN/libjpeg/libjpeg2.a
 
 # =========================
 # Operating System Files
