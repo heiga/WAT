@@ -131,7 +131,7 @@ begin
 	u0 : component trolley_system
 		port map (
 			clk_clk                                  => CLOCK_50,    
-			reset_reset_n                            => not(buttonsig), --KEY(0), --buttonsig,
+			reset_reset_n                            => KEY(0), --buttonsig,
 			altpll_0_c1_clk                          => DRAM_CLK,
 		   sdram_controller_0_wire_addr             => DRAM_ADDR,                      
          sdram_controller_0_wire_ba               => DRAM_BA,                        
