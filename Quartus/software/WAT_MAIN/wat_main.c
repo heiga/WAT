@@ -79,7 +79,7 @@ int main(void){
 	{
 		//printf("Camera task creation failure\n");
 	}
-
+	*/
 	if(OSTaskCreateExt(wifi_task,
                     	NULL,
                     	(void *)&wifi_stk[TASK_PICASTACK-1],
@@ -92,7 +92,7 @@ int main(void){
 	{
 		//printf("Wifi task creation failure\n");
 	}
-
+	/*
 	//Interrupt masks
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTON_BUTTON_BASE, 0xF);
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 0x0);
@@ -126,7 +126,7 @@ int main(void){
 	{
 		//printf("cam interrupt failed\n");
 	}
-
+	*/
     //OSTimeDlyHMSM(0, 0, 1, 0);
     if(alt_ic_isr_register(WIFI_UART_IRQ_INTERRUPT_CONTROLLER_ID,
 				  	  	   WIFI_UART_IRQ,
@@ -136,6 +136,8 @@ int main(void){
 	{
     	//printf("wifi interrupt failed\n");
 	}
+    printf("wifi task initialized\n");
+    IOWR_ALTERA_AVALON_PIO_DATA(BUTTON_LED_BASE, 0x1);
 
     //Initialize internal queues
 	camCommandQueue = OSQCreate(camCommandBuffer, CAM_COMMAND_BUFFER_LENGTH);
@@ -147,7 +149,7 @@ int main(void){
     findCommandQueue = OSQCreate(findCommandBuffer, FIND_COMMAND_BUFFER_LENGTH);
     moveCommandQueue = OSQCreate(moveCommandBuffer, MOVE_COMMAND_BUFFER_LENGTH);
     foundCommandQueue = OSQCreate(foundCommandBuffer, FOUND_COMMAND_BUFFER_LENGTH);
-*/
+
 	OSStart();
 	return 0;
 

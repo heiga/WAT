@@ -14,6 +14,7 @@ void wifi_task(void* pdata){
 	while (1){
 
         wifiReceive = (uint8_t) OSQPend(wifiPackageQueue, 0, &err);
+        printf("Received form Wifi: %d \n", wifiReceive);
 	}
 }
 
