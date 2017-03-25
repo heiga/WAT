@@ -131,7 +131,7 @@ begin
 	u0 : component trolley_system
 		port map (
 			clk_clk                                  => CLOCK_50,    
-			reset_reset_n                            => KEY(0), 
+			reset_reset_n                            => KEY(0), --buttonsig,
 			altpll_0_c1_clk                          => DRAM_CLK,
 		   sdram_controller_0_wire_addr             => DRAM_ADDR,                      
          sdram_controller_0_wire_ba               => DRAM_BA,                        
@@ -154,7 +154,7 @@ begin
 			motor_l_external_connection_export(1)    => GPIO_0(16), --B1
 			motor_l_external_connection_export(2)    => GPIO_0(19), --B2
 			green_leds_external_connection_export    => LED,
-			button_button_external_connection_export => buttonsig, -- NOT(GPIO_0(25))
+			button_button_external_connection_export => GPIO_0(28), -- NOT(GPIO_0(25)) --UNUSED --buttonsig,
 			speaker_external_connection_export       => enable,       
 			button_led_external_connection_export    => GPIO_0(26),
 			key_external_connection_export           => KEY(1),

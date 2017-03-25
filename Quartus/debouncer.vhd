@@ -38,9 +38,9 @@ architecture debounce of debouncer is
 				if x = x"2FAF080" then
 					x <= x"0000000";
 					activated <= '0';
-					if(input = '0') then
+					--if(input = '0') then
 						output <= '0';
-					end if;		
+					--end if;		
 				else
 				x <= x + '1';
 				end if;
