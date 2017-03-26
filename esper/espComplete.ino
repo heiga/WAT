@@ -338,9 +338,7 @@ void loop() {
     tosend = tosend | (bluecode << 6);
   }
     
-  if((tosend != 192) && (tosend != 0)) {
-    Serial.print(tosend);
-  }
+  Serial.print(tosend);
   
   // Sends the HTML file made from string s to the client
   client.print(s);
