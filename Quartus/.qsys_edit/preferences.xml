@@ -7,8 +7,7 @@
    <irq preferredWidth="34" />
   </columns>
  </systemtable>
- <library
-   expandedCategories="Library,Library/Processors and Peripherals/Embedded Processors,Library/Processors and Peripherals,Library/Basic Functions/Simulation; Debug and Verification,Library/Processors and Peripherals/Co-Processors/Nios II Custom Instructions,Library/Basic Functions,Project,Library/Basic Functions/Simulation; Debug and Verification/Simulation,Library/Processors and Peripherals/Co-Processors" />
+ <library expandedCategories="Project,Library" />
  <window width="1600" height="860" x="0" y="0" />
  <generation synthesis="VHDL" block_symbol_file="0" />
 </preferences>
