@@ -52,7 +52,8 @@ OS_STK    wifi_stk[TASK_STACKSIZE];
 
 int main(void){
 
-	/*
+	IOWR_ALTERA_AVALON_PIO_DATA(BUTTON_LED_BASE, 0x1);
+
 	if(OSTaskCreateExt(motor_task,
                   		NULL,
                   		(void *)&motor_stk[TASK_STACKSIZE-1],
@@ -66,7 +67,7 @@ int main(void){
 		//printf("Motor task creation failure\n");
 	}
 
-
+	/*
 	if(OSTaskCreateExt(camera_task,
                   		NULL,
                   		(void *)&camera_stk[TASK_STACKSIZE-1],
@@ -79,6 +80,7 @@ int main(void){
 	{
 		//printf("Camera task creation failure\n");
 	}
+	*/
 
 	if(OSTaskCreateExt(wifi_task,
                     	NULL,
@@ -99,6 +101,7 @@ int main(void){
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PROX_SENSOR_BASE, 0xF);
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 0x0);
 
+	/*
 	//Initialize the interrupt controllers
 	if(alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
 					    	BUTTON_BUTTON_IRQ,
@@ -108,7 +111,10 @@ int main(void){
 	{
 		//printf("button interrupt failed\n");
 	}
+	*/
 
+	OSTimeDlyHMSM(0, 0, 1, 0);
+	/*
 	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
 					    	PROX_SENSOR_IRQ,
 					    	sensor_interrupt,
@@ -117,6 +123,7 @@ int main(void){
 	{
 		//printf("proximity sensor interrupt failed\n");
 	}
+	*/
 
 	if(alt_ic_isr_register(CAM_UART_IRQ_INTERRUPT_CONTROLLER_ID,
 				  	  	   CAM_UART_IRQ,
@@ -147,7 +154,7 @@ int main(void){
     findCommandQueue = OSQCreate(findCommandBuffer, FIND_COMMAND_BUFFER_LENGTH);
     moveCommandQueue = OSQCreate(moveCommandBuffer, MOVE_COMMAND_BUFFER_LENGTH);
     foundCommandQueue = OSQCreate(foundCommandBuffer, FOUND_COMMAND_BUFFER_LENGTH);
-*/
+
 	OSStart();
 	return 0;
 

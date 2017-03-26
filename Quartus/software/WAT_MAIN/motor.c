@@ -6,6 +6,9 @@
  */
 
 #include "motor.h"
+#include "wifi.h"
+
+int MOTORMOVING = false;
 
 /*
  * Drives FORWARD initially but when the INFRARED SENSOR
@@ -75,4 +78,63 @@ void motor_task(void* pdata){
 		}
 
 	}
+}
+
+void motorStop() {
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_SHORTSTOP);
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_SHORTSTOP);
+}
+
+void motorForward() {
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_FORWARD);
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_FORWARD);
+}
+
+void motorReverse() {
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_REVERSE);
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_REVERSE);
+}
+
+void motorLeft() {
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_FORWARD);
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_REVERSE);
+}
+
+void motorRight() {
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_REVERSE);
+	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_FORWARD);
+}
+
+void motorControl(char direction, int time) {
+	if(MOTORMOVING) {
+		motorStop();
+	}
+	if(direction == STOP) {
+		// Cant do stop because delay is broken and espComplete is broken
+		//motorStop();
+		MOTORMOVING = false;
+		return;
+	}
+	if(direction == FORWARD) {
+		printf("motor forward\n");
+		motorForward();
+	}
+	if(direction == REVERSE) {
+		printf("motor reverse\n");
+		motorReverse();
+	}
+	if(direction == LEFT) {
+		printf("motor left\n");
+		motorLeft();
+	}
+	if(direction == RIGHT) {
+		printf("motor right\n");
+		motorRight();
+	}
+	MOTORMOVING = true;
+	if(time == 10) {
+		return;
+	}
+	OSTimeDlyHMSM(0, 0, time, 0);
+	motorStop();
 }

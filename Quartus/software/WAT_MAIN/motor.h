@@ -17,6 +17,8 @@
 #include "wat_main.h"
 
 void motor_task(void* pdata);
+void motorControl(char direction, int time);
+void motorStop();
 
 /* Redefine stdbool to use proper constant names */
 #define TRUE   true
@@ -28,5 +30,26 @@ void motor_task(void* pdata);
 #define MOTOR_REVERSE		0b101 //CCW
 #define MOTOR_SHORTSTOP		0b111 //SHORT STOP, low voltage output
 #define MOTOR_FULLSTOP	  	0b001 //FULL STOP, high impedance output
+
+/*
+#define STOP				"s"
+#define AUTOMATA_MODE		"a"
+#define RC_MODE				"r"
+#define RED					"R"
+#define GREEN				"G"
+#define BLUE				"B"
+#define SEC_5				"5"
+#define SEC_10				"1"
+#define SEC_30				"3"
+*/
+
+// Autonomous Mode definitions
+#define RED			0b00
+#define GREEN		0b01
+#define BLUE		0b10
+#define SEC5		0b01
+#define SEC10		0b10
+#define SEC30		0b11
+
 
 #endif /* MOTOR_TEST_H_ */
