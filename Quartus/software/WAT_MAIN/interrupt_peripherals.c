@@ -11,12 +11,12 @@
 #include "interrupt_peripherals.h"
 
 void sensor_interrupt(void * context){
-	printf("sensor wtf\n");
+	//printf("sensor fired\n");
 
-	motorStop();
-	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
-	OSTimeDlyHMSM(0, 0, 1, 0);
-	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
+	//motorStop();
+	//IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
+	//OSTimeDlyHMSM(0, 0, 1, 0);
+	//IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 
 	//clear interrupt
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 1);

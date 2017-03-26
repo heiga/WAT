@@ -44,7 +44,7 @@ void wifi_uart_interrupt(void * context){
 void rcControl(uint8_t input) {
 	// Decode the command received from wifi and send it to Motor task
 	char direction = STOP;
-	int time = 0;
+	int time;
 
 	if((input & STOP) == STOP) {
 		direction = STOP;
@@ -54,6 +54,7 @@ void rcControl(uint8_t input) {
 	}
 	if((input & REVERSE) == REVERSE) {
 		direction = REVERSE;
+		//IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 	}
 	if((input & LEFT) == LEFT) {
 		direction = LEFT;

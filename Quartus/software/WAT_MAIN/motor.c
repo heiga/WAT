@@ -106,6 +106,8 @@ void motorRight() {
 }
 
 void motorControl(char direction, int time) {
+	int isTurn = 0;
+
 	if(MOTORMOVING) {
 		motorStop();
 	}
@@ -116,25 +118,28 @@ void motorControl(char direction, int time) {
 		return;
 	}
 	if(direction == FORWARD) {
-		printf("motor forward\n");
 		motorForward();
 	}
 	if(direction == REVERSE) {
-		printf("motor reverse\n");
 		motorReverse();
 	}
 	if(direction == LEFT) {
-		printf("motor left\n");
+		isTurn = 1;
 		motorLeft();
 	}
 	if(direction == RIGHT) {
-		printf("motor right\n");
+		isTurn = 1;
 		motorRight();
 	}
 	MOTORMOVING = true;
 	if(time == 10) {
 		return;
 	}
-	OSTimeDlyHMSM(0, 0, time, 0);
+	if(isTurn) {
+		OSTimeDlyHMSM(0, 0, 0, time * deg45);
+	}
+	else {
+		OSTimeDlyHMSM(0, 0, time, 0);
+	}
 	motorStop();
 }

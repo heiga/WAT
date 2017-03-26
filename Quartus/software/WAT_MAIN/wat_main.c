@@ -113,8 +113,8 @@ int main(void){
 	}
 	*/
 
-	OSTimeDlyHMSM(0, 0, 1, 0);
-	/*
+	//OSTimeDlyHMSM(0, 0, 1, 0);
+
 	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
 					    	PROX_SENSOR_IRQ,
 					    	sensor_interrupt,
@@ -123,7 +123,7 @@ int main(void){
 	{
 		//printf("proximity sensor interrupt failed\n");
 	}
-	*/
+
 
 	if(alt_ic_isr_register(CAM_UART_IRQ_INTERRUPT_CONTROLLER_ID,
 				  	  	   CAM_UART_IRQ,
