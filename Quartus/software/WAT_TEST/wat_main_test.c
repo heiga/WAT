@@ -91,20 +91,20 @@ int main(void){
 
 	//printf("START OF MOTOR\n");
 
-//	if(OSTaskCreateExt(camera_test,
-//                  		NULL,
-//                  		(void *)&camera_test_stk[TASK_STACKSIZE-1],
-//                  		CAMERA_TEST_PRIORITY,
-//                  		CAMERA_TEST_PRIORITY,
-//                  		camera_test_stk,
-//                  		TASK_STACKSIZE,
-//                  		NULL,
-//                  		0))
-//	{
-//		printf("Camera task creation failure\n");
-//	}
-//
-//	printf("START OF CAM\n");
+	if(OSTaskCreateExt(camera_test,
+                  		NULL,
+                  		(void *)&camera_test_stk[TASK_STACKSIZE-1],
+                  		CAMERA_TEST_PRIORITY,
+                  		CAMERA_TEST_PRIORITY,
+                  		camera_test_stk,
+                  		TASK_STACKSIZE,
+                  		NULL,
+                  		0))
+	{
+		printf("Camera task creation failure\n");
+	}
+
+	printf("START OF CAM\n");
 
 	if(OSTaskCreateExt(wifi_test,
                     	NULL,
@@ -133,23 +133,23 @@ int main(void){
 
 	//Interrupt controller
 	OSTimeDlyHMSM(0, 0, 2, 0);
-	if(alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
-					    	BUTTON_BUTTON_IRQ,
-					    	button_interrupt,
-					    	NULL,
-					    	NULL))
-	{
-	  printf("button interrupt failed\n");
-	}
-
-	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
-					    	PROX_SENSOR_IRQ,
-					    	sensor_interrupt,
-					    	NULL,
-					    	NULL))
-	{
-	  printf("proximity sensor interrupt failed\n");
-	}
+//	if(alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
+//					    	BUTTON_BUTTON_IRQ,
+//					    	button_interrupt,
+//					    	NULL,
+//					    	NULL))
+//	{
+//	  printf("button interrupt failed\n");
+//	}
+//
+//	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
+//					    	PROX_SENSOR_IRQ,
+//					    	sensor_interrupt,
+//					    	NULL,
+//					    	NULL))
+//	{
+//	  printf("proximity sensor interrupt failed\n");
+//	}
 
 	if(alt_ic_isr_register(CAM_UART_IRQ_INTERRUPT_CONTROLLER_ID,
 				  	  	   CAM_UART_IRQ,
