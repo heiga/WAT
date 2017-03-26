@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'trolley_system'
  * SOPC Builder design path: ../../trolley_system.sopcinfo
  *
- * Generated: Sat Mar 25 05:12:32 MDT 2017
+ * Generated: Sat Mar 25 18:50:40 MDT 2017
  */
 
 /*
@@ -257,7 +257,7 @@
 #define CAM_UART_FIXED_BAUD 1
 #define CAM_UART_FREQ 50000000
 #define CAM_UART_GAP_VALUE 4
-#define CAM_UART_IRQ 7
+#define CAM_UART_IRQ 6
 #define CAM_UART_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define CAM_UART_NAME "/dev/cam_uart"
 #define CAM_UART_PARITY 'N'
@@ -296,7 +296,7 @@
 
 #define ALT_MODULE_CLASS_epcs_flash_controller_0 altera_avalon_epcs_flash_controller
 #define EPCS_FLASH_CONTROLLER_0_BASE 0x1009000
-#define EPCS_FLASH_CONTROLLER_0_IRQ 5
+#define EPCS_FLASH_CONTROLLER_0_IRQ 4
 #define EPCS_FLASH_CONTROLLER_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define EPCS_FLASH_CONTROLLER_0_NAME "/dev/epcs_flash_controller_0"
 #define EPCS_FLASH_CONTROLLER_0_REGISTER_OFFSET 1024
@@ -378,7 +378,7 @@
 #define KEY_HAS_IN 1
 #define KEY_HAS_OUT 0
 #define KEY_HAS_TRI 0
-#define KEY_IRQ 6
+#define KEY_IRQ 5
 #define KEY_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define KEY_IRQ_TYPE "LEVEL"
 #define KEY_NAME "/dev/key"
@@ -575,7 +575,7 @@
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1490440154
+#define SYSID_QSYS_0_TIMESTAMP 1490489288
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -590,7 +590,7 @@
 #define TIMER_0_COUNTER_SIZE 32
 #define TIMER_0_FIXED_PERIOD 0
 #define TIMER_0_FREQ 50000000
-#define TIMER_0_IRQ 4
+#define TIMER_0_IRQ 7
 #define TIMER_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define TIMER_0_LOAD_VALUE 49999
 #define TIMER_0_MULT 0.001
