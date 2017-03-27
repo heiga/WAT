@@ -18,56 +18,58 @@
 #include "imagepro.h"
 
 int main(void) {
-//	FILE * infile;        /* source file */
+	FILE * infile;        /* source file */
+
+	if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
+		fprintf(stderr, "can't open %s\n", JPEGNAME);
+		return 0;
+	}
+	printf("LOADED\n");
+
+	//find_region(infile, REGION_RED);
+	find_region(infile, REGION_GRN);
+	//find_region(infile, REGION_BLU);
+
+	fclose(infile);
+
+//	long q;
+//	long z;
+//	long k;
 //
-//	if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
-//		fprintf(stderr, "can't open %s\n", JPEGNAME);
-//		return 0;
-//	}
-//	printf("LOADED\n");
+//	q = 0;
+//	z = 0;
+//	k = mult(q, z);
+//	printf("%li expect 0\n", k);
 //
-//	find_region(infile, REDREG_RED, REDREG_GRN, REDREG_BLU);
+//	q = 2;
+//	z = 0;
+//	k = mult(q, z);
+//	printf("%liexpect 0\n", k);
 //
-//	fclose(infile);
-
-	long q;
-	long z;
-	long k;
-
-	q = 0;
-	z = 0;
-	k = mult(q, z);
-	printf("%li expect 0\n", k);
-
-	q = 2;
-	z = 0;
-	k = mult(q, z);
-	printf("%liexpect 0\n", k);
-
-	q = 0;
-	z = 2;
-	k = mult(q, z);
-	printf("%li expect 0\n", k);
-
-	q = 2;
-	z = 2;
-	k = mult(q, z);
-	printf("%li expect 4\n", k);
-
-	q = -3;
-	z = 2;
-	k = mult(q, z);
-	printf("%li expect -6\n", k);
-
-	q = 3;
-	z = -2;
-	k = mult(q, z);
-	printf("%li expect -6\n", k);
-
-	q = -2;
-	z = -3;
-	k = mult(q, z);
-	printf("%li expect 6\n", k);
+//	q = 0;
+//	z = 2;
+//	k = mult(q, z);
+//	printf("%li expect 0\n", k);
+//
+//	q = 2;
+//	z = 2;
+//	k = mult(q, z);
+//	printf("%li expect 4\n", k);
+//
+//	q = -3;
+//	z = 2;
+//	k = mult(q, z);
+//	printf("%li expect -6\n", k);
+//
+//	q = 3;
+//	z = -2;
+//	k = mult(q, z);
+//	printf("%li expect -6\n", k);
+//
+//	q = -2;
+//	z = -3;
+//	k = mult(q, z);
+//	printf("%li expect 6\n", k);
 }
 
 long mult(long left, long right){
@@ -118,7 +120,7 @@ long mult(long left, long right){
 	return result;
 }
 
-int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
+uint16_t find_region(FILE* picture, uint8_t region){
 	uint8_t r;			//Red RGB value, between 0-255
 	uint8_t g;			//Green RGB value, between 0-255
 	uint8_t b;			//Blue RGB value, between 0-255
@@ -138,7 +140,6 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 
 	uint32_t startTime;
 	uint32_t endTime;
-
 
 	JSAMPARRAY pJpegBuffer;       /* Output row buffer */
 	int row_stride;       /* physical row width in output buffer */
@@ -176,7 +177,7 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 
 	//Iterate over the image row by row and detect color regions
 	y = 0;
-	while (cinfo.output_scanline < cinfo.output_height) {
+	while (cinfo.output_scanline < height) {
 		region_found = FALSE;
 		temp_row_count = 0;
 		temp_x = 0;
@@ -191,7 +192,20 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 				b = r;
 			}
 
-			if ((r > reg_r) && (g < reg_g) && (b < reg_b)){
+			if ((region == REGION_RED) && (r > REDREG_RED) &&
+					(g < REDREG_GRN) && (b < REDREG_BLU)){
+				temp_row_count++;
+				temp_x = x;
+				region_found = TRUE;
+				regions[0].pixels_detected++;
+			}else if ((region == REGION_GRN) && (r < GRNREG_RED) &&
+					(g > GRNREG_GRN) && (b < GRNREG_BLU)){
+				temp_row_count++;
+				temp_x = x;
+				region_found = TRUE;
+				regions[0].pixels_detected++;
+			}else if ((region == REGION_BLU) && (r < BLUREG_RED) &&
+					(g < BLUREG_GRN) && (b > BLUREG_BLU)){
 				temp_row_count++;
 				temp_x = x;
 				region_found = TRUE;
@@ -226,6 +240,10 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 
 	printf("DONE\n");
 
-	return EXIT_SUCCESS;
-	return 1;
+	if (regions[0].pixels_detected > 0){
+		return width - row_mid;
+	}else{
+		//Found nothing
+		return -1;
+	}
 }
