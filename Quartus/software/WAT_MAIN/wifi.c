@@ -6,27 +6,28 @@
  */
 
 #include "wifi.h"
-#include "motor.h"
 
 void wifi_task(void* pdata){
 	uint8_t err;
     uint8_t wifiReceive;
+    uint8_t motorProgress = 0xFF;
+
+    FILE* log;
 
     //IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
 
 	while (1){
 
-        wifiReceive = (uint8_t) OSQPend(wifiPackageQueue, 0, &err);
-        printf("Received form Wifi: %d \n", wifiReceive);
+//		if ((log = fopen(LOG, "rb")) == NULL) {
+			//no file, wait for command
+			wifiReceive = (uint8_t) OSQPend(wifiPackageQueue, 0, &err);
+//		}else{
+//			//found file, parse so we can recover from the crash
+//			wifiReceive = parseLog(log);
+//		}
 
-        if((wifiReceive & RCMODE) != RCMODE) {
-
-        	OSQPost(initCommandQueue, (void*) wifiReceive);
-        }
-        else {
-        	//printf("IN RC MODE\n");
-        	rcControl(wifiReceive);
-        }
+        //printf("Received form Wifi: %d \n", wifiReceive);
+        OSQPost(initCommandQueue, (void*) wifiReceive);
 	}
 }
 
@@ -40,38 +41,9 @@ void wifi_uart_interrupt(void * context){
 
 }
 
-// RC Mode stuff run here to reduce overhead
-void rcControl(uint8_t input) {
-	// Decode the command received from wifi and send it to Motor task
-	char direction = STOP;
-	int time;
+uint8_t parseLog(FILE* log){
+	uint8_t recovCommand = 0;
 
-	if((input & STOP) == STOP) {
-		direction = STOP;
-	}
-	if((input & FORWARD) == FORWARD) {
-		direction = FORWARD;
-	}
-	if((input & REVERSE) == REVERSE) {
-		direction = REVERSE;
-		//IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
-	}
-	if((input & LEFT) == LEFT) {
-		direction = LEFT;
-	}
-	if((input & RIGHT) == RIGHT) {
-		direction = RIGHT;
-	}
-	if((input & i1) == i1) {
-		time = 1;
-	}
-	if((input & i2) == i2) {
-		time = 2;
-	}
-	if((input & i3) == i3) {
-		// 10 = INFINITE TIME
-		time = 10;
-	}
-	motorControl(direction, time);
+	return recovCommand;
 }
 

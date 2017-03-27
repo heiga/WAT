@@ -19,6 +19,7 @@
 void motor_task(void* pdata);
 void motorControl(char direction, int time);
 void motorStop();
+void rcControl(uint8_t input);
 
 /* Redefine stdbool to use proper constant names */
 #define TRUE   true
@@ -51,5 +52,18 @@ void motorStop();
 #define SEC10		0b10
 #define SEC30		0b11
 
+// RC Mode definitions
+#define INIT_RCMODE 0b11000000
+#define STOP		0b00000000
+#define	FORWARD		0b00000001
+#define REVERSE		0b00000010
+#define LEFT		0b00000011
+#define RIGHT		0b00000100
+#define i1			0b00001000
+#define i2			0b00010000
+#define i3			0b00011000
+
+#define deg45		380
+#define deg90		750
 
 #endif /* MOTOR_TEST_H_ */

@@ -49,14 +49,14 @@
       <string>x</string>
       <void method="set">
        <object idref="Rectangle0"/>
-       <int>226</int>
+       <int>343</int>
       </void>
      </void>
      <void class="java.awt.Rectangle" method="getField">
       <string>y</string>
       <void method="set">
        <object idref="Rectangle0"/>
-       <int>14</int>
+       <int>80</int>
       </void>
      </void>
      <void class="java.awt.Rectangle" method="getField">
@@ -83,14 +83,14 @@
        <string>width</string>
        <void method="set">
         <object idref="Rectangle1"/>
-        <int>1366</int>
+        <int>1600</int>
        </void>
       </void>
       <void class="java.awt.Rectangle" method="getField">
        <string>height</string>
        <void method="set">
         <object idref="Rectangle1"/>
-        <int>768</int>
+        <int>900</int>
        </void>
       </void>
      </object>
