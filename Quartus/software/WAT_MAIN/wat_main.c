@@ -53,6 +53,7 @@ OS_STK    wifi_stk[TASK_STACKSIZE];
 int main(void){
 
 	IOWR_ALTERA_AVALON_PIO_DATA(BUTTON_LED_BASE, 0x1);
+	//OSTimeDlyHMSM(0, 0, 1, 0);
 
 	if(OSTaskCreateExt(motor_task,
                   		NULL,
