@@ -39,9 +39,9 @@
 
 /* Definition of Task Stacks */
 #define   TASK_STACKSIZE       2048
-#define	  TASK_PICASTACK      16384
+#define	  TASK_STACKPICT     131072
 OS_STK    motor_stk[TASK_STACKSIZE];
-OS_STK    camera_stk[TASK_PICASTACK];
+OS_STK    camera_stk[TASK_STACKPICT];
 OS_STK    wifi_stk[TASK_STACKSIZE];
 
 /* Definition of Task Priorities */
@@ -52,7 +52,9 @@ OS_STK    wifi_stk[TASK_STACKSIZE];
 
 int main(void){
 
-	/*
+	IOWR_ALTERA_AVALON_PIO_DATA(BUTTON_LED_BASE, 0x1);
+	//OSTimeDlyHMSM(0, 0, 1, 0);
+
 	if(OSTaskCreateExt(motor_task,
                   		NULL,
                   		(void *)&motor_stk[TASK_STACKSIZE-1],
@@ -67,26 +69,26 @@ int main(void){
 	}
 
 
-	if(OSTaskCreateExt(camera_task,
-                  		NULL,
-                  		(void *)&camera_stk[TASK_STACKSIZE-1],
-                  		CAMERA_PRIORITY,
-                  		CAMERA_PRIORITY,
-                  		camera_stk,
-                  		TASK_STACKSIZE,
-                  		NULL,
-                  		0))
-	{
-		//printf("Camera task creation failure\n");
-	}
-	*/
+//	if(OSTaskCreateExt(camera_task,
+//                  		NULL,
+//                  		(void *)&camera_stk[TASK_STACKPICT-1],
+//                  		CAMERA_PRIORITY,
+//                  		CAMERA_PRIORITY,
+//                  		camera_stk,
+//                  		TASK_STACKPICT,
+//                  		NULL,
+//                  		0))
+//	{
+//		//printf("Camera task creation failure\n");
+//	}
+
 	if(OSTaskCreateExt(wifi_task,
                     	NULL,
-                    	(void *)&wifi_stk[TASK_PICASTACK-1],
+                    	(void *)&wifi_stk[TASK_STACKSIZE-1],
                     	WIFI_PRIORITY,
                     	WIFI_PRIORITY,
                     	wifi_stk,
-                    	TASK_PICASTACK,
+                    	TASK_STACKSIZE,
                     	NULL,
                     	0))
 	{
@@ -100,14 +102,14 @@ int main(void){
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 0x0);
 
 	//Initialize the interrupt controllers
-	if(alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
-					    	BUTTON_BUTTON_IRQ,
-					    	button_interrupt,
-					    	NULL,
-					    	NULL))
-	{
-		//printf("button interrupt failed\n");
-	}
+//	if(alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
+//					    	BUTTON_BUTTON_IRQ,
+//					    	button_interrupt,
+//					    	NULL,
+//					    	NULL))
+//	{
+//		//printf("button interrupt failed\n");
+//	}
 
 	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
 					    	PROX_SENSOR_IRQ,
@@ -117,6 +119,7 @@ int main(void){
 	{
 		//printf("proximity sensor interrupt failed\n");
 	}
+
 
 	if(alt_ic_isr_register(CAM_UART_IRQ_INTERRUPT_CONTROLLER_ID,
 				  	  	   CAM_UART_IRQ,

@@ -9,6 +9,7 @@
 #define WIFI_TEST_H_
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <inttypes.h>
 
 #include "includes.h"
@@ -17,5 +18,8 @@
 
 void wifi_task(void* pdata);
 void wifi_uart_interrupt(void * context);
+uint8_t parseLog(FILE* log);
+
+#define LOG "potato"
 
 #endif /* WIFI_TEST_H_ */
