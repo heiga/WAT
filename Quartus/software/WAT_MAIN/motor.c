@@ -99,7 +99,7 @@ void motorControl(char direction, int time) {
 	}
 	if(direction == STOP) {
 		// Cant do stop because delay is broken and espComplete is broken
-		//motorStop();
+		motorStop();
 		MOTORMOVING = false;
 		return;
 	}

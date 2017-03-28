@@ -94,13 +94,13 @@ int main(void){
 	{
 		//printf("Wifi task creation failure\n");
 	}
-	/*
+
 	//Interrupt masks
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTON_BUTTON_BASE, 0xF);
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PROX_SENSOR_BASE, 0xF);
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 0x0);
-
+	/*
 	//Initialize the interrupt controllers
 //	if(alt_ic_isr_register(BUTTON_BUTTON_IRQ_INTERRUPT_CONTROLLER_ID,
 //					    	BUTTON_BUTTON_IRQ,
@@ -110,7 +110,7 @@ int main(void){
 //	{
 //		//printf("button interrupt failed\n");
 //	}
-
+	*/
 	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
 					    	PROX_SENSOR_IRQ,
 					    	sensor_interrupt,
@@ -129,7 +129,7 @@ int main(void){
 	{
 		//printf("cam interrupt failed\n");
 	}
-	*/
+
     //OSTimeDlyHMSM(0, 0, 1, 0);
     if(alt_ic_isr_register(WIFI_UART_IRQ_INTERRUPT_CONTROLLER_ID,
 				  	  	   WIFI_UART_IRQ,

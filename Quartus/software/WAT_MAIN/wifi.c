@@ -24,7 +24,7 @@ void wifi_task(void* pdata){
 
 //		if ((log = fopen(LOG, "rb")) == NULL) {
 			//no file, wait for command
-			wifiReceive = (uint8_t) OSQPend(wifiPackageQueue, 0, &err);
+			//wifiReceive = (uint8_t) OSQPend(wifiPackageQueue, 0, &err);
 //		}else{
 //			//found file, parse so we can recover from the crash
 //			wifiReceive = parseLog(log);

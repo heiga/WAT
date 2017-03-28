@@ -61,7 +61,7 @@ void loop() {
   // RC MODE
   if(request.indexOf("/RC") != -1) {   
     s += "<h1> WAT RC Mode </h1>";
-    s += "<input type=\"button\" onclick=\"location.href='/';\" ";
+    s += "<input type=\"button\" onclick=\"location.href='/autonomous';\" ";
     s += "value = \"Switch to Autonomous mode\" style=\"height:36px; width:200px\"/>";
     s += "<br>";
     s += "<br>";
@@ -229,7 +229,7 @@ void loop() {
     s += "var bt = br.options[br.selectedIndex].value;";
     s += "var cr = document.getElementById(\"time\");";
     s += "var ct = cr.options[cr.selectedIndex].value;";
-    s += "var send = at + dt + bt + ct;";
+    s += "var send = \"/autonomous\" + at + dt + bt + ct;";
     s += "return send;";
     s += "}";
     s += "</script>";
@@ -337,8 +337,17 @@ void loop() {
   if(request.indexOf("/blueend") != -1) {
     tosend = tosend | (bluecode << 6);
   }
-    
-  Serial.print(tosend);
+  if(tosend == 0) {
+    if(request.indexOf("/autonomous") != -1) {
+      // trigger stop if switching to autonomous mode from RC mode
+      tosend = 192;
+    }
+  }
+  
+  if(tosend != 0) {
+    Serial.print(tosend);
+  }
+  //Serial.println("new line every loop");
   
   // Sends the HTML file made from string s to the client
   client.print(s);
