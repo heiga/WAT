@@ -25,11 +25,15 @@ module trolley_system (
 	sdram_controller_0_wire_dqm,
 	sdram_controller_0_wire_ras_n,
 	sdram_controller_0_wire_we_n,
+	speaker_0_conduit_end_read,
+	speaker_0_conduit_end_writeresponsevalid,
 	speaker_external_connection_export,
 	wifi_uart_external_connection_rxd,
 	wifi_uart_external_connection_txd,
-	speaker_0_conduit_end_read,
-	speaker_0_conduit_end_writeresponsevalid);	
+	debouncer_0_conduit_end_1_beginbursttransfer,
+	debouncer_0_conduit_end_1_writeresponsevalid_n,
+	debouncer_1_conduit_end_1_beginbursttransfer,
+	debouncer_1_conduit_end_1_writeresponsevalid_n);	
 
 	output		altpll_0_c1_clk;
 	input		button_button_external_connection_export;
@@ -56,9 +60,13 @@ module trolley_system (
 	output	[1:0]	sdram_controller_0_wire_dqm;
 	output		sdram_controller_0_wire_ras_n;
 	output		sdram_controller_0_wire_we_n;
+	input		speaker_0_conduit_end_read;
+	output		speaker_0_conduit_end_writeresponsevalid;
 	output		speaker_external_connection_export;
 	input		wifi_uart_external_connection_rxd;
 	output		wifi_uart_external_connection_txd;
-	input		speaker_0_conduit_end_read;
-	output		speaker_0_conduit_end_writeresponsevalid;
+	input		debouncer_0_conduit_end_1_beginbursttransfer;
+	output		debouncer_0_conduit_end_1_writeresponsevalid_n;
+	input		debouncer_1_conduit_end_1_beginbursttransfer;
+	output		debouncer_1_conduit_end_1_writeresponsevalid_n;
 endmodule

@@ -62,8 +62,8 @@ architecture structure of ECE492_g7_2017w_WAT is
 
 	-- Declarations (optional)
 	signal enable	: std_logic;
---	signal buttonsig : std_logic;
---	signal infraredsig : std_logic;
+	signal buttonsig : std_logic;
+	signal infraredsig : std_logic;
 	--signal dummy 	: std_logic;
 
 	component trolley_system is
@@ -97,7 +97,11 @@ architecture structure of ECE492_g7_2017w_WAT is
 			epcs_flash_controller_0_external_sdo     : out   std_logic;                                        -- sdo
 			epcs_flash_controller_0_external_data0   : in    std_logic                     := 'X';             -- data0
 			speaker_0_conduit_end_read               : in    std_logic                     := 'X';             -- read
-			speaker_0_conduit_end_writeresponsevalid : out   std_logic  
+			speaker_0_conduit_end_writeresponsevalid : out   std_logic;
+			debouncer_0_conduit_end_1_beginbursttransfer   : in    std_logic                     := 'X';             
+			debouncer_0_conduit_end_1_writeresponsevalid_n : out   std_logic;                                        
+			debouncer_1_conduit_end_1_beginbursttransfer   : in    std_logic                     := 'X';             
+			debouncer_1_conduit_end_1_writeresponsevalid_n : out   std_logic                                         
 		);
 	end component trolley_system;
 --	These signals are for matching the provided IP core to
@@ -133,7 +137,7 @@ begin
 	u0 : component trolley_system
 		port map (
 			clk_clk                                  => CLOCK_50,    
-			reset_reset_n                            => KEY(0), --buttonsig,
+			reset_reset_n                            => not(buttonsig), --KEY(0), --buttonsig,
 			altpll_0_c1_clk                          => DRAM_CLK,
 		   sdram_controller_0_wire_addr             => DRAM_ADDR,                      
          sdram_controller_0_wire_ba               => DRAM_BA,                        
@@ -148,7 +152,7 @@ begin
 			cam_uart_external_connection_txd         => GPIO_0(2),
 			wifi_uart_external_connection_rxd        => GPIO_0(0),
 			wifi_uart_external_connection_txd        => GPIO_0(3),
-			prox_sensor_external_connection_export   => GPIO_0(30), --infraredsig, --NOT(GPIO_0(30))
+			prox_sensor_external_connection_export   => infraredsig, --NOT(GPIO_0(30))
 			motor_r_external_connection_export(0)    => GPIO_0(11), --APWM
 			motor_r_external_connection_export(1)    => GPIO_0(12), --A1
 			motor_r_external_connection_export(2)    => GPIO_0(15), --A2
@@ -165,7 +169,11 @@ begin
 			epcs_flash_controller_0_external_sdo     => EPCS_ASDO,
 			epcs_flash_controller_0_external_data0   => EPCS_DATA0, 
 			speaker_0_conduit_end_read               => enable,
-			speaker_0_conduit_end_writeresponsevalid => GPIO_0(29)
+			speaker_0_conduit_end_writeresponsevalid => GPIO_0(29),
+			debouncer_0_conduit_end_1_beginbursttransfer   => not(GPIO_0(30)), -- prox sensor input
+			debouncer_0_conduit_end_1_writeresponsevalid_n => infraredsig,
+			debouncer_1_conduit_end_1_beginbursttransfer   => not(GPIO_0(25)),
+			debouncer_1_conduit_end_1_writeresponsevalid_n => buttonsig
 		);
 		
 

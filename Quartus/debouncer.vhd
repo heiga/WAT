@@ -7,8 +7,8 @@ entity debouncer is
 	port 
 	(
 	clk 	: in std_logic;
-	input : in std_logic;
-	tonano : out std_logic);
+	dirtysignal : in std_logic;
+	cleansignal : out std_logic);
 end debouncer;
 
 architecture debounce of debouncer is
@@ -18,14 +18,14 @@ architecture debounce of debouncer is
 	
 	
 	begin 
-	tonano <= output;	
+	cleansignal <= output;	
 	process (clk)
 	
 	begin
 		
 		if(rising_edge(clk)) then
 		if(activated = '0') then
-			if(input = '1') then
+			if(dirtysignal = '1') then
 				activated <= '1';
 				output <= '1';
 			end if;
@@ -38,7 +38,7 @@ architecture debounce of debouncer is
 				if x = x"2FAF080" then
 					x <= x"0000000";
 					activated <= '0';
-					--if(input = '0') then
+					--if(dirtysignal = '0') then
 						output <= '0';
 					--end if;		
 				else

@@ -81,6 +81,22 @@
          type = "int";
       }
    }
+   element debouncer_0
+   {
+      datum _sortIndex
+      {
+         value = "20";
+         type = "int";
+      }
+   }
+   element debouncer_1
+   {
+      datum _sortIndex
+      {
+         value = "21";
+         type = "int";
+      }
+   }
    element epcs_flash_controller_0
    {
       datum _sortIndex
@@ -352,6 +368,16 @@
    dir="end" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface
+   name="debouncer_0_conduit_end_1"
+   internal="debouncer_0.conduit_end_1"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="debouncer_1_conduit_end_1"
+   internal="debouncer_1.conduit_end_1"
+   type="conduit"
+   dir="end" />
+ <interface
    name="epcs_flash_controller_0_external"
    internal="epcs_flash_controller_0.external"
    type="conduit"
@@ -603,7 +629,7 @@
  </module>
  <module name="cam_uart" kind="fifoed_avalon_uart" version="13.2" enabled="1">
   <parameter name="add_error_bits" value="false" />
-  <parameter name="baud" value="57600" />
+  <parameter name="baud" value="115200" />
   <parameter name="clockRate" value="50000000" />
   <parameter name="dataBits" value="8" />
   <parameter name="driver_pass_error_bits" value="false" />
@@ -645,6 +671,8 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
+ <module name="debouncer_0" kind="debouncer" version="1.1" enabled="1" />
+ <module name="debouncer_1" kind="debouncer" version="1.1" enabled="1" />
  <module
    name="epcs_flash_controller_0"
    kind="altera_avalon_epcs_flash_controller"
@@ -1274,6 +1302,8 @@
    start="altpll_0.c0"
    end="onchip_memory2_0.clk1" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="speaker_0.clock" />
+ <connection kind="clock" version="16.1" start="clk_0.clk" end="debouncer_1.clock" />
+ <connection kind="clock" version="16.1" start="clk_0.clk" end="debouncer_0.clock" />
  <connection
    kind="clock"
    version="16.1"

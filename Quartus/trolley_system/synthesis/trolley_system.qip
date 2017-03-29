@@ -2,7 +2,7 @@ set_global_assignment -entity "trolley_system" -library "trolley_system" -name I
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_TOOL_VERSION "16.1"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "trolley_system" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../trolley_system.sopcinfo"]
-set_global_assignment -entity "trolley_system" -library "trolley_system" -name SLD_INFO "QSYS_NAME trolley_system HAS_SOPCINFO 1 GENERATION_ID 1490827325"
+set_global_assignment -entity "trolley_system" -library "trolley_system" -name SLD_INFO "QSYS_NAME trolley_system HAS_SOPCINFO 1 GENERATION_ID 1490830826"
 set_global_assignment -library "trolley_system" -name MISC_FILE [file join $::quartus(qip_path) "../trolley_system.cmp"]
 set_global_assignment -library "trolley_system" -name SLD_FILE [file join $::quartus(qip_path) "trolley_system.regmap"]
 set_global_assignment -library "trolley_system" -name SLD_FILE [file join $::quartus(qip_path) "trolley_system.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "trolley_system" -library "trolley_system" -name I
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ5MDgyNzMyNQ==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ5MDgzMDgyNg==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0Q0UyMkYxN0M2::QXV0byBERVZJQ0U="
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Ng==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -1331,6 +1331,12 @@ set_global_assignment -entity "trolley_system_epcs_flash_controller_0" -library 
 set_global_assignment -entity "trolley_system_epcs_flash_controller_0" -library "trolley_system" -name IP_COMPONENT_PARAMETER "YXV0b0luaXRpYWxpemF0aW9uRmlsZU5hbWU=::dHJvbGxleV9zeXN0ZW1fZXBjc19mbGFzaF9jb250cm9sbGVyXzA=::YXV0b0luaXRpYWxpemF0aW9uRmlsZU5hbWU="
 set_global_assignment -entity "trolley_system_epcs_flash_controller_0" -library "trolley_system" -name IP_COMPONENT_PARAMETER "cmVnaXN0ZXJfb2Zmc2V0::MTAyNA==::cmVnaXN0ZXJfb2Zmc2V0"
 set_global_assignment -entity "trolley_system_epcs_flash_controller_0" -library "trolley_system" -name IP_COMPONENT_PARAMETER "aXVzZUFTTUlBdG9t::ZmFsc2U=::aXVzZUFTTUlBdG9t"
+set_global_assignment -entity "debouncer" -library "trolley_system" -name IP_COMPONENT_NAME "ZGVib3VuY2Vy"
+set_global_assignment -entity "debouncer" -library "trolley_system" -name IP_COMPONENT_DISPLAY_NAME "ZGVib3VuY2Vy"
+set_global_assignment -entity "debouncer" -library "trolley_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "debouncer" -library "trolley_system" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "debouncer" -library "trolley_system" -name IP_COMPONENT_AUTHOR "UGhpbGxpcCBIb2FuZw=="
+set_global_assignment -entity "debouncer" -library "trolley_system" -name IP_COMPONENT_VERSION "MS4x"
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_NAME "dHJvbGxleV9zeXN0ZW1fY2FtX3VhcnQ="
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_DISPLAY_NAME "RklGT2VkIFVBUlQgKFJTLTIzMiBzZXJpYWwgcG9ydCkxMy4y"
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
@@ -1338,7 +1344,7 @@ set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_AUTHOR "QWx0ZXJhIENvcnBvcmF0aW9uL2NydWJlbg=="
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_VERSION "MTMuMg=="
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_DESCRIPTION "TW9kaWZpZWQgQWx0ZXJhIEF2YWxvbiBVQVJUIHdpdGggRklGT3MgYW5kIG90aGVyIGFkZGVkIGZlYXR1cmVzLg=="
-set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "YmF1ZA==::NTc2MDA=::QmF1ZCByYXRlIChicHMp"
+set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "YmF1ZA==::MTE1MjAw::QmF1ZCByYXRlIChicHMp"
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "ZGF0YUJpdHM=::OA==::RGF0YSBiaXRz"
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "Zml4ZWRCYXVk::dHJ1ZQ==::Rml4ZWQgYmF1ZCByYXRlICggbm8gc29mdHdhcmUgY29udHJvbCk="
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "cGFyaXR5::Tk9ORQ==::UGFyaXR5"
@@ -1552,6 +1558,7 @@ set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $:
 set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/trolley_system_green_leds.v"]
 set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/trolley_system_epcs_flash_controller_0.v"]
 set_global_assignment -library "trolley_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/trolley_system_epcs_flash_controller_0_boot_rom.hex"]
+set_global_assignment -library "trolley_system" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/debouncer.vhd"]
 set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/trolley_system_cam_uart.v"]
 set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/trolley_system_button_led.v"]
 set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/trolley_system_button_button.v"]
