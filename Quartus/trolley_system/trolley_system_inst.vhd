@@ -3,6 +3,8 @@
 			altpll_0_c1_clk                          : out   std_logic;                                        -- clk
 			button_button_external_connection_export : in    std_logic                     := 'X';             -- export
 			button_led_external_connection_export    : out   std_logic;                                        -- export
+			cam_uart_external_connection_rxd         : in    std_logic                     := 'X';             -- rxd
+			cam_uart_external_connection_txd         : out   std_logic;                                        -- txd
 			clk_clk                                  : in    std_logic                     := 'X';             -- clk
 			epcs_flash_controller_0_external_dclk    : out   std_logic;                                        -- dclk
 			epcs_flash_controller_0_external_sce     : out   std_logic;                                        -- sce
@@ -26,8 +28,8 @@
 			speaker_external_connection_export       : out   std_logic;                                        -- export
 			wifi_uart_external_connection_rxd        : in    std_logic                     := 'X';             -- rxd
 			wifi_uart_external_connection_txd        : out   std_logic;                                        -- txd
-			cam_uart_external_connection_rxd         : in    std_logic                     := 'X';             -- rxd
-			cam_uart_external_connection_txd         : out   std_logic                                         -- txd
+			speaker_0_conduit_end_read               : in    std_logic                     := 'X';             -- read
+			speaker_0_conduit_end_writeresponsevalid : out   std_logic                                         -- writeresponsevalid
 		);
 	end component trolley_system;
 
@@ -36,6 +38,8 @@
 			altpll_0_c1_clk                          => CONNECTED_TO_altpll_0_c1_clk,                          --                       altpll_0_c1.clk
 			button_button_external_connection_export => CONNECTED_TO_button_button_external_connection_export, -- button_button_external_connection.export
 			button_led_external_connection_export    => CONNECTED_TO_button_led_external_connection_export,    --    button_led_external_connection.export
+			cam_uart_external_connection_rxd         => CONNECTED_TO_cam_uart_external_connection_rxd,         --      cam_uart_external_connection.rxd
+			cam_uart_external_connection_txd         => CONNECTED_TO_cam_uart_external_connection_txd,         --                                  .txd
 			clk_clk                                  => CONNECTED_TO_clk_clk,                                  --                               clk.clk
 			epcs_flash_controller_0_external_dclk    => CONNECTED_TO_epcs_flash_controller_0_external_dclk,    --  epcs_flash_controller_0_external.dclk
 			epcs_flash_controller_0_external_sce     => CONNECTED_TO_epcs_flash_controller_0_external_sce,     --                                  .sce
@@ -59,7 +63,7 @@
 			speaker_external_connection_export       => CONNECTED_TO_speaker_external_connection_export,       --       speaker_external_connection.export
 			wifi_uart_external_connection_rxd        => CONNECTED_TO_wifi_uart_external_connection_rxd,        --     wifi_uart_external_connection.rxd
 			wifi_uart_external_connection_txd        => CONNECTED_TO_wifi_uart_external_connection_txd,        --                                  .txd
-			cam_uart_external_connection_rxd         => CONNECTED_TO_cam_uart_external_connection_rxd,         --      cam_uart_external_connection.rxd
-			cam_uart_external_connection_txd         => CONNECTED_TO_cam_uart_external_connection_txd          --                                  .txd
+			speaker_0_conduit_end_read               => CONNECTED_TO_speaker_0_conduit_end_read,               --             speaker_0_conduit_end.read
+			speaker_0_conduit_end_writeresponsevalid => CONNECTED_TO_speaker_0_conduit_end_writeresponsevalid  --                                  .writeresponsevalid
 		);
 

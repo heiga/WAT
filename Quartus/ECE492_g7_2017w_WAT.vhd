@@ -61,7 +61,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 architecture structure of ECE492_g7_2017w_WAT is
 
 	-- Declarations (optional)
---	signal enable	: std_logic;
+	signal enable	: std_logic;
 --	signal buttonsig : std_logic;
 --	signal infraredsig : std_logic;
 	--signal dummy 	: std_logic;
@@ -95,7 +95,9 @@ architecture structure of ECE492_g7_2017w_WAT is
 			epcs_flash_controller_0_external_dclk    : out   std_logic;                                        -- dclk
 			epcs_flash_controller_0_external_sce     : out   std_logic;                                        -- sce
 			epcs_flash_controller_0_external_sdo     : out   std_logic;                                        -- sdo
-			epcs_flash_controller_0_external_data0   : in    std_logic                     := 'X'              -- data0
+			epcs_flash_controller_0_external_data0   : in    std_logic                     := 'X';             -- data0
+			speaker_0_conduit_end_read               : in    std_logic                     := 'X';             -- read
+			speaker_0_conduit_end_writeresponsevalid : out   std_logic  
 		);
 	end component trolley_system;
 --	These signals are for matching the provided IP core to
@@ -155,13 +157,15 @@ begin
 			motor_l_external_connection_export(2)    => GPIO_0(19), --B2
 			green_leds_external_connection_export    => LED,
 			button_button_external_connection_export => GPIO_0(28), -- NOT(GPIO_0(25)) --UNUSED --buttonsig, 
-			speaker_external_connection_export       => GPIO_0(29), -- enable,      
+			speaker_external_connection_export       => enable,	  --GPIO_0(29),
 			button_led_external_connection_export    => GPIO_0(26),
 			key_external_connection_export           => KEY(1),
 			epcs_flash_controller_0_external_dclk    => EPCS_DCLK,
 			epcs_flash_controller_0_external_sce     => EPCS_NCSO,     
 			epcs_flash_controller_0_external_sdo     => EPCS_ASDO,
-			epcs_flash_controller_0_external_data0   => EPCS_DATA0   
+			epcs_flash_controller_0_external_data0   => EPCS_DATA0, 
+			speaker_0_conduit_end_read               => enable,
+			speaker_0_conduit_end_writeresponsevalid => GPIO_0(29)
 		);
 		
 

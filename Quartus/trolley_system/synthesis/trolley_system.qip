@@ -2,7 +2,7 @@ set_global_assignment -entity "trolley_system" -library "trolley_system" -name I
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_TOOL_VERSION "16.1"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "trolley_system" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../trolley_system.sopcinfo"]
-set_global_assignment -entity "trolley_system" -library "trolley_system" -name SLD_INFO "QSYS_NAME trolley_system HAS_SOPCINFO 1 GENERATION_ID 1489436896"
+set_global_assignment -entity "trolley_system" -library "trolley_system" -name SLD_INFO "QSYS_NAME trolley_system HAS_SOPCINFO 1 GENERATION_ID 1490827325"
 set_global_assignment -library "trolley_system" -name MISC_FILE [file join $::quartus(qip_path) "../trolley_system.cmp"]
 set_global_assignment -library "trolley_system" -name SLD_FILE [file join $::quartus(qip_path) "trolley_system.regmap"]
 set_global_assignment -library "trolley_system" -name SLD_FILE [file join $::quartus(qip_path) "trolley_system.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "trolley_system" -library "trolley_system" -name I
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ4OTQzNjg5Ng==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ5MDgyNzMyNQ==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0Q0UyMkYxN0M2::QXV0byBERVZJQ0U="
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Ng==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -846,6 +846,12 @@ set_global_assignment -entity "trolley_system_sysid_qsys_0" -library "trolley_sy
 set_global_assignment -entity "trolley_system_sysid_qsys_0" -library "trolley_system" -name IP_COMPONENT_AUTHOR "QWx0ZXJhIENvcnBvcmF0aW9u"
 set_global_assignment -entity "trolley_system_sysid_qsys_0" -library "trolley_system" -name IP_COMPONENT_VERSION "MTYuMQ=="
 set_global_assignment -entity "trolley_system_sysid_qsys_0" -library "trolley_system" -name IP_COMPONENT_PARAMETER "aWQ=::MA==::MzIgYml0IFN5c3RlbSBJRA=="
+set_global_assignment -entity "speakerinterface" -library "trolley_system" -name IP_COMPONENT_NAME "c3BlYWtlcmludGVyZmFjZQ=="
+set_global_assignment -entity "speakerinterface" -library "trolley_system" -name IP_COMPONENT_DISPLAY_NAME "c3BlYWtlcg=="
+set_global_assignment -entity "speakerinterface" -library "trolley_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "speakerinterface" -library "trolley_system" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "speakerinterface" -library "trolley_system" -name IP_COMPONENT_AUTHOR "UGhpbGxpcCBIb2FuZw=="
+set_global_assignment -entity "speakerinterface" -library "trolley_system" -name IP_COMPONENT_VERSION "MS4w"
 set_global_assignment -entity "trolley_system_sdram_controller_0" -library "trolley_system" -name IP_COMPONENT_NAME "dHJvbGxleV9zeXN0ZW1fc2RyYW1fY29udHJvbGxlcl8w"
 set_global_assignment -entity "trolley_system_sdram_controller_0" -library "trolley_system" -name IP_COMPONENT_DISPLAY_NAME "U0RSQU0gQ29udHJvbGxlcg=="
 set_global_assignment -entity "trolley_system_sdram_controller_0" -library "trolley_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
@@ -1526,6 +1532,7 @@ set_global_assignment -library "trolley_system" -name SYSTEMVERILOG_FILE [file j
 set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/trolley_system_wifi_uart.v"]
 set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/trolley_system_timer_0.v"]
 set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/trolley_system_sysid_qsys_0.v"]
+set_global_assignment -library "trolley_system" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/speakermodule.vhd"]
 set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/trolley_system_sdram_controller_0.v"]
 set_global_assignment -library "trolley_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/trolley_system_onchip_memory2_0.hex"]
 set_global_assignment -library "trolley_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/trolley_system_onchip_memory2_0.v"]

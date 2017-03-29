@@ -257,6 +257,14 @@
          type = "String";
       }
    }
+   element speaker_0
+   {
+      datum _sortIndex
+      {
+         value = "19";
+         type = "int";
+      }
+   }
    element sysid_qsys_0
    {
       datum _sortIndex
@@ -377,6 +385,11 @@
  <interface
    name="sdram_controller_0_wire"
    internal="sdram_controller_0.wire"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="speaker_0_conduit_end"
+   internal="speaker_0.conduit_end"
    type="conduit"
    dir="end" />
  <interface
@@ -994,6 +1007,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
+ <module name="speaker_0" kind="speaker" version="1.0" enabled="1" />
  <module
    name="sysid_qsys_0"
    kind="altera_avalon_sysid_qsys"
@@ -1259,6 +1273,7 @@
    version="16.1"
    start="altpll_0.c0"
    end="onchip_memory2_0.clk1" />
+ <connection kind="clock" version="16.1" start="clk_0.clk" end="speaker_0.clock" />
  <connection
    kind="clock"
    version="16.1"

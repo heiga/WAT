@@ -33,6 +33,8 @@ entity trolley_system is
 		sdram_controller_0_wire_dqm              : out   std_logic_vector(1 downto 0);                     --                                  .dqm
 		sdram_controller_0_wire_ras_n            : out   std_logic;                                        --                                  .ras_n
 		sdram_controller_0_wire_we_n             : out   std_logic;                                        --                                  .we_n
+		speaker_0_conduit_end_read               : in    std_logic                     := '0';             --             speaker_0_conduit_end.read
+		speaker_0_conduit_end_writeresponsevalid : out   std_logic;                                        --                                  .writeresponsevalid
 		speaker_external_connection_export       : out   std_logic;                                        --       speaker_external_connection.export
 		wifi_uart_external_connection_rxd        : in    std_logic                     := '0';             --     wifi_uart_external_connection.rxd
 		wifi_uart_external_connection_txd        : out   std_logic                                         --                                  .txd
@@ -257,6 +259,14 @@ architecture rtl of trolley_system is
 			zs_we_n        : out   std_logic                                         -- export
 		);
 	end component trolley_system_sdram_controller_0;
+
+	component speakerinterface is
+		port (
+			clk       : in  std_logic := 'X'; -- clk
+			ena       : in  std_logic := 'X'; -- read
+			tospeaker : out std_logic         -- writeresponsevalid
+		);
+	end component speakerinterface;
 
 	component trolley_system_sysid_qsys_0 is
 		port (
@@ -952,6 +962,13 @@ begin
 			chipselect => mm_interconnect_0_speaker_s1_chipselect,      --                    .chipselect
 			readdata   => mm_interconnect_0_speaker_s1_readdata,        --                    .readdata
 			out_port   => speaker_external_connection_export            -- external_connection.export
+		);
+
+	speaker_0 : component speakerinterface
+		port map (
+			clk       => clk_clk,                                  --       clock.clk
+			ena       => speaker_0_conduit_end_read,               -- conduit_end.read
+			tospeaker => speaker_0_conduit_end_writeresponsevalid  --            .writeresponsevalid
 		);
 
 	sysid_qsys_0 : component trolley_system_sysid_qsys_0
