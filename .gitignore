@@ -39,6 +39,7 @@ Quartus/trolley_system/**
 Quartus/output_files/**
 Quartus/software/.metadata/**
 Quartus/software/WAT_TEST/.metadata/**
+Quartus/software/WAT_TEST_bsp/**
 !Quartus/output_files/ECE492_g7_2017w_WAT.sof
 !Quartus/trolley_system/trolley_system_inst.vhd
 
@@ -50,6 +51,7 @@ libjpeg2/**
 #Used external libraries
 !localtest/libjpeg/libjpeg.a
 !Quartus/software/WAT_MAIN/libjpeg/libjpeg2.a
+!Quartus/software/WAT_TEST/libjpeg/libjpeg2.a
 
 # =========================
 # Operating System Files

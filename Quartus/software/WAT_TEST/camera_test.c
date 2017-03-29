@@ -33,13 +33,17 @@ void camera_test(void* pdata){
 	uint32_t tempsum = 0;
 	uint16_t data_length = 0;
 	uint8_t cam_data_ack[CAM_COMMAND_LENGTH];
+
+	char* ptr;
+	size_t size;
 	FILE* picture;
+//	picture = open_memstream(&ptr, &size);
 
 	uint8_t sync_delay = CAM_INIT_SYNC_DELAY;
 	bool synced = FALSE;
 
 	printf("Starting to open...");
-	picture = fopen(CAM_PICTURE_OUTPUT, "a");
+	picture = fopen(CAM_PICTURE_OUTPUT, "w");
 	printf(" and done\n");
 
 	for(q = 0; q< CAM_COMMAND_LENGTH; q++){
@@ -299,6 +303,12 @@ void camera_test(void* pdata){
 		while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
 		IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_ACK_DEND[z]);
 	}
+
+
+	//printf("size of %i\n", size);
+	fclose(picture);
+	picture = fopen(CAM_PICTURE_OUTPUT, "r");
+	find_region(picture, REGION_RED);
 
 	fclose(picture);
 

@@ -16,6 +16,7 @@
 #include "includes.h"
 #include "fifoed_avalon_uart_regs.h"
 #include "altera_avalon_pio_regs.h"
+#include "imagepro.h"
 
 void camera_test(void* pdata);
 void cam_uart_interrupt(void * context);

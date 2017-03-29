@@ -146,6 +146,7 @@ C_SRCS += wat_main_test.c
 C_SRCS += camera_test.c
 C_SRCS += motor_test.c
 C_SRCS += wifi_test.c
+C_SRCS += imagepro.c
 CXX_SRCS :=
 ASM_SRCS :=
 
@@ -183,9 +184,9 @@ SYS_LIB :=
 BSP_ROOT_DIR := ../WAT_TEST_bsp/
 
 # List of application specific include directories, library directories and library names
-APP_INCLUDE_DIRS :=
-APP_LIBRARY_DIRS :=
-APP_LIBRARY_NAMES :=
+APP_INCLUDE_DIRS := extra_includes
+APP_LIBRARY_DIRS := libjpeg
+APP_LIBRARY_NAMES := jpeg2
 
 # Pre- and post- processor settings.
 BUILD_PRE_PROCESS :=
