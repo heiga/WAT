@@ -121,6 +121,7 @@ uint16_t find_region(FILE* picture, uint8_t region){
 	}
 
 	endTime = clock() - startTime;
+	endTime /= 1000;
 
 	int row_mid = regions[0].x - (regions[0].rows_traversed / 2);
 	int col_mid = regions[0].y - (regions[0].cols_traversed / 2);

@@ -34,17 +34,17 @@ void camera_test(void* pdata){
 	uint16_t data_length = 0;
 	uint8_t cam_data_ack[CAM_COMMAND_LENGTH];
 
-	char* ptr;
-	size_t size;
-	FILE* picture;
-//	picture = open_memstream(&ptr, &size);
+	char* pic_location;
+	size_t pic_size;
+	static FILE* picture;
+	picture = open_memstream(&pic_location, &pic_size);
 
 	uint8_t sync_delay = CAM_INIT_SYNC_DELAY;
 	bool synced = FALSE;
 
-	printf("Starting to open...");
-	picture = fopen(CAM_PICTURE_OUTPUT, "w");
-	printf(" and done\n");
+//	printf("Starting to open...");
+//	picture = fopen(CAM_PICTURE_OUTPUT, "w");
+//	printf(" and done\n");
 
 	for(q = 0; q< CAM_COMMAND_LENGTH; q++){
 		cam_data_ack[q] = CAM_ACK_DATA[q];
@@ -305,9 +305,12 @@ void camera_test(void* pdata){
 	}
 
 
-	//printf("size of %i\n", size);
+	printf("size of %i\n", pic_size);
 	fclose(picture);
-	picture = fopen(CAM_PICTURE_OUTPUT, "r");
+
+	//picture = fopen(CAM_PICTURE_OUTPUT, "r");
+	picture = fmemopen(pic_location, pic_size, "r");
+
 	find_region(picture, REGION_RED);
 
 	fclose(picture);
