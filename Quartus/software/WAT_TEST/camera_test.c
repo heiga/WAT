@@ -38,9 +38,9 @@ void camera_test(void* pdata){
 	uint8_t sync_delay = CAM_INIT_SYNC_DELAY;
 	bool synced = FALSE;
 
-//	printf("Starting to open...");
-//	picture = fopen(CAM_PICTURE_OUTPUT, "a");
-//	printf(" and done\n");
+	printf("Starting to open...");
+	picture = fopen(CAM_PICTURE_OUTPUT, "a");
+	printf(" and done\n");
 
 	for(q = 0; q< CAM_COMMAND_LENGTH; q++){
 		cam_data_ack[q] = CAM_ACK_DATA[q];
@@ -257,7 +257,7 @@ void camera_test(void* pdata){
 			}else{
 				cam_reply = 0x00;
 			}
-			//putc(cam_reply, picture);
+			putc(cam_reply, picture);
 		}
 
 		//Next two bytes are checksum
