@@ -12,7 +12,7 @@
 
 #include "imagepro.h"
 
-int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
+uint16_t find_region(FILE* picture, uint8_t region){
 	uint8_t r;			//Red RGB value, between 0-255
 	uint8_t g;			//Green RGB value, between 0-255
 	uint8_t b;			//Blue RGB value, between 0-255
@@ -38,24 +38,28 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 
 	startTime = clock();
 
-	//printf("START\n");
+	printf("START\n");
 
 	cinfo.err = jpeg_std_error(&jerr);
 	jpeg_create_decompress(&cinfo);
+	printf("decompress\n");
 	jpeg_stdio_src(&cinfo, picture);
+	printf("load\n");
 	(void) jpeg_read_header(&cinfo, TRUE);
+	printf("header\n");
 	(void) jpeg_start_decompress(&cinfo);
+	printf("decompress\n");
 	width = cinfo.output_width;
 	height = cinfo.output_height;
 
-	//printf("INFO\n");
+	printf("INFO\n");
 
 	//Initialize... something. Clearly important
 	row_stride = width * cinfo.output_components;
 	pJpegBuffer = (*cinfo.mem->alloc_sarray)
 	((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
 
-	//printf("BUFFER\n");
+	printf("BUFFER\n");
 
 	//Initialize the regions struct array
 	for (y=0; y < REGION_COUNT; y++){
@@ -69,7 +73,7 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 
 	//Iterate over the image row by row and detect color regions
 	y = 0;
-	while (cinfo.output_scanline < cinfo.output_height) {
+	while (cinfo.output_scanline < height) {
 		region_found = FALSE;
 		temp_row_count = 0;
 		temp_x = 0;
@@ -84,7 +88,20 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 				b = r;
 			}
 
-			if ((r > reg_r) && (g < reg_g) && (b < reg_b)){
+			if ((region == REGION_RED) && (r > REDREG_RED) &&
+					(g < REDREG_GRN) && (b < REDREG_BLU)){
+				temp_row_count++;
+				temp_x = x;
+				region_found = TRUE;
+				regions[0].pixels_detected++;
+			}else if ((region == REGION_GRN) && (r < GRNREG_RED) &&
+					(g > GRNREG_GRN) && (b < GRNREG_BLU)){
+				temp_row_count++;
+				temp_x = x;
+				region_found = TRUE;
+				regions[0].pixels_detected++;
+			}else if ((region == REGION_BLU) && (r < BLUREG_RED) &&
+					(g < BLUREG_GRN) && (b > BLUREG_BLU)){
 				temp_row_count++;
 				temp_x = x;
 				region_found = TRUE;
@@ -104,20 +121,26 @@ int find_region(FILE* picture, uint8_t reg_r, uint8_t reg_g, uint8_t reg_b){
 	}
 
 	endTime = clock() - startTime;
+	endTime /= 1000;
 
 	int row_mid = regions[0].x - (regions[0].rows_traversed / 2);
 	int col_mid = regions[0].y - (regions[0].cols_traversed / 2);
 
-	//printf("height_end=%i width_end=%i\n", regions[0].y, regions[0].x);
-	//printf("height_mid=%i width_mid=%i\n", col_mid, row_mid);
-	//printf("cols=%i rows=%i\n", regions[0].cols_traversed, regions[0].rows_traversed);
-	//printf("confidence=%i\n", regions[0].confidence);
-	//printf("clock ticks=%i\n", endTime);
+	printf("height_end=%i width_end=%i\n", regions[0].y, regions[0].x);
+	printf("height_mid=%i width_mid=%i\n", col_mid, row_mid);
+	printf("cols=%i rows=%i\n", regions[0].cols_traversed, regions[0].rows_traversed);
+	printf("confidence=%i\n", regions[0].confidence);
+	printf("clock ticks=%i\n", endTime);
 
 	(void) jpeg_finish_decompress(&cinfo);
 	jpeg_destroy_decompress(&cinfo);
 
-	//printf("DONE\n");
+	printf("DONE\n");
 
-	return 1;
+	if (regions[0].pixels_detected > 0){
+		return width - row_mid;
+	}else{
+		//Found nothing
+		return -1;
+	}
 }
