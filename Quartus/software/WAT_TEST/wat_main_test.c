@@ -73,21 +73,21 @@ OS_STK    wifi_test_stk[TASK_STACKSIZE];
 /* The main function creates two task and starts multi-tasking */
 int main(void){
   
-//	printf("START OF MAIN\n");
-//
-//
-//	if(OSTaskCreateExt(motor_test,
-//                  		NULL,
-//                  		(void *)&motor_test_stk[TASK_STACKSIZE-1],
-//                  		MOTOR_TEST_PRIORITY,
-//                  		MOTOR_TEST_PRIORITY,
-//                  		motor_test_stk,
-//                  		TASK_STACKSIZE,
-//                  		NULL,
-//                  		0))
-//	{
-//		printf("Motor task creation failure\n");
-//	}
+	printf("START OF MAIN\n");
+
+
+	if(OSTaskCreateExt(motor_test,
+                  		NULL,
+                  		(void *)&motor_test_stk[TASK_STACKSIZE-1],
+                  		MOTOR_TEST_PRIORITY,
+                  		MOTOR_TEST_PRIORITY,
+                  		motor_test_stk,
+                  		TASK_STACKSIZE,
+                  		NULL,
+                  		0))
+	{
+		printf("Motor task creation failure\n");
+	}
 
 	//printf("START OF MOTOR\n");
 
@@ -143,15 +143,15 @@ int main(void){
 //	{
 //	  printf("button interrupt failed\n");
 //	}
-//
-//	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
-//					    	PROX_SENSOR_IRQ,
-//					    	sensor_interrupt,
-//					    	NULL,
-//					    	NULL))
-//	{
-//	  printf("proximity sensor interrupt failed\n");
-//	}
+
+	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
+					    	PROX_SENSOR_IRQ,
+					    	sensor_interrupt,
+					    	NULL,
+					    	NULL))
+	{
+	  printf("proximity sensor interrupt failed\n");
+	}
 
 	if(alt_ic_isr_register(CAM_UART_IRQ_INTERRUPT_CONTROLLER_ID,
 				  	  	   CAM_UART_IRQ,

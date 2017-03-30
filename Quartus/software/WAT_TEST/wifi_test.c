@@ -17,14 +17,14 @@ void wifi_test(void* pdata){
 		  //do stuff
 		// OSSemPend(BUTTON_SEM, 0, &err);
 		printf("Hello from wifi\n");
-	    IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
+	    //IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
 	    printf("buzz buzz\n");
 	    OSTimeDlyHMSM(0,0,1,0);
 	    IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 
         wifiReceive = (uint8_t) OSQPend(wifiPackageQueue, 0, &err);
         printf("Received form Wifi: %d \n", wifiReceive);
-        motorCommand(wifiReceive);
+        //motorCommand(wifiReceive);
 	}
 	//OSTimeDlyHMSM(0, 0, 0, CAM_WAIT_MS);
 }

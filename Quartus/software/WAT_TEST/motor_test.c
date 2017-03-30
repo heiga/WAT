@@ -67,6 +67,7 @@ void motor_test(void* pdata){
 
         */
 		OSTimeDlyHMSM(0, 0, 1, 0);
+		IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 	}
 }
 
@@ -74,8 +75,10 @@ void sensor_interrupt(void * context){
 	printf("sensor\n");
 
 	//clear interrupt
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 0);
+	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 1);
+	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PROX_SENSOR_BASE, 0xF);
+	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
 
 	//post semaphore for camera
-	OSSemPost(SENSOR_SEM);
+	//OSSemPost(SENSOR_SEM);
 }
