@@ -1,8 +1,8 @@
 #include <ESP8266WiFi.h>
 
 // Wifi networks name and password
-char ssid[] = "ESP8266_NETWORK";
-char pass[] = "genericpassword";
+char ssid[] = "WATwork";
+char pass[] = "ece492w2017";
 
 // button dimensions to fit a 720p phone screen
 char buttonfullwidth[] = "345";
@@ -61,7 +61,7 @@ void loop() {
   // RC MODE
   if(request.indexOf("/RC") != -1) {   
     s += "<h1> WAT RC Mode </h1>";
-    s += "<input type=\"button\" onclick=\"location.href='/';\" ";
+    s += "<input type=\"button\" onclick=\"location.href='/autonomous';\" ";
     s += "value = \"Switch to Autonomous mode\" style=\"height:36px; width:200px\"/>";
     s += "<br>";
     s += "<br>";
@@ -72,7 +72,7 @@ void loop() {
     s += buttonheight;
     s += "px;width:";
     s += buttonfullwidth; 
-    s += "px\" value=\"Forward forever\"/>";
+    s += "px\" value=\"FORWARD FOREVER\"/>";
     s += "<br>";
   
     s += "<input type=\"button\" onclick=\"location.href='/RC/forward/i2';\" ";
@@ -80,7 +80,7 @@ void loop() {
     s += buttonheight;
     s += "px;width:";
     s += buttonfullwidth; 
-    s += "px\" value=\"Forward 1m\"/>";
+    s += "px\" value=\"FORWARD MEDIUM\"/>";
     s += "<br>";
   
     s += "<input type=\"button\" onclick=\"location.href='/RC/forward/i1';\" ";
@@ -88,7 +88,7 @@ void loop() {
     s += buttonheight;
     s += "px;width:";
     s += buttonfullwidth; 
-    s += "px\" value=\"Forward 25cm\"/>";
+    s += "px\" value=\"FORWARD SHORT\"/>";
     s += "<br>";
   
     s += "<br>";
@@ -146,7 +146,7 @@ void loop() {
     s += buttonheight;
     s += "px;width:";
     s += buttonfullwidth; 
-    s += "px\" value=\"Backward 25cm\"/>";
+    s += "px\" value=\"BACKWARD SHORT\"/>";
     s += "<br>";
   
     s += "<input type=\"button\" onclick=\"location.href='/RC/backward/i2';\" ";
@@ -154,7 +154,7 @@ void loop() {
     s += buttonheight;
     s += "px;width:";
     s += buttonfullwidth; 
-    s += "px\" value=\"Backward 1m\"/>";
+    s += "px\" value=\"BACKWARD MEDIUM\"/>";
     s += "<br>";
   
     s += "<input type=\"button\" onclick=\"location.href='/RC/backward/i3';\" ";
@@ -162,7 +162,7 @@ void loop() {
     s += buttonheight;
     s += "px;width:";
     s += buttonfullwidth; 
-    s += "px\" value=\"Backward forever\"/>";
+    s += "px\" value=\"BACKWARD FOREVER\"/>";
     s += "<br>";
   
     s += "<br>";
@@ -229,7 +229,7 @@ void loop() {
     s += "var bt = br.options[br.selectedIndex].value;";
     s += "var cr = document.getElementById(\"time\");";
     s += "var ct = cr.options[cr.selectedIndex].value;";
-    s += "var send = at + dt + bt + ct;";
+    s += "var send = \"/autonomous\" + at + dt + bt + ct;";
     s += "return send;";
     s += "}";
     s += "</script>";
@@ -337,10 +337,17 @@ void loop() {
   if(request.indexOf("/blueend") != -1) {
     tosend = tosend | (bluecode << 6);
   }
-    
-  if((tosend != 192) && (tosend != 0)) {
+  if(tosend == 0) {
+    if(request.indexOf("/autonomous") != -1) {
+      // trigger stop if switching to autonomous mode from RC mode
+      tosend = 192;
+    }
+  }
+  
+  if(tosend != 0) {
     Serial.print(tosend);
   }
+  //Serial.println("new line every loop");
   
   // Sends the HTML file made from string s to the client
   client.print(s);
