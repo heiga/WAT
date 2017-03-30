@@ -52,45 +52,45 @@ OS_STK    wifi_stk[TASK_STACKSIZE];
 int main(void){
 
 
-//	if(OSTaskCreateExt(motor_task,
-//                  		NULL,
-//                  		(void *)&motor_stk[TASK_STACKSIZE-1],
-//                  		MOTOR_PRIORITY,
-//                  		MOTOR_PRIORITY,
-//                  		motor_stk,
-//                  		TASK_STACKSIZE,
-//                  		NULL,
-//                  		0))
-//	{
-//		//printf("Motor task creation failure\n");
-//	}
-
-
-	if(OSTaskCreateExt(camera_task,
+	if(OSTaskCreateExt(motor_task,
                   		NULL,
-                  		(void *)&camera_stk[TASK_STACKSIZE-1],
-                  		CAMERA_PRIORITY,
-                  		CAMERA_PRIORITY,
-                  		camera_stk,
+                  		(void *)&motor_stk[TASK_STACKSIZE-1],
+                  		MOTOR_PRIORITY,
+                  		MOTOR_PRIORITY,
+                  		motor_stk,
                   		TASK_STACKSIZE,
                   		NULL,
                   		0))
 	{
-		//printf("Camera task creation failure\n");
+		//printf("Motor task creation failure\n");
 	}
 
-//	if(OSTaskCreateExt(wifi_task,
-//                    	NULL,
-//                    	(void *)&wifi_stk[TASK_STACKSIZE-1],
-//                    	WIFI_PRIORITY,
-//                    	WIFI_PRIORITY,
-//                    	wifi_stk,
-//                    	TASK_STACKSIZE,
-//                    	NULL,
-//                    	0))
+
+//	if(OSTaskCreateExt(camera_task,
+//                  		NULL,
+//                  		(void *)&camera_stk[TASK_STACKSIZE-1],
+//                  		CAMERA_PRIORITY,
+//                  		CAMERA_PRIORITY,
+//                  		camera_stk,
+//                  		TASK_STACKSIZE,
+//                  		NULL,
+//                  		0))
 //	{
-//		//printf("Wifi task creation failure\n");
+//		//printf("Camera task creation failure\n");
 //	}
+
+	if(OSTaskCreateExt(wifi_task,
+                    	NULL,
+                    	(void *)&wifi_stk[TASK_STACKSIZE-1],
+                    	WIFI_PRIORITY,
+                    	WIFI_PRIORITY,
+                    	wifi_stk,
+                    	TASK_STACKSIZE,
+                    	NULL,
+                    	0))
+	{
+		//printf("Wifi task creation failure\n");
+	}
 
 	//Interrupt masks
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTON_BUTTON_BASE, 0xF);
