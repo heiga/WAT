@@ -3,46 +3,51 @@
 preplace inst trolley_system.motor_l -pg 1 -lvl 2 -y 1350
 preplace inst trolley_system.key -pg 1 -lvl 3 -y 130
 preplace inst trolley_system.clk_0 -pg 1 -lvl 1 -y 400
-preplace inst trolley_system.button_led -pg 1 -lvl 2 -y 500
-preplace inst trolley_system.prox_sensor -pg 1 -lvl 2 -y 900
-preplace inst trolley_system.nios2_gen2_0 -pg 1 -lvl 1 -y 100
+preplace inst trolley_system.button_led -pg 1 -lvl 2 -y 530
+preplace inst trolley_system.prox_sensor -pg 1 -lvl 2 -y 930
+preplace inst trolley_system.nios2_gen2_0 -pg 1 -lvl 1 -y 80
 preplace inst trolley_system.green_leds -pg 1 -lvl 2 -y 1750
 preplace inst trolley_system -pg 1 -lvl 1 -y 40 -regy -20
-preplace inst trolley_system.timer_0 -pg 1 -lvl 2 -y 1020
+preplace inst trolley_system.timer_0 -pg 1 -lvl 2 -y 1050
 preplace inst trolley_system.nios2_gen2_0.reset_bridge -pg 1
-preplace inst trolley_system.button_button -pg 1 -lvl 2 -y 80
+preplace inst trolley_system.button_button -pg 1 -lvl 2 -y 30
 preplace inst trolley_system.speaker -pg 1 -lvl 2 -y 1650
 preplace inst trolley_system.nios2_gen2_0.clock_bridge -pg 1
 preplace inst trolley_system.motor_r -pg 1 -lvl 2 -y 1450
-preplace inst trolley_system.wifi_uart -pg 1 -lvl 2 -y 1120
-preplace inst trolley_system.speaker_0 -pg 1 -lvl 2 -y 340
+preplace inst trolley_system.wifi_uart -pg 1 -lvl 2 -y 1150
+preplace inst trolley_system.speaker_0 -pg 1 -lvl 2 -y 330
+preplace inst trolley_system.debouncer_0 -pg 1 -lvl 2 -y 270
 preplace inst trolley_system.nios2_gen2_0.cpu -pg 1
-preplace inst trolley_system.jtag_uart_0 -pg 1 -lvl 2 -y 720
+preplace inst trolley_system.debouncer_1 -pg 1 -lvl 2 -y 470
+preplace inst trolley_system.jtag_uart_0 -pg 1 -lvl 2 -y 750
 preplace inst trolley_system.epcs_flash_controller_0 -pg 1 -lvl 3 -y 250
 preplace inst trolley_system.sysid_qsys_0 -pg 1 -lvl 2 -y 1270
-preplace inst trolley_system.onchip_memory2_0 -pg 1 -lvl 2 -y 820
-preplace inst trolley_system.altpll_0 -pg 1 -lvl 2 -y 400
+preplace inst trolley_system.onchip_memory2_0 -pg 1 -lvl 2 -y 850
+preplace inst trolley_system.altpll_0 -pg 1 -lvl 2 -y 390
 preplace inst trolley_system.sdram_controller_0 -pg 1 -lvl 2 -y 1550
-preplace inst trolley_system.cam_uart -pg 1 -lvl 2 -y 600
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.prox_sensor_external_connection,(SLAVE)prox_sensor.external_connection) 1 0 2 NJ 930 NJ
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)wifi_uart.external_connection,(SLAVE)trolley_system.wifi_uart_external_connection) 1 0 2 NJ 1150 NJ
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)sdram_controller_0.wire,(SLAVE)trolley_system.sdram_controller_0_wire) 1 0 2 NJ 1620 NJ
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)epcs_flash_controller_0.external,(SLAVE)trolley_system.epcs_flash_controller_0_external) 1 0 3 NJ 260 NJ 250 NJ
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.button_led_external_connection,(SLAVE)button_led.external_connection) 1 0 2 NJ 530 NJ
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)clk_0.clk_in,(SLAVE)trolley_system.clk) 1 0 1 NJ
+preplace inst trolley_system.cam_uart -pg 1 -lvl 2 -y 630
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.sdram_controller_0_wire,(SLAVE)sdram_controller_0.wire) 1 0 2 NJ 1620 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.prox_sensor_external_connection,(SLAVE)prox_sensor.external_connection) 1 0 2 NJ 960 NJ
+preplace netloc FAN_OUT<net_container>trolley_system</net_container>(SLAVE)timer_0.irq,(SLAVE)epcs_flash_controller_0.irq,(SLAVE)cam_uart.irq,(SLAVE)key.irq,(SLAVE)button_button.irq,(SLAVE)wifi_uart.irq,(SLAVE)jtag_uart_0.irq,(MASTER)nios2_gen2_0.irq,(SLAVE)prox_sensor.irq) 1 1 2 650 220 1120
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)wifi_uart.external_connection,(SLAVE)trolley_system.wifi_uart_external_connection) 1 0 2 NJ 1180 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)cam_uart.external_connection,(SLAVE)trolley_system.cam_uart_external_connection) 1 0 2 NJ 660 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.button_led_external_connection,(SLAVE)button_led.external_connection) 1 0 2 NJ 560 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)button_button.external_connection,(SLAVE)trolley_system.button_button_external_connection) 1 0 2 NJ 220 NJ
+preplace netloc FAN_OUT<net_container>trolley_system</net_container>(SLAVE)sdram_controller_0.clk,(SLAVE)sysid_qsys_0.clk,(MASTER)altpll_0.c0,(SLAVE)button_led.clk,(SLAVE)epcs_flash_controller_0.clk,(SLAVE)onchip_memory2_0.clk1,(SLAVE)key.clk,(SLAVE)nios2_gen2_0.clk,(SLAVE)cam_uart.clk,(SLAVE)motor_r.clk,(SLAVE)green_leds.clk,(SLAVE)motor_l.clk,(SLAVE)button_button.clk,(SLAVE)jtag_uart_0.clk,(SLAVE)wifi_uart.clk,(SLAVE)timer_0.clk,(SLAVE)speaker.clk,(SLAVE)prox_sensor.clk) 1 0 3 250 300 690 160 1040
+preplace netloc INTERCONNECT<net_container>trolley_system</net_container>(MASTER)clk_0.clk_reset,(SLAVE)nios2_gen2_0.reset,(SLAVE)timer_0.reset,(SLAVE)green_leds.reset,(SLAVE)button_button.reset,(SLAVE)motor_r.reset,(SLAVE)button_led.reset,(SLAVE)altpll_0.inclk_interface_reset,(SLAVE)speaker.reset,(SLAVE)onchip_memory2_0.reset1,(SLAVE)wifi_uart.reset,(SLAVE)motor_l.reset,(SLAVE)sysid_qsys_0.reset,(MASTER)nios2_gen2_0.debug_reset_request,(SLAVE)prox_sensor.reset,(SLAVE)key.reset,(SLAVE)cam_uart.reset,(SLAVE)jtag_uart_0.reset,(SLAVE)sdram_controller_0.reset,(SLAVE)epcs_flash_controller_0.reset) 1 0 3 270 320 790 240 1140
 preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
-preplace netloc FAN_OUT<net_container>trolley_system</net_container>(SLAVE)altpll_0.inclk_interface,(MASTER)clk_0.clk,(SLAVE)speaker_0.clock) 1 1 1 770
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.button_button_external_connection,(SLAVE)button_button.external_connection) 1 0 2 NJ 240 NJ
-preplace netloc EXPORT<net_container>trolley_system</net_container>(MASTER)trolley_system.altpll_0_c1,(MASTER)altpll_0.c1) 1 2 2 NJ 430 NJ
-preplace netloc INTERCONNECT<net_container>trolley_system</net_container>(MASTER)nios2_gen2_0.data_master,(SLAVE)sdram_controller_0.s1,(SLAVE)wifi_uart.s1,(SLAVE)cam_uart.s1,(SLAVE)timer_0.s1,(SLAVE)nios2_gen2_0.debug_mem_slave,(SLAVE)sysid_qsys_0.control_slave,(SLAVE)motor_l.s1,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)key.s1,(SLAVE)button_button.s1,(SLAVE)onchip_memory2_0.s1,(SLAVE)green_leds.s1,(MASTER)nios2_gen2_0.instruction_master,(SLAVE)prox_sensor.s1,(SLAVE)speaker.s1,(SLAVE)button_led.s1,(SLAVE)epcs_flash_controller_0.epcs_control_port,(SLAVE)motor_r.s1) 1 0 3 250 300 670 70 1100
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>trolley_system</net_container>(SLAVE)speaker_0.clock,(MASTER)clk_0.clk,(SLAVE)altpll_0.inclk_interface,(SLAVE)debouncer_1.clock,(SLAVE)debouncer_0.clock) 1 1 1 770
+preplace netloc INTERCONNECT<net_container>trolley_system</net_container>(MASTER)nios2_gen2_0.data_master,(SLAVE)prox_sensor.s1,(SLAVE)motor_l.s1,(SLAVE)key.s1,(SLAVE)cam_uart.s1,(SLAVE)sysid_qsys_0.control_slave,(SLAVE)onchip_memory2_0.s1,(SLAVE)epcs_flash_controller_0.epcs_control_port,(SLAVE)sdram_controller_0.s1,(SLAVE)nios2_gen2_0.debug_mem_slave,(SLAVE)motor_r.s1,(SLAVE)button_led.s1,(SLAVE)green_leds.s1,(SLAVE)wifi_uart.s1,(SLAVE)button_button.s1,(SLAVE)speaker.s1,(SLAVE)timer_0.s1,(MASTER)nios2_gen2_0.instruction_master,(SLAVE)jtag_uart_0.avalon_jtag_slave) 1 0 3 230 340 670 180 1100
 preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)speaker.external_connection,(SLAVE)trolley_system.speaker_external_connection) 1 0 2 NJ 1680 NJ
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.motor_l_external_connection,(SLAVE)motor_l.external_connection) 1 0 2 NJ 1380 NJ
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)key.external_connection,(SLAVE)trolley_system.key_external_connection) 1 0 3 NJ 360 NJ 270 NJ
-preplace netloc FAN_OUT<net_container>trolley_system</net_container>(SLAVE)key.clk,(SLAVE)green_leds.clk,(SLAVE)nios2_gen2_0.clk,(SLAVE)epcs_flash_controller_0.clk,(SLAVE)jtag_uart_0.clk,(SLAVE)timer_0.clk,(SLAVE)onchip_memory2_0.clk1,(SLAVE)button_led.clk,(SLAVE)speaker.clk,(SLAVE)wifi_uart.clk,(SLAVE)cam_uart.clk,(MASTER)altpll_0.c0,(SLAVE)button_button.clk,(SLAVE)motor_l.clk,(SLAVE)prox_sensor.clk,(SLAVE)sysid_qsys_0.clk,(SLAVE)sdram_controller_0.clk,(SLAVE)motor_r.clk) 1 0 3 230 280 730 230 1080
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.speaker_0_conduit_end,(SLAVE)speaker_0.conduit_end) 1 0 2 NJ 280 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)motor_r.external_connection,(SLAVE)trolley_system.motor_r_external_connection) 1 0 2 NJ 1480 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)key.external_connection,(SLAVE)trolley_system.key_external_connection) 1 0 3 NJ 360 NJ 260 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(MASTER)altpll_0.c1,(MASTER)trolley_system.altpll_0_c1) 1 2 2 NJ 420 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)motor_l.external_connection,(SLAVE)trolley_system.motor_l_external_connection) 1 0 2 NJ 1380 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.epcs_flash_controller_0_external,(SLAVE)epcs_flash_controller_0.external) 1 0 3 NJ 240 NJ 200 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.debouncer_0_conduit_end_1,(SLAVE)debouncer_0.conduit_end_1) 1 0 2 NJ 260 NJ
+preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.debouncer_1_conduit_end_1,(SLAVE)debouncer_1.conduit_end_1) 1 0 2 NJ 500 NJ
 preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.green_leds_external_connection,(SLAVE)green_leds.external_connection) 1 0 2 NJ 1780 NJ
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.cam_uart_external_connection,(SLAVE)cam_uart.external_connection) 1 0 2 NJ 630 NJ
-preplace netloc INTERCONNECT<net_container>trolley_system</net_container>(MASTER)clk_0.clk_reset,(SLAVE)speaker.reset,(SLAVE)motor_l.reset,(SLAVE)button_led.reset,(SLAVE)epcs_flash_controller_0.reset,(SLAVE)green_leds.reset,(SLAVE)jtag_uart_0.reset,(MASTER)nios2_gen2_0.debug_reset_request,(SLAVE)button_button.reset,(SLAVE)key.reset,(SLAVE)timer_0.reset,(SLAVE)onchip_memory2_0.reset1,(SLAVE)sysid_qsys_0.reset,(SLAVE)sdram_controller_0.reset,(SLAVE)prox_sensor.reset,(SLAVE)altpll_0.inclk_interface_reset,(SLAVE)wifi_uart.reset,(SLAVE)motor_r.reset,(SLAVE)nios2_gen2_0.reset,(SLAVE)cam_uart.reset) 1 0 3 270 320 650 50 1060
-preplace netloc EXPORT<net_container>trolley_system</net_container>(SLAVE)trolley_system.motor_r_external_connection,(SLAVE)motor_r.external_connection) 1 0 2 NJ 1480 NJ
-preplace netloc FAN_OUT<net_container>trolley_system</net_container>(SLAVE)timer_0.irq,(SLAVE)cam_uart.irq,(SLAVE)key.irq,(SLAVE)epcs_flash_controller_0.irq,(MASTER)nios2_gen2_0.irq,(SLAVE)jtag_uart_0.irq,(SLAVE)wifi_uart.irq,(SLAVE)prox_sensor.irq,(SLAVE)button_button.irq) 1 1 2 710 30 1120
-levelinfo -pg 1 0 200 1420
-levelinfo -hier trolley_system 210 390 830 1160 1320
+levelinfo -pg 1 0 200 1440
+levelinfo -hier trolley_system 210 390 850 1180 1340

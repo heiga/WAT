@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2017.03.29.17:41:41 -->
+ <!-- 2017.03.30.21:58:39 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1490830900</value>
+  <value>1490932718</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -3816,7 +3816,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.BAUD</name>
-   <value>115200</value>
+   <value>921600</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_BITS</name>
@@ -3956,7 +3956,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.current-speed</name>
-   <value>115200</value>
+   <value>921600</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -3964,7 +3964,7 @@ the requested settings for a module instance. -->
   </assignment>
   <parameter name="baud">
    <type>int</type>
-   <value>115200</value>
+   <value>921600</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -4254,7 +4254,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="baudError">
    <type>double</type>
-   <value>0.01</value>
+   <value>0.0</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -17125,7 +17125,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1490830900</value>
+   <value>1490932718</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -17145,7 +17145,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1490830900</value>
+   <value>1490932718</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -17161,7 +17161,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1490830900</value>
+   <value>1490932718</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
