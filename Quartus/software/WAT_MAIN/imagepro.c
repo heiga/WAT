@@ -137,10 +137,16 @@ uint16_t find_region(FILE* picture, uint8_t region){
 
 	printf("DONE\n");
 
+	//TODO replace with constants
 	if (regions[0].pixels_detected > 0){
-		return width - row_mid;
+		if (regions.pixels_detected > 1000){
+			return 0xFFFF;
+		}else{
+			//+1 deals with fringe case of width == row_mid
+			return width - row_mid + 1;
+		}
 	}else{
 		//Found nothing
-		return -1;
+		return 0;
 	}
 }

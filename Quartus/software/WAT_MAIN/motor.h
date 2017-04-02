@@ -44,6 +44,11 @@ void rcControl(uint8_t input);
 #define SEC_30				"3"
 */
 
+/* Time defintions */
+#define SML_MOVE  1
+#define MED_MOVE  3
+#define INF_MOVE  10
+
 // Autonomous Mode definitions
 #define RED			0b00
 #define GREEN		0b01
@@ -51,6 +56,9 @@ void rcControl(uint8_t input);
 #define SEC5		0b01
 #define SEC10		0b10
 #define SEC30		0b11
+#define MID_UPPER	280
+#define MID_LOWER   240
+#define MOVE_DONE   0xFFFF
 
 // RC Mode definitions
 #define INIT_RCMODE 0b11000000

@@ -18,7 +18,7 @@ void motor_task(void* pdata){
 	uint8_t err;
 	uint8_t initCommand;
 	uint8_t findCommand;
-	uint32_t moveCommand;
+	uint16_t moveCommand;
 
 	uint8_t leftDirection;
 	uint8_t leftTime;
@@ -36,27 +36,24 @@ void motor_task(void* pdata){
 		}else{ //parse color and time
 			notFound = TRUE;
 			while(notFound){
-				//Pass command to camera and await further instructions
 				OSQPost(findCommandQueue, (void*) findCommand);
-				moveCommand = (uint8_t) OSQPend(moveCommandQueue, 0, &err);
+				moveCommand = (uint16_t) OSQPend(moveCommandQueue, 0, &err);
 
-				if (moveCommand == MOVE_STOP){
+				//Straight
+				if((moveCommand > MID_LOWER) && (moveCommand < MID_UPPER)){
+					motorControl(FORWARD, MED_MOVE);
+				//Left
+				}else if(moveCommand < MID_LOWER){
+					motorControl(LEFT, SML_MOVE);
+				//Right
+				}else if(moveCommand > MID_UPPER){
+					motorControl(RIGHT, SML_MOVE);
+				//Destination
+				}else if(moveCommand == MOVE_DONE){
 					notFound = FALSE;
+				//Nothing found
 				}else{
-					/* Parse the instructions. These are encoded as
-					 * four separate 8 bit instructions in a single
-					 * 32 bit integer. Currently time is not used
-					 * but that may change as the design is refined
-					 * so they are being put in as place holders
-					 */
-					leftDirection = moveCommand & 0xFF;
-					moveCommand = moveCommand >> 8;
-					leftTime = moveCommand & 0xFF;
-					moveCommand = moveCommand >> 8;
-					rightDirection = moveCommand & 0xFF;
-					moveCommand = moveCommand >> 8;
-					rightTime = moveCommand & 0xFF;
-					moveCommand = moveCommand >> 8;
+					motorControl(RIGHT, MED_MOVE);
 				}
 			}
 		}
@@ -118,7 +115,7 @@ void motorControl(char direction, int time) {
 		motorRight();
 	}
 	MOTORMOVING = true;
-	if(time == 10) {
+	if(time == INF_MOVE) {
 		return;
 	}
 	if(isTurn) {
@@ -153,14 +150,13 @@ void rcControl(uint8_t input) {
 		direction = RIGHT;
 	}
 	if((input & i1) == i1) {
-		time = 1;
+		time = SML_MOVE;
 	}
 	if((input & i2) == i2) {
-		time = 2;
+		time = MED_MOVE;
 	}
 	if((input & i3) == i3) {
-		// 10 = INFINITE TIME
-		time = 10;
+		time = INF_MOVE;
 	}
 	motorControl(direction, time);
 }
