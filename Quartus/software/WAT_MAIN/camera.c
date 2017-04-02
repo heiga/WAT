@@ -320,7 +320,7 @@ void camera_task(void* pdata){
 		motor_reply = find_region(picture, colour);
 		fclose(picture);
 
-		OSQPost(findCommandQueue, (void*) motor_reply);
+		OSQPost(moveCommandQueue, (void*) motor_reply);
 	}
 }
 

@@ -36,23 +36,32 @@ void motor_task(void* pdata){
 		}else{ //parse color and time
 			notFound = TRUE;
 			while(notFound){
+				findCommand = 0; //TEST code, red region is defined as 0
 				OSQPost(findCommandQueue, (void*) findCommand);
 				moveCommand = (uint16_t) OSQPend(moveCommandQueue, 0, &err);
+				printf("MOTOR: received %i\n", moveCommand);
 
 				//Straight
-				if((moveCommand > MID_LOWER) && (moveCommand < MID_UPPER)){
+				if((moveCommand >= MID_LOWER) && (moveCommand <= MID_UPPER)){
+					printf("MOTOR: FORWARD\n");
 					motorControl(FORWARD, MED_MOVE);
-				//Left
-				}else if(moveCommand < MID_LOWER){
-					motorControl(LEFT, SML_MOVE);
-				//Right
-				}else if(moveCommand > MID_UPPER){
-					motorControl(RIGHT, SML_MOVE);
 				//Destination
 				}else if(moveCommand == MOVE_DONE){
+					printf("MOTOR: DONE\n");
 					notFound = FALSE;
-				//Nothing found
+				//Left
+				}else if((moveCommand < MID_LOWER) && (moveCommand > 0)){
+					printf("MOTOR: LEFT\n");
+					motorControl(LEFT, SML_MOVE);
+					motorControl(FORWARD, SML_MOVE);
+				//Right
+				}else if(moveCommand > MID_UPPER){
+					printf("MOTOR: RIGHT\n");
+					motorControl(RIGHT, SML_MOVE);
+					motorControl(FORWARD, SML_MOVE);
+				//Nothing
 				}else{
+					printf("MOTOR: NOTHING\n");
 					motorControl(RIGHT, MED_MOVE);
 				}
 			}

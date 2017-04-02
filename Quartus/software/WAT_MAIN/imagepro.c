@@ -77,7 +77,13 @@ uint16_t find_region(FILE* picture, uint8_t region){
 		region_found = FALSE;
 		temp_row_count = 0;
 		temp_x = 0;
-		(void) jpeg_read_scanlines(&cinfo, pJpegBuffer, 1);
+		if(y == 100){
+			endTime = clock();
+			(void) jpeg_read_scanlines(&cinfo, pJpegBuffer, 1);
+			printf("clock ticks=%li\n", endTime - clock());
+		}else{
+			(void) jpeg_read_scanlines(&cinfo, pJpegBuffer, 1);
+		}
 		for (x = 0; x < width; x++) {
 			r = pJpegBuffer[0][cinfo.output_components * x];
 			if (cinfo.output_components > 2) {
@@ -121,7 +127,6 @@ uint16_t find_region(FILE* picture, uint8_t region){
 	}
 
 	endTime = clock() - startTime;
-	endTime /= 1000;
 
 	int row_mid = regions[0].x - (regions[0].rows_traversed / 2);
 	int col_mid = regions[0].y - (regions[0].cols_traversed / 2);
@@ -139,11 +144,11 @@ uint16_t find_region(FILE* picture, uint8_t region){
 
 	//TODO replace with constants
 	if (regions[0].pixels_detected > 0){
-		if (regions.pixels_detected > 1000){
+		if (regions[0].pixels_detected > 50000){
 			return 0xFFFF;
 		}else{
-			//+1 deals with fringe case of width == row_mid
-			return width - row_mid + 1;
+			//+1 deals with fringe case of row_mid = 0
+			return row_mid + 1;
 		}
 	}else{
 		//Found nothing
