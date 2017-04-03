@@ -33,8 +33,8 @@ void camera_task(void* pdata){
 
 	char* pic_location;
 	size_t pic_size;
-//	static FILE* picture;
-	FILE* picture;
+	static FILE* picture;
+//	FILE* picture;
 
 	uint32_t startTime = clock();
 	uint32_t endTime;
@@ -48,10 +48,8 @@ void camera_task(void* pdata){
 		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
 
 		//Assign a memory address to a FILE pointer to store the picture
-//		picture = open_memstream(&pic_location, &pic_size);
-		printf("Starting to open...");
-		picture = fopen(CAM_PICTURE_OUTPUT, "w");
-		printf(" and done\n");
+		picture = open_memstream(&pic_location, &pic_size);
+//		picture = fopen(CAM_PICTURE_OUTPUT, "w");
 		leds++;
 		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
 
@@ -329,8 +327,8 @@ void camera_task(void* pdata){
 		 * Close again for safety and then pass back to motor
 		 */
 		fclose(picture);
-		picture = fopen(CAM_PICTURE_OUTPUT, "r");
-//		picture = fmemopen(pic_location, pic_size, "r");
+//		picture = fopen(CAM_PICTURE_OUTPUT, "r");
+		picture = fmemopen(pic_location, pic_size, "r");
 		motor_reply = find_region(picture, colour);
 		fclose(picture);
 
