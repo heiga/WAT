@@ -136,7 +136,7 @@ uint16_t find_region(FILE* picture, uint8_t region){
 
 	//TODO replace with constants
 	if (regions[0].pixels_detected > 0){
-		if (regions[0].pixels_detected > 10000){
+		if (regions[0].cols_traversed > 120){
 			return 0xFFFF;
 		}else{
 			//+1 deals with fringe case of row_mid = 0

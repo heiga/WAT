@@ -53,6 +53,17 @@ void motor_task(void* pdata){
 				//Destination
 				}else if(moveCommand == MOVE_DONE){
 					printf("MOTOR: DONE\n");
+					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
+					OSTimeDlyHMSM(0, 0, 1, 0);
+					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
+					OSTimeDlyHMSM(0, 0, 0, 500);
+					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
+					OSTimeDlyHMSM(0, 0, 1, 0);
+					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
+					OSTimeDlyHMSM(0, 0, 0, 500);
+					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
+					OSTimeDlyHMSM(0, 0, 1, 0);
+					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 					if (shiftCounter == SHIFT_MAX){
 						notFound = FALSE;
 					}else{
@@ -81,7 +92,7 @@ void motor_task(void* pdata){
 }
 
 void motorStop() {
-	//IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
+	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_SHORTSTOP);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_SHORTSTOP);
 	//MOVINGFORWARD = FALSE;
