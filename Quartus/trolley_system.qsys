@@ -313,6 +313,22 @@
          type = "String";
       }
    }
+   element trolley_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone IV E";
+         type = "String";
+      }
+   }
+   element trolley_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone IV E";
+         type = "String";
+      }
+   }
    element wifi_uart
    {
       datum _sortIndex
@@ -671,8 +687,8 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
- <module name="debouncer_0" kind="debouncer" version="1.1" enabled="1" />
- <module name="debouncer_1" kind="debouncer" version="1.1" enabled="1" />
+ <module name="debouncer_0" kind="debouncer" version="1.2" enabled="1" />
+ <module name="debouncer_1" kind="debouncer" version="1.2" enabled="1" />
  <module
    name="epcs_flash_controller_0"
    kind="altera_avalon_epcs_flash_controller"

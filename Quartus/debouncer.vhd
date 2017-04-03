@@ -41,7 +41,7 @@ architecture debounce of debouncer is
 					end if;
 				end if;
 				
-				if x = x"17D780" then
+				if x = x"17D7840" then
 					x <= x"0000000";
 					activated <= '0';
 					--if(dirtysignal = '0') then

@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2017.04.02.18:25:29 -->
+ <!-- 2017.04.02.18:41:20 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1491179128</value>
+  <value>1491180080</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -5218,7 +5218,7 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
- <module name="debouncer_0" kind="debouncer" version="1.1" path="debouncer_0">
+ <module name="debouncer_0" kind="debouncer" version="1.2" path="debouncer_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="deviceFamily">
@@ -5334,7 +5334,7 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
- <module name="debouncer_1" kind="debouncer" version="1.1" path="debouncer_1">
+ <module name="debouncer_1" kind="debouncer" version="1.2" path="debouncer_1">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="deviceFamily">
@@ -17125,7 +17125,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1491179128</value>
+   <value>1491180080</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -17145,7 +17145,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1491179128</value>
+   <value>1491180080</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -17161,7 +17161,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1491179128</value>
+   <value>1491180080</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -22241,7 +22241,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>debouncer</displayName>
-  <version>1.1</version>
+  <version>1.2</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
