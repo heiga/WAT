@@ -31,7 +31,7 @@
 //   ST_DATA_W:           105
 //   ST_CHANNEL_W:        17
 //   NUM_OUTPUTS:         4
-//   VALID_WIDTH:         1
+//   VALID_WIDTH:         17
 // ------------------------------------------
 
 //------------------------------------------
@@ -45,7 +45,7 @@ module trolley_system_mm_interconnect_0_cmd_demux_001
     // -------------------
     // Sink
     // -------------------
-    input  [1-1      : 0]   sink_valid,
+    input  [17-1      : 0]   sink_valid,
     input  [105-1    : 0]   sink_data, // ST_DATA_W=105
     input  [17-1 : 0]   sink_channel, // ST_CHANNEL_W=17
     input                         sink_startofpacket,
@@ -106,28 +106,28 @@ module trolley_system_mm_interconnect_0_cmd_demux_001
         src0_endofpacket   = sink_endofpacket;
         src0_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src0_valid         = sink_channel[0] && sink_valid;
+        src0_valid         = sink_channel[0] && sink_valid[0];
 
         src1_data          = sink_data;
         src1_startofpacket = sink_startofpacket;
         src1_endofpacket   = sink_endofpacket;
         src1_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src1_valid         = sink_channel[1] && sink_valid;
+        src1_valid         = sink_channel[1] && sink_valid[1];
 
         src2_data          = sink_data;
         src2_startofpacket = sink_startofpacket;
         src2_endofpacket   = sink_endofpacket;
         src2_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src2_valid         = sink_channel[2] && sink_valid;
+        src2_valid         = sink_channel[2] && sink_valid[2];
 
         src3_data          = sink_data;
         src3_startofpacket = sink_startofpacket;
         src3_endofpacket   = sink_endofpacket;
         src3_channel       = sink_channel >> NUM_OUTPUTS;
 
-        src3_valid         = sink_channel[3] && sink_valid;
+        src3_valid         = sink_channel[3] && sink_valid[3];
 
     end
 

@@ -5,6 +5,10 @@
 		.cam_uart_external_connection_rxd               (<connected-to-cam_uart_external_connection_rxd>),               //      cam_uart_external_connection.rxd
 		.cam_uart_external_connection_txd               (<connected-to-cam_uart_external_connection_txd>),               //                                  .txd
 		.clk_clk                                        (<connected-to-clk_clk>),                                        //                               clk.clk
+		.debouncer_0_conduit_end_1_beginbursttransfer   (<connected-to-debouncer_0_conduit_end_1_beginbursttransfer>),   //         debouncer_0_conduit_end_1.beginbursttransfer
+		.debouncer_0_conduit_end_1_writeresponsevalid_n (<connected-to-debouncer_0_conduit_end_1_writeresponsevalid_n>), //                                  .writeresponsevalid_n
+		.debouncer_1_conduit_end_1_beginbursttransfer   (<connected-to-debouncer_1_conduit_end_1_beginbursttransfer>),   //         debouncer_1_conduit_end_1.beginbursttransfer
+		.debouncer_1_conduit_end_1_writeresponsevalid_n (<connected-to-debouncer_1_conduit_end_1_writeresponsevalid_n>), //                                  .writeresponsevalid_n
 		.epcs_flash_controller_0_external_dclk          (<connected-to-epcs_flash_controller_0_external_dclk>),          //  epcs_flash_controller_0_external.dclk
 		.epcs_flash_controller_0_external_sce           (<connected-to-epcs_flash_controller_0_external_sce>),           //                                  .sce
 		.epcs_flash_controller_0_external_sdo           (<connected-to-epcs_flash_controller_0_external_sdo>),           //                                  .sdo
@@ -28,10 +32,6 @@
 		.speaker_0_conduit_end_writeresponsevalid       (<connected-to-speaker_0_conduit_end_writeresponsevalid>),       //                                  .writeresponsevalid
 		.speaker_external_connection_export             (<connected-to-speaker_external_connection_export>),             //       speaker_external_connection.export
 		.wifi_uart_external_connection_rxd              (<connected-to-wifi_uart_external_connection_rxd>),              //     wifi_uart_external_connection.rxd
-		.wifi_uart_external_connection_txd              (<connected-to-wifi_uart_external_connection_txd>),              //                                  .txd
-		.debouncer_0_conduit_end_1_beginbursttransfer   (<connected-to-debouncer_0_conduit_end_1_beginbursttransfer>),   //         debouncer_0_conduit_end_1.beginbursttransfer
-		.debouncer_0_conduit_end_1_writeresponsevalid_n (<connected-to-debouncer_0_conduit_end_1_writeresponsevalid_n>), //                                  .writeresponsevalid_n
-		.debouncer_1_conduit_end_1_beginbursttransfer   (<connected-to-debouncer_1_conduit_end_1_beginbursttransfer>),   //         debouncer_1_conduit_end_1.beginbursttransfer
-		.debouncer_1_conduit_end_1_writeresponsevalid_n (<connected-to-debouncer_1_conduit_end_1_writeresponsevalid_n>)  //                                  .writeresponsevalid_n
+		.wifi_uart_external_connection_txd              (<connected-to-wifi_uart_external_connection_txd>)               //                                  .txd
 	);
 

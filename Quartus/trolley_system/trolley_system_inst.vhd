@@ -6,6 +6,10 @@
 			cam_uart_external_connection_rxd               : in    std_logic                     := 'X';             -- rxd
 			cam_uart_external_connection_txd               : out   std_logic;                                        -- txd
 			clk_clk                                        : in    std_logic                     := 'X';             -- clk
+			debouncer_0_conduit_end_1_beginbursttransfer   : in    std_logic                     := 'X';             -- beginbursttransfer
+			debouncer_0_conduit_end_1_writeresponsevalid_n : out   std_logic;                                        -- writeresponsevalid_n
+			debouncer_1_conduit_end_1_beginbursttransfer   : in    std_logic                     := 'X';             -- beginbursttransfer
+			debouncer_1_conduit_end_1_writeresponsevalid_n : out   std_logic;                                        -- writeresponsevalid_n
 			epcs_flash_controller_0_external_dclk          : out   std_logic;                                        -- dclk
 			epcs_flash_controller_0_external_sce           : out   std_logic;                                        -- sce
 			epcs_flash_controller_0_external_sdo           : out   std_logic;                                        -- sdo
@@ -29,11 +33,7 @@
 			speaker_0_conduit_end_writeresponsevalid       : out   std_logic;                                        -- writeresponsevalid
 			speaker_external_connection_export             : out   std_logic;                                        -- export
 			wifi_uart_external_connection_rxd              : in    std_logic                     := 'X';             -- rxd
-			wifi_uart_external_connection_txd              : out   std_logic;                                        -- txd
-			debouncer_0_conduit_end_1_beginbursttransfer   : in    std_logic                     := 'X';             -- beginbursttransfer
-			debouncer_0_conduit_end_1_writeresponsevalid_n : out   std_logic;                                        -- writeresponsevalid_n
-			debouncer_1_conduit_end_1_beginbursttransfer   : in    std_logic                     := 'X';             -- beginbursttransfer
-			debouncer_1_conduit_end_1_writeresponsevalid_n : out   std_logic                                         -- writeresponsevalid_n
+			wifi_uart_external_connection_txd              : out   std_logic                                         -- txd
 		);
 	end component trolley_system;
 
@@ -45,6 +45,10 @@
 			cam_uart_external_connection_rxd               => CONNECTED_TO_cam_uart_external_connection_rxd,               --      cam_uart_external_connection.rxd
 			cam_uart_external_connection_txd               => CONNECTED_TO_cam_uart_external_connection_txd,               --                                  .txd
 			clk_clk                                        => CONNECTED_TO_clk_clk,                                        --                               clk.clk
+			debouncer_0_conduit_end_1_beginbursttransfer   => CONNECTED_TO_debouncer_0_conduit_end_1_beginbursttransfer,   --         debouncer_0_conduit_end_1.beginbursttransfer
+			debouncer_0_conduit_end_1_writeresponsevalid_n => CONNECTED_TO_debouncer_0_conduit_end_1_writeresponsevalid_n, --                                  .writeresponsevalid_n
+			debouncer_1_conduit_end_1_beginbursttransfer   => CONNECTED_TO_debouncer_1_conduit_end_1_beginbursttransfer,   --         debouncer_1_conduit_end_1.beginbursttransfer
+			debouncer_1_conduit_end_1_writeresponsevalid_n => CONNECTED_TO_debouncer_1_conduit_end_1_writeresponsevalid_n, --                                  .writeresponsevalid_n
 			epcs_flash_controller_0_external_dclk          => CONNECTED_TO_epcs_flash_controller_0_external_dclk,          --  epcs_flash_controller_0_external.dclk
 			epcs_flash_controller_0_external_sce           => CONNECTED_TO_epcs_flash_controller_0_external_sce,           --                                  .sce
 			epcs_flash_controller_0_external_sdo           => CONNECTED_TO_epcs_flash_controller_0_external_sdo,           --                                  .sdo
@@ -68,10 +72,6 @@
 			speaker_0_conduit_end_writeresponsevalid       => CONNECTED_TO_speaker_0_conduit_end_writeresponsevalid,       --                                  .writeresponsevalid
 			speaker_external_connection_export             => CONNECTED_TO_speaker_external_connection_export,             --       speaker_external_connection.export
 			wifi_uart_external_connection_rxd              => CONNECTED_TO_wifi_uart_external_connection_rxd,              --     wifi_uart_external_connection.rxd
-			wifi_uart_external_connection_txd              => CONNECTED_TO_wifi_uart_external_connection_txd,              --                                  .txd
-			debouncer_0_conduit_end_1_beginbursttransfer   => CONNECTED_TO_debouncer_0_conduit_end_1_beginbursttransfer,   --         debouncer_0_conduit_end_1.beginbursttransfer
-			debouncer_0_conduit_end_1_writeresponsevalid_n => CONNECTED_TO_debouncer_0_conduit_end_1_writeresponsevalid_n, --                                  .writeresponsevalid_n
-			debouncer_1_conduit_end_1_beginbursttransfer   => CONNECTED_TO_debouncer_1_conduit_end_1_beginbursttransfer,   --         debouncer_1_conduit_end_1.beginbursttransfer
-			debouncer_1_conduit_end_1_writeresponsevalid_n => CONNECTED_TO_debouncer_1_conduit_end_1_writeresponsevalid_n  --                                  .writeresponsevalid_n
+			wifi_uart_external_connection_txd              => CONNECTED_TO_wifi_uart_external_connection_txd               --                                  .txd
 		);
 

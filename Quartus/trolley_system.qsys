@@ -837,7 +837,7 @@
   <parameter name="icache_ramBlockType" value="Automatic" />
   <parameter name="icache_size" value="4096" />
   <parameter name="icache_tagramBlockType" value="Automatic" />
-  <parameter name="impl" value="Tiny" />
+  <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="25" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller_0.s1' start='0x800000' end='0x1000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='onchip_memory2_0.s1' start='0x1004000' end='0x1008000' type='altera_avalon_onchip_memory2.s1' /><slave name='epcs_flash_controller_0.epcs_control_port' start='0x1009000' end='0x1009800' type='altera_avalon_epcs_flash_controller.epcs_control_port' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x1009800' end='0x100A000' type='altera_nios2_gen2.debug_mem_slave' /></address-map>]]></parameter>
   <parameter name="instructionMasterHighPerformanceAddrWidth" value="1" />
