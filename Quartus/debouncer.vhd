@@ -45,13 +45,11 @@ architecture debounce of debouncer is
 					x <= x"0000000";
 					activated <= '0';
 					--if(dirtysignal = '0') then
-					output <= '0';
-				end if;		
-				
+					output <= '0';				
 				else
 				x <= x + '1';
 				end if;
-			
+			end if;
 		end if;	
 	end if;	
 	end process;	
