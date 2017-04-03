@@ -11,8 +11,9 @@
 void sensor_interrupt(void * context){
 	//printf("sensor\n");
 
-	motorStop();
-	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
+	motorEStop();
+	//Moved to motor.c motorEstop()
+	//IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
 
 	//clear interrupt
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 1);

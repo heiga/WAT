@@ -20,6 +20,7 @@ void motor_task(void* pdata);
 void motorControl(char direction, int time);
 void motorStop();
 void rcControl(uint8_t input);
+void motorEStop();
 
 /* Redefine stdbool to use proper constant names */
 #define TRUE   true

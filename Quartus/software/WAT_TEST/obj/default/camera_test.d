@@ -9,7 +9,9 @@ obj/default/camera_test.o: camera_test.c camera_test.h \
  ../WAT_TEST_bsp//UCOSII/inc/ucos_ii.h ../WAT_TEST_bsp//HAL/inc/os_cpu.h \
  ../WAT_TEST_bsp//drivers/inc/fifoed_avalon_uart_regs.h \
  ../WAT_TEST_bsp//HAL/inc/io.h ../WAT_TEST_bsp//HAL/inc/alt_types.h \
- ../WAT_TEST_bsp//drivers/inc/altera_avalon_pio_regs.h
+ ../WAT_TEST_bsp//drivers/inc/altera_avalon_pio_regs.h imagepro.h \
+ extra_includes/jpeglib.h extra_includes/jconfig.h \
+ extra_includes/jmorecfg.h
 
 camera_test.h:
 
@@ -46,3 +48,11 @@ camera_test.h:
 ../WAT_TEST_bsp//HAL/inc/alt_types.h:
 
 ../WAT_TEST_bsp//drivers/inc/altera_avalon_pio_regs.h:
+
+imagepro.h:
+
+extra_includes/jpeglib.h:
+
+extra_includes/jconfig.h:
+
+extra_includes/jmorecfg.h:

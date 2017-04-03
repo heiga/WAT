@@ -8,11 +8,12 @@ obj/default/wat_main.o: wat_main.c ../WAT_TEST_bsp//HAL/inc/includes.h \
  ../WAT_TEST_bsp//HAL/inc/priv/alt_alarm.h \
  ../WAT_TEST_bsp//UCOSII/inc/ucos_ii.h ../WAT_TEST_bsp//HAL/inc/os_cpu.h \
  wat_main.h camera.h \
- ../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h \
+ ../WAT_TEST_bsp//drivers/inc/fifoed_avalon_uart_regs.h \
  ../WAT_TEST_bsp//HAL/inc/io.h ../WAT_TEST_bsp//HAL/inc/alt_types.h \
- imagepro.h extra_includes/jpeglib.h extra_includes/jconfig.h \
- extra_includes/jmorecfg.h motor.h \
- ../WAT_TEST_bsp//drivers/inc/altera_avalon_pio_regs.h wifi.h \
+ ../WAT_TEST_bsp//drivers/inc/altera_avalon_pio_regs.h imagepro.h \
+ extra_includes/jpeglib.h extra_includes/jconfig.h \
+ extra_includes/jmorecfg.h motor.h wifi.h \
+ ../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h \
  interrupt_peripherals.h
 
 ../WAT_TEST_bsp//HAL/inc/includes.h:
@@ -45,11 +46,13 @@ wat_main.h:
 
 camera.h:
 
-../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h:
+../WAT_TEST_bsp//drivers/inc/fifoed_avalon_uart_regs.h:
 
 ../WAT_TEST_bsp//HAL/inc/io.h:
 
 ../WAT_TEST_bsp//HAL/inc/alt_types.h:
+
+../WAT_TEST_bsp//drivers/inc/altera_avalon_pio_regs.h:
 
 imagepro.h:
 
@@ -61,8 +64,8 @@ extra_includes/jmorecfg.h:
 
 motor.h:
 
-../WAT_TEST_bsp//drivers/inc/altera_avalon_pio_regs.h:
-
 wifi.h:
+
+../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h:
 
 interrupt_peripherals.h:

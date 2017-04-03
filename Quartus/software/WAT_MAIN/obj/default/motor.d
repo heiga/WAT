@@ -9,7 +9,7 @@ obj/default/motor.o: motor.c motor.h ../WAT_TEST_bsp//HAL/inc/includes.h \
  ../WAT_TEST_bsp//UCOSII/inc/ucos_ii.h ../WAT_TEST_bsp//HAL/inc/os_cpu.h \
  ../WAT_TEST_bsp//drivers/inc/altera_avalon_pio_regs.h \
  ../WAT_TEST_bsp//HAL/inc/io.h ../WAT_TEST_bsp//HAL/inc/alt_types.h \
- wat_main.h
+ wat_main.h wifi.h ../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h
 
 motor.h:
 
@@ -46,3 +46,7 @@ motor.h:
 ../WAT_TEST_bsp//HAL/inc/alt_types.h:
 
 wat_main.h:
+
+wifi.h:
+
+../WAT_TEST_bsp//drivers/inc/altera_avalon_uart_regs.h:
