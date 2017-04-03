@@ -27,7 +27,7 @@ architecture debounce of debouncer is
 		if(activated = '0') then
 			if(dirtysignal = '1') then
 				activated <= '1';
-				output <= '1';
+				--output <= '1';
 			end if;
 		
 				
@@ -35,16 +35,23 @@ architecture debounce of debouncer is
 		else if(activated ='1') then
 			--if(rising_edge(clk)) then
 			-- start counter
-				if x = x"2FAF080" then
+				if x = x"007A120" then
+					if(dirtysignal = '1') then
+						output <= '1';
+					end if;
+				end if;
+				
+				if x = x"17D780" then
 					x <= x"0000000";
 					activated <= '0';
 					--if(dirtysignal = '0') then
-						output <= '0';
-					--end if;		
+					output <= '0';
+				end if;		
+				
 				else
 				x <= x + '1';
 				end if;
-			end if;
+			
 		end if;	
 	end if;	
 	end process;	
