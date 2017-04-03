@@ -6,10 +6,6 @@ module trolley_system (
 	cam_uart_external_connection_rxd,
 	cam_uart_external_connection_txd,
 	clk_clk,
-	debouncer_0_conduit_end_1_beginbursttransfer,
-	debouncer_0_conduit_end_1_writeresponsevalid_n,
-	debouncer_1_conduit_end_1_beginbursttransfer,
-	debouncer_1_conduit_end_1_writeresponsevalid_n,
 	epcs_flash_controller_0_external_dclk,
 	epcs_flash_controller_0_external_sce,
 	epcs_flash_controller_0_external_sdo,
@@ -33,7 +29,11 @@ module trolley_system (
 	speaker_0_conduit_end_writeresponsevalid,
 	speaker_external_connection_export,
 	wifi_uart_external_connection_rxd,
-	wifi_uart_external_connection_txd);	
+	wifi_uart_external_connection_txd,
+	debouncer_0_conduit_end_1_beginbursttransfer,
+	debouncer_0_conduit_end_1_writeresponsevalid_n,
+	debouncer_1_conduit_end_1_beginbursttransfer,
+	debouncer_1_conduit_end_1_writeresponsevalid_n);	
 
 	output		altpll_0_c1_clk;
 	input		button_button_external_connection_export;
@@ -41,10 +41,6 @@ module trolley_system (
 	input		cam_uart_external_connection_rxd;
 	output		cam_uart_external_connection_txd;
 	input		clk_clk;
-	input		debouncer_0_conduit_end_1_beginbursttransfer;
-	output		debouncer_0_conduit_end_1_writeresponsevalid_n;
-	input		debouncer_1_conduit_end_1_beginbursttransfer;
-	output		debouncer_1_conduit_end_1_writeresponsevalid_n;
 	output		epcs_flash_controller_0_external_dclk;
 	output		epcs_flash_controller_0_external_sce;
 	output		epcs_flash_controller_0_external_sdo;
@@ -69,4 +65,8 @@ module trolley_system (
 	output		speaker_external_connection_export;
 	input		wifi_uart_external_connection_rxd;
 	output		wifi_uart_external_connection_txd;
+	input		debouncer_0_conduit_end_1_beginbursttransfer;
+	output		debouncer_0_conduit_end_1_writeresponsevalid_n;
+	input		debouncer_1_conduit_end_1_beginbursttransfer;
+	output		debouncer_1_conduit_end_1_writeresponsevalid_n;
 endmodule
