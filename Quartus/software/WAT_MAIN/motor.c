@@ -19,12 +19,11 @@ void motor_task(void* pdata){
 	uint8_t err;
 	uint8_t initCommand;
 	uint8_t findCommand;
+	uint8_t lastCommand;
 	uint16_t moveCommand;
+	uint8_t shiftCounter;
 
-	uint8_t leftDirection;
-	uint8_t leftTime;
-	uint8_t rightDirection;
-	uint8_t rightTime;
+	uint8_t waitTime;
 
 	bool notFound;
 
@@ -35,12 +34,17 @@ void motor_task(void* pdata){
 		if((initCommand & INIT_RCMODE) == INIT_RCMODE){
 			rcControl(initCommand);
 		}else{ //parse color and time
+			//Get first colour and time at each destination
+			waitTime = initCommand & COM_MASK;
+			initCommand = initCommand >> 2;
+			shiftCounter = 1;
+			findCommand = initCommand & COM_MASK;
+			initCommand = initCommand >> 2;
+			shiftCounter++;
 			notFound = TRUE;
 			while(notFound){
-				findCommand = 0; //TEST code, red region is defined as 0
 				OSQPost(findCommandQueue, (void*) findCommand);
 				moveCommand = (uint16_t) OSQPend(moveCommandQueue, 0, &err);
-				printf("MOTOR: received %i\n", moveCommand);
 
 				//Straight
 				if((moveCommand >= MID_LOWER) && (moveCommand <= MID_UPPER)){
@@ -49,7 +53,13 @@ void motor_task(void* pdata){
 				//Destination
 				}else if(moveCommand == MOVE_DONE){
 					printf("MOTOR: DONE\n");
-					notFound = FALSE;
+					if (shiftCounter == SHIFT_MAX){
+						notFound = FALSE;
+					}else{
+						findCommand = initCommand & COM_MASK;
+						initCommand = initCommand >> 2;
+						shiftCounter++;
+					}
 				//Left
 				}else if((moveCommand < MID_LOWER) && (moveCommand > 0)){
 					printf("MOTOR: LEFT\n");

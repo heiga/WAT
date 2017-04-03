@@ -57,6 +57,8 @@ void motorEStop();
 #define SEC5		0b01
 #define SEC10		0b10
 #define SEC30		0b11
+#define COM_MASK    0b11
+#define SHIFT_MAX   4
 #define MID_UPPER	160
 #define MID_LOWER   80
 #define MOVE_DONE   0xFFFF

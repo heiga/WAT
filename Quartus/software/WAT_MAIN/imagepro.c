@@ -126,7 +126,7 @@ uint16_t find_region(FILE* picture, uint8_t region){
 	printf("height_end=%i width_end=%i\n", regions[0].y, regions[0].x);
 	printf("height_mid=%i width_mid=%i\n", col_mid, row_mid);
 	printf("cols=%i rows=%i\n", regions[0].cols_traversed, regions[0].rows_traversed);
-	printf("confidence=%i\n", regions[0].confidence);
+	printf("detected=%i\n", regions[0].pixels_detected);
 	printf("clock ticks=%i\n", endTime);
 
 	(void) jpeg_finish_decompress(&cinfo);
