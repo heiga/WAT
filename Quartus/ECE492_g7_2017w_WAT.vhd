@@ -104,6 +104,7 @@ architecture structure of ECE492_g7_2017w_WAT is
 			debouncer_1_conduit_end_1_writeresponsevalid_n : out   std_logic                                         
 		);
 	end component trolley_system;
+	
 --	These signals are for matching the provided IP core to
 -- The specific SDRAM chip in our system	 
 --	signal BA	: std_logic_vector (1 downto 0);
