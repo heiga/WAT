@@ -8,7 +8,7 @@
 #include "camera.h"
 
 void camera_task(void* pdata){
-	uint32_t *leds = GREEN_LEDS_BASE;
+	uint8_t leds = 0;
 
 	uint16_t q = 0;
 	uint16_t z = 0;
@@ -33,28 +33,35 @@ void camera_task(void* pdata){
 
 	char* pic_location;
 	size_t pic_size;
-	static FILE* picture;
+//	static FILE* picture;
+	FILE* picture;
 
 	uint32_t startTime = clock();
 	uint32_t endTime;
 
-//	printf("Starting to open...");
-//	FILE* picture;
-//	picture = fopen(CAM_PICTURE_OUTPUT, "w");
-//	printf(" and done\n");
-
 	while(1){
+		leds++;
+		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
 		//Wait for command from motor and then start camera sequence
 		colour = (uint8_t)OSQPend(findCommandQueue, 0, &err);
+		leds++;
+		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
 
 		//Assign a memory address to a FILE pointer to store the picture
-		picture = open_memstream(&pic_location, &pic_size);
+//		picture = open_memstream(&pic_location, &pic_size);
+		printf("Starting to open...");
+		picture = fopen(CAM_PICTURE_OUTPUT, "w");
+		printf(" and done\n");
+		leds++;
+		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
 
 		//Reset to deal with any junk transmissions
 		for (z = 0; z < CAM_COMMAND_LENGTH; z++){
 			while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
 			IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_REST[z]);
 		}
+		leds++;
+		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
 
 		/*
 		* Synchronise with camera
@@ -76,6 +83,8 @@ void camera_task(void* pdata){
 
 			//Wait the recommended sync time as per doc
 			OSTimeDlyHMSM(0, 0, 0, sync_delay);
+			leds++;
+			IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
 
 			cam_reply = (uint8_t)OSQAccept(camCommandQueue, &err);
 			if (cam_reply == CAM_ACK_SYNC[0]){
@@ -103,7 +112,7 @@ void camera_task(void* pdata){
 
 		if (synced){
 			printf("Cam synced after %i attempts\n", sync_delay);
-			*leds = *leds ^ 0xFF;
+			IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, 0x0F);
 		}else{
 			printf("Cam sync failure after %i attempts\n", sync_delay);
 			//return;
@@ -128,6 +137,12 @@ void camera_task(void* pdata){
 		printf("SIZE ");
 		if(!cam_send_command(CAM_SIZE, CAM_ACK_SIZE, CAM_COMMAND_LENGTH, camCommandQueue)){
 			printf("Error at size\n");
+		}
+
+		//Specify luminosity for pictures
+		printf("LUMI ");
+		if(!cam_send_command(CAM_LUMI, CAM_ACK_LUMI, CAM_COMMAND_LENGTH, camCommandQueue)){
+			printf("Error at lumi\n");
 		}
 
 		//Tell camera to take picture
@@ -199,7 +214,6 @@ void camera_task(void* pdata){
 			isGoodPacket = TRUE;
 			checksum = 0;
 			tempsum = 0;
-			//TODO fix this if the self recovery from NAK is built in
 			if (q == (packet_count - 1)){
 				data_length = last_packet_byte_count;
 			}else{
@@ -220,19 +234,19 @@ void camera_task(void* pdata){
 				if(isGoodPacket){
 					cam_reply = (uint8_t)OSQPend(camPackageQueue, MAX_TIME, &err);
 					if(err == OS_TIMEOUT){
-						printf("TIMEOUT AT ID\n");
+//						printf("TIMEOUT AT ID\n");
 						isGoodPacket = FALSE;
 					}else{
 						if((cam_reply != (1 + cam_data_ack[z+4])) && (cam_reply != 0)){
 							isGoodPacket = FALSE;
-							printf("Packet %i ID expected %x but got %x\n", q, cam_data_ack[z+4], cam_reply);
+//							printf("Packet %i ID expected %x but got %x\n", q, cam_data_ack[z+4], cam_reply);
 						}
 					}
 				}
 			}
 			if (isGoodPacket){
-				printf("ID checked\n");
-				printf("Packet %i has size of ", q);
+//				printf("ID checked\n");
+//				printf("Packet %i has size of ", q);
 			}
 
 			//Next two bytes are data size, print it out until I decide what to do with it
@@ -243,21 +257,21 @@ void camera_task(void* pdata){
 				if(isGoodPacket){
 					cam_reply = (uint8_t)OSQPend(camPackageQueue, MAX_TIME, &err);
 					if(err == OS_TIMEOUT){
-						printf("TIMEOUT AT SIZE\n");
+//						printf("TIMEOUT AT SIZE\n");
 						isGoodPacket = FALSE;
 					}else{
 						//TODO add parsing of data size
-						printf("%x ", cam_reply);
+//						printf("%x ", cam_reply);
 					}
 				}
 			}
-			printf("\n");
+//			printf("\n");
 
 			for(z = 4; z < data_length; z++){
 				if(isGoodPacket){
 					cam_reply = (uint8_t)OSQPend(camPackageQueue, MAX_TIME, &err);
 					if(err == OS_TIMEOUT){
-						printf("TIMEOUT AT DATA on byte %i\n", z);
+//						printf("TIMEOUT AT DATA on byte %i\n", z);
 						isGoodPacket = FALSE;
 						cam_reply = 0x00;
 					}else{
@@ -274,7 +288,7 @@ void camera_task(void* pdata){
 				if(isGoodPacket){
 					cam_reply = (uint8_t)OSQPend(camPackageQueue, MAX_TIME, &err);
 					if(err == OS_TIMEOUT){
-						printf("TIMEOUT AT CHECKSUM");
+//						printf("TIMEOUT AT CHECKSUM");
 						isGoodPacket = FALSE;
 					}else{
 						tempsum = tempsum + (cam_reply << (8*z));
@@ -283,15 +297,15 @@ void camera_task(void* pdata){
 			}
 
 			if (checksum != tempsum){
-				printf("Invalid checksum, got %x expected %x\n", checksum, tempsum);
+//				printf("Invalid checksum, got %x expected %x\n", checksum, tempsum);
 				//isGoodPacket = FALSE;
 			}
 
 			if(isGoodPacket){
-				printf("Packet %i good\n", q);
+//				printf("Packet %i good\n", q);
 				q++;
 			}else{
-				printf("Packet %i bad, moving on\n", q);
+//				printf("Packet %i bad, moving on\n", q);
 				//OSTimeDlyHMSM(0, 0, 1, 0);
 				q++;
 				synced = FALSE;
@@ -315,8 +329,8 @@ void camera_task(void* pdata){
 		 * Close again for safety and then pass back to motor
 		 */
 		fclose(picture);
-//		picture = fopen(CAM_PICTURE_OUTPUT, "r");
-		picture = fmemopen(pic_location, pic_size, "r");
+		picture = fopen(CAM_PICTURE_OUTPUT, "r");
+//		picture = fmemopen(pic_location, pic_size, "r");
 		motor_reply = find_region(picture, colour);
 		fclose(picture);
 

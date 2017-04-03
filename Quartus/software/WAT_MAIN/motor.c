@@ -102,6 +102,7 @@ void motorControl(char direction, int time) {
 
 	if(MOTORMOVING) {
 		motorStop();
+		OSTimeDlyHMSM(0, 0, 0, 20);
 	}
 	if(direction == STOP) {
 		// Cant do stop because delay is broken and espComplete is broken

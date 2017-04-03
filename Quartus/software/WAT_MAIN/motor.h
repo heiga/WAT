@@ -56,8 +56,8 @@ void rcControl(uint8_t input);
 #define SEC5		0b01
 #define SEC10		0b10
 #define SEC30		0b11
-#define MID_UPPER	320
-#define MID_LOWER   160
+#define MID_UPPER	160
+#define MID_LOWER   80
 #define MOVE_DONE   0xFFFF
 
 // RC Mode definitions

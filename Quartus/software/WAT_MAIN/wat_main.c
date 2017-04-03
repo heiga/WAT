@@ -65,19 +65,18 @@ int main(void){
 		//printf("Motor task creation failure\n");
 	}
 
-
-//	if(OSTaskCreateExt(camera_task,
-//                  		NULL,
-//                  		(void *)&camera_stk[TASK_STACKSIZE-1],
-//                  		CAMERA_PRIORITY,
-//                  		CAMERA_PRIORITY,
-//                  		camera_stk,
-//                  		TASK_STACKSIZE,
-//                  		NULL,
-//                  		0))
-//	{
-//		//printf("Camera task creation failure\n");
-//	}
+	if(OSTaskCreateExt(camera_task,
+                  		NULL,
+                  		(void *)&camera_stk[TASK_STACKSIZE-1],
+                  		CAMERA_PRIORITY,
+                  		CAMERA_PRIORITY,
+                  		camera_stk,
+                  		TASK_STACKSIZE,
+                  		NULL,
+                  		0))
+	{
+		//printf("Camera task creation failure\n");
+	}
 
 	if(OSTaskCreateExt(wifi_task,
                     	NULL,
@@ -93,20 +92,19 @@ int main(void){
 	}
 
 	//Interrupt masks
-	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BUTTON_BUTTON_BASE, 0xF);
-	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BUTTON_BUTTON_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PROX_SENSOR_BASE, 0xF);
 	IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PROX_SENSOR_BASE, 0x0);
 
 	//Initialize the interrupt controllers
-//	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
-//					    	PROX_SENSOR_IRQ,
-//					    	sensor_interrupt,
-//					    	NULL,
-//					    	NULL))
-//	{
-//		//printf("proximity sensor interrupt failed\n");
-//	}
+	printf("prox on\n");
+	if(alt_ic_isr_register(PROX_SENSOR_IRQ_INTERRUPT_CONTROLLER_ID,
+					    	PROX_SENSOR_IRQ,
+					    	sensor_interrupt,
+					    	NULL,
+					    	NULL))
+	{
+		//printf("proximity sensor interrupt failed\n");
+	}
 
 	if(alt_ic_isr_register(CAM_UART_IRQ_INTERRUPT_CONTROLLER_ID,
 				  	  	   CAM_UART_IRQ,

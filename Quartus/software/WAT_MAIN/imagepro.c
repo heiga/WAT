@@ -38,28 +38,18 @@ uint16_t find_region(FILE* picture, uint8_t region){
 
 	startTime = clock();
 
-	printf("START\n");
-
 	cinfo.err = jpeg_std_error(&jerr);
 	jpeg_create_decompress(&cinfo);
-	printf("decompress\n");
 	jpeg_stdio_src(&cinfo, picture);
-	printf("load\n");
 	(void) jpeg_read_header(&cinfo, TRUE);
-	printf("header\n");
 	(void) jpeg_start_decompress(&cinfo);
-	printf("decompress\n");
 	width = cinfo.output_width;
 	height = cinfo.output_height;
-
-	printf("INFO\n");
 
 	//Initialize... something. Clearly important
 	row_stride = width * cinfo.output_components;
 	pJpegBuffer = (*cinfo.mem->alloc_sarray)
 	((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
-
-	printf("BUFFER\n");
 
 	//Initialize the regions struct array
 	for (y=0; y < REGION_COUNT; y++){
@@ -74,16 +64,13 @@ uint16_t find_region(FILE* picture, uint8_t region){
 	//Iterate over the image row by row and detect color regions
 	y = 0;
 	while (cinfo.output_scanline < height) {
+		if(y == 100){
+			endTime = clock();
+		}
 		region_found = FALSE;
 		temp_row_count = 0;
 		temp_x = 0;
-		if(y == 100){
-			endTime = clock();
-			(void) jpeg_read_scanlines(&cinfo, pJpegBuffer, 1);
-			printf("clock ticks=%li\n", endTime - clock());
-		}else{
-			(void) jpeg_read_scanlines(&cinfo, pJpegBuffer, 1);
-		}
+		(void) jpeg_read_scanlines(&cinfo, pJpegBuffer, 1);
 		for (x = 0; x < width; x++) {
 			r = pJpegBuffer[0][cinfo.output_components * x];
 			if (cinfo.output_components > 2) {
@@ -123,6 +110,11 @@ uint16_t find_region(FILE* picture, uint8_t region){
 				regions[0].x = temp_x;
 			}
 		}
+
+		if (y == 101){
+			printf("clock ticks=%i\n", clock() - endTime);
+		}
+
 		y++;
 	}
 
@@ -144,7 +136,7 @@ uint16_t find_region(FILE* picture, uint8_t region){
 
 	//TODO replace with constants
 	if (regions[0].pixels_detected > 0){
-		if (regions[0].pixels_detected > 50000){
+		if (regions[0].pixels_detected > 10000){
 			return 0xFFFF;
 		}else{
 			//+1 deals with fringe case of row_mid = 0
