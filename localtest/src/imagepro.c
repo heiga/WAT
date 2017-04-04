@@ -18,20 +18,29 @@
 #include "imagepro.h"
 
 int main(void) {
-
-	FILE * infile;        /* source file */
-
-	if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
-		fprintf(stderr, "can't open %s\n", JPEGNAME);
-		return 0;
+	uint16_t width = 480;
+	uint16_t row_mid = 230;
+	uint16_t temp;
+	if ((row_mid * 2) >= width){
+		temp = (((row_mid * 2) - width) * 100) / width;
+	}else{
+		temp = ((width - (row_mid * 2)) * 100) / width;
 	}
-	printf("LOADED\n");
+	printf("%i", temp);
 
-	find_region(infile, REGION_RED);
-	//find_region(infile, REGION_GRN);
-	//find_region(infile, REGION_BLU);
-
-	fclose(infile);
+//	FILE * infile;        /* source file */
+//
+//	if ((infile = fopen(JPEGNAME, "rb")) == NULL) {
+//		fprintf(stderr, "can't open %s\n", JPEGNAME);
+//		return 0;
+//	}
+//	printf("LOADED\n");
+//
+//	find_region(infile, REGION_RED);
+//	//find_region(infile, REGION_GRN);
+//	//find_region(infile, REGION_BLU);
+//
+//	fclose(infile);
 
 //	long q;
 //	long z;

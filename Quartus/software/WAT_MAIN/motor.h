@@ -21,6 +21,7 @@ void motorControl(char direction, int time);
 void motorStop();
 void rcControl(uint8_t input);
 void motorEStop();
+void victoryScreech();
 
 /* Redefine stdbool to use proper constant names */
 #define TRUE   true
@@ -51,17 +52,14 @@ void motorEStop();
 #define INF_MOVE  10
 
 // Autonomous Mode definitions
-#define RED			0b00
-#define GREEN		0b01
-#define BLUE		0b10
 #define SEC5		0b01
 #define SEC10		0b10
 #define SEC30		0b11
 #define COM_MASK    0b11
 #define SHIFT_MAX   4
-#define MID_UPPER	160
-#define MID_LOWER   80
 #define MOVE_DONE   0xFFFF
+#define MOVE_NONE   0xAAAA
+#define MOVE_LEFT   0xFF
 
 // RC Mode definitions
 #define INIT_RCMODE 0b11000000
@@ -74,7 +72,7 @@ void motorEStop();
 #define i2			0b00010000
 #define i3			0b00011000
 
-#define deg45		380
-#define deg90		750
+#define SMALL_TURN  380
+#define SHARP_TURN  750
 
 #endif /* MOTOR_TEST_H_ */

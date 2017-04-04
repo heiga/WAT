@@ -141,11 +141,23 @@ uint16_t find_region(FILE* picture, uint8_t region){
 			(regions[0].pixels_detected > 10000)){
 			return 0xFFFF;
 		}else{
-			//+1 deals with fringe case of row_mid = 0
-			return row_mid + 1;
+			/* Compute distance away from mid point as a percentage
+			 * conditional avoids needing to add math.h for one abs call
+			 * Direction will be determined by bit shifting with the
+			 * upper 8 bits indicating right, lower 4 bits indicating left
+			 */
+
+			temp_x = row_mid * 2;
+			if (temp_x >= width){
+				return (((temp_x) - width) * 100) / width;
+			}else{
+				temp_x = ((width - temp_x) * 100) / width;
+				temp_x = temp_x << 8;
+				return temp_x;
+			}
 		}
 	}else{
 		//Found nothing
-		return 0;
+		return 0xAAAA;
 	}
 }

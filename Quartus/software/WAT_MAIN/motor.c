@@ -45,25 +45,17 @@ void motor_task(void* pdata){
 			while(notFound){
 				OSQPost(findCommandQueue, (void*) findCommand);
 				moveCommand = (uint16_t) OSQPend(moveCommandQueue, 0, &err);
+				printf("MOTOR: RECIEVED %i\n", moveCommand);
 
-				//Straight
-				if((moveCommand >= MID_LOWER) && (moveCommand <= MID_UPPER)){
-					printf("MOTOR: FORWARD\n");
-					motorControl(FORWARD, MED_MOVE);
-				//Destination
-				}else if(moveCommand == MOVE_DONE){
+				/* Check first for edge cases of done or none
+				 * (close enough or found nothing of that colour)
+				 * Check then for direction by bit shifting and
+				 * drive forward a small amount. If you get too
+				 * close the buzzer will go off anyways
+				 */
+				if (moveCommand == MOVE_DONE){
 					printf("MOTOR: DONE\n");
-					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
-					OSTimeDlyHMSM(0, 0, 1, 0);
-					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
-					OSTimeDlyHMSM(0, 0, 0, 500);
-					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
-					OSTimeDlyHMSM(0, 0, 1, 0);
-					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
-					OSTimeDlyHMSM(0, 0, 0, 500);
-					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
-					OSTimeDlyHMSM(0, 0, 1, 0);
-					IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
+					victoryScreech();
 					if (shiftCounter == SHIFT_MAX){
 						notFound = FALSE;
 					}else{
@@ -71,20 +63,21 @@ void motor_task(void* pdata){
 						initCommand = initCommand >> 2;
 						shiftCounter++;
 					}
-				//Left
-				}else if((moveCommand < MID_LOWER) && (moveCommand > 0)){
-					printf("MOTOR: LEFT\n");
-					motorControl(LEFT, SML_MOVE);
-					motorControl(FORWARD, SML_MOVE);
-				//Right
-				}else if(moveCommand > MID_UPPER){
-					printf("MOTOR: RIGHT\n");
-					motorControl(RIGHT, SML_MOVE);
-					motorControl(FORWARD, SML_MOVE);
-				//Nothing
+				}else if (moveCommand == MOVE_NONE){
+					printf("MOTOR: NONE\n");
+					motorControl(RIGHT, SMALL_TURN);
 				}else{
-					printf("MOTOR: NOTHING\n");
-					motorControl(RIGHT, MED_MOVE);
+					if (moveCommand > MOVE_LEFT){
+						printf("MOTOR: LEFT\n");
+						moveCommand = moveCommand >> 7;
+						motorControl(LEFT, moveCommand);
+					}else{
+						printf("MOTOR: RIGHT\n");
+						moveCommand *= 2;
+						motorControl(RIGHT, moveCommand);
+					}
+					printf("MOTOR: FORWARD\n");
+					motorControl(FORWARD, SML_MOVE);
 				}
 			}
 		}
@@ -158,7 +151,7 @@ void motorControl(char direction, int time) {
 		return;
 	}
 	if(isTurn) {
-		OSTimeDlyHMSM(0, 0, 0, time * deg45);
+		OSTimeDlyHMSM(0, 0, 0, time);
 	}
 	else {
 		OSTimeDlyHMSM(0, 0, time, 0);
@@ -189,10 +182,10 @@ void rcControl(uint8_t input) {
 		direction = RIGHT;
 	}
 	if((input & i1) == i1) {
-		time = SML_MOVE;
+		time = SMALL_TURN;
 	}
 	if((input & i2) == i2) {
-		time = MED_MOVE;
+		time = SHARP_TURN;
 	}
 	if((input & i3) == i3) {
 		time = INF_MOVE;
@@ -205,4 +198,18 @@ void motorEStop() {
 		motorStop();
 		IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
 	}
+}
+
+void victoryScreech(){
+	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
+	OSTimeDlyHMSM(0, 0, 1, 0);
+	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
+	OSTimeDlyHMSM(0, 0, 0, 500);
+	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
+	OSTimeDlyHMSM(0, 0, 1, 0);
+	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
+	OSTimeDlyHMSM(0, 0, 0, 500);
+	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
+	OSTimeDlyHMSM(0, 0, 1, 0);
+	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 }
