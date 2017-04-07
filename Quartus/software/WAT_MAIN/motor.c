@@ -182,10 +182,18 @@ void rcControl(uint8_t input) {
 		direction = RIGHT;
 	}
 	if((input & i1) == i1) {
-		time = SMALL_TURN;
+		if((direction == FORWARD)||(direction == REVERSE)){
+			time = SML_MOVE;
+		}else{
+			time = SMALL_TURN;
+		}
 	}
 	if((input & i2) == i2) {
-		time = SHARP_TURN;
+		if((direction == FORWARD)||(direction == REVERSE)){
+			time = MED_MOVE;
+		}else{
+			time = SHARP_TURN;
+		}
 	}
 	if((input & i3) == i3) {
 		time = INF_MOVE;

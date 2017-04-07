@@ -51,7 +51,6 @@ OS_STK    wifi_stk[TASK_STACKSIZE];
 
 int main(void){
 
-
 	if(OSTaskCreateExt(motor_task,
                   		NULL,
                   		(void *)&motor_stk[TASK_STACKSIZE-1],
