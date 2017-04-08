@@ -2,7 +2,7 @@ set_global_assignment -entity "trolley_system" -library "trolley_system" -name I
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_TOOL_VERSION "16.1"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "trolley_system" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../trolley_system.sopcinfo"]
-set_global_assignment -entity "trolley_system" -library "trolley_system" -name SLD_INFO "QSYS_NAME trolley_system HAS_SOPCINFO 1 GENERATION_ID 1491258628"
+set_global_assignment -entity "trolley_system" -library "trolley_system" -name SLD_INFO "QSYS_NAME trolley_system HAS_SOPCINFO 1 GENERATION_ID 1491684199"
 set_global_assignment -library "trolley_system" -name MISC_FILE [file join $::quartus(qip_path) "../trolley_system.cmp"]
 set_global_assignment -library "trolley_system" -name SLD_FILE [file join $::quartus(qip_path) "trolley_system.regmap"]
 set_global_assignment -library "trolley_system" -name SLD_FILE [file join $::quartus(qip_path) "trolley_system.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "trolley_system" -library "trolley_system" -name I
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ5MTI1ODYyOA==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ5MTY4NDE5OQ==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0Q0UyMkYxN0M2::QXV0byBERVZJQ0U="
 set_global_assignment -entity "trolley_system" -library "trolley_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Ng==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -1398,7 +1398,7 @@ set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_AUTHOR "QWx0ZXJhIENvcnBvcmF0aW9uL2NydWJlbg=="
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_VERSION "MTMuMg=="
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_DESCRIPTION "TW9kaWZpZWQgQWx0ZXJhIEF2YWxvbiBVQVJUIHdpdGggRklGT3MgYW5kIG90aGVyIGFkZGVkIGZlYXR1cmVzLg=="
-set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "YmF1ZA==::OTIxNjAw::QmF1ZCByYXRlIChicHMp"
+set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "YmF1ZA==::MTE1MjAw::QmF1ZCByYXRlIChicHMp"
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "ZGF0YUJpdHM=::OA==::RGF0YSBiaXRz"
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "Zml4ZWRCYXVk::dHJ1ZQ==::Rml4ZWQgYmF1ZCByYXRlICggbm8gc29mdHdhcmUgY29udHJvbCk="
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "cGFyaXR5::Tk9ORQ==::UGFyaXR5"
@@ -1426,7 +1426,7 @@ set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "ZXhwb3J0X2hhbmRzaGFrZQ==::ZmFsc2U=::RXhwb3J0IGRhdmF0YWF2YWxpYmxlIGFuZCByZWFkeWZvcmRhdGEgYXMgYSBjb25kdWl0"
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "YWRkX2Vycm9yX2JpdHM=::ZmFsc2U=::RW5hYmxlIFBFLCBGRSwgQlJLLCBST0UsIEdBUCwgUnhFTVBUWSBmaWZvIGRhdGE="
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "Y2xvY2tSYXRl::NTAwMDAwMDA=::Y2xvY2tSYXRl"
-set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "YmF1ZEVycm9y::MC4w::QmF1ZCBlcnJvcg=="
+set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "YmF1ZEVycm9y::MC4wMQ==::QmF1ZCBlcnJvcg=="
 set_global_assignment -entity "trolley_system_cam_uart" -library "trolley_system" -name IP_COMPONENT_PARAMETER "cGFyaXR5RmlzcnRDaGFy::Tg==::cGFyaXR5RmlzcnRDaGFy"
 set_global_assignment -entity "trolley_system_button_led" -library "trolley_system" -name IP_COMPONENT_NAME "dHJvbGxleV9zeXN0ZW1fYnV0dG9uX2xlZA=="
 set_global_assignment -entity "trolley_system_button_led" -library "trolley_system" -name IP_COMPONENT_DISPLAY_NAME "UElPIChQYXJhbGxlbCBJL08p"

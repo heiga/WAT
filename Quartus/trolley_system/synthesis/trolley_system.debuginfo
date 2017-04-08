@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="trolley_system" kind="system" version="16.1" fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2017.04.03.16:31:27 -->
+ <!-- 2017.04.08.14:44:03 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1491258628</value>
+  <value>1491684199</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -3888,7 +3888,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.BAUD</name>
-   <value>921600</value>
+   <value>115200</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_BITS</name>
@@ -4028,7 +4028,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.current-speed</name>
-   <value>921600</value>
+   <value>115200</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -4036,7 +4036,7 @@ the requested settings for a module instance. -->
   </assignment>
   <parameter name="baud">
    <type>int</type>
-   <value>921600</value>
+   <value>115200</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -4326,7 +4326,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="baudError">
    <type>double</type>
-   <value>0.0</value>
+   <value>0.01</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -17038,7 +17038,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1491258628</value>
+   <value>1491684199</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -17058,7 +17058,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1491258628</value>
+   <value>1491684199</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -17074,7 +17074,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1491258628</value>
+   <value>1491684199</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -30744,5 +30744,5 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <reportVersion>16.1 196</reportVersion>
- <uniqueIdentifier>00000000000000E00000015B35F0F2A0</uniqueIdentifier>
+ <uniqueIdentifier>00000000000000E00000015B4F4EA660</uniqueIdentifier>
 </EnsembleReport>
