@@ -43,41 +43,45 @@ void motor_task(void* pdata){
 			shiftCounter++;
 			notFound = TRUE;
 			while(notFound){
-				OSQPost(findCommandQueue, (void*) findCommand);
-				moveCommand = (uint16_t) OSQPend(moveCommandQueue, 0, &err);
-				printf("MOTOR: RECIEVED %i\n", moveCommand);
-
-				/* Check first for edge cases of done or none
-				 * (close enough or found nothing of that colour)
-				 * Check then for direction by bit shifting and
-				 * drive forward a small amount. If you get too
-				 * close the buzzer will go off anyways
-				 */
-				if (moveCommand == MOVE_DONE){
-					printf("MOTOR: DONE\n");
-					victoryScreech();
-					if (shiftCounter == SHIFT_MAX){
-						notFound = FALSE;
-					}else{
-						findCommand = initCommand & COM_MASK;
-						initCommand = initCommand >> 2;
-						shiftCounter++;
-					}
-				}else if (moveCommand == MOVE_NONE){
-					printf("MOTOR: NONE\n");
-					motorControl(RIGHT, SMALL_TURN);
+				if (stopRequested){
+					notFound = FALSE;
 				}else{
-					if (moveCommand > MOVE_LEFT){
-						printf("MOTOR: LEFT\n");
-						moveCommand = moveCommand >> 7;
-						motorControl(LEFT, moveCommand);
+					OSQPost(findCommandQueue, (void*) findCommand);
+					moveCommand = (uint16_t) OSQPend(moveCommandQueue, 0, &err);
+					printf("MOTOR: RECIEVED %i\n", moveCommand);
+
+					/* Check first for edge cases of done or none
+					 * (close enough or found nothing of that colour)
+					 * Check then for direction by bit shifting and
+					 * drive forward a small amount. If you get too
+					 * close the buzzer will go off anyways
+					 */
+					if (moveCommand == MOVE_DONE){
+						printf("MOTOR: DONE\n");
+						victoryScreech();
+						if (shiftCounter == SHIFT_MAX){
+							notFound = FALSE;
+						}else{
+							findCommand = initCommand & COM_MASK;
+							initCommand = initCommand >> 2;
+							shiftCounter++;
+						}
+					}else if (moveCommand == MOVE_NONE){
+						printf("MOTOR: NONE\n");
+						motorControl(RIGHT, SMALL_TURN);
 					}else{
-						printf("MOTOR: RIGHT\n");
-						moveCommand *= 2;
-						motorControl(RIGHT, moveCommand);
+						if (moveCommand > MOVE_LEFT){
+							printf("MOTOR: LEFT\n");
+							moveCommand = moveCommand >> 7;
+							motorControl(LEFT, moveCommand);
+						}else{
+							printf("MOTOR: RIGHT\n");
+							moveCommand *= 2;
+							motorControl(RIGHT, moveCommand);
+						}
+						printf("MOTOR: FORWARD\n");
+						motorControl(FORWARD, SML_MOVE);
 					}
-					printf("MOTOR: FORWARD\n");
-					motorControl(FORWARD, SML_MOVE);
 				}
 			}
 		}
@@ -88,7 +92,7 @@ void motorStop() {
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_SHORTSTOP);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_SHORTSTOP);
-	//MOVINGFORWARD = FALSE;
+	MOVINGFORWARD = FALSE;
 }
 
 void motorForward() {
@@ -102,21 +106,18 @@ void motorReverse() {
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_REVERSE);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_REVERSE);
-	MOVINGFORWARD = FALSE;
 }
 
 void motorLeft() {
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_FORWARD);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_REVERSE);
-	MOVINGFORWARD = FALSE;
 }
 
 void motorRight() {
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_REVERSE);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_FORWARD);
-	MOVINGFORWARD = FALSE;
 }
 
 void motorControl(char direction, int time) {

@@ -21,7 +21,7 @@ uint16_t find_region(FILE* picture, uint8_t region){
 	uint16_t height;	//Pixel height of the loaded image
 	uint16_t x;			//Current horizontal position
 	uint16_t y;			//Current vertical position
-	uint16_t temp_row_count;
+	uint16_t temp_x_count;
 	uint16_t temp_x;
 
 	boolean region_found;
@@ -30,13 +30,8 @@ uint16_t find_region(FILE* picture, uint8_t region){
 	struct jpeg_decompress_struct cinfo;
 	struct jpeg_error_mgr jerr;
 
-	uint32_t startTime;
-	uint32_t endTime;
-
 	JSAMPARRAY pJpegBuffer;       /* Output row buffer */
 	int row_stride;       /* physical row width in output buffer */
-
-	startTime = clock();
 
 	cinfo.err = jpeg_std_error(&jerr);
 	jpeg_create_decompress(&cinfo);
@@ -55,8 +50,8 @@ uint16_t find_region(FILE* picture, uint8_t region){
 	for (y=0; y < REGION_COUNT; y++){
 		regions[y].confidence = 0;
 		regions[y].pixels_detected = 0;
-		regions[y].cols_traversed = 0;
-		regions[y].rows_traversed = 0;
+		regions[y].x_traversed = 0;
+		regions[y].y_traversed = 0;
 		regions[y].x = 0;
 		regions[y].y = 0;
 	}
@@ -64,11 +59,8 @@ uint16_t find_region(FILE* picture, uint8_t region){
 	//Iterate over the image row by row and detect color regions
 	y = 0;
 	while (cinfo.output_scanline < height) {
-		if(y == 100){
-			endTime = clock();
-		}
 		region_found = FALSE;
-		temp_row_count = 0;
+		temp_x_count = 0;
 		temp_x = 0;
 		(void) jpeg_read_scanlines(&cinfo, pJpegBuffer, 1);
 		for (x = 0; x < width; x++) {
@@ -81,64 +73,86 @@ uint16_t find_region(FILE* picture, uint8_t region){
 				b = r;
 			}
 
-			if ((region == REGION_RED) && (r > REDREG_RED) &&
-					(g < REDREG_GRN) && (b < REDREG_BLU)){
-				temp_row_count++;
-				temp_x = x;
-				region_found = TRUE;
-				regions[0].pixels_detected++;
-			}else if ((region == REGION_GRN) && (r < GRNREG_RED) &&
-					(g > GRNREG_GRN) && (b < GRNREG_BLU)){
-				temp_row_count++;
-				temp_x = x;
-				region_found = TRUE;
-				regions[0].pixels_detected++;
-			}else if ((region == REGION_BLU) && (r < BLUREG_RED) &&
-					(g < BLUREG_GRN) && (b > BLUREG_BLU)){
-				temp_row_count++;
-				temp_x = x;
-				region_found = TRUE;
-				regions[0].pixels_detected++;
+			if (region == REGION_RED){
+				if((r >= REDREG_DRK_MIN_RED) && (r <= REDREG_DRK_MAX_RED) &&
+				   (g >= REDREG_DRK_MIN_GRN) && (g <= REDREG_DRK_MAX_GRN) &&
+				   (b >= REDREG_DRK_MIN_BLU) && (b <= REDREG_DRK_MAX_BLU)){
+					temp_x_count++;
+					temp_x = x;
+					region_found = TRUE;
+					regions[0].pixels_detected++;
+				}else if((r >= REDREG_LGT_MIN_RED) && (r <= REDREG_LGT_MAX_RED) &&
+						 (g >= REDREG_LGT_MIN_GRN) && (g <= REDREG_LGT_MAX_GRN) &&
+						 (b >= REDREG_LGT_MIN_BLU) && (b <= REDREG_LGT_MAX_BLU)){
+					temp_x_count++;
+					temp_x = x;
+					region_found = TRUE;
+					regions[0].pixels_detected++;
+				}
+			}else if (region == REGION_GRN){
+				if((r >= GRNREG_DRK_MIN_RED) && (r <= GRNREG_DRK_MAX_RED) &&
+				   (g >= GRNREG_DRK_MIN_GRN) && (g <= GRNREG_DRK_MAX_GRN) &&
+				   (b >= GRNREG_DRK_MIN_BLU) && (b <= GRNREG_DRK_MAX_BLU)){
+					temp_x_count++;
+					temp_x = x;
+					region_found = TRUE;
+					regions[0].pixels_detected++;
+				}else if((r >= GRNREG_LGT_MIN_RED) && (r <= GRNREG_LGT_MAX_RED) &&
+						 (g >= GRNREG_LGT_MIN_GRN) && (g <= GRNREG_LGT_MAX_GRN) &&
+						 (b >= GRNREG_LGT_MIN_BLU) && (b <= GRNREG_LGT_MAX_BLU)){
+					temp_x_count++;
+					temp_x = x;
+					region_found = TRUE;
+					regions[0].pixels_detected++;
+				}
+			}else if (region == REGION_BLU){
+				if((r >= BLUREG_DRK_MIN_RED) && (r <= BLUREG_DRK_MAX_RED) &&
+				   (g >= BLUREG_DRK_MIN_GRN) && (g <= BLUREG_DRK_MAX_GRN) &&
+				   (b >= BLUREG_DRK_MIN_BLU) && (b <= BLUREG_DRK_MAX_BLU)){
+					temp_x_count++;
+					temp_x = x;
+					region_found = TRUE;
+					regions[0].pixels_detected++;
+				}else if((r >= BLUREG_LGT_MIN_RED) && (r <= BLUREG_LGT_MAX_RED) &&
+						 (g >= BLUREG_LGT_MIN_GRN) && (g <= BLUREG_LGT_MAX_GRN) &&
+						 (b >= BLUREG_LGT_MIN_BLU) && (b <= BLUREG_LGT_MAX_BLU)){
+					temp_x_count++;
+					temp_x = x;
+					region_found = TRUE;
+					regions[0].pixels_detected++;
+				}
 			}
 		}
 
 		if (region_found){
-			regions[0].cols_traversed++;
+			regions[0].y_traversed++;
 			regions[0].y = y;
-			if (temp_row_count > regions[0].rows_traversed){
-				regions[0].rows_traversed = temp_row_count;
+			if (temp_x_count > regions[0].x_traversed){
+				regions[0].x_traversed = temp_x_count;
 				regions[0].x = temp_x;
 			}
-		}
-
-		if (y == 101){
-			printf("clock ticks=%i\n", clock() - endTime);
 		}
 
 		y++;
 	}
 
-	endTime = clock() - startTime;
+	int x_mid = regions[0].x - (regions[0].x_traversed / 2);
+	int y_mid = regions[0].y - (regions[0].y_traversed / 2);
 
-	int row_mid = regions[0].x - (regions[0].rows_traversed / 2);
-	int col_mid = regions[0].y - (regions[0].cols_traversed / 2);
-
-	printf("height_end=%i width_end=%i\n", regions[0].y, regions[0].x);
-	printf("height_mid=%i width_mid=%i\n", col_mid, row_mid);
-	printf("cols=%i rows=%i\n", regions[0].cols_traversed, regions[0].rows_traversed);
+	printf("width_end=%i height_end=%i\n", regions[0].x, regions[0].y);
+	printf("width_mid=%i height_mid=%i\n", x_mid, y_mid);
+	printf("width_tot=%i height_tot=%i\n", regions[0].x_traversed, regions[0].y_traversed);
 	printf("detected=%i\n", regions[0].pixels_detected);
-	printf("clock ticks=%i\n", endTime);
 
 	(void) jpeg_finish_decompress(&cinfo);
 	jpeg_destroy_decompress(&cinfo);
 
-	printf("DONE\n");
-
 	//TODO replace with constants
-	if (regions[0].pixels_detected > 0){
-		if ((regions[0].cols_traversed > 100) ||
-			(regions[0].rows_traversed > 200) ||
-			(regions[0].pixels_detected > 10000)){
+	if (regions[0].pixels_detected > THRESHOLD_MINIMUM){
+		if ((regions[0].x_traversed > THRESHOLD_WIDTH)  ||
+			(regions[0].y_traversed > THRESHOLD_HEIGHT) ||
+			(regions[0].pixels_detected > THRESHOLD_PIXELS)){
+			printf("DONE\n");
 			return 0xFFFF;
 		}else{
 			/* Compute distance away from mid point as a percentage
@@ -147,10 +161,12 @@ uint16_t find_region(FILE* picture, uint8_t region){
 			 * upper 8 bits indicating right, lower 4 bits indicating left
 			 */
 
-			temp_x = row_mid * 2;
+			temp_x = x_mid * 2;
 			if (temp_x >= width){
+				printf("RIGHT\n");
 				return (((temp_x) - width) * 100) / width;
 			}else{
+				printf("LEFT\n");
 				temp_x = ((width - temp_x) * 100) / width;
 				temp_x = temp_x << 8;
 				return temp_x;
@@ -158,6 +174,7 @@ uint16_t find_region(FILE* picture, uint8_t region){
 		}
 	}else{
 		//Found nothing
+		printf("NONE\n");
 		return 0xAAAA;
 	}
 }

@@ -13,6 +13,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <inttypes.h>
+#include <time.h>
 #include "includes.h"
 #include "fifoed_avalon_uart_regs.h"
 #include "altera_avalon_pio_regs.h"
@@ -24,7 +25,22 @@ void cam_uart_interrupt(void * context);
 bool cam_send_command(uint8_t* to_send, uint8_t* to_recieve, uint16_t size, OS_EVENT* used_queue);
 
 /*Defintion of output settings */
-static const char* CAM_PICTURE_OUTPUT = "/mnt/host/picture.jpg";
+#define NUM_PICS 14
+static const char* CAM_PICTURE_OUTPUT[NUM_PICS] = {"/mnt/host/red1.jpg",
+												   "/mnt/host/red2.jpg",
+												   "/mnt/host/red3.jpg",
+												   "/mnt/host/red4.jpg",
+												   "/mnt/host/red5.jpg",
+												   "/mnt/host/red6.jpg",
+												   "/mnt/host/red7.jpg",
+												   "/mnt/host/red8.jpg",
+												   "/mnt/host/red9.jpg",
+												   "/mnt/host/red10.jpg",
+												   "/mnt/host/red11.jpg",
+												   "/mnt/host/red12.jpg",
+												   "/mnt/host/red13.jpg",
+												   "/mnt/host/red14.jpg",
+};
 
 /* Redefine stdbool to use proper constant names */
 #define TRUE   true
@@ -34,7 +50,8 @@ static const char* CAM_PICTURE_OUTPUT = "/mnt/host/picture.jpg";
 #define CAM_COMMAND_LENGTH      6
 #define CAM_PACKAGE_LENGTH		512
 #define CAM_DATA_START			3
-#define CAM_MAX_ATTEMPTS   		60
+#define CAM_MAX_ATTEMPTS   		100
+#define CAM_RESYNC_TIME			OS_TICKS_PER_SEC * 10
 #define CAM_INIT_SYNC_DELAY     5
 #define CAM_ACK_IGNORE			3
 
