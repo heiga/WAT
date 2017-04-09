@@ -95,7 +95,7 @@ void camera_task(void* pdata){
 		}
 
 		//Recommended by doc
-		OSTimeDlyHMSM(0, 0, 1, 0);
+		OSTimeDlyHMSM(0, 0, 0, 300);
 
 		//Turn on camera
 		printf("INIT ");

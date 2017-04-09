@@ -96,7 +96,7 @@ void motorStop() {
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_SHORTSTOP);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_SHORTSTOP);
-	OSTimeDlyHMSM(0, 0, 0, 500);
+	OSTimeDlyHMSM(0, 0, 0, 100);
 	MOVINGFORWARD = FALSE;
 }
 
@@ -130,7 +130,7 @@ void motorControl(char direction, int time) {
 
 	if(MOTORMOVING) {
 		motorStop();
-		OSTimeDlyHMSM(0, 0, 0, 200);
+		OSTimeDlyHMSM(0, 0, 0, 100);
 	}
 	if(direction == STOP) {
 		// Cant do stop because delay is broken and espComplete is broken
@@ -216,14 +216,14 @@ void motorEStop() {
 
 void victoryScreech(){
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
-	OSTimeDlyHMSM(0, 0, 1, 0);
+	OSTimeDlyHMSM(0, 0, 0, 600);
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
-	OSTimeDlyHMSM(0, 0, 0, 500);
+	OSTimeDlyHMSM(0, 0, 0, 200);
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
-	OSTimeDlyHMSM(0, 0, 1, 0);
+	OSTimeDlyHMSM(0, 0, 0, 600);
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
-	OSTimeDlyHMSM(0, 0, 0, 500);
+	OSTimeDlyHMSM(0, 0, 0, 200);
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x1);
-	OSTimeDlyHMSM(0, 0, 1, 0);
+	OSTimeDlyHMSM(0, 0, 0, 600);
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 }
