@@ -20,7 +20,7 @@ void wifi_task(void* pdata){
 
 
         wifiReceive = (uint8_t) OSQPend(wifiPackageQueue, 0, &err);
-        printf("Received form Wifi: %d \n", wifiReceive);
+        //printf("Received form Wifi: %d \n", wifiReceive);
 
 //		if ((log = fopen(LOG, "rb")) == NULL) {
 			//no file, wait for command
@@ -31,6 +31,11 @@ void wifi_task(void* pdata){
 //		}
 
         //printf("Received form Wifi: %d \n", wifiReceive);
+        if(wifiReceive >= 192){
+        	stopRequested = true;
+        }else{
+        	stopRequested = false;
+        }
         OSQPost(initCommandQueue, (void*) wifiReceive);
 	}
 }

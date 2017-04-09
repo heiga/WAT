@@ -9,6 +9,7 @@
 #define WAT_MAIN_H_
 
 #include "includes.h"
+#include "stdbool.h"
 
 /*Definition of internal WiFi queues*/
 #define WIFI_PACKAGE_BUFFER_LENGTH     1
@@ -44,22 +45,9 @@ void* moveCommandBuffer[MOVE_COMMAND_BUFFER_LENGTH];
 OS_EVENT* foundCommandQueue;
 void* foundCommandBuffer[FOUND_COMMAND_BUFFER_LENGTH];
 
-/*Definition of intertask constants, WiFi to motor*/
-#define INIT_RED         0x01
-#define INIT_BLUE        0x02
-#define INIT_GREEN       0x03
+/*Definition of intertask constants, motor to camera */
+#define MOVE_STOP        0xFFFF
 
-/*Definition of intertask constants, motor to camera*/
-#define FIND_RED         0x01
-#define FIND_BLUE        0x02
-#define FIND_GREEN       0x03
-
-/*Definition of intertask constants, motor to camera*/
-#define MOVE_STOP        0xFF
-
-/*Definition of intertask constants, camera to WiFi*/
-#define FOUND_RED        0x01
-#define FOUND_BLUE       0x02
-#define FOUND_GREEN      0x03
-
+/* Defintion of intertask control global, wifi to motor */
+bool stopRequested;
 #endif /* WAT_MAIN_H_ */

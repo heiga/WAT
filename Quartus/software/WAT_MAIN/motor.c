@@ -73,11 +73,15 @@ void motor_task(void* pdata){
 						if (moveCommand > MOVE_LEFT){
 							printf("MOTOR: LEFT\n");
 							moveCommand = moveCommand >> 7;
-							motorControl(LEFT, moveCommand);
+							if(moveCommand > 20){
+								motorControl(LEFT, moveCommand);
+							}
 						}else{
 							printf("MOTOR: RIGHT\n");
 							moveCommand *= 2;
-							motorControl(RIGHT, moveCommand);
+							if(moveCommand > 20){
+								motorControl(RIGHT, moveCommand);
+							}
 						}
 						printf("MOTOR: FORWARD\n");
 						motorControl(FORWARD, SML_MOVE);
@@ -92,6 +96,7 @@ void motorStop() {
 	IOWR_ALTERA_AVALON_PIO_DATA(SPEAKER_BASE, 0x0);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_L_BASE, MOTOR_SHORTSTOP);
 	IOWR_ALTERA_AVALON_PIO_DATA(MOTOR_R_BASE, MOTOR_SHORTSTOP);
+	OSTimeDlyHMSM(0, 0, 0, 500);
 	MOVINGFORWARD = FALSE;
 }
 
@@ -125,7 +130,7 @@ void motorControl(char direction, int time) {
 
 	if(MOTORMOVING) {
 		motorStop();
-		OSTimeDlyHMSM(0, 0, 0, 20);
+		OSTimeDlyHMSM(0, 0, 0, 200);
 	}
 	if(direction == STOP) {
 		// Cant do stop because delay is broken and espComplete is broken

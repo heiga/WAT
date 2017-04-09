@@ -22,6 +22,7 @@
 
 void camera_task(void* pdata);
 void cam_uart_interrupt(void * context);
+bool cam_sync();
 bool cam_send_command(uint8_t* to_send, uint8_t* to_recieve, uint16_t size, OS_EVENT* used_queue);
 
 /*Defintion of output settings */
