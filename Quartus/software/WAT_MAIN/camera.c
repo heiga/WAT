@@ -28,7 +28,7 @@ void camera_task(void* pdata){
 	uint16_t data_length = 0;
 	uint8_t cam_data_ack[CAM_COMMAND_LENGTH];
 
-	uint8_t sync_delay = CAM_INIT_SYNC_DELAY;
+	uint8_t sync_delay = 0;
 	uint32_t lastCommand = 0;
 	bool synced = FALSE;
 
@@ -56,14 +56,6 @@ void camera_task(void* pdata){
 		leds++;
 		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
 
-		//Reset to deal with any junk transmissions
-		for (z = 0; z < CAM_COMMAND_LENGTH; z++){
-			while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
-			IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_REST[z]);
-		}
-		leds++;
-		IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
-
 		/*
 		* Synchronise with camera
 		* Documentation mentions this will take 25-60 attempts
@@ -72,64 +64,63 @@ void camera_task(void* pdata){
 		*/
 
 		useData = FALSE;
-		if ((clock() - lastCommand) >= CAM_RESYNC_TIME){
-			for (q=0; q < CAM_MAX_ATTEMPTS; q++){
-				//Assume false until proven otherwise
-				synced = FALSE;
+		sync_delay = CAM_INIT_SYNC_DELAY;
+		for (q=0; q < CAM_MAX_ATTEMPTS; q++){
+			//Assume false until proven otherwise
+			synced = FALSE;
 
-				//Send the sync command
-				for (z=0; z < CAM_COMMAND_LENGTH; z++){
-					while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
-					IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_SYNC[z]);
-				}
+			//Send the sync command
+			for (z=0; z < CAM_COMMAND_LENGTH; z++){
+				while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
+				IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_SYNC[z]);
+			}
 
-				//Wait the recommended sync time as per doc
-				OSTimeDlyHMSM(0, 0, 0, sync_delay);
-				leds++;
-				IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
+			//Wait the recommended sync time as per doc
+			OSTimeDlyHMSM(0, 0, 0, sync_delay);
+			leds++;
+			IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, leds);
 
-				cam_reply = (uint8_t)OSQAccept(camCommandQueue, &err);
-				if (cam_reply == CAM_ACK_SYNC[0]){
-					synced = TRUE;
-					printf("Receiving %x", cam_reply);
-					for (z=1; z < CAM_COMMAND_LENGTH; z++){
-						cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
-						if ((cam_reply != CAM_ACK_SYNC[z]) && (z != CAM_ACK_IGNORE)){
-							printf("Got %x expected %x\n", cam_reply, CAM_ACK_SYNC[z]);
-							synced = FALSE;
-							break;
-						}else{
-							printf(" %x", cam_reply);
-						}
+			cam_reply = (uint8_t)OSQAccept(camCommandQueue, &err);
+			if (cam_reply == CAM_ACK_SYNC[0]){
+				synced = TRUE;
+				printf("Receiving %x", cam_reply);
+				for (z=1; z < CAM_COMMAND_LENGTH; z++){
+					cam_reply = (uint8_t)OSQPend(camCommandQueue, 0, &err);
+					if ((cam_reply != CAM_ACK_SYNC[z]) && (z != CAM_ACK_IGNORE)){
+						printf("Got %x expected %x\n", cam_reply, CAM_ACK_SYNC[z]);
+						synced = FALSE;
+						break;
+					}else{
+						printf(" %x", cam_reply);
 					}
-					printf("\n");
 				}
-
-				if (synced){
-					break;
-				}else{
-					sync_delay++;
-				}
+				printf("\n");
 			}
 
 			if (synced){
-				printf("Cam synced after %i attempts\n", sync_delay);
-				IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, 0x0F);
+				break;
 			}else{
-				printf("Cam sync failure after %i attempts\n", sync_delay);
-				IOWR_ALTERA_AVALON_PIO_DATA(BUTTON_LED_BASE, 0x0);
-				//return;
+				sync_delay++;
 			}
-
-			//Send ACK to camera to ACK its SYNC
-			for (z=0; z < CAM_COMMAND_LENGTH; z++){
-				while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
-				IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_ACK_SYNC[z]);
-			}
-
-			//Recommended by doc
-			OSTimeDlyHMSM(0, 0, 1, 0);
 		}
+
+		if (synced){
+			printf("Cam synced after %i attempts\n", sync_delay - CAM_INIT_SYNC_DELAY);
+			IOWR_ALTERA_AVALON_PIO_DATA(GREEN_LEDS_BASE, 0x0F);
+		}else{
+			printf("Cam sync failure after %i attempts\n", sync_delay);
+			IOWR_ALTERA_AVALON_PIO_DATA(BUTTON_LED_BASE, 0x0);
+			//return;
+		}
+
+		//Send ACK to camera to ACK its SYNC
+		for (z=0; z < CAM_COMMAND_LENGTH; z++){
+			while(!(IORD_FIFOED_AVALON_UART_STATUS(CAM_UART_BASE) & FIFOED_AVALON_UART_STATUS_TRDY_MSK));
+			IOWR_FIFOED_AVALON_UART_TXDATA(CAM_UART_BASE, CAM_ACK_SYNC[z]);
+		}
+
+		//Recommended by doc
+		OSTimeDlyHMSM(0, 0, 1, 0);
 
 		//Turn on camera
 		printf("INIT ");
